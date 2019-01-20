@@ -1,0 +1,119 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.donut-chart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    border-radius: 100%
+}
+p.center {
+    background: #C9CAD9;
+    position: absolute;
+    text-align: center;
+    font-size: 28px;
+    top:0;left:0;bottom:0;right:0;
+    width: 130px;
+    height: 130px;
+    margin: auto;
+    border-radius: 50%;
+    line-height: 35px;
+    padding: 15% 0 0;
+}
+
+
+.portion-block {
+    border-radius: 50%;
+    clip: rect(0px, 200px, 200px, 100px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.circle {
+    border-radius: 50%;
+    clip: rect(0px, 100px, 200px, 0px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    font-family: monospace;
+    font-size: 1.5rem;
+}
+
+
+#part1Pain .circle {
+    background-color: limegreen;
+}
+
+#part1Breath .circle {
+    background-color: limegreen;
+}
+
+#part1Performance .circle {
+    background-color: limegreen;
+}
+
+
+#part2Pain .circle {
+    background-color: darkorange;
+}
+
+#part2Breath .circle {
+    background-color: darkorange;
+}
+
+#part2Performance .circle {
+    background-color: darkorange;
+}
+
+#part3Pain .circle {
+    background-color: red;
+}
+
+#part3Breath .circle {
+    background-color: red;
+}
+
+#part3Performance .circle {
+    background-color: red;
+}
+
+#part1PainMonth .circle {
+    background-color: limegreen;
+}
+
+#part1BreathMonth .circle {
+    background-color: limegreen;
+}
+
+#part1PerformanceMonth .circle {
+    background-color: limegreen;
+}
+
+
+#part2PainMonth .circle {
+    background-color: darkorange;
+}
+
+#part2BreathMonth .circle {
+    background-color: darkorange;
+}
+
+#part2PerformanceMonth .circle {
+    background-color: darkorange;
+}
+
+#part3PainMonth .circle {
+    background-color: red;
+}
+
+#part3BreathMonth .circle {
+    background-color: red;
+}
+
+#part3PerformanceMonth .circle {
+    background-color: red;
+}
