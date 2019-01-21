@@ -2,8 +2,8 @@
 .container {
     display: block;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
+    padding-left: 4rem;
+    margin-bottom: 2rem;
     cursor: pointer;
     font-size: 2rem;
     -webkit-user-select: none;
@@ -13,6 +13,7 @@
     text-align: left;
     font-weight: normal;
 }
+
 
 /* Hide the browser's default radio button */
 .container input {
@@ -26,8 +27,8 @@
     position: absolute;
     top: 8%;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 3rem;
+    width: 3rem;
     background-color: lightsteelblue;
     border-radius: 50%;
 }
@@ -39,7 +40,7 @@
 
 /* When the radio button is checked, add a blue background */
 .container input:checked ~ .checkmark {
-    background-color: midnightblue;
+    background-color: purple;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -56,17 +57,17 @@
 
 /* Style the indicator (dot/circle) */
 .container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
+    top: 1rem;
+    left: 1rem;
+    width: 1rem;
+    height: 1rem;
     border-radius: 50%;
     background: white;
 }
 
 .radiostyle{
     width:100%;
-    height:25rem;
+    height:40rem;
     box-sizing: border-box;
     border: mediumpurple;
     border-radius: 5rem;
@@ -92,12 +93,12 @@
 
 @media only screen and (max-width: 600px){
     .radiostyle{
-        height:60rem;
+        height: 80rem;
         border-radius: 2rem;
     }
 
     .WHOstyle{
-        height:70rem;
+        height: 80rem;
         border-radius: 2rem;
     }
 }

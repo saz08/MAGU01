@@ -1,3 +1,59 @@
+
+
+<?php
+session_start();
+?>
+<?php
+
+
+//connect to the database now that we know we have enough to submit
+$host = "devweb2018.cis.strath.ac.uk";
+$user = "szb15123";
+$pass = "fadooCha4buh";
+$dbname = "szb15123";
+$conn = new mysqli($host, $user, $pass , $dbname);
+$action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
+
+
+function safePOST($conn,$name){
+    if (isset($_POST[$name])) {
+        return $conn->real_escape_string(strip_tags($_POST[$name]));
+    } else {
+        return "";
+    }
+}
+function safePOSTNonMySQL($name){
+    if(isset($_POST[$name])){
+        return strip_tags($_POST[$name]);
+    }
+    else{
+        return "";
+    }
+}
+if(isset($_SESSION["sessionuser"])){
+    $user = $_SESSION["sessionuser"];
+    $sessionuser = $_SESSION["sessionuser"];
+}
+
+else{
+    $sessionuser ="";
+    $user = safePOSTNonMySQL("username");
+    $pass = safePOSTNonMySQL("password");
+}
+$loginOK = false; //TODO make this work with database values
+
+if($loginOK) {
+    if (!isset($_SESSION["sessionuser"])) {
+        session_regenerate_id();
+        $_SESSION["sessionuser"] = $user;
+    }
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +67,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
@@ -26,8 +83,6 @@
 
         }
 
-    </script>
-    <script>
         var localUser = localStorage.getItem("username");
         // window.location.href = window.location.href+'?localUser='+localUser;
 
@@ -51,6 +106,15 @@
         }
 
     </script>
+    <style>
+        .fa {
+            font-size: 4rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+
+    </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -79,13 +143,112 @@
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>-- WORK IN PROGRESS -- </h1>
+    <h1>PATIENT FORUM ROOM</h1>
 </div>
 
+<form method="post" name="createForumPost" >
+    Create a post: <input type="text" name="createPost" value="Type in here!"><br>
+    <input type="hidden" name="action" value="filled">
+    <input type="submit" value="Submit" class="btn">
+</form><br>
+
+<?php
+$sql  = "SELECT * FROM `forum`";
+$result = $conn->query($sql);
+if($result->num_rows>0){
+    $divID=0;
+    while($rowname=$result->fetch_assoc()){
+        $username= $rowname["username"];
+        $post = $rowname["post"];
+        echo"<br><div class='forum'><br><p>".$username." :".$post." </p></div>"?>
+
+        <?php
+        $sql2  = "SELECT * FROM `comments` WHERE `pos`=='$divID'";
+        $result2 = $conn->query($sql2);
+        if($result2->num_rows>0) {
+            while ($rowname = $result2->fetch_assoc()) {
+                $username = $rowname["username"];
+                $comment = $rowname["patientComment"];
+                    echo "<br><div class='forum'><p>" . $username . ": ." . $comment . "</p></div>";
+
+            }
+        }
 
 
+        ?>
+
+        <button class="btn" onclick="showCommentOption(<?php echo $divID ?>)" value="hide/show">Add a comment</button><p style="float:right">Show Support:<i class="heart fa fa-heart-o" id="support"></i></p>
+            <div id='content_<?php echo $divID?>' class="comments" style="display: none">
+                <form method="post" name="commentsSection">
+                    <input type="text" name="comment" value="Leave a comment here..."><br>
+                    <input type="hidden" name="action2" value="filled">
+                    <input type="submit" value="Comment" class="btn">
+                </form><br></div>
+
+        <?php
+        $divID++;
+    }
+}
+?>
+
+<?php
+
+if($action==="filled"){
+    $post = (safePost($conn,"createPost"));
+    $username = $_SESSION["userName"];
+
+    $sql  = "INSERT INTO `forum` (`username`, `post`) VALUES ('$username', '$post')";
+    if ($conn->query($sql) === TRUE) {
+        echo "<p class='center'>Forum Post was successful!</p>";
+        ?>
+        <script>
+            window.location.href = "talk.php";
+        </script>
+        <?php
+    }
+}
+
+if($action2==="filled"){
+    $comment = (safePost($conn,"comment"));
+    $username = $_SESSION["userName"];
+    $sql2  = "INSERT INTO `comments` (`pos`, `username`, `patientComment`) VALUES ('$divID', '$username', '$comment')";
+    if ($conn->query($sql2) === TRUE) {
+        echo "<p class='center'>Comment Post was successful!</p>";
+        ?>
+        <script>
+            window.location.href = "talk.php";
+        </script>
+        <?php
+    }
+
+
+}
+
+?>
+
+
+<script>
+
+
+    function showCommentOption(divID) {
+        var x = document.getElementById("content_"+divID);
+        console.log("div id " + <?php echo $divID?> );
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+
+
+    $(".heart.fa").click(function() {
+        $(this).toggleClass("fa-heart fa-heart-o");
+    });
+</script>
 
 </body>
+
 <div class="clear"></div>
 
 <footer>

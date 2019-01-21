@@ -146,6 +146,7 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Monitor your pain levels</h1>
 </div>
+
 <div class="box">On a scale of 0 - 10, 0 meaning no pain and 10 meaning extremely painful . Please rate your pain using the slider below </div>
 
 <div id="pain scale" class="slidecontainer">

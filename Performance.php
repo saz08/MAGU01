@@ -146,7 +146,7 @@ if($loginOK) {
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Monitor breathlessness</h1>
+    <h1>Monitor Performance</h1>
 </div>
 
 <div class="box">The following is the ECOG/WHO Performance Status scale. Please tick the box that you feel you apply to</div>
@@ -187,7 +187,7 @@ if($loginOK) {
 
 
     function goBack(){
-        window.location.href="scale.php";
+        window.location.href="Breathlessness.php";
     }
 
     function submit(){

@@ -149,6 +149,7 @@ if($loginOK) {
 </div>
 
 <div class="box">The following is the MRC Breathlessness scale. Please tick the box that you feel you apply to</div>
+
 <form method="get" class="radiostyle">
 <label class="container">1: Not troubled by breathlessness except on strenuous exercise
     <input type="radio" name="radio" value="1" id="1">
