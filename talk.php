@@ -1,5 +1,3 @@
-
-
 <?php
 session_start();
 ?>
@@ -41,14 +39,16 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK = false; //TODO make this work with database values
 
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
+if($_SESSION['userName']==null){
+    $_SESSION['userName'] = "unknownUser";
+    ?> <script>
+        localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOK', "no");
+    </script><?php
 }
+
+$username = $_SESSION["userName"];
 
 
 ?>
@@ -156,32 +156,56 @@ if($loginOK) {
 $sql  = "SELECT * FROM `forum`";
 $result = $conn->query($sql);
 if($result->num_rows>0){
-    $divID=0;
+    $divID=1;
     while($rowname=$result->fetch_assoc()){
         $username= $rowname["username"];
         $post = $rowname["post"];
         echo"<br><div class='forum'><br><p>".$username." :".$post." </p></div>"?>
+        <p style="float:right">Show Support:
+            <?php
+            $sqlHEART = "SELECT `heart` FROM `forum` WHERE `pos` = '$divID'";
+            $resultHEART = $conn->query($sqlHEART);
+            if($resultHEART->num_rows>0){
+                while($rowname=$resultHEART->fetch_assoc()){
+                    $heartCounter = $rowname["heart"];
+                }
+            }
+            else{
+                $heartCounter=0;
+            }
+            if($heartCounter>0){
+                echo "<i class='heart fa fa-heart'  id='support' onclick='heartClick($divID)'>$heartCounter</i></p>";
 
-        <?php
-        $sql2  = "SELECT * FROM `comments` WHERE `pos`=='$divID'";
+            }
+            else{
+                echo "<i class='heart fa fa-heart-o' id='support' onclick='heartClick($divID)'></i></p>";
+
+            }
+
+
+        $sql2  = "SELECT * FROM `comments`";
         $result2 = $conn->query($sql2);
         if($result2->num_rows>0) {
             while ($rowname = $result2->fetch_assoc()) {
+                $posID = $rowname["pos"];
                 $username = $rowname["username"];
                 $comment = $rowname["patientComment"];
-                    echo "<br><div class='forum'><p>" . $username . ": ." . $comment . "</p></div>";
+                if($posID==$divID) {
+                    echo "<div class='forum'><p>Comment from " . $username . ": ." . $comment  . "</p></div>";
 
+                }
             }
         }
 
 
         ?>
 
-        <button class="btn" onclick="showCommentOption(<?php echo $divID ?>)" value="hide/show">Add a comment</button><p style="float:right">Show Support:<i class="heart fa fa-heart-o" id="support"></i></p>
+        <button class="btn" onclick="showCommentOption(<?php echo $divID ?>)" value="hide/show">Add a comment</button><br>
             <div id='content_<?php echo $divID?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
                     <input type="text" name="comment" value="Leave a comment here..."><br>
                     <input type="hidden" name="action2" value="filled">
+                    <input type="hidden" name="divID" value="<?php echo $divID?>">
                     <input type="submit" value="Comment" class="btn">
                 </form><br></div>
 
@@ -194,10 +218,11 @@ if($result->num_rows>0){
 <?php
 
 if($action==="filled"){
+
     $post = (safePost($conn,"createPost"));
     $username = $_SESSION["userName"];
 
-    $sql  = "INSERT INTO `forum` (`username`, `post`) VALUES ('$username', '$post')";
+    $sql  = "INSERT INTO `forum` (`pos`,`username`, `post`,`heart`) VALUES (NULL ,'$username', '$post','0')";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Forum Post was successful!</p>";
         ?>
@@ -209,9 +234,11 @@ if($action==="filled"){
 }
 
 if($action2==="filled"){
+    $newDiv = safePOST($conn, "divID");
+
     $comment = (safePost($conn,"comment"));
     $username = $_SESSION["userName"];
-    $sql2  = "INSERT INTO `comments` (`pos`, `username`, `patientComment`) VALUES ('$divID', '$username', '$comment')";
+    $sql2  = "INSERT INTO `comments` (`pos`, `username`, `patientComment`) VALUES ('$newDiv', '$username', '$comment')";
     if ($conn->query($sql2) === TRUE) {
         echo "<p class='center'>Comment Post was successful!</p>";
         ?>
@@ -220,8 +247,6 @@ if($action2==="filled"){
         </script>
         <?php
     }
-
-
 }
 
 ?>
@@ -232,7 +257,7 @@ if($action2==="filled"){
 
     function showCommentOption(divID) {
         var x = document.getElementById("content_"+divID);
-        console.log("div id " + <?php echo $divID?> );
+        console.log("div id " + divID );
         if (x.style.display === "none") {
             x.style.display = "block";
         } else {
@@ -241,10 +266,41 @@ if($action2==="filled"){
     }
 
 
+    function heartClick(divID){
+        var heartDiv = divID;
+        $(".heart.fa").click(function() {
+            $(this).toggleClass("fa-heart fa-heart-o");
+            if(this.className==="heart fa fa-heart-o"){
+//                jQuery.post("heartMinus.php", {"HeartDiv": heartDiv}, function(data){
+//                    alert("oops! taken away support");
+//                    window.location.href="talk.php";
+//                    console.log("heart div is " + heartDiv);
+//
+//                }).fail(function()
+//                {
+//                    alert("something broke");
+//                });
+            }
+            else{
+                jQuery.post("heart.php", {"HeartDiv": heartDiv}, function(data){
+                    alert("sent support");
+                    window.location.href="talk.php";
+                    console.log("heart div is " + heartDiv);
 
-    $(".heart.fa").click(function() {
-        $(this).toggleClass("fa-heart fa-heart-o");
-    });
+                }).fail(function()
+                {
+                    alert("something broke in sending support");
+                });
+            }
+
+        });
+    }
+
+
+
+    //    $(".heart.fa").click(function() {
+//        $(this).toggleClass("fa-heart fa-heart-o");
+//    });
 </script>
 
 </body>
