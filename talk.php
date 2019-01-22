@@ -296,11 +296,6 @@ if($action2==="filled"){
         });
     }
 
-
-
-    //    $(".heart.fa").click(function() {
-//        $(this).toggleClass("fa-heart fa-heart-o");
-//    });
 </script>
 
 </body>
