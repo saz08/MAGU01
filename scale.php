@@ -153,11 +153,9 @@ if($loginOK) {
 
     <form>
         <input type="range"  step="1" min="0" max="10" class="slider" id="myRange" oninput="outputUpdate(value)">
+        <div style="float:left"><p style="font-size: 2em">0</p></div>
+        <div style="float:right"><p style="font-size: 2em">10</p></div>
         <output for=value id="output">5</output>
-<!--        <div id="arrows" style="float:left">Go Back</div>-->
-<!--        <div id="arrows" style="float:right">Next</div>-->
-<!--      //  <button onclick="submit()" class="btn">Go!</button>-->
-
     </form>
 </div>
 
