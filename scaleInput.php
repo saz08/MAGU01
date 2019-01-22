@@ -98,6 +98,7 @@ $redPerformanceWarning="";
 $pain = $_POST['Pain'];
 $breathlessness = $_POST['Breathlessness'];
 $performance = $_POST['Performance'];
+$additional = $_POST['Additional'];
 $id = "";
 $username = $_SESSION["userName"];
 $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
@@ -109,7 +110,7 @@ if($resultID->num_rows>0) {
     }
 }
 
-$sql  = "INSERT INTO `scale` (`id`,`username`, `pain`, `breathlessness`, `performance`,`timeStamp`) VALUES ('$id','$username', '$pain', '$breathlessness', '$performance',CURRENT_TIMESTAMP )";
+$sql  = "INSERT INTO `scale` (`id`,`username`, `pain`, `breathlessness`, `performance`,`additionalInfo`,`timeStamp`) VALUES ('$id','$username', '$pain', '$breathlessness', '$performance','$additional',CURRENT_TIMESTAMP )";
 $conn->query($sql);
 
 

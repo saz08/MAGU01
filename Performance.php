@@ -210,31 +210,32 @@ if($loginOK) {
             localStorage.setItem("Performance", "5");
         }
 
-        submitRecord();
+        window.location.href="additionalInfo.php";
+      //  submitRecord();
 
     }
-    function submitRecord(){
-        var pain = localStorage.getItem("Pain");
-        var breathlessness= localStorage.getItem("Breathlessness");
-        var performance = localStorage.getItem("Performance");
-        jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance}, function(data){
-            alert("Records successfully saved");
-        }).fail(function()
-        {
-            alert("something broke in submitting your records");
-        });
-        var painTxt = localStorage.getItem("Pain");
-        var breathlessnessTxt= localStorage.getItem("Breathlessness");
-        var performanceTxt = localStorage.getItem("Performance");
-        jQuery.post("textMsg.php", {"Pain": painTxt, "Breathlessness": breathlessnessTxt, "Performance": performanceTxt}, function(data){
-            alert("Doctor notified of how you feel");
-            window.location.href="index.html";
-        }).fail(function()
-        {
-            alert("something broke in emailing your doctor");
-        });
-
-    }
+//    function submitRecord(){
+//        var pain = localStorage.getItem("Pain");
+//        var breathlessness= localStorage.getItem("Breathlessness");
+//        var performance = localStorage.getItem("Performance");
+//        jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance}, function(data){
+//            alert("Records successfully saved");
+//        }).fail(function()
+//        {
+//            alert("something broke in submitting your records");
+//        });
+//        var painTxt = localStorage.getItem("Pain");
+//        var breathlessnessTxt= localStorage.getItem("Breathlessness");
+//        var performanceTxt = localStorage.getItem("Performance");
+//        jQuery.post("textMsg.php", {"Pain": painTxt, "Breathlessness": breathlessnessTxt, "Performance": performanceTxt}, function(data){
+//            alert("Doctor notified of how you feel");
+//            window.location.href="index.html";
+//        }).fail(function()
+//        {
+//            alert("something broke in emailing your doctor");
+//        });
+//
+//    }
 
     function outputUpdate(num) {
         document.querySelector('#output').value = num;
