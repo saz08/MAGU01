@@ -161,7 +161,7 @@ if($result->num_rows>0){
         $username= $rowname["username"];
         $post = $rowname["post"];
         echo"<br><div class='forum'><br><p>".$username." :".$post." </p></div>"?>
-        <p style="float:right">Show Support:
+        <p style="float:right">Tap Twice to Show Support:
             <?php
             $sqlHEART = "SELECT `heart` FROM `forum` WHERE `pos` = '$divID'";
             $resultHEART = $conn->query($sqlHEART);

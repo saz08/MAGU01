@@ -155,12 +155,6 @@ if($result->num_rows>0){
     }
 }
 
-
-
-
-
-
-
 ?>
     <button onclick="logoutFunction()">
         Logout
@@ -251,13 +245,7 @@ if ($resultJournal->num_rows > 0) {
         window.location.href="logout.php";
 
     }
-
-//    function deleteEntry(){
-//            document.getElementById("questionTable").deleteRow(1);
-//    }
 </script>
-
-
 
 
 

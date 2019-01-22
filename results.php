@@ -566,10 +566,82 @@ $redPBarM = $redPerformanceM/($entriesM)*210;
 
     </div>
 </div>
+<p>Note down any questions you have</p>
+<form method="post" name="questions" >
+    <input type="text" name="question"><br>
+    <input type="hidden" name="action" value="filled">
+    <input type="submit" value="Save Question" class="btn"><br>
+</form>
+<?php
+$question= (safePost($conn,"question"));
+//if($action==="filled") {
+//    if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_SESSION['form_submit'])) {
+//        extract($_POST);
+//        $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
+//        $conn->query($sql);
+//
+//        $_SESSION['form_submit'] = 'true';
+//    } else {
+//        $_SESSION['form_submit'] = 'NULL';
+//    }
+//}
 
 
 
 
+if($action==="filled"){
+    $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
+    $conn->query($sql);?>
+<script>window.location.href="results.php";</script>
+<?php
+}
+?>
+<table class="table table-striped" id="questionTable">
+    <tr>
+        <th>ID</th>
+        <th>Questions</th>
+        <th>Delete</th>
+    </tr>
+    <?php
+
+    $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
+    $resultJournal = $conn->query($sqlJournal);
+    if($resultJournal->num_rows>0) {
+        $questionNo = 1;
+        while ($rowname = $resultJournal->fetch_assoc()) {
+            $pos = $rowname["pos"];
+            $question = $rowname["question"];
+            echo "<tr>";
+            echo "<td>" . $pos . "</td>";
+            echo "<td>" . $question . "</td>";
+            echo "<td><form><input type='button' value='Delete' onclick='deleteQ($pos)' class='btn'/></form></td>";
+            echo "</tr>";
+            $questionNo++;
+        }
+    }
+
+
+    ?>
+</table>
+
+
+
+
+
+<script>
+    function deleteQ(questionNo){
+        var qNo = questionNo;
+        jQuery.post("deleteQ.php", {"questionNo": qNo}, function(data){
+            alert("deleted Question");
+            window.location.href="results.php";
+            console.log("question no is "+ qNo);
+        }).fail(function()
+        {
+            alert("something broke in sending support");
+        });
+
+    }
+</script>
 
 
     <script>

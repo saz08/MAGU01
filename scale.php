@@ -1,7 +1,5 @@
 <?php
 session_start();
-?>
-<?php
 
 
 //connect to the database now that we know we have enough to submit
@@ -40,19 +38,7 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 $loginOK = false; //TODO make this work with database values
-?>
-<script>if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }</script>
-<script>
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "index.html";
-        }
-    }
-</script>
-<?php
+
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
         session_regenerate_id();
@@ -60,6 +46,19 @@ if($loginOK) {
     }
 }
 ?>
+<script>
+    if(localStorage.getItem("loginOK")===null){
+        localStorage.setItem("loginOK", "no")
+    }
+
+    function checkAlreadyLoggedIn(){
+        if(localStorage.getItem("loginOK")==="yes"){
+            alert("You are already logged in!");
+            window.location.href = "index.html";
+        }
+    }
+</script>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -155,7 +154,7 @@ if($loginOK) {
         <input type="range"  step="1" min="0" max="10" class="slider" id="myRange" oninput="outputUpdate(value)">
         <div style="float:left"><p style="font-size: 2em">0</p></div>
         <div style="float:right"><p style="font-size: 2em">10</p></div>
-        <output for=value id="output">5</output>
+        <output for=value id="output" style="color: black">5</output>
     </form>
 </div>
 
