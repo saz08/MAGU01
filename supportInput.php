@@ -1,3 +1,62 @@
+<?php
+
+session_start();
+function safePOST($conn,$name){
+    if (isset($_POST[$name])) {
+        return $conn->real_escape_string(strip_tags($_POST[$name]));
+    } else {
+        return "";
+    }
+}
+function safePOSTNonMySQL($name){
+    if(isset($_POST[$name])){
+        return strip_tags($_POST[$name]);
+    }
+    else{
+        return "";
+    }
+}
+
+//connect to the database now that we know we have enough to submit
+$host = "devweb2018.cis.strath.ac.uk";
+$user = "szb15123";
+$pass = "fadooCha4buh";
+$dbname = "szb15123";
+$conn = new mysqli($host, $user, $pass , $dbname);
+$action = safePOST($conn, "action");
+
+$month = date("m");
+$year = date("Y");
+
+if(isset($_SESSION["sessionuser"])){
+    $user = $_SESSION["sessionuser"];
+    $sessionuser = $_SESSION["sessionuser"];
+}
+
+else{
+    $sessionuser ="";
+    $user = safePOSTNonMySQL("username");
+    $pass = safePOSTNonMySQL("password");
+}
+
+if($_SESSION['userName']==null){
+    $_SESSION['userName'] = "unknownUser";
+    ?> <script>
+        localStorage.setItem('username', "unknownUser");
+    </script><?php
+}
+
+$username = $_SESSION["userName"];
+//$username= "<script>localStorage.getItem('username')</script>";
+
+
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,43 +64,45 @@
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-
+    <link rel="stylesheet" type="text/css" href="donut.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Adapt To You</title>
     <script>
 
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
+        if(localStorage.getItem("loginOKSupport")===null){
+            localStorage.setItem("loginOKSupport", "no");
         }
         function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
+            return localStorage.getItem("loginOKSupport")==="yes" && localStorage.getItem('username')!=='unknownUser';
 
         }
+
+
+
 
     </script>
     <script>
         var localUser = localStorage.getItem("username");
         // window.location.href = window.location.href+'?localUser='+localUser;
 
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
+        if(localStorage.getItem("loginOKSupport")===null){
+            localStorage.setItem("loginOKSupport", "no");
         }
 
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
+        if(localStorage.getItem("loginOKSupport")==="no"){
+            window.location.href="supportSignUp.php";
         }
 
 
         function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
+            return localStorage.getItem("loginOKSupport")==="yes";
         }
 
         function checkUser(){
@@ -64,12 +125,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
-                <li><a href="talk.php">TALK</a></li>
-                <li><a href="links.html">HELP</a></li>
-                <li><a href="results.php">PROFILE</a></li>
-
+                <li><a href="supportHome.php">HOME</a></li>
+                <li><a href="supportInput.php">RECORD</a></li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -77,26 +134,22 @@
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
-    <h1>Helpful Links</h1>
+    <h1>Record any information about your survivor <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<p>About: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer?ds_kids=p3731628530&adc=cpc&gclid=CjwKCAiA9qHhBRB2EiwA7poaeO1QKd-ItjNALPRFC1CFz_9Rh0TjlvZHd8DSRNSqDkl3UDlvFv_YoBoCMb0QAvD_BwE">Cancer Research UK: Lung Cancer</a></p>
 
-<p>Complicated Terms: <a href="https://lungcanceralliance.org/resources-and-support/glossary/">Lung Cancer Alliance Glossary</a></p>
 
-<p>Learn about the benefits available to you: <a href="https://www.macmillan.org.uk/information-and-support/organising/benefits-and-financial-support/benefits-and-your-rights">MacMillan Support</a> -
-    <a href="https://www.cancerresearchuk.org/about-cancer/coping/practically/financial-support/government-benefits/available-benefits">Cancer Research: Available Benefits</a></p>
 
-<p>Apply for a Blue Disabled Badge <a href="https://www.mygov.scot/apply-blue-badge/">Here</a></p>
 
-<p>Getting back to work help:</p>
-<a href="https://www.maggiescentres.org/how-maggies-can-help/help-available/practical-support/returning-to-work-after-cancer/">Maggies Centre: "Where Now" course</a><br>
-<a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/information-for-employees/going-back-to-work.html">MacMillan: Going Back to Work</a>
-</body>
+
+
+
 <div class="clear"></div>
-
+</body>
 <footer>
     <div class="footer">
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div></footer>
+    </div>
+</footer>
 </html>

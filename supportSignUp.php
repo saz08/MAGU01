@@ -39,7 +39,7 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK = false; //TODO make this work with database values
+$loginOK= false; //TODO make this work with database values
 
 
 
@@ -47,35 +47,21 @@ $loginOK = false; //TODO make this work with database values
 <!doctype html>
 <script>if(localStorage.getItem("loginOK")===null){
         localStorage.setItem("loginOK", "no")
-    }</script>
-<script>
+        localStorage.setItem("loginOKSupport", "no")
+
+    }
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOK")==="yes"){
             alert("You are already logged in!");
             window.location.href = "index.html";
         }
+        else if(localStorage.getItem("loginOKSupport")==="yes"){
+            alert("You are already logged in!");
+            window.location.href="supportHome.php";
+        }
     }
 </script>
 <?php
-//
-//$sqlFind = "SELECT * FROM `supportAcc`";
-//$resultFind = $conn->query($sqlFind);
-//if($resultFind->num_rows>0) {
-//    while ($rowname = $resultFind->fetch_assoc()) {
-//        $currentUser = $rowname["username"];
-//        if($username==$currentUser){
-//            $supporter = true;
-//
-//        }
-//    }
-//}
-//?>
-
-
-<?php
-
-
-
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
         session_regenerate_id();
@@ -126,7 +112,7 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>HOMEPAGE <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+    <h1>SUPPORT CIRCLE HOMEPAGE <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
 <!-- 3 columns under Welcome Jumbotron -->
@@ -161,23 +147,22 @@ if($loginOK) {
             $username= (safePost($conn,"username"));
             $password = (safePost($conn,"password"));
             $_SESSION['userName'] = $username;
-            $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
+            $query = "SELECT `username` FROM `supportAcc` WHERE `username` = '$username'";
             $result = mysqli_query($conn,$query);
             if(mysqli_num_rows($result)){
-            $query2 = "SELECT `password` FROM `account` WHERE `password` = '$password'";
+            $query2 = "SELECT `password` FROM `supportAcc` WHERE `password` = '$password'";
             $result2 = mysqli_query($conn,$query2);
             if(mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
             $loginOK=true;
-            ?> <script>localStorage.setItem("loginOK", "yes")</script>
+            ?> <script>localStorage.setItem("loginOKSupport", "yes")</script>
                 <script type="text/javascript">
-                    var user = "<?php echo $username; ?>";
+                    var user = "<?php echo $user; ?>";
                 </script>
                 <script>localStorage.setItem("username", user);
-                    window.location.href = "index.html";
+                    window.location.href = "supportHome.php";
                 </script>
                 <?php
-                echo "<p class='center'><a href = 'index.html' class='btn ' role='button' >Go to Home!</a></p>";
             }
             else{
                 ?><script>alert("Password not recognised")</script><?php
@@ -195,13 +180,10 @@ if($loginOK) {
             <form name="register" method="post" onsubmit="return checkForm()" >
                 <h2 style="color:black">Register</h2>
                 <p class="lead" style="color:#f7f7f7;">
-                <p>Create Username:<br> <input type="text" name="username" value="" id="username"/></p>
-                <p>Create Password: <br><input type="password" name="password" value="" id="password"/></p>
-                <p>Enter ID: <br><input type="number" name="id" value="" id="id"/></p>
-                <p>Age: <i>*Optional*</i><br><input type="number" name="age" value="" id="age"/></p>
-                <p>Smoker Status <i>*Optional*</i></p>
-                <input type="radio" name="smoker" value="smoker" id="smoker"> Current
-                <input type="radio" name="smoker" value="nonsmoker" id="nonsmoker">Never
+                <p>Create Username:<br> <input type="text" name="username"  id="username"/></p>
+                <p>Create Password: <br><input type="password" name="password"  id="password"/></p>
+                <p>Enter Username of Survivor: <br><input type="text" name="survivor"  id="survivor"/></p>
+                <p>Relation to You:<br><input type="text" name="relation"  id="relation"/></p>
                 <input type="hidden" name="action2" value="filled">
                 <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register"></p>
                 </p>
@@ -216,26 +198,16 @@ if($loginOK) {
             function checkForm(){
                 var username = document.getElementById("username");
                 var password = document.getElementById("password");
-                var id = document.getElementById("id");
-                var male = document.getElementById("male");
-                var female = document.getElementById("female");
-                var other = document.getElementById("other");
-                var age = document.getElementById("age");
-                var smoker = document.getElementById("smoker");
-                var nonsmoker = document.getElementById("nonsmoker");
+                var survivor = document.getElementById("survivor");
+                var relation = document.getElementById("relation");
 
 
                 var errs = "";
 
                 username.style.background = "white";
                 password.style.background = "white";
-                id.style.background="white";
-                male.style.background = "white";
-                female.style.background="white";
-                age.style.background = "white";
-                smoker.style.background = "white";
-                nonsmoker.style.background="white";
-                other.style.background="white";
+                survivor.style.background="white";
+                relation.style.background = "white";
 
 
 
@@ -249,9 +221,14 @@ if($loginOK) {
                     password.style.background = "pink";
                 }
 
-                if(id.value===null||id.value===""){
-                    errs+= "Please enter a valid ID\n";
-                    id.style.background="pink";
+                if(survivor.value===null||survivor.value===""){
+                    errs+= "Please enter a valid survivor's username\n";
+                    survivor.style.background="pink";
+                }
+
+                if(relation.value===null||relation.value===""){
+                    errs+= "Please enter how you know the patient. EG: Partner, friend, parent...\n";
+                    relation.style.background="pink";
                 }
 
 
@@ -264,33 +241,21 @@ if($loginOK) {
 
         <?php
         if($action2 === "filled") {
-            $username = (safePost($conn,"username"));
+            $usernameSupport = (safePost($conn,"username"));
             $password = (safePost($conn,"password"));
-            $id = (safePost($conn,"id"));
-            $age = (safePost($conn,"age"));
-            $smoker = (safePost($conn,"smoker"));
-            $nonsmoker=(safePost($conn,"nonsmoker"));
+            $survivor = (safePost($conn,"survivor"));
+            $relation = (safePost($conn,"relation"));
 
-            $smoker1=" ";
-            $_SESSION['userName'] = $username;
 
-            if($smoker=="smoker"){
-                $smoker1="Current";
+
+
+            $query = "SELECT `username` FROM `supportAcc` WHERE `username` = '$usernameSupport'";
+            $result = $conn->query($query);
+            if($result->num_rows>=1){
+                ?><script>alert("Username Already in Use");</script> <?php
+                echo "<p> * Username is already registered * ";
             }
-            else{
-                $smoker1="Never";
-            }
-
-
-
-            $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
-            $result = mysqli_query($conn,$query);
-        if(mysqli_num_rows($result)) {
-            ?><script>alert("Username Already in Use");</script> <?php
-        echo "<p> * Username is already registered * ";
-        }
-
-            $query2 = "SELECT `username` FROM `supportAcc` WHERE `username` = '$username'";
+            $query2 = "SELECT `username` FROM `account` WHERE `username` = '$usernameSupport'";
             $result2 = $conn->query($query2);
             if($result2->num_rows>=1){
                 ?><script>alert("Username Already in Use");</script> <?php
@@ -298,38 +263,32 @@ if($loginOK) {
             }
 
 
-
-            $checkID = "SELECT `id` FROM `chi` WHERE `id` = '$id'";
+            $checkID = "SELECT `username` FROM `account` WHERE `username` = '$survivor'";
             $resultID = $conn->query($checkID);
 
 //            $resultID = mysqli_query($conn,$checkID);
         if($resultID->num_rows<1) {
-        ?><script>alert("ID does not exist");</script><?php
-            echo "<p> * ID is not registered * ";
+            ?><script>alert("ID does not exist");</script><?php
+            echo "<p> * Survivor username is not registered * ";
 
             }
-//        if(mysqli_num_rows($resultID)) {
-//            ?><!--<script>alert("Username Already in Use");</script> --><?php
-//        echo "<p> * Username is already registered * ";
-//        }
 
 
-        $sql = "INSERT INTO `account` (`id`,`username`, `password`, `age`, `smokingStatus`) VALUES ('$id','$username', '$password', '$age', '$smoker1')";
 
-        if ($conn->query($sql) === TRUE) {
+        $sqlInsert  = "INSERT INTO `supportAcc` (`username`, `password`, `survivor`, `relation`) VALUES ('$usernameSupport', '$password', '$survivor', '$relation')";
+        if ($conn->query($sqlInsert) === TRUE) {
         echo "<p class='center'>Registration was successful!</p>";
         $loginOK = true;
+        $_SESSION['userName'] = $usernameSupport;
+
         ?>
-            <script>localStorage.setItem("loginOK", "yes");
-                var user = "<?php echo $username; ?>";
-                localStorage.setItem("username", user)
-                window.location.href = "index.html";
+            <script>localStorage.setItem("loginOKSupport", "yes");
+                var user = "<?php echo $usernameSupport; ?>";
+                localStorage.setItem("username", user);
+                window.location.href = "supportHome.php";
             </script>
             <?php
-            echo "<p class='center'><a href = 'index.html' class='btn btn-primary btn-lg' id='goToMapButton' role='button' >Go to home!</a></p>";
         }
-
-
 
 
         }
@@ -337,7 +296,7 @@ if($loginOK) {
 
     </div>
     <hr>
-    <input type="hidden" name="action" value="index.html">
+<!--    <input type="hidden" name="action" value="index.html">-->
 
 </div> <!-- / main container -->
 

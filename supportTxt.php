@@ -1,3 +1,54 @@
+<?php
+session_start();
+function safePOST($conn,$name){
+if (isset($_POST[$name])) {
+return $conn->real_escape_string(strip_tags($_POST[$name]));
+} else {
+return "";
+}
+}
+function safePOSTNonMySQL($name){
+if(isset($_POST[$name])){
+return strip_tags($_POST[$name]);
+}
+else{
+return "";
+}
+}
+
+//connect to the database now that we know we have enough to submit
+$host = "devweb2018.cis.strath.ac.uk";
+$user = "szb15123";
+$pass = "fadooCha4buh";
+$dbname = "szb15123";
+$conn = new mysqli($host, $user, $pass , $dbname);
+$action = safePOST($conn, "action");
+
+$month = date("m");
+$year = date("Y");
+
+if(isset($_SESSION["sessionuser"])){
+$user = $_SESSION["sessionuser"];
+$sessionuser = $_SESSION["sessionuser"];
+}
+
+else{
+$sessionuser ="";
+$user = safePOSTNonMySQL("username");
+$pass = safePOSTNonMySQL("password");
+}
+
+if($_SESSION['userName']==null){
+$_SESSION['userName'] = "unknownUser";
+?> <script>
+    localStorage.setItem('username', "unknownUser");
+    localStorage.setItem('loginOK', "no");
+</script><?php
+}
+
+$username = $_SESSION["userName"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +101,9 @@
             return localStorage.getItem("username");
         }
 
+        var oldURL = document.referrer;
+
+
     </script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -70,6 +124,7 @@
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
 
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -78,20 +133,61 @@
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Helpful Links</h1>
+    <h1>Add to your Support Circle <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<p>About: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer?ds_kids=p3731628530&adc=cpc&gclid=CjwKCAiA9qHhBRB2EiwA7poaeO1QKd-ItjNALPRFC1CFz_9Rh0TjlvZHd8DSRNSqDkl3UDlvFv_YoBoCMb0QAvD_BwE">Cancer Research UK: Lung Cancer</a></p>
+<br>
+<div class="container-fluid bg-1 text-center">
 
-<p>Complicated Terms: <a href="https://lungcanceralliance.org/resources-and-support/glossary/">Lung Cancer Alliance Glossary</a></p>
+<p>Please enter the email address of the person you would like to be in your support circle.</p>
+    <p>We will send them a link for them to sign up and join you.</p>
+    <form method="post">
+    <input type="email" name="email"/>
+<input type="hidden" name="action" value="filled">
+<input type="submit" name="submit" class="btn" value="Add Supporter">
+    </form>
 
-<p>Learn about the benefits available to you: <a href="https://www.macmillan.org.uk/information-and-support/organising/benefits-and-financial-support/benefits-and-your-rights">MacMillan Support</a> -
-    <a href="https://www.cancerresearchuk.org/about-cancer/coping/practically/financial-support/government-benefits/available-benefits">Cancer Research: Available Benefits</a></p>
+</div>
 
-<p>Apply for a Blue Disabled Badge <a href="https://www.mygov.scot/apply-blue-badge/">Here</a></p>
+<?php
+if($action === "filled") {
+    $email = (safePost($conn, "email"));
 
-<p>Getting back to work help:</p>
-<a href="https://www.maggiescentres.org/how-maggies-can-help/help-available/practical-support/returning-to-work-after-cancer/">Maggies Centre: "Where Now" course</a><br>
-<a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/information-for-employees/going-back-to-work.html">MacMillan: Going Back to Work</a>
+    $from = "Remote Monitoring";
+    $message = $username." would like you to join their support circle on Survivors! Please follow the link to sign up and join them.\n You will be able to view their recovery and input any symptoms or concerns on their behalf.";
+    $headers="From: $from\n";
+    $subject="Join ".$username."'s Support Circle'";
+    mail($email,$subject,$message,$headers);
+}
+
+
+?>
+<br>
+
+<?php
+$sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$username'";
+$support=$conn->query($sqlSupport);
+if($support->num_rows>0){
+    while($rowname=$support->fetch_assoc()){
+        echo "<table class='table table-hover row-clickable' id='doctorTable' >";
+        echo" <tr>";
+        echo"<th>Support Circle</th>";
+        echo "<th>Relation</th>";
+        echo "</tr>";
+        echo "<tr>";
+
+        $supportUser= $rowname["username"];
+        $relation = $rowname["relation"];
+        echo "<td>" . $supportUser . "</td>";
+        echo "<td>" . $relation . "</td>";
+
+        echo "</tr>";
+
+
+    }
+}
+?>
+</table>
+
 </body>
 <div class="clear"></div>
 

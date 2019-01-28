@@ -158,29 +158,31 @@ $result = $conn->query($sql);
 if($result->num_rows>0){
     $divID=1;
     while($rowname=$result->fetch_assoc()){
-        $username= $rowname["username"];
+        $posDB = $rowname["pos"];
+        $usernameDB= $rowname["username"];
         $post = $rowname["post"];
-        echo"<br><div class='forum'><br><p>".$username." :".$post." </p></div>"?>
-        <p style="float:right">Tap Twice to Show Support:
-            <?php
-            $sqlHEART = "SELECT `heart` FROM `forum` WHERE `pos` = '$divID'";
-            $resultHEART = $conn->query($sqlHEART);
-            if($resultHEART->num_rows>0){
-                while($rowname=$resultHEART->fetch_assoc()){
-                    $heartCounter = $rowname["heart"];
-                }
-            }
-            else{
-                $heartCounter=0;
-            }
-            if($heartCounter>0){
-                echo "<i class='heart fa fa-heart'  id='support' onclick='heartClick($divID)'>$heartCounter</i></p>";
 
-            }
-            else{
-                echo "<i class='heart fa fa-heart-o' id='support' onclick='heartClick($divID)'></i></p>";
-
-            }
+        echo"<br><div class='forum'><br><p>".$usernameDB." :".$post." </p></div>"?>
+<!--        <p style="float:right">Tap Twice to Show Support:-->
+<!--            --><?php
+//            $sqlHEART = "SELECT `heart` FROM `forum` WHERE `pos` = '$divID'";
+//            $resultHEART = $conn->query($sqlHEART);
+//            if($resultHEART->num_rows>0){
+//                while($rowname=$resultHEART->fetch_assoc()){
+//                    $heartCounter = $rowname["heart"];
+//                }
+//            }
+//            else{
+//                $heartCounter=0;
+//            }
+//            if($heartCounter>0){
+//                echo "<i class='heart fa fa-heart'  id='support' onclick='heartClick($divID)'>$heartCounter</i></p>";
+//
+//            }
+//            else{
+//                echo "<i class='heart fa fa-heart-o' id='support' onclick='heartClick($divID)'></i></p>";
+//
+//            }
 
 
         $sql2  = "SELECT * FROM `comments`";
@@ -188,28 +190,37 @@ if($result->num_rows>0){
         if($result2->num_rows>0) {
             while ($rowname = $result2->fetch_assoc()) {
                 $posID = $rowname["pos"];
-                $username = $rowname["username"];
+                $usernameC = $rowname["username"];
                 $comment = $rowname["patientComment"];
-                if($posID==$divID) {
-                    echo "<div class='forum'><p>Comment from " . $username . ": ." . $comment  . "</p></div>";
-
+                if($posID==$posDB) {
+                    echo "<div class='forum'><p>Comment from " . $usernameC . ": ." . $comment  . "</p></div>";
+                    if($username===$usernameC){
+                        echo "<button class='btn' onclick='deleteComment($posID)'>Delete Comment</button>";
+                    }
                 }
+
             }
         }
 
 
         ?>
 
-        <button class="btn" onclick="showCommentOption(<?php echo $divID ?>)" value="hide/show">Add a comment</button><br>
-            <div id='content_<?php echo $divID?>' class="comments" style="display: none">
+        <button class="btn" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show">Add a comment</button>
+            <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
                     <input type="text" name="comment" value="Leave a comment here..."><br>
                     <input type="hidden" name="action2" value="filled">
-                    <input type="hidden" name="divID" value="<?php echo $divID?>">
+                    <input type="hidden" name="divID" value="<?php echo $posDB?>">
                     <input type="submit" value="Comment" class="btn">
                 </form><br></div>
 
         <?php
+
+        if($usernameDB===$username){
+            echo"<button class='btn' onclick='deletePost($posDB)' value='hide/show'>Delete Post</button><br>";
+        }
+
+
         $divID++;
     }
 }
@@ -234,11 +245,11 @@ if($action==="filled"){
 }
 
 if($action2==="filled"){
-    $newDiv = safePOST($conn, "divID");
+    $pos = safePOST($conn, "divID");
 
     $comment = (safePost($conn,"comment"));
     $username = $_SESSION["userName"];
-    $sql2  = "INSERT INTO `comments` (`pos`, `username`, `patientComment`) VALUES ('$newDiv', '$username', '$comment')";
+    $sql2  = "INSERT INTO `comments` (`pos`, `username`, `patientComment`) VALUES ('$pos', '$username', '$comment')";
     if ($conn->query($sql2) === TRUE) {
         echo "<p class='center'>Comment Post was successful!</p>";
         ?>
@@ -254,6 +265,29 @@ if($action2==="filled"){
 
 <script>
 
+    function deletePost(posDB){
+       // var user = username;
+        var pos = posDB;
+        jQuery.post("deleteForumPost.php", {"Position": pos}, function(data){
+            alert("Forum post deleted successfully");
+            window.location.href="talk.php";
+        }).fail(function()
+        {
+            alert("something broke in deleting your post");
+        });
+    }
+
+
+    function deleteComment(posID){
+        var posComment = posID;
+        jQuery.post("deleteComment.php", {"Position": posComment}, function(data){
+            alert("Comment deleted successfully");
+            window.location.href="talk.php";
+        }).fail(function()
+        {
+            alert("something broke in deleting your comment");
+        });
+    }
 
     function showCommentOption(divID) {
         var x = document.getElementById("content_"+divID);

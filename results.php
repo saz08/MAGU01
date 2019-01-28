@@ -285,6 +285,7 @@ $username = $_SESSION["userName"];
     $redPBar = $redPerformance/($entries)*210;
 
     ?>
+<div class="container-fluid bg-1 text-center">
 <form method="get" class="radiostyle">
     <label class="container">Show chart based on all records
         <input type="radio" name="radio" value="1" id="1" onclick="submitAll()">
@@ -566,12 +567,16 @@ $redPBarM = $redPerformanceM/($entriesM)*210;
 
     </div>
 </div>
+</div>
+<div class="container-fluid bg-2 text-center">
+
 <p>Note down any questions you have</p>
 <form method="post" name="questions" >
     <input type="text" name="question"><br>
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Save Question" class="btn"><br>
 </form>
+</div>
 <?php
 $question= (safePost($conn,"question"));
 //if($action==="filled") {
@@ -596,9 +601,10 @@ if($action==="filled"){
 <?php
 }
 ?>
+<div class="container-fluid bg-3 text-center">
+
 <table class="table table-striped" id="questionTable">
     <tr>
-        <th>ID</th>
         <th>Questions</th>
         <th>Delete</th>
     </tr>
@@ -612,8 +618,7 @@ if($action==="filled"){
             $pos = $rowname["pos"];
             $question = $rowname["question"];
             echo "<tr>";
-            echo "<td>" . $pos . "</td>";
-            echo "<td>" . $question . "</td>";
+            echo "<td style='float:left'>" . $question . "</td>";
             echo "<td><form><input type='button' value='Delete' onclick='deleteQ($pos)' class='btn'/></form></td>";
             echo "</tr>";
             $questionNo++;
@@ -623,10 +628,10 @@ if($action==="filled"){
 
     ?>
 </table>
+</div>
 
 
-
-
+</div>
 
 <script>
     function deleteQ(questionNo){

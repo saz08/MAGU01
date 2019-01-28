@@ -45,44 +45,44 @@ $action = safePOST($conn, "action");
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
-        var oldURL = document.referrer;
-
-
-    </script>
+<!--    <script>-->
+<!---->
+<!--        if(localStorage.getItem("loginOK")===null){-->
+<!--            localStorage.setItem("loginOK", "no");-->
+<!--        }-->
+<!--        function checkLogIn(){-->
+<!--            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';-->
+<!---->
+<!--        }-->
+<!---->
+<!--    </script>-->
+<!--    <script>-->
+<!--        var localUser = localStorage.getItem("username");-->
+<!--        // window.location.href = window.location.href+'?localUser='+localUser;-->
+<!---->
+<!--        if(localStorage.getItem("loginOK")===null){-->
+<!--            localStorage.setItem("loginOK", "no");-->
+<!--        }-->
+<!---->
+<!--        if(localStorage.getItem("loginOK")==="no"){-->
+<!--            window.location.href="signUp.php";-->
+<!--        }-->
+<!---->
+<!---->
+<!--        function checkLogIn(){-->
+<!--            return localStorage.getItem("loginOK")==="yes";-->
+<!--        }-->
+<!---->
+<!--        function checkUser(){-->
+<!--            localUser = localStorage.getItem("username");-->
+<!--            console.log("username in local storage" + localStorage.getItem("username"));-->
+<!--            return localStorage.getItem("username");-->
+<!--        }-->
+<!---->
+<!--        var oldURL = document.referrer;-->
+<!---->
+<!---->
+<!--    </script>-->
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -124,7 +124,7 @@ $action = safePOST($conn, "action");
     if($resultPatient->num_rows>0) {
         while ($rowname = $resultPatient->fetch_assoc()) {
             echo "<tr>";
-            echo "<td><a href='#'>" . $rowname["forename"] . "</a></td>";
+            echo "<td>" . $rowname["forename"] . "</a></td>";
             echo "<td>" . $rowname["surname"] . "</td>";
             echo "<td><a href='patient.php?id=+".$rowname["id"]."'>" . $rowname["id"] . "</a></td>";
             echo "<td>" . $rowname["age"] . "</td>";

@@ -19,6 +19,7 @@ session_destroy();
 <!doctype html>
 <script>
     localStorage.setItem("loginOK", "no");
+    localStorage.setItem("loginOKSupport", "no");
     localStorage.setItem("username", "");
     localStorage.setItem("Breathlessness","");
     localStorage.setItem("Pain","");

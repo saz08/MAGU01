@@ -45,44 +45,44 @@ $action = safePOST($conn, "action");
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
-        var oldURL = document.referrer;
-
-
-    </script>
+<!--    <script>-->
+<!---->
+<!--        if(localStorage.getItem("loginOK")===null){-->
+<!--            localStorage.setItem("loginOK", "no");-->
+<!--        }-->
+<!--        function checkLogIn(){-->
+<!--            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';-->
+<!---->
+<!--        }-->
+<!---->
+<!--    </script>-->
+<!--    <script>-->
+<!--        var localUser = localStorage.getItem("username");-->
+<!--        // window.location.href = window.location.href+'?localUser='+localUser;-->
+<!---->
+<!--        if(localStorage.getItem("loginOK")===null){-->
+<!--            localStorage.setItem("loginOK", "no");-->
+<!--        }-->
+<!---->
+<!--        if(localStorage.getItem("loginOK")==="no"){-->
+<!--            window.location.href="signUp.php";-->
+<!--        }-->
+<!---->
+<!---->
+<!--        function checkLogIn(){-->
+<!--            return localStorage.getItem("loginOK")==="yes";-->
+<!--        }-->
+<!---->
+<!--        function checkUser(){-->
+<!--            localUser = localStorage.getItem("username");-->
+<!--            console.log("username in local storage" + localStorage.getItem("username"));-->
+<!--            return localStorage.getItem("username");-->
+<!--        }-->
+<!---->
+<!--        var oldURL = document.referrer;-->
+<!---->
+<!---->
+<!--    </script>-->
 </head>
 <?php
 $id = $_GET['id'];
@@ -109,6 +109,16 @@ else{
     $address = "";
     $contact ="";
 }
+
+$sqlPatient="SELECT * FROM `account` WHERE id='$id'";
+$patient=$conn->query($sqlPatient);
+if($patient->num_rows>0){
+    while($rowname=$patient->fetch_assoc()){
+        $usernamePatient= $rowname["username"];
+    }
+}
+
+
 ?>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -174,13 +184,8 @@ else{
 
         ?>
     </table>
-    <table class="table table-hover row-clickable" id="doctorTable" >
-        <tr>
-            <th>Most Recent Pain Rate</th>
-            <th>Most Recent Breathlessness Rate</th>
-            <th>Most Recent Performance Score</th>
+</div>
 
-        </tr>
         <?php
 
         $sqlScale  = "SELECT * FROM `scale`WHERE id = '$id' ORDER BY `timeStamp` DESC LIMIT 1";
@@ -188,6 +193,14 @@ else{
         $resultScale = $conn->query($sqlScale);
         if($resultScale->num_rows>0) {
             while ($rowname = $resultScale->fetch_assoc()) {
+                echo"<div style=\"overflow-x: scroll\">";
+                echo"<table class='table table-hover row-clickable' id='doctorTable' >";
+        echo"<tr>";
+          echo"  <th>Most Recent Pain Rate</th>";
+           echo" <th>Most Recent Breathlessness Rate</th>";
+            echo"<th>Most Recent Performance Score</th>";
+
+        echo"</tr>";
                 echo "<tr>";
                 if($rowname["pain"]>=8){
                     echo "<td style='background-color: red;color: black'>" . $rowname["pain"] . "</a></td>";
@@ -223,10 +236,47 @@ else{
                 echo "</tr>";
             }
         }
+        else{
+            echo"<h2>Patient has not recorded any pain, breathlessness or performance issues</h2>";
+        }
+       echo" </table>";
+        echo "</div>";
+        ?>
 
+
+
+
+
+
+
+
+        <?php
+        $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$usernamePatient'";
+        $support=$conn->query($sqlSupport);
+        if($support->num_rows>0){
+            while($rowname=$support->fetch_assoc()){
+                echo "<div style='overflow-x: scroll'>";
+    echo "<table class='table table-hover row-clickable' id='doctorTable' >";
+             echo" <tr>";
+            echo"<th>Support Circle</th>";
+            echo "<th>Relation</th>";
+            echo "</tr>";
+                echo "<tr>";
+
+                $supportUser= $rowname["username"];
+                $relation = $rowname["relation"];
+                echo "<td>" . $supportUser . "</td>";
+                echo "<td>" . $relation . "</td>";
+
+                echo "</tr>";
+
+
+            }
+        }
         ?>
     </table>
 </div>
+<br>
 <script>
     function goBack() {
         window.location.href = "dashboard.php";
