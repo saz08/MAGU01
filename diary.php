@@ -25,6 +25,8 @@ $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
 
+$month = date("m");
+$year = date("Y");
 
 if(isset($_SESSION["sessionuser"])){
     $user = $_SESSION["sessionuser"];
@@ -46,6 +48,14 @@ if($_SESSION['userName']==null){
 }
 
 $username = $_SESSION["userName"];
+//$username= "<script>localStorage.getItem('username')</script>";
+
+
+
+
+
+$loginOK = false; //TODO make this work with database values
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,7 +123,7 @@ $username = $_SESSION["userName"];
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.php">HOME</a></li>
                 <li><a href="scale.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
@@ -153,7 +163,7 @@ if($action==="filled"){
     if($conn->query($sql) === TRUE){
         echo"added";
         ?>
-        <script>window.location.href="https://devweb2017.cis.strath.ac.uk/~szb15123/AdaptToYou/index.html"</script>
+        <script>window.location.href="index.php"</script>
         <?php
 
     }

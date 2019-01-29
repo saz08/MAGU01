@@ -53,7 +53,7 @@ $loginOK= false; //TODO make this work with database values
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOK")==="yes"){
             alert("You are already logged in!");
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         }
         else if(localStorage.getItem("loginOKSupport")==="yes"){
             alert("You are already logged in!");
@@ -122,7 +122,7 @@ if($loginOK) {
             <form name="login" method="post">
                 <h2 style="color:black">Login</h2>
                 <p class="lead"style="color:#f7f7f7;">
-                    <form name="login" method="post" action="index.html">
+                    <form name="login" method="post" action="index.php">
                 <p>Username:<br> <input type="text" name="username" value=""/></p>
                 <p>Password: <br><input type="password" name="password" value=""/></p>
                 <input type="hidden" name="action" value="filled">

@@ -1,22 +1,6 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: User
- * Date: 22/01/2019
- * Time: 01:10 PM
- */
 
 session_start();
-
-//connect to the database now that we know we have enough to submit
-$host = "devweb2018.cis.strath.ac.uk";
-$user = "szb15123";
-$pass = "fadooCha4buh";
-$dbname = "szb15123";
-$conn = new mysqli($host, $user, $pass , $dbname);
-$action = safePOST($conn, "action");
-$action2 = safePOST($conn, "action2");
-
 function safePOST($conn,$name){
     if (isset($_POST[$name])) {
         return $conn->real_escape_string(strip_tags($_POST[$name]));
@@ -32,6 +16,47 @@ function safePOSTNonMySQL($name){
         return "";
     }
 }
+
+//connect to the database now that we know we have enough to submit
+$host = "devweb2018.cis.strath.ac.uk";
+$user = "szb15123";
+$pass = "fadooCha4buh";
+$dbname = "szb15123";
+$conn = new mysqli($host, $user, $pass , $dbname);
+$action = safePOST($conn, "action");
+
+$month = date("m");
+$year = date("Y");
+
+if(isset($_SESSION["sessionuser"])){
+    $user = $_SESSION["sessionuser"];
+    $sessionuser = $_SESSION["sessionuser"];
+}
+
+else{
+    $sessionuser ="";
+    $user = safePOSTNonMySQL("username");
+    $pass = safePOSTNonMySQL("password");
+}
+
+if($_SESSION['userName']==null){
+    $_SESSION['userName'] = "unknownUser";
+    ?> <script>
+        localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOK', "no");
+    </script><?php
+}
+
+$username = $_SESSION["userName"];
+//$username= "<script>localStorage.getItem('username')</script>";
+
+
+
+
+
+
+$loginOK = false; //TODO make this work with database values
+
 
 $heartDiv = $_POST['HeartDiv'];
 $sql = "SELECT `heart` FROM `forum` WHERE `pos` = '$heartDiv'";

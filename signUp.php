@@ -52,24 +52,11 @@ $loginOK = false; //TODO make this work with database values
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOK")==="yes"){
             alert("You are already logged in!");
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         }
     }
 </script>
-<?php
-//
-//$sqlFind = "SELECT * FROM `supportAcc`";
-//$resultFind = $conn->query($sqlFind);
-//if($resultFind->num_rows>0) {
-//    while ($rowname = $resultFind->fetch_assoc()) {
-//        $currentUser = $rowname["username"];
-//        if($username==$currentUser){
-//            $supporter = true;
-//
-//        }
-//    }
-//}
-//?>
+
 
 
 <?php
@@ -136,7 +123,7 @@ if($loginOK) {
             <form name="login" method="post">
                 <h2 style="color:black">Login</h2>
                 <p class="lead"style="color:#f7f7f7;">
-                    <form name="login" method="post" action="index.html">
+                    <form name="login" method="post" action="index.php">
                 <p>Username:<br> <input type="text" name="username" value=""/></p>
                 <p>Password: <br><input type="password" name="password" value=""/></p>
                 <input type="hidden" name="action" value="filled">
@@ -174,10 +161,10 @@ if($loginOK) {
                     var user = "<?php echo $username; ?>";
                 </script>
                 <script>localStorage.setItem("username", user);
-                    window.location.href = "index.html";
+                    window.location.href = "index.php";
                 </script>
                 <?php
-                echo "<p class='center'><a href = 'index.html' class='btn ' role='button' >Go to Home!</a></p>";
+                echo "<p class='center'><a href = 'index.php' class='btn ' role='button' >Go to Home!</a></p>";
             }
             else{
                 ?><script>alert("Password not recognised")</script><?php
@@ -198,7 +185,6 @@ if($loginOK) {
                 <p>Create Username:<br> <input type="text" name="username" value="" id="username"/></p>
                 <p>Create Password: <br><input type="password" name="password" value="" id="password"/></p>
                 <p>Enter ID: <br><input type="number" name="id" value="" id="id"/></p>
-                <p>Age: <i>*Optional*</i><br><input type="number" name="age" value="" id="age"/></p>
                 <p>Smoker Status <i>*Optional*</i></p>
                 <input type="radio" name="smoker" value="smoker" id="smoker"> Current
                 <input type="radio" name="smoker" value="nonsmoker" id="nonsmoker">Never
@@ -220,7 +206,6 @@ if($loginOK) {
                 var male = document.getElementById("male");
                 var female = document.getElementById("female");
                 var other = document.getElementById("other");
-                var age = document.getElementById("age");
                 var smoker = document.getElementById("smoker");
                 var nonsmoker = document.getElementById("nonsmoker");
 
@@ -232,7 +217,6 @@ if($loginOK) {
                 id.style.background="white";
                 male.style.background = "white";
                 female.style.background="white";
-                age.style.background = "white";
                 smoker.style.background = "white";
                 nonsmoker.style.background="white";
                 other.style.background="white";
@@ -267,7 +251,6 @@ if($loginOK) {
             $username = (safePost($conn,"username"));
             $password = (safePost($conn,"password"));
             $id = (safePost($conn,"id"));
-            $age = (safePost($conn,"age"));
             $smoker = (safePost($conn,"smoker"));
             $nonsmoker=(safePost($conn,"nonsmoker"));
 
@@ -314,7 +297,7 @@ if($loginOK) {
 //        }
 
 
-        $sql = "INSERT INTO `account` (`id`,`username`, `password`, `age`, `smokingStatus`) VALUES ('$id','$username', '$password', '$age', '$smoker1')";
+        $sql = "INSERT INTO `account` (`id`,`username`, `password`, `smokingStatus`) VALUES ('$id','$username', '$password', '$smoker1')";
 
         if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Registration was successful!</p>";
@@ -323,10 +306,10 @@ if($loginOK) {
             <script>localStorage.setItem("loginOK", "yes");
                 var user = "<?php echo $username; ?>";
                 localStorage.setItem("username", user)
-                window.location.href = "index.html";
+                window.location.href = "index.php";
             </script>
             <?php
-            echo "<p class='center'><a href = 'index.html' class='btn btn-primary btn-lg' id='goToMapButton' role='button' >Go to home!</a></p>";
+            echo "<p class='center'><a href = 'index.php' class='btn btn-primary btn-lg' id='goToMapButton' role='button' >Go to home!</a></p>";
         }
 
 

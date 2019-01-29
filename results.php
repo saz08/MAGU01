@@ -49,6 +49,7 @@ if($_SESSION['userName']==null){
 
 $username = $_SESSION["userName"];
 //$username= "<script>localStorage.getItem('username')</script>";
+$loginOK = false; //TODO make this work with database values
 
 
 
@@ -126,7 +127,7 @@ $username = $_SESSION["userName"];
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.php">HOME</a></li>
                 <li><a href="scale.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
@@ -268,112 +269,136 @@ $username = $_SESSION["userName"];
 
     $performanceTotal = $greenPerformance+$amberPerformance+$redPerformance;
 
-
+if($entries!=0) {
     //PAIN DONUT BARS
-    $greenPainBar = $greenPain/($entries)*210;
-    $amberPainBar = $amberPAIN/($entries)*210;
-    $redPainBar = $redPAIN/($entries)*210;
+    $greenPainBar = $greenPain / ($entries) * 210;
+    $amberPainBar = $amberPAIN / ($entries) * 210;
+    $redPainBar = $redPAIN / ($entries) * 210;
 
     //BREATHING DONUT BARS
-    $greenBBar = $greenBreath/($entries)*210;
-    $amberBBar = $amberBreath/($entries)*210;
-    $redBBar = $redBreath/($entries)*210;
+    $greenBBar = $greenBreath / ($entries) * 210;
+    $amberBBar = $amberBreath / ($entries) * 210;
+    $redBBar = $redBreath / ($entries) * 210;
 
     //PERFORMANCE DONUT BARS
-    $greenPBar = $greenPerformance/($entries)*210;
-    $amberPBar = $amberPerformance/($entries)*210;
-    $redPBar = $redPerformance/($entries)*210;
-
+    $greenPBar = $greenPerformance / ($entries) * 210;
+    $amberPBar = $amberPerformance / ($entries) * 210;
+    $redPBar = $redPerformance / ($entries) * 210;
+}
     ?>
+<?php  if($entries==0){
+    echo "<h2>No entries</h2>";
+}
+if($entries!=0){
+?>
 <div class="container-fluid bg-1 text-center">
-<form method="get" class="radiostyle">
-    <label class="container">Show chart based on all records
-        <input type="radio" name="radio" value="1" id="1" onclick="submitAll()">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Show chart based on the records from this month
-        <input type="radio" name="radio" value="2" id="2" onclick="submitMonth()">
-        <span class="checkmark"></span>
-    </label>
-</form>
-<div class="container" id="allTime">
-    <h2>My Progress of all time</h2>
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
+    <form method="get" class="radiostyle">
+        <label class="container">Show chart based on all records
+            <input type="radio" name="radio" value="1" id="1" onclick="submitAll()">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Show chart based on the records from this month
+            <input type="radio" name="radio" value="2" id="2" onclick="submitMonth()">
+            <span class="checkmark"></span>
+        </label>
+    </form>
+    <div class="container" id="allTime">
+        <h2>My Progress of all time</h2>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="donut-chart-block block">
-                        <div class="donut-chart">
-                            <div id="part1Pain" class="portion-block"><div class="circle" id="c1Pain"></div></div>
-                            <div id="part2Pain" class="portion-block"><div class="circle" id="c2Pain"></div></div>
-                            <div id="part3Pain" class="portion-block"><div class="circle" id="c3Pain"></div></div>
-                            <p class="center" style="color:black">Pain</p>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="container">
+                        <div class="donut-chart-block block">
+                            <div class="donut-chart">
+                                <div id="part1Pain" class="portion-block">
+                                    <div class="circle" id="c1Pain"></div>
+                                </div>
+                                <div id="part2Pain" class="portion-block">
+                                    <div class="circle" id="c2Pain"></div>
+                                </div>
+                                <div id="part3Pain" class="portion-block">
+                                    <div class="circle" id="c3Pain"></div>
+                                </div>
+                                <p class="center" style="color:black">Pain</p>
+                            </div>
+                            <div>
+                                <br>
+                                <br>
+                            </div>
                         </div>
-                        <div>
-                            <br>
-                            <br>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="container">
+                        <div class="donut-chart-block block">
+                            <div class="donut-chart">
+                                <div id="part1Breath" class="portion-block">
+                                    <div class="circle" id="c1Breath"></div>
+                                </div>
+                                <div id="part2Breath" class="portion-block">
+                                    <div class="circle" id="c2Breath"></div>
+                                </div>
+                                <div id="part3Breath" class="portion-block">
+                                    <div class="circle" id="c3Breath"></div>
+                                </div>
+                                <p class="center" style="color:black">Breathing</p>
+                            </div>
+                            <div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="container">
+                        <div class="donut-chart-block block">
+                            <div class="donut-chart">
+                                <div id="part1Performance" class="portion-block">
+                                    <div class="circle" id="c1Perform"></div>
+                                </div>
+                                <div id="part2Performance" class="portion-block">
+                                    <div class="circle" id="c2Perform"></div>
+                                </div>
+                                <div id="part3Performance" class="portion-block">
+                                    <div class="circle" id="c3Perform"></div>
+                                </div>
+                                <p class="center" style="color:black">Performance</p>
+                            </div>
+                            <div>
+                                <br>
+                                <br>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="item">
-                <div class="container">
-                    <div class="donut-chart-block block">
-                        <div class="donut-chart">
-                            <div id="part1Breath" class="portion-block"><div class="circle" id="c1Breath"></div></div>
-                            <div id="part2Breath" class="portion-block"><div class="circle" id="c2Breath"></div></div>
-                            <div id="part3Breath" class="portion-block"><div class="circle" id="c3Breath"></div></div>
-                            <p class="center" style="color:black">Breathing</p>
-                        </div>
-                        <div>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
 
-            <div class="item">
-                <div class="container">
-                    <div class="donut-chart-block block">
-                        <div class="donut-chart">
-                            <div id="part1Performance" class="portion-block"><div class="circle" id="c1Perform"></div></div>
-                            <div id="part2Performance" class="portion-block"><div class="circle" id="c2Perform"></div></div>
-                            <div id="part3Performance" class="portion-block"><div class="circle" id="c3Perform"></div></div>
-                            <p class="center" style="color:black">Performance</p>
-                        </div>
-                        <div>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next</span>
-        </a>
-
     </div>
-</div>
 
-<?php
+    <?php
+    }
 
 
 $sqlGPM  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
@@ -474,110 +499,135 @@ else{
 
 $performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
 
-
+    if($entriesM!=0) {
 //PAIN DONUT BARS
-$greenPainBarM = $greenPainM/($entriesM)*210;
-$amberPainBarM = $amberPainM/($entriesM)*210;
-$redPainBarM = $redPainM/($entriesM)*210;
+        $greenPainBarM = $greenPainM / ($entriesM) * 210;
+        $amberPainBarM = $amberPainM / ($entriesM) * 210;
+        $redPainBarM = $redPainM / ($entriesM) * 210;
 
 //BREATHING DONUT BARS
-$greenBBarM = $greenBreathM/($entriesM)*210;
-$amberBBarM = $amberBreathM/($entriesM)*210;
-$redBBarM = $redBreathM/($entriesM)*210;
+        $greenBBarM = $greenBreathM / ($entriesM) * 210;
+        $amberBBarM = $amberBreathM / ($entriesM) * 210;
+        $redBBarM = $redBreathM / ($entriesM) * 210;
 
 //PERFORMANCE DONUT BARS
-$greenPBarM = $greenPerformanceM/($entriesM)*210;
-$amberPBarM = $amberPerformanceM/($entriesM)*210;
-$redPBarM = $redPerformanceM/($entriesM)*210;
+        $greenPBarM = $greenPerformanceM / ($entriesM) * 210;
+        $amberPBarM = $amberPerformanceM / ($entriesM) * 210;
+        $redPBarM = $redPerformanceM / ($entriesM) * 210;
+    }
 
-?>
-<div class="container" id="prevMonth">
-    <h2>My Progress over the past month</h2>
-    <div id="myCarousel2" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel2" data-slide-to="1"></li>
-            <li data-target="#myCarousel2" data-slide-to="2"></li>
-        </ol>
+    if($entriesM==0){
+        echo"<h2>No entries from the past month</h2>";
+    }
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="donut-chart-block block">
-                        <div class="donut-chart">
-                            <div id="part1PainMonth" class="portion-block"><div class="circle" id="c1PainMonth"></div></div>
-                            <div id="part2PainMonth" class="portion-block"><div class="circle" id="c2PainMonth"></div></div>
-                            <div id="part3PainMonth" class="portion-block"><div class="circle" id="c3PainMonth"></div></div>
-                            <p class="center" style="color:black">Pain</p>
+    ?>
+    <?php if($entriesM!=0){ ?>
+    <div class="container" id="prevMonth">
+        <h2>My Progress over the past month</h2>
+        <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel2" data-slide-to="1"></li>
+                <li data-target="#myCarousel2" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="container">
+                        <div class="donut-chart-block block">
+                            <div class="donut-chart">
+                                <div id="part1PainMonth" class="portion-block">
+                                    <div class="circle" id="c1PainMonth"></div>
+                                </div>
+                                <div id="part2PainMonth" class="portion-block">
+                                    <div class="circle" id="c2PainMonth"></div>
+                                </div>
+                                <div id="part3PainMonth" class="portion-block">
+                                    <div class="circle" id="c3PainMonth"></div>
+                                </div>
+                                <p class="center" style="color:black">Pain</p>
+                            </div>
+                            <div>
+                                <br>
+                                <br>
+                            </div>
                         </div>
-                        <div>
-                            <br>
-                            <br>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="container">
+                        <div class="donut-chart-block block">
+                            <div class="donut-chart">
+                                <div id="part1BreathMonth" class="portion-block">
+                                    <div class="circle" id="c1BreathMonth"></div>
+                                </div>
+                                <div id="part2BreathMonth" class="portion-block">
+                                    <div class="circle" id="c2BreathMonth"></div>
+                                </div>
+                                <div id="part3BreathMonth" class="portion-block">
+                                    <div class="circle" id="c3BreathMonth"></div>
+                                </div>
+                                <p class="center" style="color:black">Breathing</p>
+                            </div>
+                            <div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="container">
+                        <div class="donut-chart-block block">
+                            <div class="donut-chart">
+                                <div id="part1PerformanceMonth" class="portion-block">
+                                    <div class="circle" id="c1PerformMonth"></div>
+                                </div>
+                                <div id="part2PerformanceMonth" class="portion-block">
+                                    <div class="circle" id="c2PerformMonth"></div>
+                                </div>
+                                <div id="part3PerformanceMonth" class="portion-block">
+                                    <div class="circle" id="c3PerformMonth"></div>
+                                </div>
+                                <p class="center" style="color:black">Performance</p>
+                            </div>
+                            <div>
+                                <br>
+                                <br>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="item">
-                <div class="container">
-                    <div class="donut-chart-block block">
-                        <div class="donut-chart">
-                            <div id="part1BreathMonth" class="portion-block"><div class="circle" id="c1BreathMonth"></div></div>
-                            <div id="part2BreathMonth" class="portion-block"><div class="circle" id="c2BreathMonth"></div></div>
-                            <div id="part3BreathMonth" class="portion-block"><div class="circle" id="c3BreathMonth"></div></div>
-                            <p class="center" style="color:black">Breathing</p>
-                        </div>
-                        <div>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel2" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
 
-            <div class="item">
-                <div class="container">
-                    <div class="donut-chart-block block">
-                        <div class="donut-chart">
-                            <div id="part1PerformanceMonth" class="portion-block"><div class="circle" id="c1PerformMonth"></div></div>
-                            <div id="part2PerformanceMonth" class="portion-block"><div class="circle" id="c2PerformMonth"></div></div>
-                            <div id="part3PerformanceMonth" class="portion-block"><div class="circle" id="c3PerformMonth"></div></div>
-                            <p class="center" style="color:black">Performance</p>
-                        </div>
-                        <div>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel2" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next</span>
-        </a>
-
     </div>
 </div>
-</div>
-<div class="container-fluid bg-2 text-center">
+    <div class="container-fluid bg-2 text-center">
 
-<p>Note down any questions you have</p>
-<form method="post" name="questions" >
-    <input type="text" name="question"><br>
-    <input type="hidden" name="action" value="filled">
-    <input type="submit" value="Save Question" class="btn"><br>
-</form>
-</div>
+        <p>Note down any questions you have</p>
+        <form method="post" name="questions">
+            <input type="text" name="question"><br>
+            <input type="hidden" name="action" value="filled">
+            <input type="submit" value="Save Question" class="btn"><br>
+        </form>
+    </div>
 <?php
+}
 $question= (safePost($conn,"question"));
 //if($action==="filled") {
 //    if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_SESSION['form_submit'])) {

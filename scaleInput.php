@@ -48,7 +48,7 @@ $loginOK = false; //TODO make this work with database values
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOK")==="yes"){
             alert("You are already logged in!");
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         }
     }
 </script>

@@ -93,7 +93,6 @@ if($details->num_rows>0){
     while($rowname=$details->fetch_assoc()){
         $forename= $rowname["forename"];
         $surname = $rowname["surname"];
-        $age = $rowname["age"];
         $birthday = $rowname["birthday"];
         $gender = $rowname["gender"];
         $address = $rowname["address"];
@@ -103,11 +102,11 @@ if($details->num_rows>0){
 else{
     $forename= "";
     $surname = "";
-    $age = "";
     $birthday = "";
     $gender = "";
     $address = "";
     $contact ="";
+    $usernamePatient="";
 }
 
 $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
@@ -151,35 +150,39 @@ if($patient->num_rows>0){
 
 </div>
 
-<div style="overflow-x: scroll">
-    <table class="table table-hover row-clickable" id="doctorTable" >
-        <tr>
-            <th>Forename</th>
-            <th>Surname</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Smoking Status</th>
-            <th>Address</th>
-            <th>Contact No.</th>
 
-        </tr>
         <?php
 
-        $sql  = "SELECT * FROM `account`WHERE id = '$id'";
+        $sql  = "SELECT * FROM `account` WHERE `id` = '$id'";
         $result = $conn->query($sql);
         if($result->num_rows>0) {
             while ($rowname = $result->fetch_assoc()) {
+                echo"<div style='overflow-x: scroll'>";
+    echo"<table class='table table-hover row-clickable' id='doctorTable' >";
+                echo"<tr>";
+                echo "<th>Forename</th>";
+            echo "<th>Surname</th>";
+           echo "<th>Birthday</th>";
+           echo "<th>Gender</th>";
+           echo "<th>Smoking Status</th>";
+           echo "<th>Address</th>";
+           echo "<th>Contact No.</th>";
+
+        echo"</tr>";
                 echo "<tr>";
                 echo "<td>" . $forename . "</td>";
                 echo "<td>" . $surname . "</td>";
+                echo "<td>" . $birthday . "</td>";
                 echo "<td>" . $gender . "</td>";
-                echo "<td>" . $rowname["age"] . "</td>";
                 echo "<td>" . $rowname["smokingStatus"] . "</td>";
                 echo "<td>" . $address . "</td>";
                 echo "<td>" . $contact . "</td>";
 
                 echo "</tr>";
             }
+        }
+        else{
+            echo"<h2>Patient has not registered yet.</h2>";
         }
 
         ?>
@@ -251,28 +254,48 @@ if($patient->num_rows>0){
 
 
         <?php
-        $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$usernamePatient'";
-        $support=$conn->query($sqlSupport);
-        if($support->num_rows>0){
-            while($rowname=$support->fetch_assoc()){
-                echo "<div style='overflow-x: scroll'>";
-    echo "<table class='table table-hover row-clickable' id='doctorTable' >";
-             echo" <tr>";
-            echo"<th>Support Circle</th>";
-            echo "<th>Relation</th>";
-            echo "</tr>";
-                echo "<tr>";
+        $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
+        $patient=$conn->query($sqlPatient);
+        if($patient->num_rows>0){
+            while($rowname=$patient->fetch_assoc()){
+                $usernamePatient= $rowname["username"];
 
-                $supportUser= $rowname["username"];
-                $relation = $rowname["relation"];
-                echo "<td>" . $supportUser . "</td>";
-                echo "<td>" . $relation . "</td>";
 
-                echo "</tr>";
+
+                $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$usernamePatient'";
+                $support=$conn->query($sqlSupport);
+                if($support->num_rows>0){
+                    while($rowname=$support->fetch_assoc()){
+                        echo "<div style='overflow-x: scroll'>";
+                        echo "<table class='table table-hover row-clickable' id='doctorTable' >";
+                        echo" <tr>";
+                        echo"<th>Support Circle</th>";
+                        echo "<th>Relation</th>";
+                        echo "</tr>";
+                        echo "<tr>";
+
+                        $supportUser= $rowname["username"];
+                        $relation = $rowname["relation"];
+                        echo "<td>" . $supportUser . "</td>";
+                        echo "<td>" . $relation . "</td>";
+
+                        echo "</tr>";
+
+
+                    }
+                }
+
+
+
+
+
+
+
 
 
             }
         }
+
         ?>
     </table>
 </div>

@@ -1,17 +1,6 @@
 <?php
+
 session_start();
-
-
-//connect to the database now that we know we have enough to submit
-$host = "devweb2018.cis.strath.ac.uk";
-$user = "szb15123";
-$pass = "fadooCha4buh";
-$dbname = "szb15123";
-$conn = new mysqli($host, $user, $pass , $dbname);
-$action = safePOST($conn, "action");
-$action2 = safePOST($conn, "action2");
-
-
 function safePOST($conn,$name){
     if (isset($_POST[$name])) {
         return $conn->real_escape_string(strip_tags($_POST[$name]));
@@ -27,6 +16,18 @@ function safePOSTNonMySQL($name){
         return "";
     }
 }
+
+//connect to the database now that we know we have enough to submit
+$host = "devweb2018.cis.strath.ac.uk";
+$user = "szb15123";
+$pass = "fadooCha4buh";
+$dbname = "szb15123";
+$conn = new mysqli($host, $user, $pass , $dbname);
+$action = safePOST($conn, "action");
+
+$month = date("m");
+$year = date("Y");
+
 if(isset($_SESSION["sessionuser"])){
     $user = $_SESSION["sessionuser"];
     $sessionuser = $_SESSION["sessionuser"];
@@ -37,6 +38,21 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
+
+if($_SESSION['userName']==null){
+    $_SESSION['userName'] = "unknownUser";
+    ?> <script>
+        localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOK', "no");
+    </script><?php
+}
+
+$username = $_SESSION["userName"];
+//$username= "<script>localStorage.getItem('username')</script>";
+
+
+
+
 $loginOK = false; //TODO make this work with database values
 
 if($loginOK) {
@@ -54,7 +70,7 @@ if($loginOK) {
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOK")==="yes"){
             alert("You are already logged in!");
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         }
     }
 </script>
@@ -128,7 +144,7 @@ if($loginOK) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.php">HOME</a></li>
                 <li><a href="scale.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
@@ -168,7 +184,7 @@ if($loginOK) {
 
 
     function goBack(){
-        window.location.href="index.html";
+        window.location.href="index.php";
     }
 
     function submit(){
