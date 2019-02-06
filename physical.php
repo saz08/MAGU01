@@ -51,25 +51,10 @@ $username = $_SESSION["userName"];
 //$username= "<script>localStorage.getItem('username')</script>";
 
 
+
+
 $loginOK = false; //TODO make this work with database values
 
-
-
-
-?>
-
-<script xmlns="http://www.w3.org/1999/html">if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }</script>
-<script>
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
-    }
-</script>
-<?php
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
         session_regenerate_id();
@@ -77,6 +62,19 @@ if($loginOK) {
     }
 }
 ?>
+<script>
+    if(localStorage.getItem("loginOK")===null){
+        localStorage.setItem("loginOK", "no")
+    }
+
+    function checkAlreadyLoggedIn(){
+        if(localStorage.getItem("loginOK")==="yes"){
+            alert("You are already logged in!");
+            window.location.href = "index.php";
+        }
+    }
+</script>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +84,6 @@ if($loginOK) {
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
@@ -95,7 +92,6 @@ if($loginOK) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="radio.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -163,66 +159,107 @@ if($loginOK) {
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Monitor breathlessness</h1>
+    <h1>Monitor your physical activity</h1>
 </div>
 
-<div class="box">The following is the MRC Breathlessness scale. Please tick the box that you feel you apply to</div>
+<div class="box">The following questions have been adapted from the YOUTHREX International Physical Acitivity Questionnaire.</div>
 
-<form method="get" class="radiostyle">
-<label class="container">1: Not troubled by breathlessness except on strenuous exercise
-    <input type="radio" name="radio" value="1" id="1">
-    <span class="checkmark"></span>
-</label>
-<label class="container">2 :Short of breath when hurrying on the level or walking up a slight hill
-    <input type="radio" name="radio" value="2" id="2">
-    <span class="checkmark"></span>
-</label>
-<label class="container">3: Walks slower than most people on the level, stops after a mile or so, or stops after 15 minutes walking at own pace
-    <input type="radio" name="radio" value="3" id="3">
-    <span class="checkmark"></span>
-</label>
-<label class="container">4: Stops for breath after walking about 100 yds or after a few minutes on level ground
-    <input type="radio" name="radio" value="4" id="4">
-    <span class="checkmark"></span>
-</label>
-<label class="container">5: Too breathless to leave the house, or breathless when undressing
-    <input type="radio" name="radio" value="5" id="5">
-    <span class="checkmark"></span>
-</label>
+
+<form method="post" class="WHOstyle">
+    <label class="container">1: During the last 7 days, on how many days did you do vigorous physical activities, like heavy lifting, digging, aerobics or fast bicycling?
+        <select name="vigorous">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </label>
+
+    <label class="container">2: During the last 7 days, on how many days did you do moderate physical activities like carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.
+        <select name="moderate">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </label>
+
+    <label class="container">3: During the last 7 days, on how many days did you walk for at least 10 minutes at a time?
+        <select name="walk">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </label>
+
+    <label class="container">4: During the last 7 days, how much time did you spend sitting on a week day?
+        <select name="sitting">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </label>
+    <input type="hidden" name="action" value="filled">
+    <input type="submit" name="submit" value="Submit"/>
 </form>
 
 
+<?php
+if($action === "filled") {
+    $vig = (safePost($conn,"vigorous"));
+    $mod = (safePost($conn,"moderate"));
+    $walk = (safePost($conn,"walk"));
+    $sit = (safePost($conn,"sitting"));
+    $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
+    $resultID=$conn->query($sql1);
+    if($resultID->num_rows>0) {
+        while ($rowname = $resultID->fetch_assoc()) {
+            $id = $rowname["id"];
 
+        }
+    }
+
+
+    $sql  = "INSERT INTO `physical` (`id`,`username`,`vigorous`, `moderate`, `walking`, `sitting`) VALUES ('$id','$username','$vig', '$mod', '$walk', '$sit')";
+    if ($conn->query($sql) === TRUE) {
+        ?>
+        <script>
+            window.location.href = "index.php";
+        </script>
+        <?php
+    }
+}
+
+?>
 
 <script>
 
-
+    var slider = document.getElementById("myRange");
+    var value;
 
 
     function goBack(){
-        window.location.href="scale.php";
+        window.history.back();
     }
 
     function submit(){
-       if(document.getElementById('1').checked){
-           localStorage.setItem("Breathlessness", 1);
-       }
-        if(document.getElementById('2').checked){
-            localStorage.setItem("Breathlessness", 2);
-        }
-        if(document.getElementById('3').checked){
-            localStorage.setItem("Breathlessness", 3);
-        }
-        if(document.getElementById('4').checked){
-            localStorage.setItem("Breathlessness", 4);
-        }
-        if(document.getElementById('5').checked){
-            localStorage.setItem("Breathlessness", 5);
-        }
-
-        window.location.href="Performance.php";
-
-
+        console.log(this.value + "value");
+        localStorage.setItem("Pain",slider.value);
+        window.location.href="Breathlessness.php";
     }
 
     function outputUpdate(num) {
@@ -235,8 +272,6 @@ if($loginOK) {
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
-
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

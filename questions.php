@@ -25,6 +25,9 @@ $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
 
+$month = date("m");
+$year = date("Y");
+
 if(isset($_SESSION["sessionuser"])){
     $user = $_SESSION["sessionuser"];
     $sessionuser = $_SESSION["sessionuser"];
@@ -48,20 +51,42 @@ $username = $_SESSION["userName"];
 //$username= "<script>localStorage.getItem('username')</script>";
 
 
+$loginOK = false; //TODO make this work with database values
 
 
 
 
 ?>
 
+<script xmlns="http://www.w3.org/1999/html">if(localStorage.getItem("loginOK")===null){
+        localStorage.setItem("loginOK", "no")
+    }</script>
+<script>
+    function checkAlreadyLoggedIn(){
+        if(localStorage.getItem("loginOK")==="yes"){
+            alert("You are already logged in!");
+            window.location.href = "index.php";
+        }
+    }
+</script>
+<?php
+if($loginOK) {
+    if (!isset($_SESSION["sessionuser"])) {
+        session_regenerate_id();
+        $_SESSION["sessionuser"] = $user;
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
@@ -70,9 +95,10 @@ $username = $_SESSION["userName"];
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="radio.css">
 
     <meta charset="UTF-8">
-    <title>Adapt To You</title>
+    <title>Project</title>
     <script>
 
         if(localStorage.getItem("loginOK")===null){
@@ -108,6 +134,47 @@ $username = $_SESSION["userName"];
         }
 
     </script>
+    <style>
+        input {
+            display: table-cell;
+            vertical-align: middle
+        }
+
+        .caroBox{
+            display:inline-block;
+            width: 100%;
+            height: 50%;
+        }
+
+        .box{
+            display:inline-block;
+            margin: 0 10px;
+            width: 100%;
+            height:20%;
+            border: 1px solid #B132E8;
+            background:#DDA8FF ;
+
+        }
+        @media screen and (max-width:800px){
+            display: block;
+        }
+
+        label{
+            display:block;
+            padding-left:15px;
+            text-indent: -15px;
+        }
+        .choices{
+            width:13px;
+            height:13px;
+            padding:0;
+            margin:0;
+            vertical-align:bottom;
+            position:relative;
+            top:-1px;
+            *overflow:hidden;
+        }
+    </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -126,133 +193,96 @@ $username = $_SESSION["userName"];
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
-
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li><a href="logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>My Progress</h1>
+    <h1>Questions</h1>
 </div>
-<div id="body">
+<div class="box">
+    <div class="container-fluid bg-2 text-center">
+
+        <p>Note down any questions you have</p>
+        <form method="post" name="questions">
+            <input type="text" name="question"><br>
+            <input type="hidden" name="action" value="filled">
+            <br>
+            <input type="submit" value="Save Question" class="btn"><br>
+        </form>
+    </div>
+</div>
 <?php
-$sql2 = "SELECT * FROM `account` WHERE `username`= '$username'";
-$result= $conn->query($sql2);
-if($result->num_rows>0){
-    while ($row = $result->fetch_assoc()) {
-        echo "<option value = 'username'>Username: ".$row["username"]."</option>";
-        echo "<option value = 'gender'>Gender: ".$row["gender"]."</option>";
-        echo "<option value = 'age'>Age: ".$row["age"]."</option>";
-        if($row["smoker"]=="smoker"){
-            echo "<option value = 'smoker?'>Smoker Status: Never</option>";
-        }
-        else {
-            echo "<option value = 'smoker?'>Smoker Status: Current</option>";
-        }
 
+$question= (safePost($conn,"question"));
 
-    }
+if($action==="filled"){
+    $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
+    $conn->query($sql);?>
+    <script>window.location.href="results.php";</script>
+    <?php
 }
-
 ?>
-    <button onclick="logoutFunction()">
-        Logout
-    </button>
-<table class="table table-striped" id="questionTable">
-    <tr>
-        <th>ID</th>
-        <th>Questions</th>
-    </tr>
-    <?php
-
-    $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
-    $resultJournal = $conn->query($sqlJournal);
-    if($resultJournal->num_rows>0) {
-        while ($rowname = $resultJournal->fetch_assoc()) {
-            $pos = $rowname["pos"];
-            $question = $rowname["question"];
-            echo "<tr>";
-            echo "<td>" . $pos . "</td>";
-            echo "<td>" . $question . "</td>";
-            echo "</tr>";
-        }
-    }
-
-
-    ?>
-</table>
-
-<table class="table table-striped">
-<tr>
-    <th>Diary Entries</th>
-    <th>Time</th>
-</tr>
-<?php
-
-$sqlJournal = "SELECT * FROM `journal` WHERE `username` = '$username'";
-$resultJournal = $conn->query($sqlJournal);
-if ($resultJournal->num_rows > 0) {
-    while ($rowname = $resultJournal->fetch_assoc()) {
-        $post = $rowname["entry"];
-        $time = $rowname["timePosted"];
-        echo "<tr>";
-        echo "<td>" . $post . "</td>";
-        echo "<td>" . $time . "</td>";
-        echo "</tr>";
-    }
-    ?>
-    </table>
-
-    <h3>Delete a Question</h3>
-
-    <?php
-    $sql2 = "SELECT `pos` FROM `questions` WHERE `username` = '$username'";
-    $result = $conn->query($sql2);
-    echo "<form action = \"profile.php\" method =\"post\"><p style='color: slateblue'>Delete Question:<select name = \"deleteQ\" style='color: black'>";
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<option value = '".$row["pos"]."'>".$row["pos"]."</option>";
-        }
-    }
-
-    echo "<input type=\"hidden\" name=\"action\" value=\"filled\"/>";
-    echo"<input type=\"submit\" name='submit' value='Submit' style='color:slateblue'/>";
-    echo "</form>";
-
-
-    if($action==="filled"){
-        $sql  = "DELETE FROM `questions` WHERE `question` = '$question' AND `username` = '$username'";
-        if($conn->query($sql) === TRUE){
-            echo"deleted";
-            ?>
-            <script>window.location.href="https://devweb2017.cis.strath.ac.uk/~szb15123/AdaptToYou/profile.php"</script>
+<div class="box">
+    <div class="container-fluid bg-3 text-center">
+        <table class="table table-striped" id="questionTable">
+            <tr>
+                <th>Questions</th>
+                <th>Delete</th>
+            </tr>
             <?php
 
-        }
-        else{
-            die("Error on insert"  .$conn-> error); //FIXME only use during debugging
-        }
-    }
-    ?>
+            $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
+            $resultJournal = $conn->query($sqlJournal);
+            if($resultJournal->num_rows>0) {
+                $questionNo = 1;
+                while ($rowname = $resultJournal->fetch_assoc()) {
+                    $pos = $rowname["pos"];
+                    $question = $rowname["question"];
+                    echo "<tr>";
+                    echo "<td style='float:left'>" . $question . "</td>";
+                    echo "<td><form><input type='button' value='Delete' onclick='deleteQ($pos)' class='btn'/></form></td>";
+                    echo "</tr>";
+                    $questionNo++;
+                }
+            }
+
+
+            ?>
+        </table>
+    </div>
 </div>
-    <?php
-}
-?>
+
 
 <script>
-    function logoutFunction(){
-        window.location.href="logout.php";
+    function deleteQ(questionNo){
+        var qNo = questionNo;
+        jQuery.post("deleteQ.php", {"questionNo": qNo}, function(data){
+            alert("deleted Question");
+            window.location.href="results.php";
+            console.log("question no is "+ qNo);
+        }).fail(function()
+        {
+            alert("something broke in sending support");
+        });
 
     }
+
+
+    function goBack(){
+        window.history.back();
+    }
 </script>
-
-
-
 <div class="clear"></div>
 </body>
 <footer>
     <div class="footer">
-    <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+
+        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div>
 </footer>
 </html>

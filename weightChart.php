@@ -4,17 +4,17 @@ session_start();
 function safePOST($conn,$name){
     if (isset($_POST[$name])) {
         return $conn->real_escape_string(strip_tags($_POST[$name]));
-} else {
-return "";
-}
+    } else {
+        return "";
+    }
 }
 function safePOSTNonMySQL($name){
-if(isset($_POST[$name])){
-return strip_tags($_POST[$name]);
-}
-else{
-return "";
-}
+    if(isset($_POST[$name])){
+        return strip_tags($_POST[$name]);
+    }
+    else{
+        return "";
+    }
 }
 
 //connect to the database now that we know we have enough to submit
@@ -29,22 +29,22 @@ $month = date("m");
 $year = date("Y");
 
 if(isset($_SESSION["sessionuser"])){
-$user = $_SESSION["sessionuser"];
-$sessionuser = $_SESSION["sessionuser"];
+    $user = $_SESSION["sessionuser"];
+    $sessionuser = $_SESSION["sessionuser"];
 }
 
 else{
-$sessionuser ="";
-$user = safePOSTNonMySQL("username");
-$pass = safePOSTNonMySQL("password");
+    $sessionuser ="";
+    $user = safePOSTNonMySQL("username");
+    $pass = safePOSTNonMySQL("password");
 }
 
 if($_SESSION['userName']==null){
-$_SESSION['userName'] = "unknownUser";
-?> <script>
-    localStorage.setItem('username', "unknownUser");
-    localStorage.setItem('loginOK', "no");
-</script><?php
+    $_SESSION['userName'] = "unknownUser";
+    ?> <script>
+        localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOK', "no");
+    </script><?php
 }
 
 $username = $_SESSION["userName"];
@@ -56,7 +56,8 @@ $loginOK = false; //TODO make this work with database values
 
 
 
-    ?>
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -97,6 +98,38 @@ $loginOK = false; //TODO make this work with database values
 
 
 
+
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Weight Monitoring"
+                },
+                axisY:{
+                    includeZero: false
+                },
+                data: [{
+                    type: "line",
+                    dataPoints: [
+                      <?php
+                        $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
+            $result= $conn->query($sql);
+            if($result->num_rows>0) {
+                while ($rowname = $result->fetch_assoc()) {
+                    $y = $rowname["kg"];
+                    echo "{y: $y},";
+                }
+            }
+            ?>
+
+                    ]
+                }]
+            });
+            chart.render();
+
+        }
     </script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -125,38 +158,29 @@ $loginOK = false; //TODO make this work with database values
         </div>
     </div>
 </nav>
+
+
 <div class="jumbotron text-center">
-    <h1>Homepage <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>Your Weight Chart</h1>
 </div>
 
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<br>
+<button class="btn" onclick="window.location.href='weight.php'">Make another entry</button>
 
-
-<button class="btn" onclick="submit()">Record how I am feeling!</button>
-<button class="btn" onclick="window.location.href='weight.php'">Record my weight</button>
-<button class="btn" onclick="window.location.href='physical.php'">Record my physical activity</button>
-
-
-
-
-
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
-    var slider = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    var value;
-
-
-    function submit(){
-        window.location.href="scale.php";
+    function goBack(){
+    window.history.back();
     }
-
-
-
 </script>
 </body>
-<div class="clear"></div>
+
 
 <footer>
     <div class="footer">
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

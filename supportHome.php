@@ -594,20 +594,6 @@ if($entriesM==0){
 <?php }?>
 <?php
 $question= (safePost($conn,"question"));
-//if($action==="filled") {
-//    if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_SESSION['form_submit'])) {
-//        extract($_POST);
-//        $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
-//        $conn->query($sql);
-//
-//        $_SESSION['form_submit'] = 'true';
-//    } else {
-//        $_SESSION['form_submit'] = 'NULL';
-//    }
-//}
-
-
-
 
 if($action==="filled"){
     $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
@@ -665,9 +651,6 @@ if($action==="filled"){
 
 
 <script>
-    //    let val1=90;
-    //    let val2=180;
-    //    let val3 = 90;
     var greenPain =<?php echo $greenPainBar?>;
     var amberPain =<?php echo $amberPainBar?>;
     var redPain = <?php echo $redPainBar ?>;
@@ -797,8 +780,6 @@ if($action==="filled"){
         });
     }
 </script>
-
-
 
 
 

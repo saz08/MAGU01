@@ -87,10 +87,6 @@ $loginOK = false; //TODO make this work with database values
         }
 
 
-
-
-    </script>
-    <script>
         var localUser = localStorage.getItem("username");
         // window.location.href = window.location.href+'?localUser='+localUser;
 
@@ -114,6 +110,48 @@ $loginOK = false; //TODO make this work with database values
         }
 
     </script>
+<style>
+    input {
+        display: table-cell;
+        vertical-align: middle
+    }
+
+    .caroBox{
+        display:inline-block;
+        width: 100%;
+        height: 50%;
+    }
+
+    .box{
+        display:inline-block;
+        margin: 0 10px;
+        width: 100%;
+        height:20%;
+        border: 1px solid #B132E8;
+        background:#DDA8FF ;
+
+    }
+    @media screen and (max-width:800px){
+        display: block;
+    }
+
+    label{
+        display:block;
+        padding-left:15px;
+        text-indent: -15px;
+    }
+    .choices{
+        width:13px;
+        height:13px;
+        padding:0;
+        margin:0;
+        vertical-align:bottom;
+        position:relative;
+        top:-1px;
+        *overflow:hidden;
+    }
+</style>
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -139,36 +177,9 @@ $loginOK = false; //TODO make this work with database values
         </div>
     </div>
 </nav>
-<div class="jumbotron text-center">
-    <h1>My Progress</h1>
-</div>
 
 
-
-<!--<p>A Collapsible:</p>-->
-<!--<button class="collapsible">Open Collapsible</button>-->
-<!--<div class="content">-->
-<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-<!--</div>-->
-<!---->
-<!--<p>Collapsible Set:</p>-->
-<!--<button class="collapsible">Open Section 1</button>-->
-<!--<div class="content">-->
-<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-<!--</div>-->
-<!--<button class="collapsible">Open Section 2</button>-->
-<!--<div class="content">-->
-<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-<!--</div>-->
-<!--<button class="collapsible">Open Section 3</button>-->
-<!--<div class="content">-->
-<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-<!--</div>-->
-
-
-
-
-    <?php
+<?php
 
 
     $sql  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `username` = '$username'";
@@ -286,24 +297,18 @@ if($entries!=0) {
     $redPBar = $redPerformance / ($entries) * 210;
 }
     ?>
-<?php  if($entries==0){
-    echo "<h2>No entries</h2>";
-}
+<?php
 if($entries!=0){
 ?>
-<div class="container-fluid bg-1 text-center">
-    <form method="get" class="radiostyle">
-        <label class="container">Show chart based on all records
-            <input type="radio" name="radio" value="1" id="1" onclick="submitAll()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="container">Show chart based on the records from this month
-            <input type="radio" name="radio" value="2" id="2" onclick="submitMonth()">
-            <span class="checkmark"></span>
-        </label>
-    </form>
+    <div class="container-fluid bg-1 text-center">
+
     <div class="container" id="allTime">
-        <h2>My Progress of all time</h2>
+        <div class="jumbotron text-center">
+            <h1>My Progress of All Time</h1>
+        </div>
+        <br>
+        <div class="caroBox">
+
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -396,8 +401,16 @@ if($entries!=0){
 
         </div>
     </div>
+    </div>
+
+
 
     <?php
+    }
+else{
+        echo "<div class='jumbotron text-center'>
+            <h2>No progress recorded</h2>
+        </div>";
     }
 
 
@@ -516,14 +529,17 @@ $performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
         $redPBarM = $redPerformanceM / ($entriesM) * 210;
     }
 
-    if($entriesM==0){
-        echo"<h2>No entries from the past month</h2>";
-    }
+
 
     ?>
     <?php if($entriesM!=0){ ?>
-    <div class="container" id="prevMonth">
-        <h2>My Progress over the past month</h2>
+
+            <div class="container" id="prevMonth">
+        <div class="jumbotron text-center">
+            <h1>My Progress over the past month</h1>
+        </div>
+        <br>
+                <div class="caroBox">
         <div id="myCarousel2" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -617,71 +633,45 @@ $performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
         </div>
     </div>
 </div>
-    <div class="container-fluid bg-2 text-center">
-
-        <p>Note down any questions you have</p>
-        <form method="post" name="questions">
-            <input type="text" name="question"><br>
-            <input type="hidden" name="action" value="filled">
-            <input type="submit" value="Save Question" class="btn"><br>
-        </form>
     </div>
+
+
+
+        <div class="box">
+    <form method="get" class="radiostyle">
+        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
+            <span class="checkmark"></span>
+            <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
+        </label>
+        <br>
+        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
+            <span class="checkmark"></span>
+            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
+
+        </label>
+    </form>
+
+        </div>
+<br>
 <?php
 }
-$question= (safePost($conn,"question"));
-//if($action==="filled") {
-//    if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($_SESSION['form_submit'])) {
-//        extract($_POST);
-//        $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
-//        $conn->query($sql);
-//
-//        $_SESSION['form_submit'] = 'true';
-//    } else {
-//        $_SESSION['form_submit'] = 'NULL';
-//    }
-//}
-
-
-
-
-if($action==="filled"){
-    $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
-    $conn->query($sql);?>
-<script>window.location.href="results.php";</script>
-<?php
+else{
+    echo "<div class='jumbotron text-center'>
+            <h2>No progress recorded over the past month</h2>
+        </div>";
 }
 ?>
-<div class="container-fluid bg-3 text-center">
-
-<table class="table table-striped" id="questionTable">
-    <tr>
-        <th>Questions</th>
-        <th>Delete</th>
-    </tr>
-    <?php
-
-    $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
-    $resultJournal = $conn->query($sqlJournal);
-    if($resultJournal->num_rows>0) {
-        $questionNo = 1;
-        while ($rowname = $resultJournal->fetch_assoc()) {
-            $pos = $rowname["pos"];
-            $question = $rowname["question"];
-            echo "<tr>";
-            echo "<td style='float:left'>" . $question . "</td>";
-            echo "<td><form><input type='button' value='Delete' onclick='deleteQ($pos)' class='btn'/></form></td>";
-            echo "</tr>";
-            $questionNo++;
-        }
-    }
+    <button onclick="goToChart()" class="btn">See your Weight Chart</button><br>
+<br>
+    <button onclick="goToQuestions()" class="btn">Go to your saved questions</button>
 
 
-    ?>
-</table>
-</div>
 
 
-</div>
+
+
+
+
 
 <script>
     function deleteQ(questionNo){
@@ -695,6 +685,14 @@ if($action==="filled"){
             alert("something broke in sending support");
         });
 
+    }
+
+    function goToChart(){
+        window.location.href="weightChart.php";
+    }
+
+    function goToQuestions(){
+        window.location.href="questions.php";
     }
 </script>
 

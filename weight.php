@@ -24,6 +24,11 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
+
+
+$month = date("m");
+$year = date("Y");
 
 if(isset($_SESSION["sessionuser"])){
     $user = $_SESSION["sessionuser"];
@@ -50,14 +55,33 @@ $username = $_SESSION["userName"];
 
 
 
+$loginOK = false; //TODO make this work with database values
 
-
+if($loginOK) {
+    if (!isset($_SESSION["sessionuser"])) {
+        session_regenerate_id();
+        $_SESSION["sessionuser"] = $user;
+    }
+}
 ?>
+<script>
+    if(localStorage.getItem("loginOK")===null){
+        localStorage.setItem("loginOK", "no")
+    }
+
+    function checkAlreadyLoggedIn(){
+        if(localStorage.getItem("loginOK")==="yes"){
+            alert("You are already logged in!");
+            window.location.href = "index.php";
+        }
+    }
+</script>
 
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
@@ -72,7 +96,7 @@ $username = $_SESSION["userName"];
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Adapt To You</title>
+    <title>Project</title>
     <script>
 
         if(localStorage.getItem("loginOK")===null){
@@ -108,6 +132,7 @@ $username = $_SESSION["userName"];
         }
 
     </script>
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -127,132 +152,100 @@ $username = $_SESSION["userName"];
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
 
+
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li><a href="logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>My Progress</h1>
+    <h1>Monitor your weight</h1>
 </div>
-<div id="body">
-<?php
-$sql2 = "SELECT * FROM `account` WHERE `username`= '$username'";
-$result= $conn->query($sql2);
-if($result->num_rows>0){
-    while ($row = $result->fetch_assoc()) {
-        echo "<option value = 'username'>Username: ".$row["username"]."</option>";
-        echo "<option value = 'gender'>Gender: ".$row["gender"]."</option>";
-        echo "<option value = 'age'>Age: ".$row["age"]."</option>";
-        if($row["smoker"]=="smoker"){
-            echo "<option value = 'smoker?'>Smoker Status: Never</option>";
-        }
-        else {
-            echo "<option value = 'smoker?'>Smoker Status: Current</option>";
-        }
+
+<div class="box"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
+    <p>Please weigh yourself once a week and input the results to keep track of your weight.</p>
+<p>You can input your weight in either KG or LBS</p></div>
 
 
-    }
-}
-
-?>
-    <button onclick="logoutFunction()">
-        Logout
-    </button>
-<table class="table table-striped" id="questionTable">
-    <tr>
-        <th>ID</th>
-        <th>Questions</th>
-    </tr>
-    <?php
-
-    $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
-    $resultJournal = $conn->query($sqlJournal);
-    if($resultJournal->num_rows>0) {
-        while ($rowname = $resultJournal->fetch_assoc()) {
-            $pos = $rowname["pos"];
-            $question = $rowname["question"];
-            echo "<tr>";
-            echo "<td>" . $pos . "</td>";
-            echo "<td>" . $question . "</td>";
-            echo "</tr>";
-        }
-    }
-
-
-    ?>
-</table>
-
-<table class="table table-striped">
-<tr>
-    <th>Diary Entries</th>
-    <th>Time</th>
-</tr>
-<?php
-
-$sqlJournal = "SELECT * FROM `journal` WHERE `username` = '$username'";
-$resultJournal = $conn->query($sqlJournal);
-if ($resultJournal->num_rows > 0) {
-    while ($rowname = $resultJournal->fetch_assoc()) {
-        $post = $rowname["entry"];
-        $time = $rowname["timePosted"];
-        echo "<tr>";
-        echo "<td>" . $post . "</td>";
-        echo "<td>" . $time . "</td>";
-        echo "</tr>";
-    }
-    ?>
-    </table>
-
-    <h3>Delete a Question</h3>
-
-    <?php
-    $sql2 = "SELECT `pos` FROM `questions` WHERE `username` = '$username'";
-    $result = $conn->query($sql2);
-    echo "<form action = \"profile.php\" method =\"post\"><p style='color: slateblue'>Delete Question:<select name = \"deleteQ\" style='color: black'>";
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<option value = '".$row["pos"]."'>".$row["pos"]."</option>";
-        }
-    }
-
-    echo "<input type=\"hidden\" name=\"action\" value=\"filled\"/>";
-    echo"<input type=\"submit\" name='submit' value='Submit' style='color:slateblue'/>";
-    echo "</form>";
-
-
-    if($action==="filled"){
-        $sql  = "DELETE FROM `questions` WHERE `question` = '$question' AND `username` = '$username'";
-        if($conn->query($sql) === TRUE){
-            echo"deleted";
-            ?>
-            <script>window.location.href="https://devweb2017.cis.strath.ac.uk/~szb15123/AdaptToYou/profile.php"</script>
-            <?php
-
-        }
-        else{
-            die("Error on insert"  .$conn-> error); //FIXME only use during debugging
-        }
-    }
-    ?>
-</div>
-    <?php
-}
-?>
+<form method="post" class="WHOstyle">
+    Values are recorded using KG. Input value to see approximate conversion to LBS
+    <input id="inputKilograms" type="number" placeholder="Kilograms" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
+    <span id="outputStones"></span>
+    <input type="hidden" name="action" value="filled">
+    <input type="submit" name="submit" value="Submit"/>
+</form>
+<!--<form method="post" class="WHOstyle">-->
+<!--    Values are recorded using LBS. Input value to see approximate conversion to KG-->
+<!--    <input id="inputKilograms" type="number" placeholder="Kilograms" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">-->
+<!--    <span id="outputKilograms"></span>-->
+<!--    <input type="hidden" name="action" value="filled">-->
+<!--    <input type="submit" name="submit" value="Submit"/>-->
+<!--</form>-->
 
 <script>
-    function logoutFunction(){
-        window.location.href="logout.php";
-
+    function weightConverter(valNum) {
+        document.getElementById("outputStones").innerHTML="Converted value: "+valNum*0.1574+" LBS";
+    }
+    function weightConverterKG(valNum) {
+        document.getElementById("outputKilograms").innerHTML="Converted value: "+valNum/0.15747+"KG";
     }
 </script>
 
 
+<?php
+if($action === "filled") {
+    $kg = (safePost($conn,"KG"));
+    $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
+    $resultID=$conn->query($sql1);
+    if($resultID->num_rows>0) {
+        while ($rowname = $resultID->fetch_assoc()) {
+            $id = $rowname["id"];
 
-<div class="clear"></div>
+        }
+    }
+
+    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`) VALUES ('$id', '$username', '$kg' )";
+    if ($conn->query($sql) === TRUE) {
+        ?>
+        <script>
+            window.location.href = "index.php";
+        </script>
+        <?php
+    }
+}
+
+
+
+?>
+
+<script>
+
+    var slider = document.getElementById("myRange");
+    var value;
+
+
+    function goBack(){
+        window.history.back();
+    }
+
+    function submit(){
+        console.log(this.value + "value");
+        localStorage.setItem("Pain",slider.value);
+        window.location.href="Breathlessness.php";
+    }
+
+    function outputUpdate(num) {
+        document.querySelector('#output').value = num;
+    }
+</script>
 </body>
+<div class="clear"></div>
+
 <footer>
     <div class="footer">
-    <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div>
-</footer>
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+    </div></footer>
 </html>

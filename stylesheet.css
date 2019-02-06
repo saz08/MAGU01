@@ -11,7 +11,10 @@ html{
 }
 
 body {
-    font: 400 15px Arial , sans-serif;
+    /*font: 400 15px Arial , sans-serif;*/
+    font: 400 15px Montserrat, sans-serif;
+    font-family: Montserrat, sans-serif;
+
     line-height: 1.8;
     color: black;
     background-color: #DDA8FF;
@@ -53,7 +56,8 @@ body {
     border: mediumpurple;
     border-radius: 5rem;
     background-color: lavender;
-    font-size: 16px;
+    font: 400 15px Montserrat, sans-serif;
+
     color: black;
     display:flex;
     resize: none;
@@ -67,6 +71,8 @@ h1{
     position: absolute;
     text-transform: capitalize;
     color: black;
+    font-family: Montserrat, sans-serif;
+
 }
 h2 {
     font-size: 24px;
@@ -74,6 +80,8 @@ h2 {
     color: #303030;
     font-weight: 600;
     margin-bottom: 30px;
+    font-family: Montserrat, sans-serif;
+
 }
 h4 {
     font-size: 19px;
@@ -81,6 +89,8 @@ h4 {
     color: #303030;
     font-weight: 400;
     margin-bottom: 30px;
+    font-family: Montserrat, sans-serif;
+
 }
 .jumbotron {
     background-color: #DDA8FF;
@@ -348,7 +358,7 @@ output {
     border: mediumpurple;
     border-radius: 5rem;
     background-color: floralwhite;
-    font-size: 16px;
+    font: 400 15px Montserrat, sans-serif;
     color: black;
     resize: none;
 }

@@ -45,44 +45,6 @@ $action = safePOST($conn, "action");
 
     <meta charset="UTF-8">
     <title>Project</title>
-<!--    <script>-->
-<!---->
-<!--        if(localStorage.getItem("loginOK")===null){-->
-<!--            localStorage.setItem("loginOK", "no");-->
-<!--        }-->
-<!--        function checkLogIn(){-->
-<!--            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';-->
-<!---->
-<!--        }-->
-<!---->
-<!--    </script>-->
-<!--    <script>-->
-<!--        var localUser = localStorage.getItem("username");-->
-<!--        // window.location.href = window.location.href+'?localUser='+localUser;-->
-<!---->
-<!--        if(localStorage.getItem("loginOK")===null){-->
-<!--            localStorage.setItem("loginOK", "no");-->
-<!--        }-->
-<!---->
-<!--        if(localStorage.getItem("loginOK")==="no"){-->
-<!--            window.location.href="signUp.php";-->
-<!--        }-->
-<!---->
-<!---->
-<!--        function checkLogIn(){-->
-<!--            return localStorage.getItem("loginOK")==="yes";-->
-<!--        }-->
-<!---->
-<!--        function checkUser(){-->
-<!--            localUser = localStorage.getItem("username");-->
-<!--            console.log("username in local storage" + localStorage.getItem("username"));-->
-<!--            return localStorage.getItem("username");-->
-<!--        }-->
-<!---->
-<!--        var oldURL = document.referrer;-->
-<!---->
-<!---->
-<!--    </script>-->
 </head>
 <?php
 $id = $_GET['id'];
@@ -141,14 +103,10 @@ if($patient->num_rows>0){
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?></h1>
 </div>
-
-
-
-
 </div>
-
-
 </div>
+<button class="btn">View Progress Chart</button>
+<button class="btn">View Weight Monitoring</button>
 
 
         <?php
@@ -199,8 +157,8 @@ if($patient->num_rows>0){
                 echo"<div style=\"overflow-x: scroll\">";
                 echo"<table class='table table-hover row-clickable' id='doctorTable' >";
         echo"<tr>";
-          echo"  <th>Most Recent Pain Rate</th>";
-           echo" <th>Most Recent Breathlessness Rate</th>";
+          echo"<th>Most Recent Pain Rate</th>";
+           echo"<th>Most Recent Breathlessness Rate</th>";
             echo"<th>Most Recent Performance Score</th>";
 
         echo"</tr>";
@@ -209,7 +167,7 @@ if($patient->num_rows>0){
                     echo "<td style='background-color: red;color: black'>" . $rowname["pain"] . "</a></td>";
                 }
 
-                else if($rowname["pain"]>=4||$rowname["pain"]<=7){
+                else if($rowname["pain"]>=4&&$rowname["pain"]<=7){
                     echo "<td style='background-color: orange;color: black'>" . $rowname["pain"] . "</a></td>";
                 }
                 else{
@@ -219,7 +177,7 @@ if($patient->num_rows>0){
                     echo "<td style='background-color: red;color: black'>" . $rowname["breathlessness"] . "</a></td>";
                 }
 
-                else if($rowname["breathlessness"]>=2||$rowname["breathlessness"]<=4){
+                else if($rowname["breathlessness"]>=2&&$rowname["breathlessness"]<=4){
                     echo "<td style='background-color: orange;color: black'>" . $rowname["breathlessness"] . "</a></td>";
                 }
                 else{
@@ -229,7 +187,7 @@ if($patient->num_rows>0){
                     echo "<td style='background-color: red;color: black'>" . $rowname["performance"] . "</a></td>";
                 }
 
-                else if($rowname["performance"]>=1||$rowname["performance"]<=2){
+                else if($rowname["performance"]>=1&&$rowname["performance"]<=2){
                     echo "<td style='background-color: orange;color: black'>" . $rowname["performance"] . "</a></td>";
                 }
                 else{
@@ -249,10 +207,6 @@ if($patient->num_rows>0){
 
 
 
-
-
-
-
         <?php
         $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
         $patient=$conn->query($sqlPatient);
@@ -268,7 +222,7 @@ if($patient->num_rows>0){
                     while($rowname=$support->fetch_assoc()){
                         echo "<div style='overflow-x: scroll'>";
                         echo "<table class='table table-hover row-clickable' id='doctorTable' >";
-                        echo" <tr>";
+                        echo"<tr>";
                         echo"<th>Support Circle</th>";
                         echo "<th>Relation</th>";
                         echo "</tr>";
@@ -284,15 +238,6 @@ if($patient->num_rows>0){
 
                     }
                 }
-
-
-
-
-
-
-
-
-
             }
         }
 

@@ -114,10 +114,7 @@ $action = safePOST($conn, "action");
         <th>Forename</th>
         <th>Surname</th>
         <th>ID</th>
-        <th>Birthday</th>
-        <th>Gender</th>
-        <th>Address</th>
-        <th>Contact No</th>
+
     </tr>
     <?php
 
@@ -129,10 +126,7 @@ $action = safePOST($conn, "action");
             echo "<td>" . $rowname["forename"] . "</a></td>";
             echo "<td>" . $rowname["surname"] . "</td>";
             echo "<td><a href='patient.php?id=+".$rowname["id"]."'>" . $rowname["id"] . "</a></td>";
-            echo "<td>" . $rowname["birthday"] . "</td>";
-            echo "<td>" . $rowname["gender"] . "</td>";
-            echo "<td>" . $rowname["address"] . "</td>";
-            echo "<td>" . $rowname["contactNo"] . "</td>";
+
 
             echo "</tr>";
         }
