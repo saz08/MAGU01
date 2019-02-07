@@ -48,28 +48,8 @@ if($_SESSION['userName']==null){
 }
 
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
-
-
 $loginOK = false; //TODO make this work with database values
 
-?>
-<script xmlns="http://www.w3.org/1999/html">if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }</script>
-<script>
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
-    }
-</script>
-<?php
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
         session_regenerate_id();
@@ -100,41 +80,6 @@ if($loginOK) {
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
-    </script>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">

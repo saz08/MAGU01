@@ -40,19 +40,7 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 $loginOK = false; //TODO make this work with database values
-?>
-<script xmlns="http://www.w3.org/1999/html">if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }</script>
-<script>
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
-    }
-</script>
-<?php
+
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
         session_regenerate_id();

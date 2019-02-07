@@ -46,15 +46,8 @@ if($_SESSION['userName']==null){
         localStorage.setItem('loginOK', "no");
     </script><?php
 }
-
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
 $loginOK = false; //TODO make this work with database values
-
-
-
-
-
 
 
 ?>
@@ -81,25 +74,6 @@ $loginOK = false; //TODO make this work with database values
     <meta charset="UTF-8">
     <title>Project</title>
     <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-
-
-
-
         window.onload = function () {
 
             var chart = new CanvasJS.Chart("chartContainer", {
@@ -129,7 +103,6 @@ $loginOK = false; //TODO make this work with database values
                 }]
             });
             chart.render();
-
         }
     </script>
 </head>
@@ -162,7 +135,7 @@ $loginOK = false; //TODO make this work with database values
 
 
 <div class="jumbotron text-center">
-    <h1>Your Weight Chart</h1>
+    <h1>My Weight Chart</h1>
 </div>
 
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>

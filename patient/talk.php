@@ -75,48 +75,6 @@ $loginOK = false; //TODO make this work with database values
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
-    </script>
-    <style>
-        .fa {
-            font-size: 4rem;
-            cursor: pointer;
-            user-select: none;
-        }
-
-
-    </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -267,39 +225,7 @@ if($action2==="filled"){
 
 <script>
 
-    function deletePost(posDB){
-       // var user = username;
-        var pos = posDB;
-        jQuery.post("deleteForumPost.php", {"Position": pos}, function(data){
-            alert("Forum post deleted successfully");
-            window.location.href="talk.php";
-        }).fail(function()
-        {
-            alert("something broke in deleting your post");
-        });
-    }
 
-
-    function deleteComment(posID){
-        var posComment = posID;
-        jQuery.post("deleteComment.php", {"Position": posComment}, function(data){
-            alert("Comment deleted successfully");
-            window.location.href="talk.php";
-        }).fail(function()
-        {
-            alert("something broke in deleting your comment");
-        });
-    }
-
-    function showCommentOption(divID) {
-        var x = document.getElementById("content_"+divID);
-        console.log("div id " + divID );
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
 
 
     function heartClick(divID){

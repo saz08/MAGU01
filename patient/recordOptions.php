@@ -79,26 +79,6 @@ $loginOK = false; //TODO make this work with database values
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-
-
-
-    </script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -138,22 +118,6 @@ $loginOK = false; //TODO make this work with database values
 <button class="btn" onclick="window.location.href='physical.php'">Record my physical activity</button>
 
 
-
-
-
-<script>
-    var slider = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    var value;
-
-
-    function submit(){
-        window.location.href="scale.php";
-    }
-
-
-
-</script>
 </body>
 <div class="clear"></div>
 

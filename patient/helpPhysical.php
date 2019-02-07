@@ -62,20 +62,6 @@ if($loginOK) {
     }
 }
 ?>
-<script>
-    if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }
-
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
-    }
-</script>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,18 +82,6 @@ if($loginOK) {
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <script>
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-    </script>
-
     <style>
         .collapsible {
             background-color: purple;
@@ -195,13 +169,6 @@ if($loginOK) {
 
 
 <script>
-
-
-    function submit(){
-        console.log(this.value + "value");
-        localStorage.setItem("Pain",slider.value);
-        window.location.href="Breathlessness.php";
-    }
 
     var coll = document.getElementsByClassName("collapsible");
     var i;

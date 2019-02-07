@@ -1,25 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: User
- * Date: 17/01/2019
- * Time: 02:07 PM
- */
 session_start();
-?>
-<!--<script>-->
-<!--    var painTxt = localStorage.getItem("Pain");-->
-<!--    var breathlessnessTxt= localStorage.getItem("Breathlessness");-->
-<!--    var performanceTxt = localStorage.getItem("Performance");-->
-<!--    jQuery.post("textMsg.php", {"Pain": painTxt, "Breathlessness": breathlessnessTxt, "Performance": performanceTxt}, function(data){-->
-<!--        alert("Doctor notified of how you feel");-->
-<!--        window.location.href="index.html";-->
-<!--    }).fail(function()-->
-<!--    {-->
-<!--        alert("something broke in emailing your doctor");-->
-<!--    });-->
-<!--</script>-->
-<?php
 
 //connect to the database now that we know we have enough to submit
 $host = "devweb2018.cis.strath.ac.uk";
@@ -71,14 +51,6 @@ if($resultID->num_rows>0) {
     }
 }
 
-//if($pain>=4&&$pain<=7||$breathlessness>=2&&$breathlessness<=4||$performance=2){
-//    $amberWarning="Yes";
-//}
-//if($pain>7||$breathlessness>4||$performance>2){
-//    $redWarning="Yes";
-//}
-//
-//if($amberWarning="Yes"){
 
     if($pain>=4&&$pain<=7){
         $amberPainWarning = "Amber Pain Rating between 4 and 7";
@@ -90,9 +62,7 @@ if($resultID->num_rows>0) {
         $amberPerformanceWarning="Amber Performance Score of 2";
     }
 
-//}
 
-//if($redWarning=="Yes"){
     if($pain>7){
         $redPainWarning = "Red Pain Rating greater than 7";
     }
@@ -102,7 +72,7 @@ if($resultID->num_rows>0) {
     if($performance>=3){
         $redPerformanceWarning="Red Performance score greater than 2";
     }
-//}
+
 
 $txtSQL  = "SELECT `docEmail` FROM `chi` WHERE `id`='$id'";
 $resultTXT=$conn->query($txtSQL);

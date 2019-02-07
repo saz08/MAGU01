@@ -48,11 +48,6 @@ if($_SESSION['userName']==null){
 }
 
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
 $loginOK = false; //TODO make this work with database values
 
 if($loginOK) {
@@ -62,19 +57,6 @@ if($loginOK) {
     }
 }
 ?>
-<script>
-    if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }
-
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
-    }
-</script>
-
 
 <!DOCTYPE html>
 <html lang="en">

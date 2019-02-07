@@ -76,41 +76,7 @@ $loginOK = false; //TODO make this work with database values
     <script src="../js/script.js"></script>
 
     <meta charset="UTF-8">
-    <title>Adapt To You</title>
-    <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
-        }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
-    </script>
+    <title>Project</title>
 <style>
     input {
         display: table-cell;
@@ -790,10 +756,7 @@ else{
         var y = document.getElementById("prevMonth");
         x.style.display="none";
         y.style.display="block";
-        function logoutFunction(){
-            window.location.href="logout.php";
 
-        }
 
         function submitAll(){
                 var x = document.getElementById("allTime");
