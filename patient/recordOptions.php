@@ -113,7 +113,7 @@ $loginOK = false; //TODO make this work with database values
 
 
 
-<button class="btn" onclick="submit()">Record how I am feeling!</button>
+<button class="btn" onclick="window.location.href='scale.php'">Record how I am feeling!</button>
 <button class="btn" onclick="window.location.href='weight.php'">Record my weight</button>
 <button class="btn" onclick="window.location.href='physical.php'">Record my physical activity</button>
 
