@@ -53,7 +53,7 @@ $loginOK= false; //TODO make this work with database values
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOK")==="yes"){
             alert("You are already logged in!");
-            window.location.href = "index.php";
+            window.location.href = "../patient/index.php";
         }
         else if(localStorage.getItem("loginOKSupport")==="yes"){
             alert("You are already logged in!");
@@ -83,7 +83,7 @@ if($loginOK) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -103,7 +103,7 @@ if($loginOK) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="signUp.php">SURVIVORS</a></li>
+                <li><a href="../patient/signUp.php">SURVIVORS</a></li>
                 <li><a href="supportSignUp.php">SUPPORTERS</a></li>
 
             </ul>
@@ -112,7 +112,7 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>SUPPORT CIRCLE HOMEPAGE <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+    <h1>SUPPORT CIRCLE HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
 <!-- 3 columns under Welcome Jumbotron -->
@@ -122,7 +122,7 @@ if($loginOK) {
             <form name="login" method="post">
                 <h2 style="color:black">Login</h2>
                 <p class="lead"style="color:#f7f7f7;">
-                    <form name="login" method="post" action="index.php">
+                    <form name="login" method="post" action="../patient/index.php">
                 <p>Username:<br> <input type="text" name="username" value=""/></p>
                 <p>Password: <br><input type="password" name="password" value=""/></p>
                 <input type="hidden" name="action" value="filled">

@@ -97,7 +97,7 @@ $action = safePOST($conn, "action");
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
-                <li><a href="createID.php">ADD PATIENT</a></li>
+                <li><a href="professional/createID.php">ADD PATIENT</a></li>
 
             </ul>
         </div>

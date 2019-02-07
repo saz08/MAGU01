@@ -43,7 +43,6 @@ if($_SESSION['userName']==null){
     $_SESSION['userName'] = "unknownUser";
     ?> <script>
         localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
     </script><?php
 }
 
@@ -54,9 +53,10 @@ $username = $_SESSION["userName"];
 
 
 
-$loginOK = false; //TODO make this work with database values
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,43 +64,45 @@ $loginOK = false; //TODO make this work with database values
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-
+    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Adapt To You</title>
     <script>
 
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
+        if(localStorage.getItem("loginOKSupport")===null){
+            localStorage.setItem("loginOKSupport", "no");
         }
         function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
+            return localStorage.getItem("loginOKSupport")==="yes" && localStorage.getItem('username')!=='unknownUser';
 
         }
+
+
+
 
     </script>
     <script>
         var localUser = localStorage.getItem("username");
         // window.location.href = window.location.href+'?localUser='+localUser;
 
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
+        if(localStorage.getItem("loginOKSupport")===null){
+            localStorage.setItem("loginOKSupport", "no");
         }
 
-        if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
+        if(localStorage.getItem("loginOKSupport")==="no"){
+            window.location.href="supportSignUp.php";
         }
 
 
         function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
+            return localStorage.getItem("loginOKSupport")==="yes";
         }
 
         function checkUser(){
@@ -123,65 +125,31 @@ $loginOK = false; //TODO make this work with database values
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
-                <li><a href="talk.php">TALK</a></li>
-                <li><a href="links.html">HELP</a></li>
-                <li><a href="results.php">PROFILE</a></li>
-
+                <li><a href="supportHome.php">HOME</a></li>
+                <li><a href="supportInput.php">RECORD</a></li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
+                <li><a href="../patient/logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
-    <h1>Diary Entry and Questions</h1>
+    <h1>Record any information about your survivor <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 
-<p>Record how you are feeling today...</p>
-<form action="addEntry.php" method="post" name="journal">
-    <input type="text" name="entry"><br>
-    <input type="submit"  value="Submit">
-</form>
-
-
-<p>Note down any questions you have</p>
-<form action="diary.php" method="post" name="questions" >
-    <input type="text" name="question"><br>
-    <input type="hidden" name="action" value="filled">
-    <input type="submit" value="Save Question">
-</form>
-
-<?php
-$question= (safePost($conn,"question"));
-
-if($action==="filled"){
-    $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
-    if($conn->query($sql) === TRUE){
-        echo"added";
-        ?>
-        <script>window.location.href="index.php"</script>
-        <?php
-
-    }
-    else{
-        die("Error on insert username is $username, entry is $entry and "  .$conn-> error); //FIXME only use during debugging
-    }
-}
-?>
 
 
 
 
 
-</body>
 <div class="clear"></div>
-
+</body>
 <footer>
     <div class="footer">
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div></footer>
+    </div>
+</footer>
 </html>

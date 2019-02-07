@@ -24,8 +24,6 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
-$action2 = safePOST($conn, "action2");
-
 
 $month = date("m");
 $year = date("Y");
@@ -92,8 +90,9 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -147,7 +146,7 @@ if($loginOK) {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
@@ -161,74 +160,29 @@ if($loginOK) {
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Monitor your weight</h1>
+    <h1>Monitor your pain levels</h1>
 </div>
 
-<div class="box"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
-    <p>Please weigh yourself once a week and input the results to keep track of your weight.</p>
-<p>You can input your weight in either KG or LBS</p></div>
+<div class="box">On a scale of 0 - 10, 0 meaning no pain and 10 meaning extremely painful . Please rate your pain using the slider below </div>
 
+<div id="pain scale" class="slidecontainer">
 
-<form method="post" class="WHOstyle">
-    Values are recorded using KG. Input value to see approximate conversion to LBS
-    <input id="inputKilograms" type="number" placeholder="Kilograms" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
-    <span id="outputStones"></span>
-    <input type="hidden" name="action" value="filled">
-    <input type="submit" name="submit" value="Submit"/>
-</form>
-<!--<form method="post" class="WHOstyle">-->
-<!--    Values are recorded using LBS. Input value to see approximate conversion to KG-->
-<!--    <input id="inputKilograms" type="number" placeholder="Kilograms" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">-->
-<!--    <span id="outputKilograms"></span>-->
-<!--    <input type="hidden" name="action" value="filled">-->
-<!--    <input type="submit" name="submit" value="Submit"/>-->
-<!--</form>-->
-
-<script>
-    function weightConverter(valNum) {
-        document.getElementById("outputStones").innerHTML="Converted value: "+valNum*0.1574+" LBS";
-    }
-    function weightConverterKG(valNum) {
-        document.getElementById("outputKilograms").innerHTML="Converted value: "+valNum/0.15747+"KG";
-    }
-</script>
-
-
-<?php
-if($action === "filled") {
-    $kg = (safePost($conn,"KG"));
-    $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
-    $resultID=$conn->query($sql1);
-    if($resultID->num_rows>0) {
-        while ($rowname = $resultID->fetch_assoc()) {
-            $id = $rowname["id"];
-
-        }
-    }
-
-    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`) VALUES ('$id', '$username', '$kg' )";
-    if ($conn->query($sql) === TRUE) {
-        ?>
-        <script>
-            window.location.href = "index.php";
-        </script>
-        <?php
-    }
-}
+    <form>
+        <input type="range"  step="1" min="0" max="10" class="slider" id="myRange" oninput="outputUpdate(value)">
+        <div style="float:left"><p style="font-size: 2em">0</p></div>
+        <div style="float:right"><p style="font-size: 2em">10</p></div>
+        <output for=value id="output" style="color: black">5</output>
+    </form>
+</div>
 
 
 
-?>
 
 <script>
 
     var slider = document.getElementById("myRange");
     var value;
 
-
-    function goBack(){
-        window.history.back();
-    }
 
     function submit(){
         console.log(this.value + "value");
@@ -246,6 +200,7 @@ if($action === "filled") {
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

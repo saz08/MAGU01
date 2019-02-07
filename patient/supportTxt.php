@@ -62,8 +62,9 @@ $username = $_SESSION["userName"];
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -119,7 +120,7 @@ $username = $_SESSION["userName"];
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
@@ -133,7 +134,7 @@ $username = $_SESSION["userName"];
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Add to your Support Circle <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>Add to your Support Circle <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
 <div class="container-fluid bg-1 text-center">
@@ -193,6 +194,7 @@ if($support->num_rows>0){
 
 <footer>
     <div class="footer">
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

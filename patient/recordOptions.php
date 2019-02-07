@@ -4,17 +4,17 @@ session_start();
 function safePOST($conn,$name){
     if (isset($_POST[$name])) {
         return $conn->real_escape_string(strip_tags($_POST[$name]));
-} else {
-return "";
-}
+    } else {
+        return "";
+    }
 }
 function safePOSTNonMySQL($name){
-if(isset($_POST[$name])){
-return strip_tags($_POST[$name]);
-}
-else{
-return "";
-}
+    if(isset($_POST[$name])){
+        return strip_tags($_POST[$name]);
+    }
+    else{
+        return "";
+    }
 }
 
 //connect to the database now that we know we have enough to submit
@@ -29,22 +29,22 @@ $month = date("m");
 $year = date("Y");
 
 if(isset($_SESSION["sessionuser"])){
-$user = $_SESSION["sessionuser"];
-$sessionuser = $_SESSION["sessionuser"];
+    $user = $_SESSION["sessionuser"];
+    $sessionuser = $_SESSION["sessionuser"];
 }
 
 else{
-$sessionuser ="";
-$user = safePOSTNonMySQL("username");
-$pass = safePOSTNonMySQL("password");
+    $sessionuser ="";
+    $user = safePOSTNonMySQL("username");
+    $pass = safePOSTNonMySQL("password");
 }
 
 if($_SESSION['userName']==null){
-$_SESSION['userName'] = "unknownUser";
-?> <script>
-    localStorage.setItem('username', "unknownUser");
-    localStorage.setItem('loginOK', "no");
-</script><?php
+    $_SESSION['userName'] = "unknownUser";
+    ?> <script>
+        localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOK', "no");
+    </script><?php
 }
 
 $username = $_SESSION["userName"];
@@ -56,7 +56,7 @@ $loginOK = false; //TODO make this work with database values
 
 
 
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,10 +71,11 @@ $loginOK = false; //TODO make this work with database values
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="clipart2199929.png">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <script src="../js/script.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -112,7 +113,7 @@ $loginOK = false; //TODO make this work with database values
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
@@ -126,8 +127,9 @@ $loginOK = false; //TODO make this work with database values
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Homepage <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>Record <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+<br>
 
 
 

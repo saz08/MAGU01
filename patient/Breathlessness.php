@@ -25,6 +25,9 @@ $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
 
+$month = date("m");
+$year = date("Y");
+
 if(isset($_SESSION["sessionuser"])){
     $user = $_SESSION["sessionuser"];
     $sessionuser = $_SESSION["sessionuser"];
@@ -48,31 +51,55 @@ $username = $_SESSION["userName"];
 //$username= "<script>localStorage.getItem('username')</script>";
 
 
+$loginOK = false; //TODO make this work with database values
 
 
 
 
 ?>
 
+<script xmlns="http://www.w3.org/1999/html">if(localStorage.getItem("loginOK")===null){
+        localStorage.setItem("loginOK", "no")
+    }</script>
+<script>
+    function checkAlreadyLoggedIn(){
+        if(localStorage.getItem("loginOK")==="yes"){
+            alert("You are already logged in!");
+            window.location.href = "index.php";
+        }
+    }
+</script>
+<?php
+if($loginOK) {
+    if (!isset($_SESSION["sessionuser"])) {
+        session_regenerate_id();
+        $_SESSION["sessionuser"] = $user;
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
 
     <meta charset="UTF-8">
-    <title>Adapt To You</title>
+    <title>Project</title>
     <script>
 
         if(localStorage.getItem("loginOK")===null){
@@ -108,6 +135,7 @@ $username = $_SESSION["userName"];
         }
 
     </script>
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -122,137 +150,88 @@ $username = $_SESSION["userName"];
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
 
+
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li><a href="logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>My Progress</h1>
+    <h1>Monitor breathlessness</h1>
 </div>
-<div id="body">
-<?php
-$sql2 = "SELECT * FROM `account` WHERE `username`= '$username'";
-$result= $conn->query($sql2);
-if($result->num_rows>0){
-    while ($row = $result->fetch_assoc()) {
-        echo "<option value = 'username'>Username: ".$row["username"]."</option>";
-        echo "<option value = 'gender'>Gender: ".$row["gender"]."</option>";
-        echo "<option value = 'age'>Age: ".$row["age"]."</option>";
-        if($row["smoker"]=="smoker"){
-            echo "<option value = 'smoker?'>Smoker Status: Never</option>";
-        }
-        else {
-            echo "<option value = 'smoker?'>Smoker Status: Current</option>";
-        }
+
+<div class="box">The following is the MRC Breathlessness scale. Please tick the box that you feel you apply to</div>
+
+<form method="get" class="radiostyle">
+<label class="container">1: Not troubled by breathlessness except on strenuous exercise
+    <input type="radio" name="radio" value="1" id="1">
+    <span class="checkmark"></span>
+</label>
+<label class="container">2 :Short of breath when hurrying on the level or walking up a slight hill
+    <input type="radio" name="radio" value="2" id="2">
+    <span class="checkmark"></span>
+</label>
+<label class="container">3: Walks slower than most people on the level, stops after a mile or so, or stops after 15 minutes walking at own pace
+    <input type="radio" name="radio" value="3" id="3">
+    <span class="checkmark"></span>
+</label>
+<label class="container">4: Stops for breath after walking about 100 yds or after a few minutes on level ground
+    <input type="radio" name="radio" value="4" id="4">
+    <span class="checkmark"></span>
+</label>
+<label class="container">5: Too breathless to leave the house, or breathless when undressing
+    <input type="radio" name="radio" value="5" id="5">
+    <span class="checkmark"></span>
+</label>
+</form>
 
 
-    }
-}
 
-?>
-    <button onclick="logoutFunction()">
-        Logout
-    </button>
-<table class="table table-striped" id="questionTable">
-    <tr>
-        <th>ID</th>
-        <th>Questions</th>
-    </tr>
-    <?php
-
-    $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
-    $resultJournal = $conn->query($sqlJournal);
-    if($resultJournal->num_rows>0) {
-        while ($rowname = $resultJournal->fetch_assoc()) {
-            $pos = $rowname["pos"];
-            $question = $rowname["question"];
-            echo "<tr>";
-            echo "<td>" . $pos . "</td>";
-            echo "<td>" . $question . "</td>";
-            echo "</tr>";
-        }
-    }
-
-
-    ?>
-</table>
-
-<table class="table table-striped">
-<tr>
-    <th>Diary Entries</th>
-    <th>Time</th>
-</tr>
-<?php
-
-$sqlJournal = "SELECT * FROM `journal` WHERE `username` = '$username'";
-$resultJournal = $conn->query($sqlJournal);
-if ($resultJournal->num_rows > 0) {
-    while ($rowname = $resultJournal->fetch_assoc()) {
-        $post = $rowname["entry"];
-        $time = $rowname["timePosted"];
-        echo "<tr>";
-        echo "<td>" . $post . "</td>";
-        echo "<td>" . $time . "</td>";
-        echo "</tr>";
-    }
-    ?>
-    </table>
-
-    <h3>Delete a Question</h3>
-
-    <?php
-    $sql2 = "SELECT `pos` FROM `questions` WHERE `username` = '$username'";
-    $result = $conn->query($sql2);
-    echo "<form action = \"profile.php\" method =\"post\"><p style='color: slateblue'>Delete Question:<select name = \"deleteQ\" style='color: black'>";
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<option value = '".$row["pos"]."'>".$row["pos"]."</option>";
-        }
-    }
-
-    echo "<input type=\"hidden\" name=\"action\" value=\"filled\"/>";
-    echo"<input type=\"submit\" name='submit' value='Submit' style='color:slateblue'/>";
-    echo "</form>";
-
-
-    if($action==="filled"){
-        $sql  = "DELETE FROM `questions` WHERE `question` = '$question' AND `username` = '$username'";
-        if($conn->query($sql) === TRUE){
-            echo"deleted";
-            ?>
-            <script>window.location.href="https://devweb2017.cis.strath.ac.uk/~szb15123/AdaptToYou/profile.php"</script>
-            <?php
-
-        }
-        else{
-            die("Error on insert"  .$conn-> error); //FIXME only use during debugging
-        }
-    }
-    ?>
-</div>
-    <?php
-}
-?>
 
 <script>
-    function logoutFunction(){
-        window.location.href="logout.php";
+
+
+    function submit(){
+       if(document.getElementById('1').checked){
+           localStorage.setItem("Breathlessness", 1);
+       }
+        if(document.getElementById('2').checked){
+            localStorage.setItem("Breathlessness", 2);
+        }
+        if(document.getElementById('3').checked){
+            localStorage.setItem("Breathlessness", 3);
+        }
+        if(document.getElementById('4').checked){
+            localStorage.setItem("Breathlessness", 4);
+        }
+        if(document.getElementById('5').checked){
+            localStorage.setItem("Breathlessness", 5);
+        }
+
+        window.location.href="Performance.php";
+
 
     }
+
+    function outputUpdate(num) {
+        document.querySelector('#output').value = num;
+    }
 </script>
-
-
-
-<div class="clear"></div>
 </body>
+<div class="clear"></div>
+
 <footer>
     <div class="footer">
-    <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div>
-</footer>
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
+
+        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+    </div></footer>
 </html>

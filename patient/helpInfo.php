@@ -90,26 +90,13 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
     <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
         if(localStorage.getItem("loginOK")===null){
             localStorage.setItem("loginOK", "no");
         }
@@ -119,18 +106,45 @@ if($loginOK) {
         }
 
 
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
     </script>
 
+    <style>
+        .collapsible {
+            background-color: purple;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #CF1AFF;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -145,12 +159,10 @@ if($loginOK) {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
-
-
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -158,103 +170,30 @@ if($loginOK) {
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
-    <h1>Monitor your physical activity</h1>
+    <h1>Emotional Help</h1>
 </div>
 
-<div class="box">The following questions have been adapted from the YOUTHREX International Physical Acitivity Questionnaire.</div>
+<button class="collapsible">About Lung Cancer</button>
+<div class="content">
+    <p>This is the Cancer Research UK page about Lung Cancer</p>
+    <p>About: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer?ds_kids=p3731628530&adc=cpc&gclid=CjwKCAiA9qHhBRB2EiwA7poaeO1QKd-ItjNALPRFC1CFz_9Rh0TjlvZHd8DSRNSqDkl3UDlvFv_YoBoCMb0QAvD_BwE">Cancer Research UK: Lung Cancer</a></p>
+</div>
+<button class="collapsible">Complicated Terms</button>
+<div class="content">
+    <p>Complicated Terms: <a href="https://lungcanceralliance.org/resources-and-support/glossary/">Lung Cancer Alliance Glossary</a></p>
+</div>
+<button class="collapsible">More</button>
+<div class="content">
+    <p>aaaa</p>
+</div>
 
 
-<form method="post" class="WHOstyle">
-    <label class="container">1: During the last 7 days, on how many days did you do vigorous physical activities, like heavy lifting, digging, aerobics or fast bicycling?
-        <select name="vigorous">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-    </label>
-
-    <label class="container">2: During the last 7 days, on how many days did you do moderate physical activities like carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.
-        <select name="moderate">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-    </label>
-
-    <label class="container">3: During the last 7 days, on how many days did you walk for at least 10 minutes at a time?
-        <select name="walk">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-    </label>
-
-    <label class="container">4: During the last 7 days, how much time did you spend sitting on a week day?
-        <select name="sitting">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-    </label>
-    <input type="hidden" name="action" value="filled">
-    <input type="submit" name="submit" value="Submit"/>
-</form>
 
 
-<?php
-if($action === "filled") {
-    $vig = (safePost($conn,"vigorous"));
-    $mod = (safePost($conn,"moderate"));
-    $walk = (safePost($conn,"walk"));
-    $sit = (safePost($conn,"sitting"));
-    $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
-    $resultID=$conn->query($sql1);
-    if($resultID->num_rows>0) {
-        while ($rowname = $resultID->fetch_assoc()) {
-            $id = $rowname["id"];
-
-        }
-    }
-
-
-    $sql  = "INSERT INTO `physical` (`id`,`username`,`vigorous`, `moderate`, `walking`, `sitting`) VALUES ('$id','$username','$vig', '$mod', '$walk', '$sit')";
-    if ($conn->query($sql) === TRUE) {
-        ?>
-        <script>
-            window.location.href = "index.php";
-        </script>
-        <?php
-    }
-}
-
-?>
 
 <script>
-
-    var slider = document.getElementById("myRange");
-    var value;
-
-
-    function goBack(){
-        window.history.back();
-    }
 
     function submit(){
         console.log(this.value + "value");
@@ -262,8 +201,19 @@ if($action === "filled") {
         window.location.href="Breathlessness.php";
     }
 
-    function outputUpdate(num) {
-        document.querySelector('#output').value = num;
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
     }
 </script>
 </body>

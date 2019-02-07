@@ -24,6 +24,8 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
+
 
 $month = date("m");
 $year = date("Y");
@@ -43,75 +45,40 @@ if($_SESSION['userName']==null){
     $_SESSION['userName'] = "unknownUser";
     ?> <script>
         localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOK', "no");
     </script><?php
 }
 
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
+$loginOK = false; //TODO make this work with database values
 
-
-
-
-
-
+if($loginOK) {
+    if (!isset($_SESSION["sessionuser"])) {
+        session_regenerate_id();
+        $_SESSION["sessionuser"] = $user;
+    }
+}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link rel="stylesheet" type="text/css" href="donut.css"/>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script src="../js/script.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Adapt To You</title>
-    <script>
-
-        if(localStorage.getItem("loginOKSupport")===null){
-            localStorage.setItem("loginOKSupport", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOKSupport")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-
-
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
-        if(localStorage.getItem("loginOKSupport")===null){
-            localStorage.setItem("loginOKSupport", "no");
-        }
-
-        if(localStorage.getItem("loginOKSupport")==="no"){
-            window.location.href="supportSignUp.php";
-        }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOKSupport")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
-    </script>
+    <title>Project</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -125,8 +92,13 @@ $username = $_SESSION["userName"];
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="supportHome.php">HOME</a></li>
-                <li><a href="supportInput.php">RECORD</a></li>
+                <li><a href="index.php">HOME</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
+                <li><a href="talk.php">TALK</a></li>
+                <li><a href="links.html">HELP</a></li>
+                <li><a href="results.php">PROFILE</a></li>
+
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -134,22 +106,62 @@ $username = $_SESSION["userName"];
         </div>
     </div>
 </nav>
-
 <div class="jumbotron text-center">
-    <h1>Record any information about your survivor <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>Monitor your weight</h1>
 </div>
 
+<div class="box"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
+    <p>Please weigh yourself once a week and input the results to keep track of your weight.</p>
+<p>You can input your weight in either KG or LBS</p></div>
+
+
+<form method="post" class="WHOstyle">
+    Values are recorded using KG. Input value to see approximate conversion to LBS
+    <input id="inputKilograms" type="number" placeholder="Kilograms" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
+    <span id="outputStones"></span>
+    <input type="hidden" name="action" value="filled">
+    <input type="submit" name="submit" value="Submit"/>
+</form>
+<!--<form method="post" class="WHOstyle">-->
+<!--    Values are recorded using LBS. Input value to see approximate conversion to KG-->
+<!--    <input id="inputKilograms" type="number" placeholder="Kilograms" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">-->
+<!--    <span id="outputKilograms"></span>-->
+<!--    <input type="hidden" name="action" value="filled">-->
+<!--    <input type="submit" name="submit" value="Submit"/>-->
+<!--</form>-->
 
 
 
+<?php
+if($action === "filled") {
+    $kg = (safePost($conn,"KG"));
+    $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
+    $resultID=$conn->query($sql1);
+    if($resultID->num_rows>0) {
+        while ($rowname = $resultID->fetch_assoc()) {
+            $id = $rowname["id"];
 
+        }
+    }
 
+    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`) VALUES ('$id', '$username', '$kg' )";
+    if ($conn->query($sql) === TRUE) {
+        ?>
+        <script>
+            window.location.href = "index.php";
+        </script>
+        <?php
+    }
+}
 
-<div class="clear"></div>
+?>
+
 </body>
+<div class="clear"></div>
+
 <footer>
     <div class="footer">
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div>
-</footer>
+    </div></footer>
 </html>

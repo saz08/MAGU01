@@ -83,8 +83,9 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -105,7 +106,7 @@ if($loginOK) {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="signUp.php">SURVIVORS</a></li>
-                <li><a href="supportSignUp.php">SUPPORTERS</a></li>
+                <li><a href="../support/supportSignUp.php">SUPPORTERS</a></li>
 
             </ul>
         </div>
@@ -113,7 +114,7 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>HOMEPAGE <img src="clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+    <h1>HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
 <!-- 3 columns under Welcome Jumbotron -->

@@ -64,13 +64,13 @@ $username = $_SESSION["userName"];
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link rel="stylesheet" type="text/css" href="donut.css"/>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Adapt To You</title>
@@ -129,7 +129,7 @@ $username = $_SESSION["userName"];
                 <li><a href="supportInput.php">RECORD</a></li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
+                <li><a href="../patient/logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
@@ -639,7 +639,7 @@ if($action==="filled"){
         var qNo = questionNo;
         jQuery.post("deleteQ.php", {"questionNo": qNo}, function(data){
             alert("deleted Question");
-            window.location.href="results.php";
+            window.location.href="../patient/results.php";
             console.log("question no is "+ qNo);
         }).fail(function()
         {
@@ -738,7 +738,7 @@ if($action==="filled"){
     x.style.display="none";
     y.style.display="block";
     function logoutFunction(){
-        window.location.href="logout.php";
+        window.location.href="../patient/logout.php";
 
     }
 

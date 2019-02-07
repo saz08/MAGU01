@@ -90,26 +90,13 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/script.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
     <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
         if(localStorage.getItem("loginOK")===null){
             localStorage.setItem("loginOK", "no");
         }
@@ -119,18 +106,47 @@ if($loginOK) {
         }
 
 
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
     </script>
 
+    <style>
+        .collapsible {
+            background-color: purple;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #CF1AFF;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f1f1f1;
+        }
+
+
+    </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -145,12 +161,10 @@ if($loginOK) {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
-
-
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -158,34 +172,30 @@ if($loginOK) {
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
-    <h1>Monitor your pain levels</h1>
+    <h1>Physical Help</h1>
 </div>
 
-<div class="box">On a scale of 0 - 10, 0 meaning no pain and 10 meaning extremely painful . Please rate your pain using the slider below </div>
-
-<div id="pain scale" class="slidecontainer">
-
-    <form>
-        <input type="range"  step="1" min="0" max="10" class="slider" id="myRange" oninput="outputUpdate(value)">
-        <div style="float:left"><p style="font-size: 2em">0</p></div>
-        <div style="float:right"><p style="font-size: 2em">10</p></div>
-        <output for=value id="output" style="color: black">5</output>
-    </form>
+<button class="collapsible">What can I do?</button>
+<div class="content">
+    <p>woo</p>
 </div>
+<button class="collapsible">Suggested Activities</button>
+<div class="content">
+    <p>a</p>
+</div>
+<button class="collapsible">Classes for You</button>
+<div class="content">
+    <p>aaaa</p>
+</div>
+
 
 
 
 
 <script>
 
-    var slider = document.getElementById("myRange");
-    var value;
-
-
-    function goBack(){
-        window.location.href="index.php";
-    }
 
     function submit(){
         console.log(this.value + "value");
@@ -193,8 +203,19 @@ if($loginOK) {
         window.location.href="Breathlessness.php";
     }
 
-    function outputUpdate(num) {
-        document.querySelector('#output').value = num;
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
     }
 </script>
 </body>
@@ -203,7 +224,6 @@ if($loginOK) {
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

@@ -72,10 +72,11 @@ $loginOK = false; //TODO make this work with database values
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="clipart2199929.png">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <script src="../js/script.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -145,7 +146,7 @@ $loginOK = false; //TODO make this work with database values
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
+                <li><a href="recordOptions.php">RECORD</a></li>
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
@@ -169,11 +170,7 @@ $loginOK = false; //TODO make this work with database values
 <button class="btn" onclick="window.location.href='weight.php'">Make another entry</button>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script>
-    function goBack(){
-    window.history.back();
-    }
-</script>
+
 </body>
 
 

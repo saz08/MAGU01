@@ -62,7 +62,7 @@ $sql = "INSERT INTO `journal` (`entry`, `timePosted`,`username`) VALUES ('$entry
 if($conn->query($sql) === TRUE){
 echo"added";
     ?>
-    <script>window.location.href="index.php"</script>
+    <script>window.location.href="patient/index.php"</script>
 <?php
 
 }
@@ -84,7 +84,7 @@ else{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Adapt To You</title>
@@ -108,7 +108,7 @@ else{
         }
 
         if(localStorage.getItem("loginOK")==="no"){
-            window.location.href="signUp.php";
+            window.location.href="patient/signUp.php";
         }
 
 
@@ -136,15 +136,15 @@ else{
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.php">HOME</a></li>
-                <li><a href="scale.php">RECORD</a></li>
-                <li><a href="talk.php">TALK</a></li>
-                <li><a href="links.html">HELP</a></li>
-                <li><a href="results.php">PROFILE</a></li>
+                <li><a href="patient/index.php">HOME</a></li>
+                <li><a href="patient/scale.php">RECORD</a></li>
+                <li><a href="patient/talk.php">TALK</a></li>
+                <li><a href="patient/links.html">HELP</a></li>
+                <li><a href="patient/results.php">PROFILE</a></li>
 
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
+                <li><a href="patient/logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
