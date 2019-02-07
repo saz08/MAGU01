@@ -25,6 +25,19 @@ $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
 
+$month = date("m");
+$year = date("Y");
+
+$id = $_GET["id"];
+
+$sql = "SELECT `forename` FROM `chi` WHERE `id` = '$id'";
+$result = $conn->query($sql);
+if($result->num_rows>0) {
+while ($rowname = $result->fetch_assoc()) {
+    $patientname = $rowname["forename"];
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -40,13 +53,44 @@ $action = safePOST($conn, "action");
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
     <script>
-        localStorage.setItem("id", "");
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Weight Monitoring"
+                },
+                axisY:{
+                    includeZero: false
+                },
+                data: [{
+                    type: "line",
+                    dataPoints: [
+                        <?php
+                        $sql = "SELECT * FROM `weight` WHERE `id` = '$id'";
+                        $result= $conn->query($sql);
+                        if($result->num_rows>0) {
+                            while ($rowname = $result->fetch_assoc()) {
+                                $y = $rowname["kg"];
+                                echo "{y: $y},";
+                            }
+                        }
+                        ?>
+
+                    ]
+                }]
+            });
+            chart.render();
+        }
     </script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -62,59 +106,34 @@ $action = safePOST($conn, "action");
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
-                <li><a href="createID.php">ADD PATIENT</a></li>
+
 
             </ul>
         </div>
     </div>
 </nav>
+
+
 <div class="jumbotron text-center">
-    <h1>Dashboard</h1>
+    <h1><?php echo $patientname ?>'s Weight Chart</h1>
 </div>
-<h3>Click on a patient's ID to open their profile</h3>
 
-<div style="overflow-x: scroll">
-<table class="table table-hover row-clickable" id="doctorTable" >
-    <tr>
-        <th>Forename</th>
-        <th>Surname</th>
-        <th>ID</th>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<br>
 
-
-    </tr>
-    <?php
-
-    $sql = "SELECT * FROM `chi`";
-    $resultPatient = $conn->query($sql);
-    if($resultPatient->num_rows>0) {
-        while ($rowname = $resultPatient->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $rowname["forename"] . "</a></td>";
-            echo "<td>" . $rowname["surname"] . "</td>";
-            echo "<td><a href='patient.php?id=+".$rowname["id"]."'>" . $rowname["id"] . "</a></td>";
-
-
-            echo "</tr>";
-        }
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+    function goBack(){
+        window.history.back();
     }
-
-    ?>
-</table>
-
-
-<?php
-
-
-
-
-?>
-
-
+</script>
 </body>
-<div class="clear"></div>
+
 
 <footer>
     <div class="footer">
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

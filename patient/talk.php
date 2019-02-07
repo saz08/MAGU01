@@ -107,7 +107,7 @@ $loginOK = false; //TODO make this work with database values
 </div>
 
 <form method="post" name="createForumPost" >
-    Create a post: <input type="text" name="createPost" value="Type in here!"><br>
+    Create a post: <input type="text" name="createPost" placeholder="Type in here!"><br>
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Submit" class="btn">
 </form><br>
@@ -153,7 +153,7 @@ if($result->num_rows>0){
                 $usernameC = $rowname["username"];
                 $comment = $rowname["patientComment"];
                 if($posID==$posDB) {
-                    echo "<div class='forum'><p>Comment from " . $usernameC . ": ." . $comment  . "</p></div>";
+                    echo "<div class='forum'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div>";
                     if($username===$usernameC){
                         echo "<button class='btn' onclick='deleteComment($posID)'>Delete Comment</button>";
                     }
@@ -168,7 +168,7 @@ if($result->num_rows>0){
         <button class="btn" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show">Add a comment</button>
             <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
-                    <input type="text" name="comment" value="Leave a comment here..."><br>
+                    <input type="text" name="comment" placeholder="Leave a comment here..."><br>
                     <input type="hidden" name="action2" value="filled">
                     <input type="hidden" name="divID" value="<?php echo $posDB?>">
                     <input type="submit" value="Comment" class="btn">
@@ -193,7 +193,7 @@ if($action==="filled"){
     $post = (safePost($conn,"createPost"));
     $username = $_SESSION["userName"];
 
-    $sql  = "INSERT INTO `forum` (`pos`,`username`, `post`,`heart`) VALUES (NULL ,'$username', '$post','0')";
+    $sql  = "INSERT INTO `forum` (`pos`,`username`, `post`) VALUES (NULL ,'$username', '$post')";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Forum Post was successful!</p>";
         ?>

@@ -81,6 +81,10 @@ if($patient->num_rows>0){
 
 
 ?>
+<script>
+    localStorage.setItem("id", <?php echo $id?>);
+</script>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -105,8 +109,8 @@ if($patient->num_rows>0){
 </div>
 </div>
 </div>
-<button class="btn">View Progress Chart</button>
-<button class="btn">View Weight Monitoring</button>
+<button class="btn" onclick="window.location.href='progress.php?id=<?php echo +$id?>'">View Progress Chart</button>
+<button class="btn" onclick="window.location.href='weightChartDoc.php?id=<?php echo +$id?>'">View Weight Monitoring</button>
 
 
         <?php
@@ -204,6 +208,22 @@ if($patient->num_rows>0){
         echo "</div>";
         ?>
 
+<h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2>
+<div class="box" style="height: inherit">
+    <?php
+    $sql  = "SELECT `additionalInfo` FROM `scale` WHERE `id`= '$id'";
+    $result=$conn->query($sql);
+    if($result->num_rows>0){
+        while($rowname=$result->fetch_assoc()){
+            $info = $rowname["additionalInfo"];
+            if($info!=""){
+                echo"<p>".$info."</p>";
+            }
+        }
+    }
+    ?>
+</div>
+
 
 
 
@@ -249,6 +269,16 @@ if($patient->num_rows>0){
     function goBack() {
         window.location.href = "dashboard.php";
     }
+
+//    function goToProgress() {
+//        var id = localStorage.getItem("id");
+//        jQuery.post("progress.php", {
+//            "id": id }, function (data) {
+//            window.location.href = "progress.php";
+//        }).fail(function () {
+//
+//        });
+//    }
 </script>
 
 </body>
