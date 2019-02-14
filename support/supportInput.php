@@ -73,7 +73,7 @@ $username = $_SESSION["userName"];
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Adapt To You</title>
+    <title>Supporter</title>
     <script>
 
         if(localStorage.getItem("loginOKSupport")===null){
@@ -139,16 +139,81 @@ $username = $_SESSION["userName"];
     <h1>Record any information about your survivor <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
+<br>
+<br>
+<br>
+
+
+<div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. <br> Please enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
+<form name="additional" method="post" >
+    Symptoms:
+    <select id="select" name="select">
+        <option value="Anxiety">Anxiety</option>
+        <option value="LossOfAppetite">Loss of Appetite</option>
+        <option value="Bleeding">Bleeding</option>
+        <option value="Constipation">Constipation</option>
+        <option value="Depressed">Depressed</option>
+        <option value="Diarrhea">Diarrhea</option>
+        <option value="Fatigue">Fatigue</option>
+        <option value="Insomnia">Insomnia</option>
+        <option value="Sickness">Sickness</option>
+    </select>
+
+
+    <input type="text" name="additional"  id="additional"/>
+    <input type="hidden" name="action" value="filled">
+    <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
+</form>
+
+<?php
+if($action==="filled"){
+    $info = (safePost($conn,"additional"));
+    $symptoms= (safePost($conn,"select"));
+
+    $username = $_SESSION["userName"];
+    $sql1 = "SELECT * FROM `supportAcc` WHERE username = '$username'";
+    $result=$conn->query($sql1);
+    if($result->num_rows>0) {
+        while ($rowname = $result->fetch_assoc()) {
+            $survivor = $rowname["survivor"];
+        }
+    }
+
+    $sql  = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`) VALUES ('$username','$survivor', '$symptoms', '$info')";
+    $conn->query($sql);
+    ?><script>
+        alert("Submitted successfully");
+        window.location.href="supportInput.php";
+    </script>
+<?php
+}
+else{
+    $info="not filled";
+}
 
 
 
-
-
-
+?>
 <div class="clear"></div>
+<!--<script>-->
+<!---->
+<!--    function submitRecord(){-->
+<!--        var select = document.getElementById("select");-->
+<!--        var additional = document.getElementById("additional");-->
+<!--        jQuery.post("supportSubmit.php", {"Symptom": select, "Additional": additional}, function(data){-->
+<!--                alert("Submitted");-->
+<!--            }).fail(function()-->
+<!--            {-->
+<!--                alert("something broke in submitting your records");-->
+<!--            });-->
+<!--        }-->
+<!---->
+<!--</script>-->
 </body>
 <footer>
     <div class="footer">
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submitRecord()"></div>
+
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div>
 </footer>

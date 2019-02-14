@@ -111,6 +111,8 @@ if($patient->num_rows>0){
 </div>
 <button class="btn" onclick="window.location.href='progress.php?id=<?php echo +$id?>'">View Progress Chart</button>
 <button class="btn" onclick="window.location.href='weightChartDoc.php?id=<?php echo +$id?>'">View Weight Monitoring</button>
+<button class="btn" onclick="window.location.href='proSupport.php?id=<?php echo +$id?>'">View Support Circle Info</button>
+
 
 
         <?php
@@ -227,43 +229,7 @@ if($patient->num_rows>0){
 
 
 
-        <?php
-        $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
-        $patient=$conn->query($sqlPatient);
-        if($patient->num_rows>0){
-            while($rowname=$patient->fetch_assoc()){
-                $usernamePatient= $rowname["username"];
 
-
-
-                $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$usernamePatient'";
-                $support=$conn->query($sqlSupport);
-                if($support->num_rows>0){
-                    while($rowname=$support->fetch_assoc()){
-                        echo "<div style='overflow-x: scroll'>";
-                        echo "<table class='table table-hover row-clickable' id='doctorTable' >";
-                        echo"<tr>";
-                        echo"<th>Support Circle</th>";
-                        echo "<th>Relation</th>";
-                        echo "</tr>";
-                        echo "<tr>";
-
-                        $supportUser= $rowname["username"];
-                        $relation = $rowname["relation"];
-                        echo "<td>" . $supportUser . "</td>";
-                        echo "<td>" . $relation . "</td>";
-
-                        echo "</tr>";
-
-
-                    }
-                }
-            }
-        }
-
-        ?>
-    </table>
-</div>
 <br>
 <script>
     function goBack() {

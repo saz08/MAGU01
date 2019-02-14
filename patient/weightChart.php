@@ -74,7 +74,7 @@ $loginOK = false; //TODO make this work with database values
     <meta charset="UTF-8">
     <title>Project</title>
     <script>
-        window.onload = function () {
+       window.onload = function () {
 
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -83,21 +83,27 @@ $loginOK = false; //TODO make this work with database values
                     text: "Weight Monitoring"
                 },
                 axisY:{
-                    includeZero: false
+                   title: "Weight (KG)"
+                },
+                axisX:{
+                    title:"Entries"
                 },
                 data: [{
                     type: "line",
-                    dataPoints: [
+                   dataPoints: [
                       <?php
                         $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
             $result= $conn->query($sql);
             if($result->num_rows>0) {
                 while ($rowname = $result->fetch_assoc()) {
                     $y = $rowname["kg"];
+                    $timestamp = $rowname["timeStamp"];
+                    $date2 = (new DateTime($timestamp))->format('d m Y');
                     echo "{y: $y},";
                 }
             }
             ?>
+
 
                     ]
                 }]
@@ -105,6 +111,8 @@ $loginOK = false; //TODO make this work with database values
             chart.render();
         }
     </script>
+
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -150,7 +158,6 @@ $loginOK = false; //TODO make this work with database values
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

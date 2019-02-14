@@ -144,7 +144,16 @@ $loginOK = false; //TODO make this work with database values
         </div>
     </div>
 </nav>
-
+<br>
+<br>
+<br>
+<div class="box">
+    <p>
+    <button onclick="goToChart()" class="btn" style="font-size: 3rem">Weight Chart</button>
+    <button onclick="goToQuestions()" class="btn" style="font-size: 3rem">Questions</button>
+    <button onclick="window.location.href='supportTxt.php'" class="btn" style="font-size: 3rem">Support Circle</button>
+    </p>
+</div>
 
 <?php
 
@@ -629,9 +638,7 @@ else{
 }
 ?>
 
-<button onclick="goToChart()" class="btn">Weight Chart</button>
-<button onclick="goToQuestions()" class="btn">Questions</button>
-<button onclick="window.location.href='supportTxt.php'" class="btn">Support Circle</button>
+
 
 
 

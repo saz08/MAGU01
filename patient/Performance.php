@@ -112,7 +112,10 @@ if($loginOK) {
     <h1>Monitor Performance</h1>
 </div>
 
-<div class="box">The following is the ECOG/WHO Performance Status scale. Please tick the box that you feel you apply to</div>
+<div class="box">The following is the ECOG/WHO Performance Status scale. Please tick the box that you feel you apply to
+<p>
+   <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
+</p></div>
 <form method="get" class="WHOstyle">
     <label class="container"><details><summary>0: Fully active, no restrictions on activities.</summary> A performance status of 0 means no restrictions in the sense that someone is able to do everything they were able to do prior to their diagnosis.</details>
         <input type="radio" name="radio" value="0" id="zero">

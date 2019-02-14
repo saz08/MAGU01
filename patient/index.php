@@ -75,12 +75,15 @@ $loginOK = false; //TODO make this work with database values
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+
     <script src="../js/script.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
+
 </head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -106,6 +109,9 @@ $loginOK = false; //TODO make this work with database values
         </div>
     </div>
 </nav>
+
+
+
 <div class="jumbotron text-center">
     <h1>Homepage <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
@@ -124,9 +130,12 @@ while ($rowname = $resultScale->fetch_assoc()) {
     $date2 = (new DateTime($date))->format('jS F Y');
 
     echo "<br><div class='box'><p>The last time you recorded your pain, breathlessness and performance was " .$date2."</p>
-<p>
-It is recommended that you log your symptoms every 7 days, next logging date should be: ".date('jS F Y', strtotime($date2. '+ 7 days'))."
-</p></div>";
+<p>It is recommended that you log your symptoms every 7 days, next logging date should be: ".date('jS F Y', strtotime($date2. '+ 7 days'));
+       if(date('jS F Y', strtotime($date2. '+ 7 days'))==date('jS F Y')){
+           echo "     <button class='btn' onclick='goRecord()'>Record Now!</button>";
+       }
+       echo"</p></div>";
+
 
 }
 }
@@ -158,7 +167,13 @@ if($resultPhysical -> num_rows>0){
 
 ?>
 
+<script>
+    function goRecord(){
+        window.location.href="recordOptions.php";
+    }
 
+
+</script>
 </body>
 <div class="clear"></div>
 

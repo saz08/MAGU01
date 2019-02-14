@@ -138,11 +138,7 @@ else{
 
     function submit(){
         var info = document.getElementById('additional').value;
-    //  localStorage.setItem("Additional", "<?php echo $info?>");
         localStorage.setItem("Additional", info);
-
-
-        // window.location.href="additionalInfo.php";
         submitRecord();
 
     }
