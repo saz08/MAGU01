@@ -152,6 +152,9 @@ $loginOK = false; //TODO make this work with database values
     <button onclick="goToChart()" class="btn" style="font-size: 3rem">Weight Chart</button>
     <button onclick="goToQuestions()" class="btn" style="font-size: 3rem">Questions</button>
     <button onclick="window.location.href='supportTxt.php'" class="btn" style="font-size: 3rem">Support Circle</button>
+    <button onclick="window.location.href='pieChart.php'" class="btn" style="font-size: 3rem">Physical Activity Chart</button>
+
+
     </p>
 </div>
 

@@ -266,6 +266,8 @@ if($action2==="filled"){
 
 <footer>
     <div class="footer">
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

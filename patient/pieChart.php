@@ -46,26 +46,48 @@ if($_SESSION['userName']==null){
         localStorage.setItem('loginOK', "no");
     </script><?php
 }
-
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
 $loginOK = false; //TODO make this work with database values
 
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
+$sumVig  = "SELECT SUM(`vigorous`) FROM `physical` WHERE `username` = '$username'";
+$vigResult= $conn->query($sumVig);
+if($vigResult->num_rows>0) {
+while ($rowname = $vigResult->fetch_assoc()) {
+    $vigorous = $rowname["SUM(`vigorous`)"];
     }
 }
+
+$sumMod  = "SELECT SUM(`moderate`) FROM `physical` WHERE `username` = '$username'";
+$modResult= $conn->query($sumMod);
+if($modResult->num_rows>0) {
+    while ($rowname = $modResult->fetch_assoc()) {
+        $moderate = $rowname["SUM(`moderate`)"];
+    }
+}
+
+$sumWalk  = "SELECT SUM(`walking`) FROM `physical` WHERE `username` = '$username'";
+$walkResult= $conn->query($sumWalk);
+if($walkResult->num_rows>0) {
+    while ($rowname = $walkResult->fetch_assoc()) {
+        $walking = $rowname["SUM(`walking`)"];
+    }
+}
+
+$sumSit  = "SELECT SUM(`sitting`) FROM `physical` WHERE `username` = '$username'";
+$sitResult= $conn->query($sumSit);
+if($sitResult->num_rows>0) {
+    while ($rowname = $sitResult->fetch_assoc()) {
+        $sitting = $rowname["SUM(`sitting`)"];
+    }
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
@@ -76,51 +98,54 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../js/script.js"></script>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <script src="../js/script.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <style>
-        .collapsible {
-            background-color: purple;
-            color: white;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
+    <script type="text/javascript">
+        window.onload = function() {
+            CanvasJS.addColorSet("greenShades",
+                [//colorSet Array
+
+                    "#2F4F4F",
+                    "#008080",
+                    "#2E8B57",
+                    "#3CB371",
+                    "#90EE90"
+                ]);
+            var options = {
+                backgroundColor: "#DDA8FF",
+                colorSet: "greenShades",
+                data: [{
+                    type: "pie",
+                    startAngle: 45,
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabel: "{label} ({y} Days)",
+                    indexLabelPlacement: "outside",
+                    indexLabelBackgroundColor: "white",
+                    indexLabelFontSize: 20,
+                    indexLabelWrap: true,
+                    yValueFormatString:"#,##0.#"%"",
+                    dataPoints: [
+                        <?php
+                        echo "{label: 'Vigorous', y: $vigorous}, ";
+                        echo "{label: 'Moderate', y: $moderate}, ";
+                        echo "{label: 'Walking', y: $walking}, ";
+                        echo "{label: 'Sitting', y: $sitting}, ";
+                        ?>
+
+                    ]
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
         }
-
-        .active, .collapsible:hover {
-            background-color: #CF1AFF;
-        }
-
-        .collapsible:after {
-            content: '\002B';
-            color: white;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }
-
-        .active:after {
-            content: "\2212";
-        }
-
-        .content {
-            padding: 0 18px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-            background-color: #f1f1f1;
-        }
-
-
-    </style>
+    </script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -139,6 +164,8 @@ if($loginOK) {
                 <li><a href="talk.php">TALK</a></li>
                 <li><a href="links.html">HELP</a></li>
                 <li><a href="results.php">PROFILE</a></li>
+
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -147,61 +174,20 @@ if($loginOK) {
     </div>
 </nav>
 
+
 <div class="jumbotron text-center">
-    <h1>Physical Help</h1>
+    <h1>My Physical Activity Chart</h1>
 </div>
-
-<button class="collapsible">What can I do?</button>
-<div class="content">
-    <p><a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/treatment/surgery/after-surgery"> Cancer Research </a>suggests...</p>
-    <p>
-        Sitting for less time each day, walking around the house a bit more each day, building up to walking outside
-    </p></div>
-<button class="collapsible">Suggested Activities</button>
-<div class="content">
-    <p>Suggested Activities from <a href="https://www.cancer.net/blog/2018-08/benefits-exercise-people-with-lung-cancer"> Cancer.net</a></p>
-    <p>
-        Breathing exercises, Stretching exercises, Aerobic exercises, Strength training
-    </p>
-    <p>Introduce physical activity from <a href="https://www.cancer.net/blog/2018-08/benefits-exercise-people-with-lung-cancer"> verywellhealth.com</a></p>
-    <p>
-        Plant a garden, dance to the radio, sign up for yoga, purchase a pedometer and set a step goal!
-    </p>
-</div>
-<button class="collapsible">Classes for You</button>
-<div class="content">
-    <p>MacMillan Tools to <a href="https://www.macmillan.org.uk/information-and-support/coping/maintaining-a-healthy-lifestyle/keeping-active/tools-help-move-more.html"> Help You Move More</a></p>
-    <p>MacMillan Move More Classes<a href="https://www.macmillan.org.uk/about-us/health-professionals/programmes-and-services/move-more-scotland.html"> "Where Now" course</a></p>
-
-</div>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
 
-
-
-
-<script>
-
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
-    }
-</script>
 </body>
-<div class="clear"></div>
-
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>
+

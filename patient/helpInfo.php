@@ -146,7 +146,7 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>Emotional Help</h1>
+    <h1>Information</h1>
 </div>
 
 <button class="collapsible">About Lung Cancer</button>
@@ -158,10 +158,7 @@ if($loginOK) {
 <div class="content">
     <p>Complicated Terms: <a href="https://lungcanceralliance.org/resources-and-support/glossary/">Lung Cancer Alliance Glossary</a></p>
 </div>
-<button class="collapsible">More</button>
-<div class="content">
-    <p>aaaa</p>
-</div>
+
 
 
 

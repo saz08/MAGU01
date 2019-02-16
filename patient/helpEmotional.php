@@ -154,13 +154,12 @@ if($loginOK) {
     <p>What is Survivor's Guilt?: <a href="https://www.verywellhealth.com/cancer-survivors-guilt-2249275">verywellhealth.com</a>
     <p>Tips on how to combat survivor's guilt: <a href="    https://lungcancer.net/living/survivors-guilt/">LungCancer.net</a>
 </div>
-<button class="collapsible">"Don't Want to Bother You"</button>
-<div class="content">
-    <p>a</p>
-</div>
+
 <button class="collapsible">Lonely</button>
 <div class="content">
-    <p>aaaa</p>
+    <p>Roy Castle Lung Cancer Foundation have support groups for you: <a href="https://www.roycastle.org/how-we-help/services-for-you/support-groups"> Roy Castle Website</a>
+    <p>Please feel free to post in our Survivors forum and communicate with others: <a href="https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/talk.php"> TALK!</a>
+
 </div>
 
 

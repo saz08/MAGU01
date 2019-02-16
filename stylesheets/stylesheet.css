@@ -383,10 +383,10 @@ output {
     width: 100%;
 }
 
-svg {
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-}
+/*svg {*/
+    /*-webkit-transform: rotate(-90deg);*/
+    /*transform: rotate(-90deg);*/
+/*}*/
 
 .circle_animation {
     stroke-dasharray: 440; /* this value is the pixel circumference of the circle */
@@ -494,3 +494,19 @@ table.row-clickable tbody tr td a {
     /*transition: max-height 0.2s ease-out;*/
     /*background-color: #f1f1f1;*/
 /*}*/
+
+.divChart{
+    position: absolute;
+    top:50%;
+    left:30%;
+    width:100%;
+
+}
+
+@media screen and (max-width: 480px) {
+    .divChart {
+        left:1%;
+        width:100%;
+        position: absolute;
+    }
+}
