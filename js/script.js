@@ -15,10 +15,10 @@ function goBack(){
 
 //WEIGHT
 function weightConverter(valNum) {
-    document.getElementById("outputStones").innerHTML="Converted value: "+valNum*0.1574+" LBS";
+    document.getElementById("outputStones").innerHTML="Value in Stone: "+valNum*0.1574+" Stone";
 }
 function weightConverterKG(valNum) {
-    document.getElementById("outputKilograms").innerHTML="Converted value: "+valNum/0.15747+"KG";
+    document.getElementById("outputKilograms").innerHTML="Value in Kilogram: "+valNum/0.15747+"Kilogram";
 }
 
 //TALK

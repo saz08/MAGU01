@@ -113,23 +113,42 @@ if($loginOK) {
 <div class="box"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
     <p>Please weigh yourself once a week and input the results to keep track of your weight.</p>
 <p>You can input your weight in either KG or LBS</p></div>
+<br>
+<div class="box">
+    <form method="get" class="radiostyle">
+        <label class="container" style="font-family: Montserrat, sans-serif">Record Weight in Stone
+            <span class="checkmark"></span>
+            <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitStone()">
+        </label>
+        <br>
+        <label class="container" style="font-family: Montserrat, sans-serif">Record Weight in Kilograms
+            <span class="checkmark"></span>
+            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitKG()">
+        </label>
+    </form>
 
-
+</div>
+<div id="kilogram">
 <form method="post" class="WHOstyle">
     Values are recorded using KG. Input value to see approximate conversion to LBS
-    <input id="inputKilograms" type="number" placeholder="Kilograms" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
+    <input id="inputKilograms" type="number" step="0.01" placeholder="KG" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
     <span id="outputStones"></span>
     <input type="hidden" name="action" value="filled">
     <input type="submit" name="submit" value="Submit"/>
 </form>
-<!--<form method="post" class="WHOstyle">-->
-<!--    Values are recorded using LBS. Input value to see approximate conversion to KG-->
-<!--    <input id="inputKilograms" type="number" placeholder="Kilograms" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">-->
-<!--    <span id="outputKilograms"></span>-->
-<!--    <input type="hidden" name="action" value="filled">-->
-<!--    <input type="submit" name="submit" value="Submit"/>-->
-<!--</form>-->
+</div>
 
+<div id="stone">
+<form method="post" class="WHOstyle">
+    Values are recorded using LBS. Input value to see approximate conversion to KG
+    <input id="inputKilograms" type="number" step="0.01" placeholder="LBS" name="LBS" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">
+    <span id="outputKilograms"></span>
+    <input type="hidden" name="action2" value="filled">
+    <input type="submit" name="submit" value="Submit"/>
+</form>
+</div>
+
+<div class="clear"></div>
 
 
 <?php
@@ -144,7 +163,7 @@ if($action === "filled") {
         }
     }
 
-    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`) VALUES ('$id', '$username', '$kg' )";
+    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`,`timeStamp`) VALUES ('$id', '$username', '$kg',CURRENT_TIMESTAMP)";
     if ($conn->query($sql) === TRUE) {
         ?>
         <script>
@@ -154,8 +173,75 @@ if($action === "filled") {
     }
 }
 
+if($action2==="filled"){
+    $lbs = (safePost($conn,"LBS"));
+    $sql2 = "SELECT `id` FROM `account` WHERE username = '$username'";
+    $resultID2 = $conn->query($sql2);
+    if($resultID2->num_rows>0) {
+        while ($rowname = $resultID2->fetch_assoc()) {
+            $id = $rowname["id"];
+        }
+    }
+    $kiloDiv = 0.15747;
+    $weight = $lbs/$kiloDiv;
+    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`,`timeStamp`) VALUES ('$id', '$username', '$weight' ,CURRENT_TIMESTAMP)";
+    if ($conn->query($sql) === TRUE) {
+        ?>
+        <script>
+            window.location.href = "index.php";
+        </script>
+        <?php
+    }
+}
 ?>
 
+
+<script>
+
+    var x = document.getElementById("stone");
+    var y = document.getElementById("kilogram");
+    x.style.display="none";
+    y.style.display="block";
+
+
+    function submitStone(){
+        var x = document.getElementById("stone");
+
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display="none";
+        } else {
+            x.style.display = "block";
+        }
+
+    }
+
+    function submitKG(){
+        var y = document.getElementById("kilogram");
+        if (y.style.display === "none") {
+            y.style.display = "block";
+            x.style.display="none";
+        } else {
+            y.style.display = "block";
+        }
+
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>
 </body>
 <div class="clear"></div>
 
