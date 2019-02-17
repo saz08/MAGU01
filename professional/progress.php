@@ -39,94 +39,6 @@ if($result->num_rows>0) {
     }
 }
 
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-    <meta name="mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
-
-    <meta charset="UTF-8">
-    <title>Project</title>
-
-    <style>
-        input {
-            display: table-cell;
-            vertical-align: middle
-        }
-
-        .caroBox{
-            display:inline-block;
-            width: 100%;
-            height: 50%;
-        }
-
-        .box{
-            display:inline-block;
-            margin: 0 10px;
-            width: 100%;
-            height:20%;
-            border: 1px solid #B132E8;
-            background:#DDA8FF ;
-
-        }
-        @media screen and (max-width:800px){
-            display: block;
-        }
-
-        label{
-            display:block;
-            padding-left:15px;
-            text-indent: -15px;
-        }
-        .choices{
-            width:13px;
-            height:13px;
-            padding:0;
-            margin:0;
-            vertical-align:bottom;
-            position:relative;
-            top:-1px;
-            *overflow:hidden;
-        }
-    </style>
-
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#myPage">    </a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class = "nav navbar-nav navbar-left">
-                <li><a href="dashboard.php">DASHBOARD</a></li>
-
-
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-<?php
-
-
 
 
 
@@ -244,484 +156,498 @@ if($entries!=0) {
     $amberPBar = $amberPerformance / ($entries) * 210;
     $redPBar = $redPerformance / ($entries) * 210;
 }
-?>
-<?php
-if($entries!=0){
-?>
-<div class="container-fluid bg-1 text-center">
 
-    <div class="container" id="allTime">
-        <div class="jumbotron text-center">
-            <h1><?php echo $patientname?>'s Progress since 30 days post-op</h1>
-        </div>
-        <br>
-        <div class="caroBox">
 
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
+$sqlGPM  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$greenPM= $conn->query($sqlGPM);
+if($greenPM->num_rows>0){
+    $greenPainM = $greenPM->num_rows;
+}
+else{
+    $greenPainM=0;
+}
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <div class="container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="part1Pain" class="portion-block">
-                                        <div class="circle" id="c1Pain"></div>
-                                    </div>
-                                    <div id="part2Pain" class="portion-block">
-                                        <div class="circle" id="c2Pain"></div>
-                                    </div>
-                                    <div id="part3Pain" class="portion-block">
-                                        <div class="circle" id="c3Pain"></div>
-                                    </div>
-                                    <p class="center" style="color:black">Pain</p>
-                                </div>
-                                <div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+$sqlAPM  = "SELECT * FROM `scale` WHERE `pain`>=4 AND `pain`<=7 AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$amberPM= $conn->query($sqlAPM);
+if($amberPM->num_rows>0){
+    $amberPainM = $amberPM->num_rows;
+}
+else{
+    $amberPainM=0;
+}
 
-                    <div class="item">
-                        <div class="container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="part1Breath" class="portion-block">
-                                        <div class="circle" id="c1Breath"></div>
-                                    </div>
-                                    <div id="part2Breath" class="portion-block">
-                                        <div class="circle" id="c2Breath"></div>
-                                    </div>
-                                    <div id="part3Breath" class="portion-block">
-                                        <div class="circle" id="c3Breath"></div>
-                                    </div>
-                                    <p class="center" style="color:black">Breathing</p>
-                                </div>
-                                <div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+$sqlRPM  = "SELECT * FROM `scale` WHERE `pain`>=8  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$redPM= $conn->query($sqlRPM);
+if($redPM->num_rows>0){
+    $redPainM = $redPM->num_rows;
+}
+else{
+    $redPainM=0;
+}
 
-                    <div class="item">
-                        <div class="container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="part1Performance" class="portion-block">
-                                        <div class="circle" id="c1Perform"></div>
-                                    </div>
-                                    <div id="part2Performance" class="portion-block">
-                                        <div class="circle" id="c2Perform"></div>
-                                    </div>
-                                    <div id="part3Performance" class="portion-block">
-                                        <div class="circle" id="c3Perform"></div>
-                                    </div>
-                                    <p class="center" style="color:black">Performance</p>
-                                </div>
-                                <div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+$painTotalMonth = $greenPainM+$amberPainM+$redPainM;
 
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+$sqlGBM  = "SELECT * FROM `scale` WHERE `breathlessness`<=1  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBGM= $conn->query($sqlGBM);
+if($resultBGM->num_rows>0){
+    $greenBreathM = $resultBGM->num_rows;
+}
+else{
+    $greenBreathM=0;
+}
 
-            </div>
-        </div>
-    </div>
+$sqlBAM  = "SELECT * FROM `scale` WHERE `breathlessness`>=2 AND `breathlessness` <=4  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBAM= $conn->query($sqlBAM);
+if($resultBAM->num_rows>0){
+    $amberBreathM = $resultBAM->num_rows;
+}
+else{
+    $amberBreathM=0;
+}
+
+$sqlBRM  = "SELECT * FROM `scale` WHERE `breathlessness`>=5  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBRM= $conn->query($sqlBRM);
+if($resultBRM->num_rows>0){
+    $redBreathM = $resultBRM->num_rows;
+}
+else{
+    $redBreathM=0;
+}
+
+$breathlessnessTotalM = $greenBreathM+$amberBreathM+$redBreathM;
+
+$sqlPGM  = "SELECT * FROM `scale` WHERE `performance`<=1  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultPGM= $conn->query($sqlPGM);
+if($resultPGM->num_rows>0){
+    $greenPerformanceM = $resultPGM->num_rows;
+}
+else{
+    $greenPerformanceM=0;
+}
+
+$sqlPAM  = "SELECT * FROM `scale` WHERE `performance`=2 AND `breathlessness` <=4  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultPAM= $conn->query($sqlPAM);
+if($resultPAM->num_rows>0){
+    $amberPerformanceM = $resultPAM->num_rows;
+}
+else{
+    $amberPerformanceM=0;
+}
+
+$sqlBPM  = "SELECT * FROM `scale` WHERE `performance`>=3  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBPM= $conn->query($sqlBPM);
+if($resultBPM->num_rows>0){
+    $redPerformanceM = $resultBPM->num_rows;
+}
+else{
+    $redPerformanceM=0;
+}
+
+$sqlEntriesM  = "SELECT * FROM `scale` WHERE `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultEntriesM= $conn->query($sqlEntriesM);
+if($resultEntriesM->num_rows>0){
+    $entriesM = $resultEntriesM->num_rows;
+}
+else{
+    $entriesM=0;
+}
 
 
 
-    <?php
-    }
-    else{
-        echo "<div class='jumbotron text-center'>
-            <h2>No progress recorded</h2>
-        </div>";
-    }
+$performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
 
-
-    $sqlGPM  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $greenPM= $conn->query($sqlGPM);
-    if($greenPM->num_rows>0){
-        $greenPainM = $greenPM->num_rows;
-    }
-    else{
-        $greenPainM=0;
-    }
-
-    $sqlAPM  = "SELECT * FROM `scale` WHERE `pain`>=4 AND `pain`<=7 AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $amberPM= $conn->query($sqlAPM);
-    if($amberPM->num_rows>0){
-        $amberPainM = $amberPM->num_rows;
-    }
-    else{
-        $amberPainM=0;
-    }
-
-    $sqlRPM  = "SELECT * FROM `scale` WHERE `pain`>=8  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $redPM= $conn->query($sqlRPM);
-    if($redPM->num_rows>0){
-        $redPainM = $redPM->num_rows;
-    }
-    else{
-        $redPainM=0;
-    }
-
-    $painTotalMonth = $greenPainM+$amberPainM+$redPainM;
-
-    $sqlGBM  = "SELECT * FROM `scale` WHERE `breathlessness`<=1  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $resultBGM= $conn->query($sqlGBM);
-    if($resultBGM->num_rows>0){
-        $greenBreathM = $resultBGM->num_rows;
-    }
-    else{
-        $greenBreathM=0;
-    }
-
-    $sqlBAM  = "SELECT * FROM `scale` WHERE `breathlessness`>=2 AND `breathlessness` <=4  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $resultBAM= $conn->query($sqlBAM);
-    if($resultBAM->num_rows>0){
-        $amberBreathM = $resultBAM->num_rows;
-    }
-    else{
-        $amberBreathM=0;
-    }
-
-    $sqlBRM  = "SELECT * FROM `scale` WHERE `breathlessness`>=5  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $resultBRM= $conn->query($sqlBRM);
-    if($resultBRM->num_rows>0){
-        $redBreathM = $resultBRM->num_rows;
-    }
-    else{
-        $redBreathM=0;
-    }
-
-    $breathlessnessTotalM = $greenBreathM+$amberBreathM+$redBreathM;
-
-    $sqlPGM  = "SELECT * FROM `scale` WHERE `performance`<=1  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $resultPGM= $conn->query($sqlPGM);
-    if($resultPGM->num_rows>0){
-        $greenPerformanceM = $resultPGM->num_rows;
-    }
-    else{
-        $greenPerformanceM=0;
-    }
-
-    $sqlPAM  = "SELECT * FROM `scale` WHERE `performance`=2 AND `breathlessness` <=4  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $resultPAM= $conn->query($sqlPAM);
-    if($resultPAM->num_rows>0){
-        $amberPerformanceM = $resultPAM->num_rows;
-    }
-    else{
-        $amberPerformanceM=0;
-    }
-
-    $sqlBPM  = "SELECT * FROM `scale` WHERE `performance`>=3  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $resultBPM= $conn->query($sqlBPM);
-    if($resultBPM->num_rows>0){
-        $redPerformanceM = $resultBPM->num_rows;
-    }
-    else{
-        $redPerformanceM=0;
-    }
-
-    $sqlEntriesM  = "SELECT * FROM `scale` WHERE `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
-    $resultEntriesM= $conn->query($sqlEntriesM);
-    if($resultEntriesM->num_rows>0){
-        $entriesM = $resultEntriesM->num_rows;
-    }
-    else{
-        $entriesM=0;
-    }
-
-
-
-    $performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
-
-    if($entriesM!=0) {
+if($entriesM!=0) {
 //PAIN DONUT BARS
-        $greenPainBarM = $greenPainM / ($entriesM) * 210;
-        $amberPainBarM = $amberPainM / ($entriesM) * 210;
-        $redPainBarM = $redPainM / ($entriesM) * 210;
+    $greenPainBarM = $greenPainM / ($entriesM) * 210;
+    $amberPainBarM = $amberPainM / ($entriesM) * 210;
+    $redPainBarM = $redPainM / ($entriesM) * 210;
 
 //BREATHING DONUT BARS
-        $greenBBarM = $greenBreathM / ($entriesM) * 210;
-        $amberBBarM = $amberBreathM / ($entriesM) * 210;
-        $redBBarM = $redBreathM / ($entriesM) * 210;
+    $greenBBarM = $greenBreathM / ($entriesM) * 210;
+    $amberBBarM = $amberBreathM / ($entriesM) * 210;
+    $redBBarM = $redBreathM / ($entriesM) * 210;
 
 //PERFORMANCE DONUT BARS
-        $greenPBarM = $greenPerformanceM / ($entriesM) * 210;
-        $amberPBarM = $amberPerformanceM / ($entriesM) * 210;
-        $redPBarM = $redPerformanceM / ($entriesM) * 210;
-    }
+    $greenPBarM = $greenPerformanceM / ($entriesM) * 210;
+    $amberPBarM = $amberPerformanceM / ($entriesM) * 210;
+    $redPBarM = $redPerformanceM / ($entriesM) * 210;
+}
 
 
 
-    ?>
-    <?php if($entriesM!=0){ ?>
+?>
 
-    <div class="container" id="prevMonth">
-        <div class="jumbotron text-center">
-            <h1><?php echo $patientname?>'s Progress in the Past Month</h1>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+
+    <meta charset="UTF-8">
+    <title>Project</title>
+    <script>
+
+        window.onload = function() {
+            CanvasJS.addColorSet("greenShades",
+                [
+                    "#008D00",
+                    "#E8AE00",
+                    "#FF0000"
+                ]);
+            var painAllTime = new CanvasJS.Chart("painAllTime", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+                title:{
+                    text: "Pain",
+                    fontFamily: "Montserrat, sans-serif",
+
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontSize: 17,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenPainBar, label: 'Green'},";
+                        echo "{y: $amberPainBar, label: 'Amber'},";
+                        echo "{y: $redPainBar, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            painAllTime.render();
+
+
+            var breathAllTime = new CanvasJS.Chart("breathAllTime", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Breathlessness",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenBBar, label: 'Green'},";
+                        echo "{y: $amberBBar, label: 'Amber'},";
+                        echo "{y: $redBBar, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            breathAllTime.render();
+
+
+            var performanceAllTime = new CanvasJS.Chart("performanceAllTime", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Performance",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenPBar, label: 'Green'},";
+                        echo "{y: $amberPBar, label: 'Amber'},";
+                        echo "{y: $redPBar, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            performanceAllTime.render();
+
+
+
+            var painMonth = new CanvasJS.Chart("painMonth", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Pain",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenPainBarM, label: 'Green'},";
+                        echo "{y: $amberPainBarM, label: 'Amber'},";
+                        echo "{y: $redPainBarM, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            painMonth.render();
+
+
+
+            var breathMonth = new CanvasJS.Chart("breathMonth", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Breathlessness",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenBBarM, label: 'Green'},";
+                        echo "{y: $amberBBarM, label: 'Amber'},";
+                        echo "{y: $redBBarM, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            breathMonth.render();
+
+            var performanceMonth = new CanvasJS.Chart("performanceMonth", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Performance",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenPBarM, label: 'Green'},";
+                        echo "{y: $amberPBarM, label: 'Amber'},";
+                        echo "{y: $redPBarM, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            performanceMonth.render();
+        }
+
+
+
+    </script>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#myPage">    </a>
         </div>
-        <br>
-        <div class="caroBox">
-            <div id="myCarousel2" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel2" data-slide-to="1"></li>
-                    <li data-target="#myCarousel2" data-slide-to="2"></li>
-                </ol>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class = "nav navbar-nav navbar-left">
+                <li><a href="dashboard.php">DASHBOARD</a></li>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <div class="container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="part1PainMonth" class="portion-block">
-                                        <div class="circle" id="c1PainMonth"></div>
-                                    </div>
-                                    <div id="part2PainMonth" class="portion-block">
-                                        <div class="circle" id="c2PainMonth"></div>
-                                    </div>
-                                    <div id="part3PainMonth" class="portion-block">
-                                        <div class="circle" id="c3PainMonth"></div>
-                                    </div>
-                                    <p class="center" style="color:black">Pain</p>
-                                </div>
-                                <div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="item">
-                        <div class="container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="part1BreathMonth" class="portion-block">
-                                        <div class="circle" id="c1BreathMonth"></div>
-                                    </div>
-                                    <div id="part2BreathMonth" class="portion-block">
-                                        <div class="circle" id="c2BreathMonth"></div>
-                                    </div>
-                                    <div id="part3BreathMonth" class="portion-block">
-                                        <div class="circle" id="c3BreathMonth"></div>
-                                    </div>
-                                    <p class="center" style="color:black">Breathing</p>
-                                </div>
-                                <div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="part1PerformanceMonth" class="portion-block">
-                                        <div class="circle" id="c1PerformMonth"></div>
-                                    </div>
-                                    <div id="part2PerformanceMonth" class="portion-block">
-                                        <div class="circle" id="c2PerformMonth"></div>
-                                    </div>
-                                    <div id="part3PerformanceMonth" class="portion-block">
-                                        <div class="circle" id="c3PerformMonth"></div>
-                                    </div>
-                                    <p class="center" style="color:black">Performance</p>
-                                </div>
-                                <div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel2" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-
-            </div>
+            </ul>
         </div>
     </div>
+</nav>
+
+
+
+
+<div class="jumbotron text-center" id="jumbo1">
+    <h1><?php echo  $patientname?>'s Progress Over the Past Month</h1>
+</div>
+<div class="jumbotron text-center" id="jumbo2" style="display:none">
+    <h1><?php echo  $patientname?>'s Progress from the Beginning</h1>
 </div>
 
 
+<div class="box">
+    <form method="get" class="radiostyle">
+        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
+            <span class="checkmark"></span>
+            <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
+        </label>
+        <br>
+        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
+            <span class="checkmark"></span>
+            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
 
-    <div class="box">
-        <form method="get" class="radiostyle">
-            <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
-                <span class="checkmark"></span>
-                <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
-            </label>
-            <br>
-            <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
-                <span class="checkmark"></span>
-                <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
-
-            </label>
-        </form>
-
-    </div>
-<br>
+        </label>
+    </form>
+</div>
 <?php
-}
-else{
-    echo "<div class='jumbotron text-center'>
-            <h2>No progress recorded over the past month</h2>
-        </div>";
-}
+if($entries!=0) {
+
 ?>
+<div id="allTime" style="position:absolute" class="center-div">
+    <div id="painAllTime" style="height: 30rem; width: 100%;"></div>
+    <br>
+    <br>
+    <div id="breathAllTime" style="height: 30rem; width:100%;"></div>
+    <br>
+    <br>
+    <div id="performanceAllTime" style="height: 30rem; width:100%;"></div>
+    <br>
+    <br>
+    <?php }
+    else{
+        echo "<p>No records yet</p>";
+    }
+    ?>
+</div>
 
-
-<script>
-    //    let val1=90;
-    //    let val2=180;
-    //    let val3 = 90;
-    var greenPain =<?php echo $greenPainBar?>;
-    var amberPain =<?php echo $amberPainBar?>;
-    var redPain = <?php echo $redPainBar ?>;
-    var greenPainMonth =<?php echo $greenPainBarM?>;
-    var amberPainMonth =<?php echo $amberPainBarM?>;
-    var redPainMonth = <?php echo $redPainBarM ?>;
-    console.log("Green pain month"+ greenPainMonth);
-    console.log("Amber pain month"+ amberPainMonth);
-    console.log("Red pain month"+ redPainMonth);
-
-
-    var greenBreath = <?php echo $greenBBar?>;
-    var amberBreath = <?php echo $amberBBar?>;
-    var redBreath = <?php echo $redBBar?>;
-    var greenBreathMonth = <?php echo $greenBBarM?>;
-    var amberBreathMonth = <?php echo $amberBBarM?>;
-    var redBreathMonth = <?php echo $redBBarM?>;
-    console.log("Green breath month"+ greenBreathMonth);
-    console.log("Amber breath month"+ amberBreathMonth);
-    console.log("Red breath month"+ redBreathMonth);
-
-    var greenPerformance = <?php echo $greenPBar?>;
-    var amberPerformance = <?php echo $amberPBar?>;
-    var redPerformance = <?php echo $redPBar ?>;
-    var greenPerformanceMonth = <?php echo $greenPBarM?>;
-    var amberPerformanceMonth = <?php echo $amberPBarM?>;
-    var redPerformanceMonth = <?php echo $redPBarM ?>;
-    console.log("Green performance month"+ greenPerformanceMonth);
-    console.log("Amber performance month"+ amberPerformanceMonth);
-    console.log("Red performance month  "+ redPerformanceMonth);
-
-
-
-    document.getElementById("part1Pain").style.transform = "rotate(0deg)";
-    document.getElementById("c1Pain").style.transform =  "rotate("+greenPain+"deg)";
-    document.getElementById("part2Pain").style.transform = "rotate("+greenPain+"deg)";
-    document.getElementById("c2Pain").style.transform = "rotate("+amberPain+"deg)";
-    document.getElementById("part3Pain").style.transform = "rotate("+(greenPain+amberPain)+"deg)";
-    document.getElementById("c3Pain").style.transform = "rotate("+redPain+"deg)";
-
-    document.getElementById("part1Breath").style.transform = "rotate(0deg)";
-    document.getElementById("c1Breath").style.transform =  "rotate("+greenBreath+"deg)";
-    document.getElementById("part2Breath").style.transform = "rotate("+greenBreath+"deg)";
-    document.getElementById("c2Breath").style.transform = "rotate("+amberBreath+"deg)";
-    document.getElementById("part3Breath").style.transform = "rotate("+(greenBreath+amberBreath)+"deg)";
-    document.getElementById("c3Breath").style.transform = "rotate("+redBreath+"deg)";
-
-    document.getElementById("part1Performance").style.transform = "rotate(0deg)";
-    document.getElementById("c1Perform").style.transform =  "rotate("+greenPerformance+"deg)";
-    document.getElementById("part2Performance").style.transform = "rotate("+greenPerformance+"deg)";
-    document.getElementById("c2Perform").style.transform = "rotate("+amberPerformance+"deg)";
-    document.getElementById("part3Performance").style.transform = "rotate("+(greenPerformance+amberPerformance)+"deg)";
-    document.getElementById("c3Perform").style.transform = "rotate("+redPerformance+"deg)";
-
-    document.getElementById("part1PainMonth").style.transform = "rotate(0deg)";
-    document.getElementById("c1PainMonth").style.transform =  "rotate("+greenPainMonth+"deg)";
-    document.getElementById("part2PainMonth").style.transform = "rotate("+greenPainMonth+"deg)";
-    document.getElementById("c2PainMonth").style.transform = "rotate("+amberPainMonth+"deg)";
-    document.getElementById("part3PainMonth").style.transform = "rotate("+(greenPainMonth+amberPainMonth)+"deg)";
-    document.getElementById("c3PainMonth").style.transform = "rotate("+redPainMonth+"deg)";
-
-    document.getElementById("part1BreathMonth").style.transform = "rotate(0deg)";
-    document.getElementById("c1BreathMonth").style.transform =  "rotate("+greenBreathMonth+"deg)";
-    document.getElementById("part2BreathMonth").style.transform = "rotate("+greenBreathMonth+"deg)";
-    document.getElementById("c2BreathMonth").style.transform = "rotate("+amberBreathMonth+"deg)";
-    document.getElementById("part3BreathMonth").style.transform = "rotate("+(greenBreathMonth+amberBreathMonth)+"deg)";
-    document.getElementById("c3BreathMonth").style.transform = "rotate("+redBreathMonth+"deg)";
-
-    document.getElementById("part1PerformanceMonth").style.transform = "rotate(0deg)";
-    document.getElementById("c1PerformMonth").style.transform =  "rotate("+greenPerformanceMonth+"deg)";
-    document.getElementById("part2PerformanceMonth").style.transform = "rotate("+greenPerformanceMonth+"deg)";
-    document.getElementById("c2PerformMonth").style.transform = "rotate("+amberPerformanceMonth+"deg)";
-    document.getElementById("part3PerformanceMonth").style.transform = "rotate("+(greenPerformanceMonth+amberPerformanceMonth)+"deg)";
-    document.getElementById("c3PerformMonth").style.transform = "rotate("+redPerformanceMonth+"deg)";
-
-</script>
-
-
-
+<?php
+if($entriesM!=0){?>
+<div id="prevMonth" style="position:absolute" class="center-div">
+    <div id="painMonth" style="height: 30rem;width: 100%;"></div>
+    <br>
+    <br>
+    <div id="breathMonth" style="height: 30rem; width: 100%;"></div>
+    <br>
+    <br>
+    <div id="performanceMonth" style="height: 30rem; width: 100%;"></div>
+    <br>
+    <br>
+    <?php }
+    else{
+        echo "<p>No records over the past month</p>";
+    }
+    ?>
+</div>
 
 <script>
 
     var x = document.getElementById("allTime");
     var y = document.getElementById("prevMonth");
+    var jumbo1 = document.getElementById("jumbo1");
+    var jumbo2 = document.getElementById("jumbo2");
+
     x.style.display="none";
     y.style.display="block";
-
-
+    jumbo1.style.display="block";
+    jumbo2.style.display="none";
     function submitAll(){
-        var x = document.getElementById("allTime");
-
         if (x.style.display === "none") {
             x.style.display = "block";
             y.style.display="none";
+            jumbo1.style.display="none";
+            jumbo2.style.display="block";
+
         } else {
             x.style.display = "block";
+            jumbo2.style.display="block";
+            jumbo1.style.display="none";
         }
-
     }
 
     function submitMonth(){
-        var y = document.getElementById("prevMonth");
         if (y.style.display === "none") {
-            y.style.display = "block";
             x.style.display="none";
+            jumbo2.style.display="none";
+            y.style.display = "block";
+            jumbo1.style.display="block";
         } else {
             y.style.display = "block";
+            jumbo1.style.display="block";
         }
 
     }
@@ -748,6 +674,7 @@ else{
 
 
 
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
 <div class="clear"></div>

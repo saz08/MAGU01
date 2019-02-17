@@ -130,12 +130,19 @@ if($patient->num_rows>0){
     }
     ?>
 </div>
+<script>
+    function goBack(){
+        window.history.back();
+    }
+</script>
 
 </body>
 <div class="clear"></div>
 
 <footer>
     <div class="footer">
+        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

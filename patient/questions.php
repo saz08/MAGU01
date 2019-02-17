@@ -138,10 +138,28 @@ if($loginOK) {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="recordOptions.php">RECORD</a></li>
-                <li><a href="talk.php">TALK</a></li>
-                <li><a href="links.html">HELP</a></li>
-                <li><a href="results.php">PROFILE</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="scale.php">HEALTH MONITORING</a></li>
+                        <li><a href="weight.php">WEIGHT MONITORING</a></li>
+                        <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
+                    </ul>
+                </li>                  <li><a href="talk.php">TALK</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="helpInfo.php">INFO</a></li>
+                        <li><a href="helpFinancial.php">FINANCIAL</a></li>
+                        <li><a href="helpEmotional.php">EMOTIONAL</a></li>
+                        <li><a href="helpPhysical.php">PHYSICAL</a></li>
+                    </ul>
+                </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="progressChart.php">PROGRESS CHARTS</a></li>
+                        <li><a href="weightChart.php">WEIGHT CHART</a></li>
+                        <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                        <li><a href="questions.php">QUESTIONS</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -171,7 +189,7 @@ $question= (safePost($conn,"question"));
 if($action==="filled"){
     $sql  = "INSERT INTO `questions` (`question`, `username`) VALUES ('$question', '$username')";
     $conn->query($sql);?>
-    <script>window.location.href="results.php";</script>
+    <script>window.location.href="questions.php";</script>
     <?php
 }
 ?>
@@ -211,7 +229,7 @@ if($action==="filled"){
         var qNo = questionNo;
         jQuery.post("deleteQ.php", {"questionNo": qNo}, function(data){
             alert("deleted Question");
-            window.location.href="results.php";
+            window.location.href="questions.php";
             console.log("question no is "+ qNo);
         }).fail(function()
         {

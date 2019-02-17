@@ -510,3 +510,30 @@ table.row-clickable tbody tr td a {
         position: absolute;
     }
 }
+
+.center-div
+{
+    /*top: 40rem;*/
+    /*left: 30%;*/
+    width: 100%;
+
+}
+
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+    /* Styles */
+    .center-div
+    {
+        left:1%;
+        width:100%;
+        position: absolute;
+
+    }
+
+}
+
+.dropdown-menu{
+    background-color: purple;
+}

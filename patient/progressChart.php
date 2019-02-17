@@ -166,6 +166,123 @@ if($entries!=0) {
     $amberPBar = $amberPerformance / ($entries) * 210;
     $redPBar = $redPerformance / ($entries) * 210;
 }
+
+
+$sqlGPM  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$greenPM= $conn->query($sqlGPM);
+if($greenPM->num_rows>0){
+    $greenPainM = $greenPM->num_rows;
+}
+else{
+    $greenPainM=0;
+}
+
+$sqlAPM  = "SELECT * FROM `scale` WHERE `pain`>=4 AND `pain`<=7 AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$amberPM= $conn->query($sqlAPM);
+if($amberPM->num_rows>0){
+    $amberPainM = $amberPM->num_rows;
+}
+else{
+    $amberPainM=0;
+}
+
+$sqlRPM  = "SELECT * FROM `scale` WHERE `pain`>=8  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$redPM= $conn->query($sqlRPM);
+if($redPM->num_rows>0){
+    $redPainM = $redPM->num_rows;
+}
+else{
+    $redPainM=0;
+}
+
+$painTotalMonth = $greenPainM+$amberPainM+$redPainM;
+
+$sqlGBM  = "SELECT * FROM `scale` WHERE `breathlessness`<=1  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBGM= $conn->query($sqlGBM);
+if($resultBGM->num_rows>0){
+    $greenBreathM = $resultBGM->num_rows;
+}
+else{
+    $greenBreathM=0;
+}
+
+$sqlBAM  = "SELECT * FROM `scale` WHERE `breathlessness`>=2 AND `breathlessness` <=4  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBAM= $conn->query($sqlBAM);
+if($resultBAM->num_rows>0){
+    $amberBreathM = $resultBAM->num_rows;
+}
+else{
+    $amberBreathM=0;
+}
+
+$sqlBRM  = "SELECT * FROM `scale` WHERE `breathlessness`>=5  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBRM= $conn->query($sqlBRM);
+if($resultBRM->num_rows>0){
+    $redBreathM = $resultBRM->num_rows;
+}
+else{
+    $redBreathM=0;
+}
+
+$breathlessnessTotalM = $greenBreathM+$amberBreathM+$redBreathM;
+
+$sqlPGM  = "SELECT * FROM `scale` WHERE `performance`<=1  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultPGM= $conn->query($sqlPGM);
+if($resultPGM->num_rows>0){
+    $greenPerformanceM = $resultPGM->num_rows;
+}
+else{
+    $greenPerformanceM=0;
+}
+
+$sqlPAM  = "SELECT * FROM `scale` WHERE `performance`=2 AND `breathlessness` <=4  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultPAM= $conn->query($sqlPAM);
+if($resultPAM->num_rows>0){
+    $amberPerformanceM = $resultPAM->num_rows;
+}
+else{
+    $amberPerformanceM=0;
+}
+
+$sqlBPM  = "SELECT * FROM `scale` WHERE `performance`>=3  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultBPM= $conn->query($sqlBPM);
+if($resultBPM->num_rows>0){
+    $redPerformanceM = $resultBPM->num_rows;
+}
+else{
+    $redPerformanceM=0;
+}
+
+$sqlEntriesM  = "SELECT * FROM `scale` WHERE `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$resultEntriesM= $conn->query($sqlEntriesM);
+if($resultEntriesM->num_rows>0){
+    $entriesM = $resultEntriesM->num_rows;
+}
+else{
+    $entriesM=0;
+}
+
+
+
+$performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
+
+if($entriesM!=0) {
+//PAIN DONUT BARS
+    $greenPainBarM = $greenPainM / ($entriesM) * 210;
+    $amberPainBarM = $amberPainM / ($entriesM) * 210;
+    $redPainBarM = $redPainM / ($entriesM) * 210;
+
+//BREATHING DONUT BARS
+    $greenBBarM = $greenBreathM / ($entriesM) * 210;
+    $amberBBarM = $amberBreathM / ($entriesM) * 210;
+    $redBBarM = $redBreathM / ($entriesM) * 210;
+
+//PERFORMANCE DONUT BARS
+    $greenPBarM = $greenPerformanceM / ($entriesM) * 210;
+    $amberPBarM = $amberPerformanceM / ($entriesM) * 210;
+    $redPBarM = $redPerformanceM / ($entriesM) * 210;
+}
+
     ?>
 
 
@@ -193,28 +310,34 @@ if($entries!=0) {
     <title>Project</title>
     <script>
 
-        function painAllTime() {
+        window.onload = function() {
             CanvasJS.addColorSet("greenShades",
                 [
                     "#008D00",
-                    "#FFBF00",
+                    "#E8AE00",
                     "#FF0000"
                 ]);
-            var chart = new CanvasJS.Chart("painAllTime", {
+            var painAllTime = new CanvasJS.Chart("painAllTime", {
 
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-
+                height: 400,
+                width: window.innerWidth,
                 title:{
-                    text: "Pain Scales",
+                    text: "Pain",
+                    fontFamily: "Montserrat, sans-serif",
+
                     horizontalAlign: "left"
                 },
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
                     //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
                     indexLabelFontSize: 17,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
                     dataPoints: [
@@ -226,29 +349,31 @@ if($entries!=0) {
                     ]
                 }]
             });
-            chart.render();
-        }
-        function breathAllTime() {
-            CanvasJS.addColorSet("greenShades",
-                [
-                    "#008D00",
-                    "#FFBF00",
-                    "#FF0000"
-                ]);
-            var chart = new CanvasJS.Chart("breathAllTime", {
+            painAllTime.render();
+
+
+            var breathAllTime = new CanvasJS.Chart("breathAllTime", {
 
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
 
                 title:{
-                    text: "Pain Scales",
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Breathlessness",
                     horizontalAlign: "left"
                 },
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
                     //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
                     indexLabelFontSize: 17,
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
@@ -261,30 +386,31 @@ if($entries!=0) {
                     ]
                 }]
             });
-            chart.render();
-        }
+            breathAllTime.render();
 
-        function performanceAllTime() {
-            CanvasJS.addColorSet("greenShades",
-                [
-                    "#008D00",
-                    "#FFBF00",
-                    "#FF0000"
-                ]);
-            var chart = new CanvasJS.Chart("performanceAllTime", {
+
+            var performanceAllTime = new CanvasJS.Chart("performanceAllTime", {
 
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
 
                 title:{
-                    text: "Pain Scales",
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Performance",
                     horizontalAlign: "left"
                 },
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
                     //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
                     indexLabelFontSize: 17,
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
@@ -297,7 +423,119 @@ if($entries!=0) {
                     ]
                 }]
             });
-            chart.render();
+            performanceAllTime.render();
+
+
+
+            var painMonth = new CanvasJS.Chart("painMonth", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Pain",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenPainBarM, label: 'Green'},";
+                        echo "{y: $amberPainBarM, label: 'Amber'},";
+                        echo "{y: $redPainBarM, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            painMonth.render();
+
+
+
+            var breathMonth = new CanvasJS.Chart("breathMonth", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Breathlessness",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenBBarM, label: 'Green'},";
+                        echo "{y: $amberBBarM, label: 'Amber'},";
+                        echo "{y: $redBBarM, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            breathMonth.render();
+
+            var performanceMonth = new CanvasJS.Chart("performanceMonth", {
+
+                animationEnabled: true,
+                colorSet: "greenShades",
+                backgroundColor: "#DDA8FF",
+                height: 400,
+                width: window.innerWidth,
+
+                title:{
+                    fontFamily: "Montserrat, sans-serif",
+
+                    text: "Performance",
+                    horizontalAlign: "left"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    //innerRadius: 60,
+                    radius: "80%",
+                    indexLabelLineThickness: 5,
+                    indexLabelFontFamily: "Montserrat, sans-serif",
+
+                    indexLabelFontSize: 17,
+                    indexLabel: "{label} - #percent%",
+                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    dataPoints: [
+                        <?php
+                        echo "{y: $greenPBarM, label: 'Green'},";
+                        echo "{y: $amberPBarM, label: 'Amber'},";
+                        echo "{y: $redPBarM, label: 'Red'},";
+                        ?>
+                    ]
+                }]
+            });
+            performanceMonth.render();
         }
 
 
@@ -317,12 +555,28 @@ if($entries!=0) {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="index.php">HOME</a></li>
-                <li><a href="recordOptions.php">RECORD</a></li>
-                <li><a href="talk.php">TALK</a></li>
-                <li><a href="links.html">HELP</a></li>
-                <li><a href="results.php">PROFILE</a></li>
-
-
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="scale.php">HEALTH MONITORING</a></li>
+                        <li><a href="weight.php">WEIGHT MONITORING</a></li>
+                        <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
+                    </ul>
+                </li>                  <li><a href="talk.php">TALK</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="helpInfo.php">INFO</a></li>
+                        <li><a href="helpFinancial.php">FINANCIAL</a></li>
+                        <li><a href="helpEmotional.php">EMOTIONAL</a></li>
+                        <li><a href="helpPhysical.php">PHYSICAL</a></li>
+                    </ul>
+                </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="progressChart.php">PROGRESS CHARTS</a></li>
+                        <li><a href="weightChart.php">WEIGHT CHART</a></li>
+                        <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                        <li><a href="questions.php">QUESTIONS</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
@@ -332,8 +586,11 @@ if($entries!=0) {
 </nav>
 
 
-<div class="jumbotron text-center">
-    <h1>My Progress</h1>
+<div class="jumbotron text-center" id="jumbo1">
+    <h1>My Progress Over the Past Month</h1>
+</div>
+<div class="jumbotron text-center" id="jumbo2" style="display:none">
+    <h1>My Progress from the Beginning</h1>
 </div>
 
 
@@ -351,90 +608,81 @@ if($entries!=0) {
         </label>
     </form>
 </div>
+<?php
+if($entries!=0) {
 
-
-
-<div class="container" id="allTime">
+?>
+<div id="allTime" style="position:absolute" class="center-div">
+<div id="painAllTime" style="height: 30rem; width: 100%;"></div>
     <br>
-    <div class="caroBox">
-        <div id="myCarousel2" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel2" data-slide-to="1"></li>
-                <li data-target="#myCarousel2" data-slide-to="2"></li>
-            </ol>
+    <br>
+<div id="breathAllTime" style="height: 30rem; width:100%;"></div>
+    <br>
+    <br>
+<div id="performanceAllTime" style="height: 30rem; width:100%;"></div>
+    <br>
+    <br>
+    <?php }
+    else{
+        echo "<p>No records yet</p>";
+    }
+    ?>
+</div>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div class="container">
-                        <div id="painAllTime" style="height: 30rem; width: 100%;"></div>
-
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="container">
-                        <div id="breathAllTime" style="height: 30rem; width: 100%;"></div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="container">
-                        <div id="performanceAllTime" style="height:30rem; width: 100%;"></div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel2" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
-
-        </div>
-    </div>
+<?php
+if($entriesM!=0){?>
+<div id="prevMonth" style="position:absolute" class="center-div">
+    <div id="painMonth" style="height: 30rem;width: 100%;"></div>
+    <br>
+    <br>
+    <div id="breathMonth" style="height: 30rem; width: 100%;"></div>
+    <br>
+    <br>
+    <div id="performanceMonth" style="height: 30rem; width: 100%;"></div>
+    <br>
+    <br>
+    <?php }
+    else{
+        echo "<p>No records over the past month</p>";
+    }
+    ?>
 </div>
 
 
 <script>
     var x = document.getElementById("allTime");
     var y = document.getElementById("prevMonth");
+    var jumbo1 = document.getElementById("jumbo1");
+    var jumbo2 = document.getElementById("jumbo2");
+
     x.style.display="none";
     y.style.display="block";
+    jumbo1.style.display="block";
+    jumbo2.style.display="none";
     function submitAll(){
-        var x = document.getElementById("allTime");
-
         if (x.style.display === "none") {
             x.style.display = "block";
             y.style.display="none";
+            jumbo1.style.display="none";
+            jumbo2.style.display="block";
+
         } else {
             x.style.display = "block";
+            jumbo2.style.display="block";
+            jumbo1.style.display="none";
         }
+    }
 
+    function submitMonth(){
+        if (y.style.display === "none") {
+            x.style.display="none";
+            jumbo2.style.display="none";
+            y.style.display = "block";
+            jumbo1.style.display="block";
+        } else {
+            y.style.display = "block";
+            jumbo1.style.display="block";
+        }
 
     }
 </script>
