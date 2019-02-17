@@ -168,14 +168,14 @@ if($loginOK) {
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Questions</h1>
+    <h1>Questions <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <div class="box">
     <div class="container-fluid bg-2 text-center">
 
         <p>Note down any questions you have</p>
         <form method="post" name="questions">
-            <input type="text" name="question"><br>
+            <input type="text" name="question" placeholder="Type a question here..."><br>
             <input type="hidden" name="action" value="filled">
             <br>
             <input type="submit" value="Save Question" class="btn"><br>

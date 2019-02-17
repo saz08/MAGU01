@@ -125,7 +125,7 @@ if($loginOK) {
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Monitor Performance</h1>
+    <h1>Monitor Performance <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <div class="box">The following is the ECOG/WHO Performance Status scale. Please tick the box that you feel you apply to

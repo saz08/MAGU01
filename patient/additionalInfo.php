@@ -126,7 +126,7 @@ if($loginOK) {
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Additional Info</h1>
+    <h1>Additional Info <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <div class="box">Please enter any additional information you want to record. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>

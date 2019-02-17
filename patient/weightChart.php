@@ -161,7 +161,7 @@ $loginOK = false; //TODO make this work with database values
 
 
 <div class="jumbotron text-center">
-    <h1>My Weight Chart</h1>
+    <h1>My Weight Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>

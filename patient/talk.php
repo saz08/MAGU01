@@ -119,7 +119,7 @@ $loginOK = false; //TODO make this work with database values
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>PATIENT FORUM ROOM</h1>
+    <h1>Patient Forum Room <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <form method="post" name="createForumPost" >
@@ -238,43 +238,7 @@ if($action2==="filled"){
 
 ?>
 
-
-<script>
-
-
-
-
-    function heartClick(divID){
-        var heartDiv = divID;
-        $(".heart.fa").click(function() {
-            $(this).toggleClass("fa-heart fa-heart-o");
-            if(this.className==="heart fa fa-heart-o"){
-//                jQuery.post("heartMinus.php", {"HeartDiv": heartDiv}, function(data){
-//                    alert("oops! taken away support");
-//                    window.location.href="talk.php";
-//                    console.log("heart div is " + heartDiv);
-//
-//                }).fail(function()
-//                {
-//                    alert("something broke");
-//                });
-            }
-            else{
-                jQuery.post("heart.php", {"HeartDiv": heartDiv}, function(data){
-                    alert("sent support");
-                    window.location.href="talk.php";
-                    console.log("heart div is " + heartDiv);
-
-                }).fail(function()
-                {
-                    alert("something broke in sending support");
-                });
-            }
-
-        });
-    }
-
-</script>
+<br>
 
 </body>
 

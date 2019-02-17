@@ -192,7 +192,7 @@ if($sitResult->num_rows>0) {
 
 
 <div class="jumbotron text-center">
-    <h1>My Physical Activity Chart</h1>
+    <h1>My Physical Activity Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>

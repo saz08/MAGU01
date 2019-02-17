@@ -587,10 +587,10 @@ if($entriesM!=0) {
 
 
 <div class="jumbotron text-center" id="jumbo1">
-    <h1>My Progress Over the Past Month</h1>
+    <h1>My Progress Over the Past Month <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
-    <h1>My Progress from the Beginning</h1>
+    <h1>My Progress from the Beginning <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 

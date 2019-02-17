@@ -183,13 +183,55 @@ if($resultPhysical -> num_rows>0){
 }
 
 ?>
+<div class="box">
+    <?php
+    $sqlScale  = "SELECT * FROM `scale`WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
+    $resultScale = $conn->query($sqlScale);
+    if($resultScale->num_rows>0) {
+        while ($rowname = $resultScale->fetch_assoc()) {
+            $pain = $rowname["pain"];
+            $breath = $rowname["breathlessness"];
+            $performance=$rowname["performance"];
+
+            if($pain>=8){
+                echo"<p>Your most recent pain score was $pain. <br> Common suggestions are: check you are still taking your antibiotics correctly</p>";
+            }
+            if($pain>=4 && $pain<=7){
+                echo"<p>Your most recent pain score was $pain. <br> Common suggestions are: ensure you are ok</p>";
+            }
+            if($pain<4){
+                echo"<p>Your most recent pain score was $pain. <br> You are progressing well!</p>";
+            }
+            if($breath=5){
+                echo"<p>Your most recent breathlessness score was $breath. <br> Common suggestions are: take it easy for the next few days</p>";
+            }
+            if($breath>=2&&$breath<=4){
+                echo"<p>Your most recent breathlessness score was $breath. <br> Suggestion:</p>";
+            }
+            if($breath<4){
+                echo"<p>Your most recent breathlessness score was $breath. <br> You are progressing well!</p>";
+            }
+            if($performance>=3){
+                echo"<p>Your most recent performance score was $performance. <br> Seek help</p>";
+            }
+            if($performance>=1&&$performance<=2){
+                echo"<p>Your most recent performance score was $performance. <br> Suggestions</p>";
+            }
+            if($performance<1){
+                echo"<p>Your most recent performance score was $performance. <br> You are progressing well!</p>";
+            }
+        }
+    }
+
+    ?>
+</div>
+
+
 
 <script>
     function goRecord(){
         window.location.href="recordOptions.php";
     }
-
-
 </script>
 </body>
 <div class="clear"></div>
