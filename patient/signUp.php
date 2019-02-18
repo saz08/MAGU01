@@ -133,8 +133,9 @@ if($loginOK) {
                 <p>Password: <br><input type="password" name="password" value=""/></p>
                 <input type="hidden" name="action" value="filled">
                 <p><input type="submit" name="submitLogon" id="loginButton"class="btn" value="Login"></p>
+                </p>
             </form>
-            </p>
+
             <?php
             if(isset($_POST["submitLogon"])) {
                 if(trim($_POST["username"])== ""){
@@ -156,8 +157,14 @@ if($loginOK) {
             $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
             $result = mysqli_query($conn,$query);
             if(mysqli_num_rows($result)){
-            $query2 = "SELECT `password` FROM `account` WHERE `password` = '$password'";
-            $result2 = mysqli_query($conn,$query2);
+            $query2 = "SELECT `password` FROM `account` WHERE `username` = '$username'";
+            $result2 = $conn->query($query2);
+            if($result2->num_rows>0) {
+            while ($rowname = $result2->fetch_assoc()) {
+                $DBpassword = $rowname["password"];
+                }
+            }
+            if(password_verify("$password",$DBpassword)){
             if(mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
             $loginOK=true;
@@ -168,18 +175,18 @@ if($loginOK) {
                 <script>localStorage.setItem("username", user);
                     window.location.href = "index.php";
                 </script>
-                <?php
-                echo "<p class='center'><a href = 'index.php' class='btn ' role='button' >Go to Home!</a></p>";
+            <?php
+            }
             }
             else{
                 ?><script>alert("Password not recognised")</script><?php
-            }
+                }
+
             }
             else{
                 ?><script>alert("Username not recognised")</script><?php
             }
-
-            }
+ }
             ?>
         </div>
 
@@ -188,7 +195,7 @@ if($loginOK) {
                 <h2 style="color:black">Register</h2>
                 <p class="lead" style="color:#f7f7f7;">
                 <p>Create Username:<br> <input type="text" name="username" value="" id="username"/></p>
-                <p>Create Password: <br><input type="password" name="password" value="" id="password"/></p>
+                <p>Create Password:<input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                 <p>Enter ID: <br><input type="number" name="id" value="" id="id"/></p>
                 <p>Smoker Status <i>*Optional*</i></p>
                 <input type="radio" name="smoker" value="smoker" id="smoker"> Current
@@ -290,20 +297,14 @@ if($loginOK) {
             $checkID = "SELECT `id` FROM `chi` WHERE `id` = '$id'";
             $resultID = $conn->query($checkID);
 
-//            $resultID = mysqli_query($conn,$checkID);
         if($resultID->num_rows<1) {
         ?><script>alert("ID does not exist");</script><?php
             echo "<p> * ID is not registered * ";
 
             }
-//        if(mysqli_num_rows($resultID)) {
-//            ?><!--<script>alert("Username Already in Use");</script> --><?php
-//        echo "<p> * Username is already registered * ";
-//        }
 
-
-        $sql = "INSERT INTO `account` (`id`,`username`, `password`, `smokingStatus`) VALUES ('$id','$username', '$password', '$smoker1')";
-
+            $passwordNew = password_hash("$password",PASSWORD_DEFAULT);
+         $sql = "INSERT INTO `account` (`id`,`username`, `password`, `smokingStatus`) VALUES ('$id','$username', '$passwordNew', '$smoker1')";
         if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Registration was successful!</p>";
         $loginOK = true;
@@ -314,18 +315,12 @@ if($loginOK) {
                 window.location.href = "index.php";
             </script>
             <?php
-            echo "<p class='center'><a href = 'index.php' class='btn btn-primary btn-lg' id='goToMapButton' role='button' >Go to home!</a></p>";
         }
-
-
-
-
         }
         ?>
 
     </div>
-    <hr>
-    <input type="hidden" name="action" value="index.html">
+
 
 </div> <!-- / main container -->
 

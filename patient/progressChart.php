@@ -594,22 +594,24 @@ if($entriesM!=0) {
     <h1>My Progress from the Beginning <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
+<?php if($entries!=0&&$entriesM!=0) { ?>
+    <div class="box">
+        <form method="get" class="radiostyle">
+            <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
+                <span class="checkmark"></span>
+                <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
+            </label>
+            <br>
+            <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from
+                this month
+                <span class="checkmark"></span>
+                <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
 
-<div class="box">
-    <form method="get" class="radiostyle">
-        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
-            <span class="checkmark"></span>
-            <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
-        </label>
-        <br>
-        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
-            <span class="checkmark"></span>
-            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
-
-        </label>
-    </form>
-</div>
-<?php
+            </label>
+        </form>
+    </div>
+    <?php
+}
 if($entries!=0) {
 
 ?>
@@ -625,7 +627,7 @@ if($entries!=0) {
     <br>
     <?php }
     else{
-        echo "<p>No records yet</p>";
+        echo "<div class='box'><p>No records yet</p></div>";
     }
     ?>
 </div>
@@ -644,7 +646,7 @@ if($entriesM!=0){?>
     <br>
     <?php }
     else{
-        echo "<p>No records over the past month</p>";
+        echo "<div class='box'><p>No records over the past month</p></div>";
     }
     ?>
 </div>

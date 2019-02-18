@@ -135,7 +135,7 @@ $loginOK = false; //TODO make this work with database values
 </div>
 <h2 style="float:right">Today is <?php echo date('jS F Y')?></h2>
 <br>
-
+<br>
 
 
 <?php
@@ -157,9 +157,6 @@ if($resultInfo->num_rows>0) {
             </p>
         </div>
 <?php
-
-
-//        echo "<br><div class='box'><p>The doctor has responded to your query: " .$info."<br> Response: ".$response."<button class='btn' onclick='markAndDelete($response)'>Mark as Read and Delete</button></p></div>";
     }
 }
 
@@ -211,12 +208,12 @@ if($resultPhysical -> num_rows>0){
 }
 
 ?>
-<div class="box">
     <?php
     $sqlScale  = "SELECT * FROM `scale`WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
     $resultScale = $conn->query($sqlScale);
     if($resultScale->num_rows>0) {
         while ($rowname = $resultScale->fetch_assoc()) {
+            echo"<div class='box'>";
             $pain = $rowname["pain"];
             $breath = $rowname["breathlessness"];
             $performance=$rowname["performance"];
@@ -250,10 +247,13 @@ if($resultPhysical -> num_rows>0){
             }
         }
     }
-
+echo"</div>";
     ?>
-</div>
 
+
+<?php
+//$sqlNew = "SELECT"
+//?>
 
 
 <script>

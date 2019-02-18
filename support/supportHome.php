@@ -315,6 +315,7 @@ if($entriesM!=0) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <script src="../js/forAll.js"></script>
+    <script src="../js/supportJS.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -575,7 +576,6 @@ if($entriesM!=0) {
         </div>
     </div>
 </nav>
-
 
 
 

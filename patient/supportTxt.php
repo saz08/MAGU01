@@ -133,9 +133,9 @@ if($action === "filled") {
     $email = (safePost($conn, "email"));
 
     $from = "Remote Monitoring";
-    $message = $username." would like you to join their support circle on Survivors! Please follow the link to sign up and join them.\n You will be able to view their recovery and input any symptoms or concerns on their behalf.";
+    $message = $username." would like you to join their support circle on Survivors! Please follow the link to sign up and join them.\n https://devweb2017.cis.strath.ac.uk/~szb15123/Project/support/supportSignUp.php \n Please remember the username $username to sign up with! \nYou will be able to view their recovery and input any symptoms or concerns on their behalf.";
     $headers="From: $from\n";
-    $subject="Join ".$username."'s Support Circle'";
+    $subject="Join ".$username."'s Support Circle";
     mail($email,$subject,$message,$headers);
 }
 

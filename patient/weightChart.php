@@ -164,15 +164,26 @@ $loginOK = false; //TODO make this work with database values
 <div class="jumbotron text-center">
     <h1>My Weight Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<?php
+$sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
+$result= $conn->query($sql);
+if($result->num_rows<1) {
+    echo"<div class='box'><p>No weight records yet</p></div>";
+}
+else{
+?>
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<?php }?>
 <br>
-<button class="btn" onclick="window.location.href='weight.php'">Make another entry</button>
+<button class="btn" onclick="window.location.href='weight.php'">Make an entry</button>
+<br>
+<br>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 </body>
-
+<br>
+<br>
 
 <footer>
     <div class="footer">

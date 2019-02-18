@@ -45,19 +45,7 @@ $loginOK= false; //TODO make this work with database values
 
 ?>
 <!doctype html>
-<script>if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }
-    if(localStorage.getItem("loginOKSupport")===null){
-        localStorage.setItem("loginOKSupport", "no")
-    }
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOKSupport")==="yes"){
-            alert("You are already logged in!");
-            window.location.href="supportHome.php";
-        }
-    }
-</script>
+
 <?php
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
@@ -79,12 +67,19 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script src="../js/forAll.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
-
+<script>
+    function checkAlreadyLoggedIn(){
+        if(localStorage.getItem("loginOKSupport")==="yes"){
+            alert("You are already logged in!");
+            window.location.href="supportHome.php";
+        }
+    }
+</script>
 </head>
 <title>Project</title>
 <body onload="checkAlreadyLoggedIn()" id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -141,35 +136,84 @@ if($loginOK) {
                     console.log("action is filled");
                 </script>
             <?php
-            $username= (safePost($conn,"username"));
-            $password = (safePost($conn,"password"));
+            $username = (safePost($conn, "username"));
+            $password = (safePost($conn, "password"));
             $_SESSION['userName'] = $username;
             $query = "SELECT `username` FROM `supportAcc` WHERE `username` = '$username'";
-            $result = mysqli_query($conn,$query);
-            if(mysqli_num_rows($result)){
-            $query2 = "SELECT `password` FROM `supportAcc` WHERE `password` = '$password'";
-            $result2 = mysqli_query($conn,$query2);
-            if(mysqli_num_rows($result2)){
+            $result = mysqli_query($conn, $query);
+            if (mysqli_num_rows($result)){
+            $query2 = "SELECT `password` FROM `supportAcc` WHERE `username` = '$username'";
+            $result2 = $conn->query($query2);
+            if ($result2->num_rows > 0) {
+                while ($rowname = $result2->fetch_assoc()) {
+                    $DBpassword = $rowname["password"];
+                }
+            }
+            if (password_verify("$password", $DBpassword)){
+            if (mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
-            $loginOK=true;
-            ?> <script>localStorage.setItem("loginOKSupport", "yes")</script>
+            $loginOK = true;
+            ?>
+                <script>localStorage.setItem("loginOKSupport", "yes")</script>
                 <script type="text/javascript">
-                    var user = "<?php echo $user; ?>";
+                    var user = "<?php echo $username; ?>";
                 </script>
                 <script>localStorage.setItem("username", user);
                     window.location.href = "supportHome.php";
                 </script>
                 <?php
             }
-            else{
-                ?><script>alert("Password not recognised")</script><?php
             }
-            }
-            else{
-                ?><script>alert("Username not recognised")</script><?php
+            else {
+                ?>
+                <script>alert("Password not recognised")</script><?php
             }
 
             }
+            else {
+                ?>
+                <script>alert("Username not recognised")</script><?php
+            }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             ?>
         </div>
 
@@ -271,8 +315,8 @@ if($loginOK) {
             }
 
 
-
-        $sqlInsert  = "INSERT INTO `supportAcc` (`username`, `password`, `survivor`, `relation`) VALUES ('$usernameSupport', '$password', '$survivor', '$relation')";
+        $passwordNew = password_hash("$password",PASSWORD_DEFAULT);
+        $sqlInsert  = "INSERT INTO `supportAcc` (`username`, `password`, `survivor`, `relation`) VALUES ('$usernameSupport', '$passwordNew', '$survivor', '$relation')";
         if ($conn->query($sqlInsert) === TRUE) {
         echo "<p class='center'>Registration was successful!</p>";
         $loginOK = true;

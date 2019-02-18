@@ -192,13 +192,13 @@ if($action2 === "filled") {
 
 
     $from = "Remote Monitoring";
-    $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2017.cis.strath.ac.uk/~szb15123/Project/signUp.php \n. You will need to enter this ID to sign up: ".$id."\n Thanks!";
+    $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/signUp.php \n You will need to enter this ID to sign up: ".$id."\n Thanks!";
     $headers="From: $from\n";
     $subject="Welcome to Survivors ".$forename."!";
     mail($patientEmail,$subject,$message,$headers);
 
 
-$insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `gender`,`patientEmail`, `address`, `contactNo`, `docEmail`) VALUES ('$forename', '$surname', '$id', '$dob', '$genderFinal','', '$address', '$contactNo', '$docEmail')";
+$insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `gender`,`patientEmail`, `address`, `contactNo`, `docEmail`) VALUES ('$forename', '$surname', '$id', '$dob', '$genderFinal','$patientEmail', '$address', '$contactNo', '$docEmail')";
 
     if ($conn->query($insert) === TRUE) {
 echo "<p class='center'>Registration was successful!</p>";

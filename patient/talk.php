@@ -244,7 +244,7 @@ if($action2==="filled"){
 </body>
 
 <div class="clear"></div>
-
+<br>
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
