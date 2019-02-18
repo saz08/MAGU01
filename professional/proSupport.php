@@ -24,6 +24,7 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
 
 
 $id = $_GET['id'];
@@ -117,13 +118,15 @@ if($patient->num_rows>0){
     $sql1  = "SELECT * FROM `supportSubmit` WHERE `survivor`= '$usernamePatient'";
     $result1=$conn->query($sql1);
     $counter=0;
-    if($result1->num_rows>0){
-        while($rowname=$result1->fetch_assoc()){
+    if($result1->num_rows>0) {
+        while ($rowname = $result1->fetch_assoc()) {
             $counter++;
             $symptom = $rowname["symptom"];
             $info = $rowname["additional"];
-            if($info!="") {
-                echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond or Delete</button></p>
+            $seen = $rowname["seen"];
+            if ($info != "") {
+                if($seen=="false") {
+                    echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
@@ -134,16 +137,66 @@ if($patient->num_rows>0){
 
 <br>
 </div>";
+                }
+                else{
+                    echo"<p>".$info." <button class='btn' style='background-color: grey'>Seen</button></p>";
+                }
             }
-            if($symptom!=""){
-                echo"<p>Symptom:".$symptom."</p>";
+            if ($symptom != "") {
+                $counter++;
+                if($seen=="false") {
+                    echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                       <div id='content_$counter' class='comments' style='display:none'>
+                       <form method='post' name='commentsSection2'>
+                       <input type='text' name='comment2' placeholder='Respond to patient...'><br>
+                       <input type='hidden' name='action2' value='filled'>
+                       <input type='hidden' name='divID2' value='$symptom'>
+                       <input type='submit' value='Respond' class='btn'></form><br></div>";
+
+                }
+                else{
+                    echo"<p>".$symptom." <button class='btn' style='background-color: grey'>Seen</button></p>";
+
+                }
             }
-
-
         }
     }
     ?>
 </div>
+<?php
+if($action==="filled"){
+    $info = safePOST($conn, "divID");
+    $response = (safePost($conn,"comment"));
+        $sql = "UPDATE `supportSubmit` SET `seen`='true',`response`='$response' WHERE `additional`='$info'";
+        if ($conn->query($sql) === TRUE) {
+            echo "<p class='center'>Response has been sent!</p>";
+            ?>
+            <script>
+                window.location.href = "proSupport.php?id=+<?php echo $id ?>";
+            </script>
+            <?php
+        }
+}
+
+if($action2==="filled"){
+    $symptom = safePOST($conn, "divID2");
+    $response = (safePost($conn,"comment2"));
+    $sql2 = "UPDATE `supportSubmit` SET `seen`='true',`response`='$response' WHERE `symptom`='$symptom'";
+    if ($conn->query($sql2) === TRUE) {
+        echo "<p class='center'>Response has been sent!</p>";
+        ?>
+        <script>
+            window.location.href = "proSupport.php?id=+<?php echo $id ?>";
+        </script>
+        <?php
+    }
+}
+
+
+
+
+
+?>
 <br>
 <script>
     function goBack(){
@@ -159,9 +212,7 @@ if($patient->num_rows>0){
         }
     }
 
-    function respond(info){
 
-    }
 </script>
 
 </body>

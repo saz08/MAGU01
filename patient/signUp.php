@@ -51,6 +51,10 @@ $loginOK = false; //TODO make this work with database values
 <script>
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOK")==="yes"){
+            if(localStorage.getItem("username")==="unknownUser"){
+                alert("You must log in to continue");
+                window.location.href="signUp.php"
+            }
             alert("You are already logged in!");
             window.location.href = "index.php";
         }

@@ -7,6 +7,12 @@ if(localStorage.getItem("loginOK")==="no"){
 }
 
 
+if(localStorage.getItem("username")==="unknownUser"){
+    alert("You must be logged in to continue");
+    window.location.href="signUp.php"
+}
+
+
 
 
 function goBack(){

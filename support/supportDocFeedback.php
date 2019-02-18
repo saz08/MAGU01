@@ -47,6 +47,13 @@ if($_SESSION['userName']==null){
 }
 
 $username = $_SESSION["userName"];
+//$username= "<script>localStorage.getItem('username')</script>";
+
+
+
+
+
+
 ?>
 
 
@@ -65,7 +72,6 @@ $username = $_SESSION["userName"];
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <script src="../js/forAll.js"></script>
-
     <meta charset="UTF-8">
     <title>Supporter</title>
 </head>
@@ -94,62 +100,40 @@ $username = $_SESSION["userName"];
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>Record any information about your survivor <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>Feedback from the Doctor <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <br>
-<br>
-<br>
 
-
-<div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. <br> Please enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
-<form name="additional" method="post" >
-    Symptoms:
-    <select id="select" name="select">
-        <option></option>
-        <option value="Anxiety">Anxiety</option>
-        <option value="LossOfAppetite">Loss of Appetite</option>
-        <option value="Bleeding">Bleeding</option>
-        <option value="Constipation">Constipation</option>
-        <option value="Depressed">Depressed</option>
-        <option value="Diarrhea">Diarrhea</option>
-        <option value="Fatigue">Fatigue</option>
-        <option value="Insomnia">Insomnia</option>
-        <option value="Sickness">Sickness</option>
-    </select>
-
-
-    <input type="text" name="additional"  id="additional"/>
-    <input type="hidden" name="action" value="filled">
-    <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
-</form>
+<div class="box">Doctors may respond to any information or symptoms you have logged. They will appear on this page!</div>
 
 <?php
-if($action==="filled"){
-    $info = (safePost($conn,"additional"));
-    $symptoms= (safePost($conn,"select"));
+$sql  = "SELECT * FROM `supportSubmit` WHERE `username`= '$username' AND `seen` = 'true'";
+$result=$conn->query($sql);
+$counter=0;
+if($result->num_rows>0){
+    while($rowname=$result->fetch_assoc()){
+        $symptom = $rowname["symptom"];
+        $additional = $rowname["additional"];
+        $response = $rowname["response"];
 
-    $username = $_SESSION["userName"];
-    $sql1 = "SELECT * FROM `supportAcc` WHERE username = '$username'";
-    $result=$conn->query($sql1);
-    if($result->num_rows>0) {
-        while ($rowname = $result->fetch_assoc()) {
-            $survivor = $rowname["survivor"];
-        }
+        ?>
+        <br>
+        <div class="box">
+            <p>
+                The doctor has responded to your query: <?php if($symptom==""){echo $additional; }else{ echo $symptom;} ?> <br>
+                Response: <?php echo $response ?>
+                <button class="btn" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
+            </p>
+        </div>
+        <?php
     }
+}
 
-    $sql  = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`,`seen`,`response`) VALUES ('$username','$survivor', '$symptoms', '$info','false','')";
-    $conn->query($sql);
-    ?><script>
-        alert("Submitted successfully");
-        window.location.href="supportInput.php";
-    </script>
-<?php
-}
-else{
-    $info="not filled";
-}
 ?>
+
+<br>
+
 <div class="clear"></div>
 
 </body>

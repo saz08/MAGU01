@@ -43,7 +43,11 @@ if($_SESSION['userName']==null){
     $_SESSION['userName'] = "unknownUser";
     ?> <script>
         localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOKSupport', "no");
+
+        window.location.href="supportSignUp.php"
     </script><?php
+
 }
 
 $username = $_SESSION["userName"];
@@ -310,6 +314,7 @@ if($entriesM!=0) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -545,44 +550,7 @@ if($entriesM!=0) {
 
 
     </script>
-    <script>
 
-        if(localStorage.getItem("loginOKSupport")===null){
-            localStorage.setItem("loginOKSupport", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOKSupport")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-
-
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
-        if(localStorage.getItem("loginOKSupport")===null){
-            localStorage.setItem("loginOKSupport", "no");
-        }
-
-        if(localStorage.getItem("loginOKSupport")==="no"){
-            window.location.href="supportSignUp.php";
-        }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOKSupport")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
-    </script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -598,6 +566,8 @@ if($entriesM!=0) {
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
+                <li><a href="supportDocFeedback.php">FEEDBACK</a></li>
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>
@@ -715,24 +685,6 @@ if($entriesM!=0){?>
 
     }
 
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
-    }
-
-    function goBack(){
-        window.history.back();
-    }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 

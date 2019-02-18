@@ -47,15 +47,12 @@ $loginOK= false; //TODO make this work with database values
 <!doctype html>
 <script>if(localStorage.getItem("loginOK")===null){
         localStorage.setItem("loginOK", "no")
+    }
+    if(localStorage.getItem("loginOKSupport")===null){
         localStorage.setItem("loginOKSupport", "no")
-
     }
     function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "../patient/index.php";
-        }
-        else if(localStorage.getItem("loginOKSupport")==="yes"){
+        if(localStorage.getItem("loginOKSupport")==="yes"){
             alert("You are already logged in!");
             window.location.href="supportHome.php";
         }
