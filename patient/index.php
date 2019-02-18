@@ -77,6 +77,7 @@ $loginOK = false; //TODO make this work with database values
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <script src="../js/script.js"></script>
+    <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>

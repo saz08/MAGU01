@@ -15,10 +15,6 @@ if(localStorage.getItem("username")==="unknownUser"){
 
 
 
-function goBack(){
-    window.history.back();
-}
-
 //WEIGHT
 function weightConverter(valNum) {
     document.getElementById("outputStones").innerHTML="Value in Stone: "+valNum*0.1574+" Stone";

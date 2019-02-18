@@ -57,6 +57,7 @@ while ($rowname = $result->fetch_assoc()) {
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -122,11 +123,7 @@ while ($rowname = $result->fetch_assoc()) {
 <br>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script>
-    function goBack(){
-        window.history.back();
-    }
-</script>
+
 </body>
 
 

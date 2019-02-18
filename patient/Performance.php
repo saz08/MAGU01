@@ -74,6 +74,7 @@ if($loginOK) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/script.js"></script>
+    <script src="../js/forAll.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
@@ -187,31 +188,9 @@ if($loginOK) {
         }
 
         window.location.href="additionalInfo.php";
-      //  submitRecord();
 
     }
-//    function submitRecord(){
-//        var pain = localStorage.getItem("Pain");
-//        var breathlessness= localStorage.getItem("Breathlessness");
-//        var performance = localStorage.getItem("Performance");
-//        jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance}, function(data){
-//            alert("Records successfully saved");
-//        }).fail(function()
-//        {
-//            alert("something broke in submitting your records");
-//        });
-//        var painTxt = localStorage.getItem("Pain");
-//        var breathlessnessTxt= localStorage.getItem("Breathlessness");
-//        var performanceTxt = localStorage.getItem("Performance");
-//        jQuery.post("textMsg.php", {"Pain": painTxt, "Breathlessness": breathlessnessTxt, "Performance": performanceTxt}, function(data){
-//            alert("Doctor notified of how you feel");
-//            window.location.href="index.html";
-//        }).fail(function()
-//        {
-//            alert("something broke in emailing your doctor");
-//        });
-//
-//    }
+
 
     function outputUpdate(num) {
         document.querySelector('#output').value = num;

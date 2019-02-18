@@ -292,6 +292,7 @@ if($entriesM!=0) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -652,24 +653,7 @@ if($entriesM!=0){?>
 
     }
 
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
 
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
-    }
-
-    function goBack(){
-        window.history.back();
-    }
 </script>
 
 
