@@ -106,6 +106,7 @@ if($loginOK) {
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="signUp.php">SURVIVORS</a></li>
                 <li><a href="../support/supportSignUp.php">SUPPORTERS</a></li>
+                <li><a href="../professional/dashboard.php">PROFESSIONALS</a></li>
 
             </ul>
         </div>

@@ -98,7 +98,13 @@ if($patient->num_rows>0){
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
-
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE INFO <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="progress.php?id=<?php echo +$id ?>">PROGRESS CHARTS</a></li>
+                        <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
+                        <li><a href="proSupport.php?id=<?php echo +$id ?>">SUPPORT CIRCLE</a></li>
+                    </ul>
+                </li>
 
             </ul>
         </div>
@@ -107,11 +113,6 @@ if($patient->num_rows>0){
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?></h1>
 </div>
-</div>
-</div>
-<button class="btn" onclick="window.location.href='progress.php?id=<?php echo +$id?>'">View Progress Chart</button>
-<button class="btn" onclick="window.location.href='weightChartDoc.php?id=<?php echo +$id?>'">View Weight Monitoring</button>
-<button class="btn" onclick="window.location.href='proSupport.php?id=<?php echo +$id?>'">View Support Circle Info</button>
 
 
 
@@ -213,19 +214,55 @@ if($patient->num_rows>0){
 <h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2>
 <div class="box" style="height: inherit">
     <?php
-    $sql  = "SELECT `additionalInfo` FROM `scale` WHERE `id`= '$id'";
+    $sql  = "SELECT * FROM `scale` WHERE `id`= '$id'";
     $result=$conn->query($sql);
+    $counter=0;
     if($result->num_rows>0){
         while($rowname=$result->fetch_assoc()){
+            $counter++;
             $info = $rowname["additionalInfo"];
+            $seen = $rowname["seen"];
             if($info!=""){
-                echo"<p>".$info."</p>";
+                if($seen=="false"){
+                    echo"<p>".$info." <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                       <div id='content_$counter' class='comments' style='display:none'>
+                       <form method='post' name='commentsSection'>
+                       <input type='text' name='comment' placeholder='Respond to patient...'><br>
+                       <input type='hidden' name='action' value='filled'>
+                       <input type='hidden' name='divID' value='$info'>
+                       <input type='submit' value='Respond' class='btn'>
+</form>
+<br>
+</div>";
+
+                }
+                else{
+                    echo"<p>".$info." <button class='btn' style='background-color: grey'>Seen</button></p>";
+
+                }
+
             }
         }
     }
     ?>
 </div>
 
+
+<?php
+if($action==="filled"){
+    $info = safePOST($conn, "divID");
+    $comment = (safePost($conn,"comment"));
+    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `additionalInfo`='$info'";
+    if ($conn->query($sql) === TRUE) {
+        echo "<p class='center'>Response has been sent!</p>";
+        ?>
+        <script>
+            window.location.href = "patient.php?id=+<?php echo $id ?>";
+        </script>
+        <?php
+    }
+}
+?>
 
 
 
@@ -236,15 +273,25 @@ if($patient->num_rows>0){
         window.location.href = "dashboard.php";
     }
 
-//    function goToProgress() {
-//        var id = localStorage.getItem("id");
-//        jQuery.post("progress.php", {
-//            "id": id }, function (data) {
-//            window.location.href = "progress.php";
-//        }).fail(function () {
-//
-//        });
-//    }
+
+    function markAsSeen(counter){
+        jQuery.post("markAsSeen.php", {"Counter": counter}, function(data){
+            alert("Marked as Seen");
+        }).fail(function()
+        {
+            alert("something broke in submitting your records");
+        });
+    }
+
+    function showCommentOption(counter) {
+        var x = document.getElementById("content_"+counter);
+        console.log("div id " + counter );
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
 </script>
 
 </body>

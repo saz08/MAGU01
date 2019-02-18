@@ -70,8 +70,7 @@ if($resultID->num_rows>0) {
 
     }
 }
-
-$sql  = "INSERT INTO `scale` (`id`,`username`, `pain`, `breathlessness`, `performance`,`additionalInfo`,`timeStamp`) VALUES ('$id','$username', '$pain', '$breathlessness', '$performance','$additional',CURRENT_TIMESTAMP )";
+$sql  = "INSERT INTO `scale` (`id`, `username`, `pain`, `breathlessness`, `performance`, `additionalInfo`, `timeStamp`, `seen`, `response`) VALUES ('$id', '$username', '$pain', '$breathlessness', '$performance', '$additional', CURRENT_TIMESTAMP, 'false', '')";
 $conn->query($sql);
 
 

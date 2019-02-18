@@ -116,23 +116,51 @@ if($patient->num_rows>0){
     <?php
     $sql1  = "SELECT * FROM `supportSubmit` WHERE `survivor`= '$usernamePatient'";
     $result1=$conn->query($sql1);
+    $counter=0;
     if($result1->num_rows>0){
         while($rowname=$result1->fetch_assoc()){
+            $counter++;
             $symptom = $rowname["symptom"];
             $info = $rowname["additional"];
-            if($info!=""){
-                echo"<p>".$info."</p>";
+            if($info!="") {
+                echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond or Delete</button></p>
+                       <div id='content_$counter' class='comments' style='display:none'>
+                       <form method='post' name='commentsSection'>
+                       <input type='text' name='comment' placeholder='Respond to patient...'><br>
+                       <input type='hidden' name='action' value='filled'>
+                       <input type='hidden' name='divID' value='$info'>
+                       <input type='submit' value='Respond' class='btn'>
+</form>
+
+<br>
+</div>";
             }
             if($symptom!=""){
                 echo"<p>Symptom:".$symptom."</p>";
             }
+
+
         }
     }
     ?>
 </div>
+<br>
 <script>
     function goBack(){
         window.history.back();
+    }
+    function showCommentOption(divID) {
+        var x = document.getElementById("content_"+divID);
+        console.log("div id " + divID );
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function respond(info){
+
     }
 </script>
 

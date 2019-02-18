@@ -138,8 +138,36 @@ $loginOK = false; //TODO make this work with database values
 
 
 <?php
-$sqlScale  = "SELECT * FROM `scale` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
+$sqlInfo  = "SELECT * FROM `scale` WHERE `username` = '$username' AND `seen` = 'true'";
+$resultInfo = $conn->query($sqlInfo);
+if($resultInfo->num_rows>0) {
+    while ($rowname = $resultInfo->fetch_assoc()) {
+        $info = $rowname["additionalInfo"];
+        $seen = $rowname["seen"];
+        $response = $rowname["response"];
 
+?>
+<br>
+        <div class="box">
+            <p>
+                The doctor has responded to your query: <?php echo $info ?> <br>
+                Response: <?php echo $response ?>
+                <button class="btn" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
+            </p>
+        </div>
+<?php
+
+
+//        echo "<br><div class='box'><p>The doctor has responded to your query: " .$info."<br> Response: ".$response."<button class='btn' onclick='markAndDelete($response)'>Mark as Read and Delete</button></p></div>";
+    }
+}
+
+
+
+
+
+
+$sqlScale  = "SELECT * FROM `scale` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
 $resultScale = $conn->query($sqlScale);
 if($resultScale->num_rows>0) {
 while ($rowname = $resultScale->fetch_assoc()) {
@@ -152,7 +180,6 @@ while ($rowname = $resultScale->fetch_assoc()) {
            echo "     <button class='btn' onclick='goRecord()'>Record Now!</button>";
        }
        echo"</p></div>";
-
 
 }
 }
@@ -232,6 +259,17 @@ if($resultPhysical -> num_rows>0){
     function goRecord(){
         window.location.href="recordOptions.php";
     }
+
+    function markAndDelete(response){
+        jQuery.post("markAsSeen.php", {"Response": response}, function(data){
+            alert("Read and Deleted");
+            window.location.href="index.php";
+        }).fail(function()
+        {
+            alert("something broke in submitting your records");
+        });
+    }
+
 </script>
 </body>
 <div class="clear"></div>
