@@ -207,7 +207,9 @@ echo "<p class='center'>Registration was successful!</p>";
 
 
 ?>
-    <script>window.location.href = "createID.php";
+    <script>
+        alert("Patient created");
+        window.location.href = "createID.php";
     </script>
     <?php
 }

@@ -102,6 +102,7 @@ if($loginOK) {
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="../patient/signUp.php">SURVIVORS</a></li>
                 <li><a href="supportSignUp.php">SUPPORTERS</a></li>
+                <li><a href="../professional/docSignUp.php">PROFESSIONALS</a></li>
 
             </ul>
         </div>
@@ -119,7 +120,7 @@ if($loginOK) {
             <form name="login" method="post">
                 <h2 style="color:black">Login</h2>
                 <p class="lead"style="color:#f7f7f7;">
-                    <form name="login" method="post" action="../patient/index.php">
+                    <form name="login" method="post">
                 <p>Username:<br> <input type="text" name="username" value=""/></p>
                 <p>Password: <br><input type="password" name="password" value=""/></p>
                 <input type="hidden" name="action" value="filled">

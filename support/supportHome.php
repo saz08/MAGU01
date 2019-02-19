@@ -567,8 +567,33 @@ if($entriesM!=0) {
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
-                <li><a href="supportDocFeedback.php">FEEDBACK</a></li>
+                <?php
+                $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
+                $supportInfo = $conn->query($sqlInfo);
+                if ($supportInfo->num_rows > 0) {
+                    while ($rowname = $supportInfo->fetch_assoc()) {
+                        $seen = $rowname["seen"];
+                        $responseDoc = $rowname["response"];
+                        $important="false";
+                        if ($seen === "true" && $responseDoc != "") {
+                            $important = "true";
+                        }
+                        else {
+                            $important = "false";
+                        }
+                    }
+                }
+                else{
+                    $important="false";
+                }
 
+                if($important==="true"){
+                    echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
+                }
+                else{
+                    echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
+                }
+                ?>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>

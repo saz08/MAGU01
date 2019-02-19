@@ -39,34 +39,14 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK = false; //TODO make this work with database values
+$loginOK= false; //TODO make this work with database values
 
 
 
 ?>
 <!doctype html>
-<script>if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }</script>
-<script>
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            if(localStorage.getItem("username")==="unknownUser"){
-                alert("You must log in to continue");
-                window.location.href="signUp.php"
-            }
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
-    }
-</script>
-
-
 
 <?php
-
-
-
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
         session_regenerate_id();
@@ -87,15 +67,24 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-
+    <script src="../js/forAll.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
+    <script>
+        function checkAlreadyLoggedIn(){
+            if(localStorage.getItem("loginOKDoc")==="yes"){
+                if(localStorage.getItem("username")==="unknownUser")
+                    localStorage.setItem("loginOKDoc","no");
+            }
+            if(localStorage.getItem("loginOKDoc")==="yes"){
+                alert("You are already logged in!");
+                window.location.href="dashboard.php";
+            }
 
+        }
+    </script>
 </head>
 <title>Project</title>
 <body onload="checkAlreadyLoggedIn()" id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -111,17 +100,16 @@ if($loginOK) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="signUp.php">SURVIVORS</a></li>
+                <li><a href="../patient/signUp.php">SURVIVORS</a></li>
                 <li><a href="../support/supportSignUp.php">SUPPORTERS</a></li>
-                <li><a href="../professional/docSignUp.php">PROFESSIONALS</a></li>
-
+                <li><a href="docSignUp.php">PROFESSIONALS</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+    <h1>PROFESSIONAL HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
 <!-- 3 columns under Welcome Jumbotron -->
@@ -131,20 +119,19 @@ if($loginOK) {
             <form name="login" method="post">
                 <h2 style="color:black">Login</h2>
                 <p class="lead"style="color:#f7f7f7;">
-                    <form name="login" method="post" action="index.php">
-                <p>Username:<br> <input type="text" name="username" value=""/></p>
-                <p>Password: <br><input type="password" name="password" value=""/></p>
+                    <form name="login" method="post">
+                <p>Username:<br> <input type="text" name="username"/></p>
+                <p>Password: <br><input type="password" name="password"/></p>
                 <input type="hidden" name="action" value="filled">
                 <p><input type="submit" name="submitLogon" id="loginButton"class="btn" value="Login"></p>
-                </p>
             </form>
-
+            </p>
             <?php
             if(isset($_POST["submitLogon"])) {
                 if(trim($_POST["username"])== ""){
                     echo "<p><font color='red'>Please enter a valid username***</font><br></p>";
                 }
-                if(trim($_POST["password"]) == "") { //TODO add in or for wrong password
+                if(trim($_POST["password"]) == "") {
                     echo"<p> * Please enter a valid password * ";
                 }
             }
@@ -154,42 +141,45 @@ if($loginOK) {
                     console.log("action is filled");
                 </script>
             <?php
-            $username= (safePost($conn,"username"));
-            $password = (safePost($conn,"password"));
+            $username = (safePost($conn, "username"));
+            $password = (safePost($conn, "password"));
             $_SESSION['userName'] = $username;
-            $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
-            $result = mysqli_query($conn,$query);
-            if(mysqli_num_rows($result)){
-            $query2 = "SELECT `password` FROM `account` WHERE `username` = '$username'";
+            $query = "SELECT `username` FROM `docAcc` WHERE `username` = '$username'";
+            $result = mysqli_query($conn, $query);
+            if (mysqli_num_rows($result)){
+            $query2 = "SELECT `password` FROM `docAcc` WHERE `username` = '$username'";
             $result2 = $conn->query($query2);
-            if($result2->num_rows>0) {
-            while ($rowname = $result2->fetch_assoc()) {
-                $DBpassword = $rowname["password"];
+            if ($result2->num_rows > 0) {
+                while ($rowname = $result2->fetch_assoc()) {
+                    $DBpassword = $rowname["password"];
                 }
             }
-            if(password_verify("$password",$DBpassword)){
-            if(mysqli_num_rows($result2)){
+            if (password_verify("$password", $DBpassword)){
+            if (mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
-            $loginOK=true;
-            ?> <script>localStorage.setItem("loginOK", "yes")</script>
+            $loginOK = true;
+            ?>
+                <script>localStorage.setItem("loginOKDoc", "yes")</script>
                 <script type="text/javascript">
                     var user = "<?php echo $username; ?>";
                 </script>
                 <script>localStorage.setItem("username", user);
-                    window.location.href = "index.php";
+                    window.location.href = "dashboard.php";
                 </script>
             <?php
             }
             }
-            else{
-                ?><script>alert("Password not recognised")</script><?php
-                }
+            else {
+            ?>
+                <script>alert("Password not recognised")</script><?php
+            }
 
             }
-            else{
-                ?><script>alert("Username not recognised")</script><?php
+            else {
+            ?>
+                <script>alert("Username not recognised")</script><?php
             }
- }
+            }
             ?>
         </div>
 
@@ -197,12 +187,9 @@ if($loginOK) {
             <form name="register" method="post" onsubmit="return checkForm()" >
                 <h2 style="color:black">Register</h2>
                 <p class="lead" style="color:#f7f7f7;">
-                <p>Create Username:<br> <input type="text" name="username" value="" id="username"/></p>
-                <p>Create Password:<input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
-                <p>Enter ID: <br><input type="number" name="id" value="" id="id"/></p>
-                <p>Smoker Status <i>*Optional*</i></p>
-                <input type="radio" name="smoker" value="smoker" id="smoker"> Current
-                <input type="radio" name="smoker" value="nonsmoker" id="nonsmoker">Never
+                <p>Enter Valid NHS Email: <br><input type="email" name="email"  id="email"/></p>
+                <p>Create Username:<br> <input type="text" name="username"  id="username"/></p>
+                <p>Create Password: <br><input type="password" name="password"  id="password"/></p>
                 <input type="hidden" name="action2" value="filled">
                 <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register"></p>
                 </p>
@@ -215,26 +202,17 @@ if($loginOK) {
         ?>
         <script>
             function checkForm(){
+                var email = document.getElementById("email");
                 var username = document.getElementById("username");
                 var password = document.getElementById("password");
-                var id = document.getElementById("id");
-                var male = document.getElementById("male");
-                var female = document.getElementById("female");
-                var other = document.getElementById("other");
-                var smoker = document.getElementById("smoker");
-                var nonsmoker = document.getElementById("nonsmoker");
+
 
 
                 var errs = "";
 
                 username.style.background = "white";
                 password.style.background = "white";
-                id.style.background="white";
-                male.style.background = "white";
-                female.style.background="white";
-                smoker.style.background = "white";
-                nonsmoker.style.background="white";
-                other.style.background="white";
+                email.style.background="white";
 
 
 
@@ -248,9 +226,14 @@ if($loginOK) {
                     password.style.background = "pink";
                 }
 
-                if(id.value===null||id.value===""){
-                    errs+= "Please enter a valid ID\n";
-                    id.style.background="pink";
+                if(email.value===null||email.value===""){
+                    errs+= "Please enter a valid email address\n";
+                    email.style.background="pink";
+                }
+
+                if(email.valueOf().search("nhs")=== -1){
+                    errs+="Nhs email required";
+                    alert("Use an NHS email pls");
                 }
 
 
@@ -265,73 +248,60 @@ if($loginOK) {
         if($action2 === "filled") {
             $username = (safePost($conn,"username"));
             $password = (safePost($conn,"password"));
-            $id = (safePost($conn,"id"));
-            $smoker = (safePost($conn,"smoker"));
-            $nonsmoker=(safePost($conn,"nonsmoker"));
+            $email = (safePost($conn,"email"));
+            $reject = "false";
 
-            $smoker1=" ";
-            $_SESSION['userName'] = $username;
 
-            if($smoker=="smoker"){
-                $smoker1="Current";
-            }
-            else{
-                $smoker1="Never";
+            if(strpos($email,"nhs")==false){
+                $reject="true";
+                ?>
+                <script>alert("Email must be an NHS email");</script>
+                <?php
             }
 
 
+            $query = "SELECT `email` FROM `docAcc` WHERE `email` = '$email'";
+            $result = $conn->query($query);
+            if($result->num_rows>=1){
+                $reject = "true";
+                ?><script>alert("Email Already Registered");</script> <?php
+                echo "<p> * Email is already registered * ";
+            }
 
-            $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
-            $result = mysqli_query($conn,$query);
-        if(mysqli_num_rows($result)) {
-            ?><script>alert("Username Already in Use");</script> <?php
-        echo "<p> * Username is already registered * ";
-        }
-
-            $query2 = "SELECT `username` FROM `supportAcc` WHERE `username` = '$username'";
+            $query2 = "SELECT `username` FROM `docAcc` WHERE `username` = '$username'";
             $result2 = $conn->query($query2);
             if($result2->num_rows>=1){
+                $reject="true";
                 ?><script>alert("Username Already in Use");</script> <?php
                 echo "<p> * Username is already registered * ";
             }
 
-
-
-            $checkID = "SELECT `id` FROM `chi` WHERE `id` = '$id'";
-            $resultID = $conn->query($checkID);
-
-        if($resultID->num_rows<1) {
-        ?><script>alert("ID does not exist");</script><?php
-            echo "<p> * ID is not registered * ";
-
-            }
-
-            $passwordNew = password_hash("$password",PASSWORD_DEFAULT);
-         $sql = "INSERT INTO `account` (`id`,`username`, `password`, `smokingStatus`) VALUES ('$id','$username', '$passwordNew', '$smoker1')";
-        if ($conn->query($sql) === TRUE) {
+        if($reject==="false"){
+        $passwordNew = password_hash("$password", PASSWORD_DEFAULT);
+        $sqlInsert = "INSERT INTO `docAcc` (`email`,`username`, `password`) VALUES ('$email', '$username', '$passwordNew')";
+        if ($conn->query($sqlInsert) === TRUE) {
         echo "<p class='center'>Registration was successful!</p>";
         $loginOK = true;
+        $_SESSION['userName'] = $username;
+
         ?>
-            <script>localStorage.setItem("loginOK", "yes");
+            <script>localStorage.setItem("loginOKDoc", "yes");
                 var user = "<?php echo $username; ?>";
-                localStorage.setItem("username", user)
-                window.location.href = "index.php";
+                localStorage.setItem("username", user);
+                window.location.href = "dashboard.php";
             </script>
             <?php
+        }
+
         }
         }
         ?>
 
     </div>
+    <hr>
 
-
-</div> <!-- / main container -->
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+</div>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 <div class="clear"></div>
 

@@ -25,6 +25,9 @@ $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
 
+$username = $_SESSION["userName"];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +68,11 @@ $action = safePOST($conn, "action");
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
-                <li><a href="createID.php">ADD PATIENT</a></li>
+                <li><a href="createID.php">ADD A PATIENT</a></li>
 
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li><a href="../patient/logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
@@ -86,20 +92,32 @@ $action = safePOST($conn, "action");
 
     </tr>
     <?php
+    $sqlDoc = "SELECT * FROM `docAcc` WHERE `username` = '$username'";
+    $resultDoc = $conn->query($sqlDoc);
+    if($resultDoc->num_rows>0){
+    while ($rowname = $resultDoc->fetch_assoc()) {
+        $docEmail = $rowname["email"];
 
-    $sql = "SELECT * FROM `chi`";
-    $resultPatient = $conn->query($sql);
-    if($resultPatient->num_rows>0) {
-        while ($rowname = $resultPatient->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $rowname["forename"] . "</a></td>";
-            echo "<td>" . $rowname["surname"] . "</td>";
-            echo "<td><a href='patient.php?id=+".$rowname["id"]."'>" . $rowname["id"] . "</a></td>";
+        $sql = "SELECT * FROM `chi` WHERE `docEmail` = '$docEmail'";
+        $resultPatient = $conn->query($sql);
+        if($resultPatient->num_rows>0) {
+            while ($rowname = $resultPatient->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $rowname["forename"] . "</a></td>";
+                echo "<td>" . $rowname["surname"] . "</td>";
+                echo "<td><a href='patient.php?id=+".$rowname["id"]."'>" . $rowname["id"] . "</a></td>";
 
 
-            echo "</tr>";
+                echo "</tr>";
+            }
+        }
+        else{
+            echo"<h2>No patients registered yet</h2>";
+        }
         }
     }
+
+
 
     ?>
 </table>

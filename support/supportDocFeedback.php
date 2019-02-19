@@ -118,8 +118,6 @@ $username = $_SESSION["userName"];
                     echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
                 }
                 ?>
-
-
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>
