@@ -139,27 +139,27 @@ if($loginOK) {
    <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
 </p></div>
 <form method="get" class="WHOstyle">
-    <label class="container"><details><summary>0: Fully active, no restrictions on activities.</summary> A performance status of 0 means no restrictions in the sense that someone is able to do everything they were able to do prior to their diagnosis.</details>
+    <label class="radioContainer"><details><summary>0: Fully active, no restrictions on activities.</summary> A performance status of 0 means no restrictions in the sense that someone is able to do everything they were able to do prior to their diagnosis.</details>
         <input type="radio" name="radio" value="0" id="zero">
         <span class="checkmark"></span>
     </label>
-    <label class="container"><details><summary>1: Unable to do strenuous activities, but able to carry out light housework and sedentary activities.</summary> This status basically means you can't do heavy work but can do anything else.</details>
+    <label class="radioContainer"><details><summary>1: Unable to do strenuous activities, but able to carry out light housework and sedentary activities.</summary> This status basically means you can't do heavy work but can do anything else.</details>
         <input type="radio" name="radio" value="1" id="one">
         <span class="checkmark"></span>
     </label>
-    <label class="container"><details><summary>2: Able to walk and manage self-care, but unable to work. Out of bed more than 50% of waking hours.</summary> In this category, people are usually unable to carry on any work activities, including light office work</details>
+    <label class="radioContainer"><details><summary>2: Able to walk and manage self-care, but unable to work. Out of bed more than 50% of waking hours.</summary> In this category, people are usually unable to carry on any work activities, including light office work</details>
         <input type="radio" name="radio" value="2" id="two">
         <span class="checkmark"></span>
     </label>
-    <label class="container">3: Confined to bed or a chair more than 50 percent of waking hours.Capable of limited self-care.
+    <label class="radioContainer">3: Confined to bed or a chair more than 50 percent of waking hours.Capable of limited self-care.
         <input type="radio" name="radio" value="3" id="three">
         <span class="checkmark"></span>
     </label>
-    <label class="container">4: Completely disabled.Totally confined to a bed or chair. Unable to do any self-care.
+    <label class="radioContainer">4: Completely disabled.Totally confined to a bed or chair. Unable to do any self-care.
         <input type="radio" name="radio" value="4" id="four">
         <span class="checkmark"></span>
     </label>
-    <label class="container">5: Death
+    <label class="radioContainer">5: Death
         <input type="radio" name="radio" value="5" id="five">
         <span class="checkmark"></span>
     </label>

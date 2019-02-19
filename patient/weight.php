@@ -76,6 +76,8 @@ if($loginOK) {
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -138,21 +140,21 @@ if($loginOK) {
 <br>
 <div class="box">
     <form method="get" class="radiostyle">
-        <label class="container" style="font-family: Montserrat, sans-serif">Record Weight in Stone
-            <span class="checkmark"></span>
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Record Weight in Stone
             <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitStone()">
+            <span class="checkmark"></span>
         </label>
         <br>
-        <label class="container" style="font-family: Montserrat, sans-serif">Record Weight in Kilograms
-            <span class="checkmark"></span>
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Record Weight in Kilograms
             <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitKG()">
+            <span class="checkmark"></span>
         </label>
     </form>
 
 </div>
 <div id="kilogram">
-<form method="post" class="WHOstyle">
-    Values are recorded using KG. Input value to see approximate conversion to LBS
+<form method="post" class="weightStyle">
+    <h2>  Values are recorded using KG. Input value to see approximate conversion to LBS</h2>
     <input id="inputKilograms" type="number" step="0.01" placeholder="KG" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
     <span id="outputStones"></span>
     <input type="hidden" name="action" value="filled">
@@ -161,8 +163,8 @@ if($loginOK) {
 </div>
 
 <div id="stone">
-<form method="post" class="WHOstyle">
-    Values are recorded using LBS. Input value to see approximate conversion to KG
+<form method="post" class="weightStyle">
+    <h2>Values are recorded using LBS. Input value to see approximate conversion to KG</h2>
     <input id="inputKilograms" type="number" step="0.01" placeholder="LBS" name="LBS" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">
     <span id="outputKilograms"></span>
     <input type="hidden" name="action2" value="filled">

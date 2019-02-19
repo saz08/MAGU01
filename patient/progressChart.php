@@ -304,6 +304,8 @@ if($entriesM!=0) {
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
@@ -326,7 +328,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
                 title:{
                     text: "Pain",
@@ -361,7 +363,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -398,7 +400,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -436,7 +438,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -474,7 +476,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -510,7 +512,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -602,32 +604,33 @@ if($entriesM!=0) {
 <?php if($entries!=0&&$entriesM!=0) { ?>
     <div class="box">
         <form method="get" class="radiostyle">
-            <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
-                <span class="checkmark"></span>
+            <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
                 <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
+                <span class="checkmark"></span>
             </label>
             <br>
-            <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from
+            <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on the records from
                 this month
-                <span class="checkmark"></span>
                 <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
+                <span class="checkmark"></span>
 
             </label>
         </form>
     </div>
+
     <?php
 }
 if($entries!=0) {
 
 ?>
 <div id="allTime" style="position:absolute" class="center-div">
-<div id="painAllTime" style="height: 30rem; width: 100%;"></div>
+<div id="painAllTime" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-<div id="breathAllTime" style="height: 30rem; width:100%;"></div>
+<div id="breathAllTime" style="height: 40rem; width:100%;"></div>
     <br>
     <br>
-<div id="performanceAllTime" style="height: 30rem; width:100%;"></div>
+<div id="performanceAllTime" style="height: 40rem; width:100%;"></div>
     <br>
     <br>
     <?php }
@@ -637,16 +640,17 @@ if($entries!=0) {
     ?>
 </div>
 
+
 <?php
 if($entriesM!=0){?>
 <div id="prevMonth" style="position:absolute" class="center-div">
-    <div id="painMonth" style="height: 30rem;width: 100%;"></div>
+    <div id="painMonth" style="height: 40rem;width: 100%;"></div>
     <br>
     <br>
-    <div id="breathMonth" style="height: 30rem; width: 100%;"></div>
+    <div id="breathMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="performanceMonth" style="height: 30rem; width: 100%;"></div>
+    <div id="performanceMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
     <?php }
@@ -656,7 +660,14 @@ if($entriesM!=0){?>
     ?>
 </div>
 <br>
-<button class="btn" onclick="window.location.href='scale.php'">Make an entry</button>
+<?php
+if($entriesM=0&&$entries=0){
+?>
+    <button class="btn" onclick="window.location.href='scale.php'">Make an entry</button>
+
+    <?php
+}
+?>
 
 
 <script>
@@ -697,7 +708,15 @@ if($entriesM!=0){?>
     }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 </body>
+
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>

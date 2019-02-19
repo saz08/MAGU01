@@ -104,7 +104,8 @@ if($loginOK) {
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
                         <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
                     </ul>
-                </li>                  <li><a href="talk.php">TALK</a></li>
+                </li>
+                <li><a href="talk.php">TALK</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="helpInfo.php">INFO</a></li>
@@ -136,26 +137,28 @@ if($loginOK) {
 <div class="box">The following is the MRC Breathlessness scale. Please tick the box that you feel you apply to</div>
 
 <form method="get" class="radiostyle">
-<label class="container">1: Not troubled by breathlessness except on strenuous exercise
+
+<label class="radioContainer">1: Not troubled by breathlessness except on strenuous exercise
     <input type="radio" name="radio" value="1" id="1">
     <span class="checkmark"></span>
 </label>
-<label class="container">2 :Short of breath when hurrying on the level or walking up a slight hill
+<label class="radioContainer">2 :Short of breath when hurrying on the level or walking up a slight hill
     <input type="radio" name="radio" value="2" id="2">
     <span class="checkmark"></span>
 </label>
-<label class="container">3: Walks slower than most people on the level, stops after a mile or so, or stops after 15 minutes walking at own pace
+<label class="radioContainer">3: Walks slower than most people on the level, stops after a mile or so, or stops after 15 minutes walking at own pace
     <input type="radio" name="radio" value="3" id="3">
     <span class="checkmark"></span>
 </label>
-<label class="container">4: Stops for breath after walking about 100 yds or after a few minutes on level ground
+<label class="radioContainer">4: Stops for breath after walking about 100 yds or after a few minutes on level ground
     <input type="radio" name="radio" value="4" id="4">
     <span class="checkmark"></span>
 </label>
-<label class="container">5: Too breathless to leave the house, or breathless when undressing
+<label class="radioContainer">5: Too breathless to leave the house, or breathless when undressing
     <input type="radio" name="radio" value="5" id="5">
     <span class="checkmark"></span>
 </label>
+    
 </form>
 
 
@@ -186,9 +189,6 @@ if($loginOK) {
 
     }
 
-    function outputUpdate(num) {
-        document.querySelector('#output').value = num;
-    }
 </script>
 </body>
 <div class="clear"></div>
