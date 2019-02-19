@@ -41,7 +41,9 @@ $action = safePOST($conn, "action");
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/forAll.js"></script>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
@@ -99,11 +101,51 @@ if($patient->num_rows>0){
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
+                <li><a href="createID.php">ADD PATIENT</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE INFO <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="progress.php?id=<?php echo +$id ?>">PROGRESS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
-                        <li><a href="proSupport.php?id=<?php echo +$id ?>">SUPPORT CIRCLE</a></li>
+                        <?php
+                        $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
+                        $userResult = $conn->query($sqlUser);
+                        if($userResult->num_rows>0) {
+                            while ($rowname = $userResult->fetch_assoc()) {
+                                $usernameSurvivor = $rowname["username"];
+                                $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `survivor` = '$usernameSurvivor'";
+                                $supportInfo = $conn->query($sqlInfo);
+                                if ($supportInfo->num_rows > 0) {
+                                    while ($rowname = $supportInfo->fetch_assoc()) {
+                                        $symptom = $rowname["symptom"];
+                                        $additional = $rowname["additional"];
+                                        $seen = $rowname["seen"];
+                                        if ($seen === "false") {
+                                            if ($symptom != "" || $additional != "") {
+                                                $important="true";
+                                            }
+                                        }
+                                        else{
+                                            $important="false";
+                                        }
+                                    }
+                                }
+                                else {
+                                    $important="false";
+                                }
+                            }
+                        }
+                        else{
+                            $important="false";
+                        }
+                        if($important==="true"){
+                            echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
+
+                        }
+                        else{
+                            echo"<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE</a></li>";
+
+                        }
+                        ?>
                     </ul>
                 </li>
 

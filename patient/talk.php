@@ -69,6 +69,9 @@ $loginOK = false; //TODO make this work with database values
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -110,6 +113,8 @@ $loginOK = false; //TODO make this work with database values
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
+                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+
                     </ul>
                 </li>
             </ul>
@@ -172,7 +177,7 @@ if($result->num_rows>0){
                 if($posID==$posDB) {
                     echo "<div class='forum'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div>";
                     if($username===$usernameC){
-                        echo "<button class='btn' onclick='deleteComment($posID)'>Delete Comment</button>";
+                        echo "<button class='btn' onclick='deleteComment($posID)'>Delete Your Comment</button>";
                     }
                 }
 
@@ -183,6 +188,7 @@ if($result->num_rows>0){
         ?>
 
         <button class="btn" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show">Add a comment</button>
+        <br>
             <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
                     <input type="text" name="comment" placeholder="Leave a comment here..."><br>
@@ -194,7 +200,7 @@ if($result->num_rows>0){
         <?php
 
         if($usernameDB===$username){
-            echo"<button class='btn' onclick='deletePost($posDB)' value='hide/show'>Delete Post</button><br>";
+            echo"<button class='btn' onclick='deletePost($posDB)' value='hide/show'>Delete Your Post</button><br>";
         }
 
 

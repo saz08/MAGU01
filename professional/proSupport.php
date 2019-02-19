@@ -45,7 +45,9 @@ $id = $_GET['id'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/forAll.js"></script>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
@@ -66,7 +68,52 @@ $id = $_GET['id'];
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD PATIENT</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE INFO <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="progress.php?id=<?php echo +$id ?>">PROGRESS CHARTS</a></li>
+                        <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
+                        <?php
+                        $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
+                        $userResult = $conn->query($sqlUser);
+                        if($userResult->num_rows>0) {
+                            while ($rowname = $userResult->fetch_assoc()) {
+                                $usernameSurvivor = $rowname["username"];
+                                $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `survivor` = '$usernameSurvivor'";
+                                $supportInfo = $conn->query($sqlInfo);
+                                if ($supportInfo->num_rows > 0) {
+                                    while ($rowname = $supportInfo->fetch_assoc()) {
+                                        $symptom = $rowname["symptom"];
+                                        $additional = $rowname["additional"];
+                                        $seen = $rowname["seen"];
+                                        if ($seen === "false") {
+                                            if ($symptom != "" || $additional != "") {
+                                                $important="true";
+                                            }
+                                        }
+                                        else{
+                                            $important="false";
+                                        }
+                                    }
+                                }
+                                else {
+                                    $important="false";
+                                }
+                            }
+                        }
+                        else{
+                            $important="false";
+                        }
+                        if($important==="true"){
+                            echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
 
+                        }
+                        else{
+                            echo"<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE</a></li>";
+
+                        }
+                        ?>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -116,18 +163,23 @@ if($patient->num_rows>0){
 <h2>Patient's friends or family may add symptoms they are noticing or any other additional notes they'd like to log. They will appear here if there are any.</h2>
 <div class="box" style="height: inherit">
     <?php
-    $sql1  = "SELECT * FROM `supportSubmit` WHERE `survivor`= '$usernamePatient'";
-    $result1=$conn->query($sql1);
-    $counter=0;
-    if($result1->num_rows>0) {
-        while ($rowname = $result1->fetch_assoc()) {
-            $counter++;
-            $symptom = $rowname["symptom"];
-            $info = $rowname["additional"];
-            $seen = $rowname["seen"];
-            if ($info != "") {
-                if($seen=="false") {
-                    echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+    $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
+    $patient=$conn->query($sqlPatient);
+    if($patient->num_rows>0) {
+        while ($rowname = $patient->fetch_assoc()) {
+            $usernamePatient = $rowname["username"];
+            $sql1 = "SELECT * FROM `supportSubmit` WHERE `survivor`= '$usernamePatient'";
+            $result1 = $conn->query($sql1);
+            $counter = 0;
+            if ($result1->num_rows > 0) {
+                while ($rowname = $result1->fetch_assoc()) {
+                    $counter++;
+                    $symptom = $rowname["symptom"];
+                    $info = $rowname["additional"];
+                    $seen = $rowname["seen"];
+                    if ($info != "") {
+                        if ($seen == "false") {
+                            echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
@@ -138,15 +190,14 @@ if($patient->num_rows>0){
 
 <br>
 </div>";
-                }
-                else{
-                    echo"<p>".$info." <button class='btn' style='background-color: grey'>Seen</button></p>";
-                }
-            }
-            if ($symptom != "") {
-                $counter++;
-                if($seen=="false") {
-                    echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                        } else {
+                            echo "<p>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                        }
+                    }
+                    if ($symptom != "") {
+                        $counter++;
+                        if ($seen == "false") {
+                            echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection2'>
                        <input type='text' name='comment2' placeholder='Respond to patient...'><br>
@@ -154,10 +205,11 @@ if($patient->num_rows>0){
                        <input type='hidden' name='divID2' value='$symptom'>
                        <input type='submit' value='Respond' class='btn'></form><br></div>";
 
-                }
-                else{
-                    echo"<p>".$symptom." <button class='btn' style='background-color: grey'>Seen</button></p>";
+                        } else {
+                            echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
+                        }
+                    }
                 }
             }
         }

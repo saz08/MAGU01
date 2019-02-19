@@ -75,6 +75,9 @@ $loginOK = false; //TODO make this work with database values
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -114,6 +117,8 @@ $loginOK = false; //TODO make this work with database values
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
+                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+
                     </ul>
                 </li>
             </ul>

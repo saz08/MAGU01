@@ -75,9 +75,14 @@ if($loginOK) {
 <script>
     function checkAlreadyLoggedIn(){
         if(localStorage.getItem("loginOKSupport")==="yes"){
+            if(localStorage.getItem("username")==="unknownUser")
+            localStorage.setItem("loginOKSupport","no");
+        }
+        if(localStorage.getItem("loginOKSupport")==="yes"){
             alert("You are already logged in!");
             window.location.href="supportHome.php";
         }
+
     }
 </script>
 </head>

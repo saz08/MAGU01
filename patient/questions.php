@@ -76,6 +76,9 @@ if($loginOK) {
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -159,6 +162,8 @@ if($loginOK) {
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
+                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+
                     </ul>
                 </li>
             </ul>
@@ -171,7 +176,6 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Questions <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<div class="box">
     <div class="container-fluid bg-2 text-center">
 
         <p>Note down any questions you have</p>
@@ -182,7 +186,7 @@ if($loginOK) {
             <input type="submit" value="Save Question" class="btn"><br>
         </form>
     </div>
-</div>
+<br>
 <?php
 
 $question= (safePost($conn,"question"));
@@ -194,7 +198,13 @@ if($action==="filled"){
     <?php
 }
 ?>
-<div class="box">
+<?php
+$sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
+$resultJournal = $conn->query($sqlJournal);
+if($resultJournal->num_rows>0) {
+
+
+?>
     <div class="container-fluid bg-3 text-center">
         <table class="table table-striped" id="questionTable">
             <tr>
@@ -205,7 +215,7 @@ if($action==="filled"){
 
             $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
             $resultJournal = $conn->query($sqlJournal);
-            if($resultJournal->num_rows>0) {
+            if ($resultJournal->num_rows > 0) {
                 $questionNo = 1;
                 while ($rowname = $resultJournal->fetch_assoc()) {
                     $pos = $rowname["pos"];
@@ -217,12 +227,11 @@ if($action==="filled"){
                     $questionNo++;
                 }
             }
-
+            }
 
             ?>
         </table>
     </div>
-</div>
 
 
 <script>

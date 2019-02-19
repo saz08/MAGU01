@@ -62,6 +62,9 @@ $username = $_SESSION["userName"];
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -103,6 +106,8 @@ $username = $_SESSION["userName"];
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
+                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+
                     </ul>
                 </li>
             </ul>
@@ -118,8 +123,9 @@ $username = $_SESSION["userName"];
 <br>
 <div class="container-fluid bg-1 text-center">
 
-<p>Please enter the email address of the person you would like to be in your support circle.</p>
-    <p>We will send them a link for them to sign up and join you.</p>
+<h4>Please enter the email address of the person you would like to be in your support circle.</h4>
+    <h4>We will send them a link for them to sign up and join you.</h4>
+    <p>Any supporters will appear below!</p>
     <form method="post">
     <input type="email" name="email"/>
 <input type="hidden" name="action" value="filled">
@@ -127,6 +133,8 @@ $username = $_SESSION["userName"];
     </form>
 
 </div>
+
+
 
 <?php
 if($action === "filled") {
@@ -137,17 +145,22 @@ if($action === "filled") {
     $headers="From: $from\n";
     $subject="Join ".$username."'s Support Circle";
     mail($email,$subject,$message,$headers);
+    ?>
+    <script>alert("Email invitation has been sent!");</script>
+<?php
 }
 
 
 ?>
 <br>
 
+
 <?php
 $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$username'";
 $support=$conn->query($sqlSupport);
 if($support->num_rows>0){
     while($rowname=$support->fetch_assoc()){
+        echo "<div class='container-fluid bg-1 text-center'><h2>Your Supporters</h2></div>";
         echo "<table class='table table-hover row-clickable' id='doctorTable' >";
         echo" <tr>";
         echo"<th>Support Circle</th>";

@@ -118,6 +118,7 @@ $loginOK = false; //TODO make this work with database values
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
+                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
                     </ul>
                 </li>
             </ul>
@@ -136,6 +137,27 @@ $loginOK = false; //TODO make this work with database values
 <h2 style="float:right">Today is <?php echo date('jS F Y')?></h2>
 <br>
 <br>
+<?php
+$sqlNew  = "SELECT * FROM `scale` WHERE `username` = '$username'";
+$resultNew = $conn->query($sqlNew);
+if($resultNew->num_rows<1) {
+  echo"<div class='box'>
+<h2>Welcome to Survivors!</h2>
+<p>This is where you can 
+<ul>
+  <li>Record your pain, breathlessness, performance and any other queries you're unsure of!</li>
+  <li>Monitor your weight, it is important that we don't see a sudden increase or decrease in your weight</li>
+  <li>Monitor how much physical activity you do, we want you to improve!</li>
+  <li>Get involved in our patient forum room</li>
+  <li>Find helpful links regarding general info, financial, emotional and physical help</li>
+  <li>View helpful charts showing your progress</li>
+  <li>Log questions you'd like to remember for your next appointment</li>
+  <li>Add friends or family members to a support circle, where they can view your progress and enter symptoms on your behalf</li>
+
+</ul> </p>
+</div>";
+}
+?>
 
 
 <?php

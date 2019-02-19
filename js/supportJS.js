@@ -1,20 +1,15 @@
-
-
 if(localStorage.getItem("loginOKSupport")===null){
     localStorage.setItem("loginOKSupport", "no");
-    window.location.href="supportSignUp.php";
-
 }
 
 if(localStorage.getItem("loginOKSupport")==="no"){
-    alert("You must be logged in to continue");
     window.location.href="supportSignUp.php";
-
 }
 
-if(localStorage.getItem("loginOK")==="yes"){
-    localStorage.setItem("username","");
-    localStorage.setItem("loginOK","no");
+
+if(localStorage.getItem("username")==="unknownUser"){
+    alert("You must be logged in to continue");
+    window.location.href="supportSignUp.php"
 }
 
 

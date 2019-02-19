@@ -24,6 +24,8 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
+
 
 $month = date("m");
 $year = date("Y");
@@ -103,12 +105,12 @@ $username = $_SESSION["userName"];
 
 
 <div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. <br> Please enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
-<form name="additional" method="post" >
+<form name="symptom" method="post" >
     Symptoms:
     <select id="select" name="select">
         <option></option>
         <option value="Anxiety">Anxiety</option>
-        <option value="LossOfAppetite">Loss of Appetite</option>
+        <option value="Loss Of Appetite">Loss of Appetite</option>
         <option value="Bleeding">Bleeding</option>
         <option value="Constipation">Constipation</option>
         <option value="Depressed">Depressed</option>
@@ -117,28 +119,42 @@ $username = $_SESSION["userName"];
         <option value="Insomnia">Insomnia</option>
         <option value="Sickness">Sickness</option>
     </select>
-
-
-    <input type="text" name="additional"  id="additional"/>
     <input type="hidden" name="action" value="filled">
+    <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
+</form>
+<form name="additional" method="post">
+    <input type="text" name="additional"  id="additional"/>
+    <input type="hidden" name="action2" value="filled">
     <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
 </form>
 
 <?php
-if($action==="filled"){
-    $info = (safePost($conn,"additional"));
-    $symptoms= (safePost($conn,"select"));
-
-    $username = $_SESSION["userName"];
-    $sql1 = "SELECT * FROM `supportAcc` WHERE username = '$username'";
-    $result=$conn->query($sql1);
-    if($result->num_rows>0) {
-        while ($rowname = $result->fetch_assoc()) {
-            $survivor = $rowname["survivor"];
-        }
+$username = $_SESSION["userName"];
+$sql1 = "SELECT * FROM `supportAcc` WHERE username = '$username'";
+$result=$conn->query($sql1);
+if($result->num_rows>0) {
+    while ($rowname = $result->fetch_assoc()) {
+        $survivor = $rowname["survivor"];
     }
+}
 
-    $sql  = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`,`seen`,`response`) VALUES ('$username','$survivor', '$symptoms', '$info','false','')";
+if($action2==="filled"){
+    $info = (safePost($conn,"additional"));
+    $sql2 = "INSERT INTO `supportSubmit`(`username`,`survivor`, `symptom`, `additional`,`seen`,`response`) VALUES ('$username','$survivor', '', '$info','false','')";
+    $conn->query($sql2);
+    ?>
+    <script>
+        alert("Submitted successfully");
+        window.location.href="supportInput.php";
+    </script>
+    <?php
+}
+
+
+
+if($action==="filled"){
+    $symptoms= (safePost($conn,"select"));
+    $sql  = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`,`seen`,`response`) VALUES ('$username','$survivor', '$symptoms', '','false','')";
     $conn->query($sql);
     ?><script>
         alert("Submitted successfully");
@@ -146,9 +162,7 @@ if($action==="filled"){
     </script>
 <?php
 }
-else{
-    $info="not filled";
-}
+
 ?>
 <div class="clear"></div>
 
