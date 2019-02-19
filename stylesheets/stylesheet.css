@@ -20,10 +20,10 @@ body {
     background-color: #DDA8FF;
 }
 
-#container {
-    min-height:100%;
-    position:relative;
-}
+/*#container {*/
+    /*min-height:100%;*/
+    /*position:relative;*/
+/*}*/
 
 /*#footer {*/
     /*position:absolute;*/
