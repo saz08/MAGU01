@@ -186,6 +186,8 @@ if($loginOK) {
 <div class="content">
     <p>Maggies Centre<a href="https://www.maggiescentres.org/how-maggies-can-help/help-available/practical-support/returning-to-work-after-cancer/">: "Where Now" course</a></p>
     <p>Macmillan:<a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/information-for-employees/going-back-to-work.html"> Going Back to Work</a></p>
+    <p>Your rights at work:<a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/information-for-employees/your-rights.html?gclid=Cj0KCQiAtbnjBRDBARIsAO3zDl9ejVCOymLuAfKHRfCfM7MXTtt7zIMVA3AnB20MSAFqmnKqidSZ-UQaAl7PEALw_wcB&gclsrc=aw.ds"> MacMillan</a></p>
+
 </div>
 
 

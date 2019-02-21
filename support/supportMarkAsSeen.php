@@ -33,7 +33,7 @@ function safePOSTNonMySQL($name){
 }
 
 $response = $_POST['Response'];
-$sql  = "DELETE FROM `supportSubmit` WHERE `response`='$response'";
+$sql  = "UPDATE `supportSubmit` SET `seen`='' WHERE `response`='$response'";
 $conn->query($sql);
 
 

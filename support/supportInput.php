@@ -112,6 +112,8 @@ $username = $_SESSION["userName"];
                     echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
                 }
                 ?>
+                <li><a href="supportHelp.php">HELP</a></li>
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>
@@ -129,7 +131,7 @@ $username = $_SESSION["userName"];
 <br>
 
 
-<div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. <br> Please enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
+<div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. If you don't have anything you'd like to add, please leave blank and press the bottom left arrow.</div>
 <form name="symptom" method="post" >
     Symptoms:
     <select id="select" name="select">
@@ -147,11 +149,14 @@ $username = $_SESSION["userName"];
     <input type="hidden" name="action" value="filled">
     <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
 </form>
+<div class="box">Or... you can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank and press the bottom left arrow.</div>
+
 <form name="additional" method="post">
     <input type="text" name="additional"  id="additional"/>
     <input type="hidden" name="action2" value="filled">
     <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
 </form>
+<br>
 
 <?php
 $username = $_SESSION["userName"];

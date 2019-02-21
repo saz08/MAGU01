@@ -60,6 +60,7 @@ $pain = $_POST['Pain'];
 $breathlessness = $_POST['Breathlessness'];
 $performance = $_POST['Performance'];
 $additional = $_POST['Additional'];
+$symptom = $_POST['Symptom'];
 $id = "";
 $username = $_SESSION["userName"];
 $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
@@ -70,7 +71,7 @@ if($resultID->num_rows>0) {
 
     }
 }
-$sql  = "INSERT INTO `scale` (`id`, `username`, `pain`, `breathlessness`, `performance`, `additionalInfo`, `timeStamp`, `seen`, `response`) VALUES ('$id', '$username', '$pain', '$breathlessness', '$performance', '$additional', CURRENT_TIMESTAMP, 'false', '')";
+$sql  = "INSERT INTO `scale` (`id`, `username`, `pain`, `breathlessness`, `performance`, `additionalInfo`,`symptom` ,`timeStamp`, `seen`, `response`) VALUES ('$id', '$username', '$pain', '$breathlessness', '$performance', '$additional','$symptom', CURRENT_TIMESTAMP, 'false', '')";
 $conn->query($sql);
 
 

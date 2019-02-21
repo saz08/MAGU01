@@ -212,7 +212,7 @@ if($action2==="filled"){
     if ($conn->query($sql) === TRUE) {
         ?>
         <script>
-            window.location.href = "index.php";
+            window.location.href = "weightChart.php";
         </script>
         <?php
     }

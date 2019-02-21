@@ -24,6 +24,8 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
+
 
 $month = date("m");
 $year = date("Y");
@@ -135,7 +137,25 @@ if($loginOK) {
     <h1>Additional Info <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
-<div class="box">Please enter any additional information you want to record. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
+<div class="box">Here is a small list of common symptoms. If you feel you apply to one, please choose one then press the bottom right arrow to submit.</div>
+<form name="symptom" method="post" >
+    Symptoms:
+    <select id="select" name="select">
+        <option></option>
+        <option value="Anxiety">Anxiety</option>
+        <option value="Loss Of Appetite">Loss of Appetite</option>
+        <option value="Bleeding">Bleeding</option>
+        <option value="Constipation">Constipation</option>
+        <option value="Depressed">Depressed</option>
+        <option value="Diarrhea">Diarrhea</option>
+        <option value="Fatigue">Fatigue</option>
+        <option value="Insomnia">Insomnia</option>
+        <option value="Sickness">Sickness</option>
+    </select>
+    <input type="hidden" name="action2" value="filled">
+</form>
+<div class="box">OR... if you don't feel you apply to any of those symptoms, you can enter anything you have noticed about yourself or any worries. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
+
     <form name="additional" method="post" >
         <input type="text" name="additional"  id="additional"/>
         <input type="hidden" name="action" value="filled">
@@ -152,6 +172,10 @@ else{
     $info="not filled";
 }
 
+if($action2==="filled"){
+    $symptom = (safePost($conn,"select"));
+}
+
 
 
 ?>
@@ -161,6 +185,7 @@ else{
 
     function submit(){
         var info = document.getElementById('additional').value;
+
        // localStorage.setItem("Additional", info);
         submitRecord();
     }
@@ -169,8 +194,9 @@ else{
         var breathlessness= localStorage.getItem("Breathlessness");
         var performance = localStorage.getItem("Performance");
         var additionalInfo = document.getElementById('additional').value;
+        var symptom = document.getElementById('select').value;
        // var additionalInfo = localStorage.getItem("Additional");
-        jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance,"Additional": additionalInfo}, function(data){
+        jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance,"Additional": additionalInfo,"Symptom": symptom}, function(data){
             alert("Records successfully saved");
         }).fail(function()
         {

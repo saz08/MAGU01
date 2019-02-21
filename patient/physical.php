@@ -134,11 +134,12 @@ if($loginOK) {
 </div>
 
 <div class="box">The following questions have been adapted from the YOUTHREX International Physical Acitivity Questionnaire.</div>
-
-
+<br>
+<div class="box">
 <form method="post" class="WHOstyle">
     <label class="container">1: During the last 7 days, on how many days did you do vigorous physical activities, like heavy lifting, digging, aerobics or fast bicycling?
         <select name="vigorous">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -151,6 +152,7 @@ if($loginOK) {
 
     <label class="container">2: During the last 7 days, on how many days did you do moderate physical activities like carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.
         <select name="moderate">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -163,6 +165,7 @@ if($loginOK) {
 
     <label class="container">3: During the last 7 days, on how many days did you walk for at least 10 minutes at a time?
         <select name="walk">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -175,20 +178,19 @@ if($loginOK) {
 
     <label class="container">4: During the last 7 days, how much time did you spend sitting on a week day?
         <select name="sitting">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
         </select>
     </label>
     <input type="hidden" name="action" value="filled">
-    <input type="submit" name="submit" value="Submit"/>
+    <input type="submit" class="btn" name="submit" value="Submit"/>
 </form>
 
-
+</div>
 <?php
 if($action === "filled") {
     $vig = (safePost($conn,"vigorous"));
@@ -209,7 +211,7 @@ if($action === "filled") {
     if ($conn->query($sql) === TRUE) {
         ?>
         <script>
-            window.location.href = "index.php";
+            window.location.href = "pieChart.php";
         </script>
         <?php
     }

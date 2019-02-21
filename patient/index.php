@@ -191,6 +191,7 @@ $resultInfo = $conn->query($sqlInfo);
 if($resultInfo->num_rows>0) {
     while ($rowname = $resultInfo->fetch_assoc()) {
         $info = $rowname["additionalInfo"];
+        $symptom = $rowname["symptom"];
         $seen = $rowname["seen"];
         $response = $rowname["response"];
 
@@ -198,7 +199,7 @@ if($resultInfo->num_rows>0) {
 <br>
         <div class="box">
             <p>
-                The doctor has responded to your query: <?php echo $info ?> <br>
+                The doctor has responded to your query: <?php if($info!=""){echo $info;} if($symptom!=""){echo $symptom;} ?> <br>
                 Response: <?php echo $response ?>
                 <button class="btn" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
             </p>

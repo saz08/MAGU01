@@ -24,6 +24,8 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
+
 
 $month = date("m");
 $year = date("Y");
@@ -43,24 +45,10 @@ if($_SESSION['userName']==null){
     $_SESSION['userName'] = "unknownUser";
     ?> <script>
         localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
     </script><?php
 }
 
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,8 +67,8 @@ if($loginOK) {
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-    <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
+    <script src="../js/supportJS.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
@@ -136,34 +124,40 @@ if($loginOK) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.php">HOME</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="scale.php">HEALTH MONITORING</a></li>
-                        <li><a href="weight.php">WEIGHT MONITORING</a></li>
-                        <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
-                    </ul>
-                </li>                  <li><a href="talk.php">TALK</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="helpInfo.php">INFO</a></li>
-                        <li><a href="helpFinancial.php">FINANCIAL</a></li>
-                        <li><a href="helpEmotional.php">EMOTIONAL</a></li>
-                        <li><a href="helpPhysical.php">PHYSICAL</a></li>
-                    </ul>
-                </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="progressChart.php">PROGRESS CHARTS</a></li>
-                        <li><a href="weightChart.php">WEIGHT CHART</a></li>
-                        <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
-                        <li><a href="questions.php">QUESTIONS</a></li>
-                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+                <li><a href="supportHome.php">HOME</a></li>
+                <li><a href="supportInput.php">RECORD</a></li>
+                <?php
+                $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
+                $supportInfo = $conn->query($sqlInfo);
+                if ($supportInfo->num_rows > 0) {
+                    while ($rowname = $supportInfo->fetch_assoc()) {
+                        $seen = $rowname["seen"];
+                        $responseDoc = $rowname["response"];
+                        $important="false";
+                        if ($seen === "true" && $responseDoc != "") {
+                            $important = "true";
+                        }
+                        else {
+                            $important = "false";
+                        }
+                    }
+                }
+                else{
+                    $important="false";
+                }
 
-                    </ul>
-                </li>
+                if($important==="true"){
+                    echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
+                }
+                else{
+                    echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
+                }
+                ?>
+                <li><a href="supportHelp.php">HELP</a></li>
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
+                <li><a href="../patient/logout.php">LOGOUT</a></li>
             </ul>
         </div>
     </div>
@@ -188,9 +182,21 @@ if($loginOK) {
 
     <p>Life after Treatment: <a href="https://www.macmillan.org.uk/information-and-support/lung-cancer/non-small-cell-lung-cancer/treating/after-treatment-for-lung-cancer">MacMillan</a></p>
 </div>
+<button class="collapsible">Helping your Survivor</button>
+<div class="content">
+    <p>Caring for your loved one: <a href="https://www.lungcancer.org/find_information/publications/156-caring_for_your_loved_one_with_lung_cancer">Lung Cancer.org</a></p>
+    <p>Organisations: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/living-with/resources-books">Cancer Research</a></p>
+</div>
+<button class="collapsible">Support for You</button>
+<div class="content">
+    <p>Support for you and your family: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/advanced/living-with/support-at-home">Cancer Research</a></p>
+    <p>Support Groups: <a href="https://www.roycastle.org/how-we-help/services-for-you/support-groups">Roy Castle Support Groups</a></p>
+    <p>Balancing work and being a carer: <a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/if-youre-a-carer#162557">MacMillan</a></p>
+
+</div>
 
 
-
+<br>
 
 
 

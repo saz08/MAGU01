@@ -150,6 +150,9 @@ if($patient->num_rows>0){
                 </li>
 
             </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li><a href="../patient/logout.php">LOGOUT</a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -260,14 +263,15 @@ if($patient->num_rows>0){
     $sql  = "SELECT * FROM `scale` WHERE `id`= '$id'";
     $result=$conn->query($sql);
     $counter=0;
-    if($result->num_rows>0){
-        while($rowname=$result->fetch_assoc()){
+    if($result->num_rows>0) {
+        while ($rowname = $result->fetch_assoc()) {
             $counter++;
             $info = $rowname["additionalInfo"];
             $seen = $rowname["seen"];
-            if($info!=""){
-                if($seen=="false"){
-                    echo"<p>".$info." <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+            $symptom = $rowname["symptom"];
+            if ($info != "") {
+                if ($seen == "false") {
+                    echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
@@ -278,13 +282,33 @@ if($patient->num_rows>0){
 <br>
 </div>";
 
-                }
-                else{
-                    echo"<p>".$info." <button class='btn' style='background-color: grey'>Seen</button></p>";
+                } else {
+                    echo "<p>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
                 }
 
             }
+            if ($symptom != "") {
+                if ($seen == "false") {
+                    $counter++;
+                    echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                       <div id='content_$counter' class='comments' style='display:none'>
+                       <form method='post' name='commentsSection'>
+                       <input type='text' name='comment' placeholder='Respond to patient...'><br>
+                       <input type='hidden' name='action' value='filled'>
+                       <input type='hidden' name='divID' value='$info'>
+                       <input type='submit' value='Respond' class='btn'>
+</form>
+<br>
+</div>";
+
+                } else {
+                    echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+
+                }
+
+            }
+
         }
     }
     ?>

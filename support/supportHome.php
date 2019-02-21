@@ -314,6 +314,8 @@ if($entriesM!=0) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
 
@@ -594,6 +596,8 @@ if($entriesM!=0) {
                     echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
                 }
                 ?>
+                <li><a href="supportHelp.php">HELP</a></li>
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>
@@ -615,15 +619,15 @@ if($entriesM!=0) {
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
     <h1><?php echo  $survivor?>'s Progress from the Beginning</h1>
 </div>
-
+<br>
 <div class="box">
     <form method="get" class="radiostyle">
-        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
             <span class="checkmark"></span>
             <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
         </label>
         <br>
-        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
             <span class="checkmark"></span>
             <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
 
