@@ -24,10 +24,6 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
-$action2 = safePOST($conn, "action2");
-
-
-$id = $_GET['id'];
 
 ?>
 
@@ -52,8 +48,46 @@ $id = $_GET['id'];
 
     <meta charset="UTF-8">
     <title>Project</title>
-
 </head>
+<?php
+$id = $_GET['id'];
+
+$sqlD="SELECT * FROM `chi` WHERE id='$id'";
+$details=$conn->query($sqlD);
+if($details->num_rows>0){
+    while($rowname=$details->fetch_assoc()){
+        $forename= $rowname["forename"];
+        $surname = $rowname["surname"];
+        $birthday = $rowname["birthday"];
+        $gender = $rowname["gender"];
+        $address = $rowname["address"];
+        $contact = $rowname["contactNo"];
+    }
+}
+else{
+    $forename= "";
+    $surname = "";
+    $birthday = "";
+    $gender = "";
+    $address = "";
+    $contact ="";
+    $usernamePatient="";
+}
+
+$sqlPatient="SELECT * FROM `account` WHERE id='$id'";
+$patient=$conn->query($sqlPatient);
+if($patient->num_rows>0){
+    while($rowname=$patient->fetch_assoc()){
+        $usernamePatient= $rowname["username"];
+    }
+}
+
+
+?>
+<script>
+    localStorage.setItem("id", <?php echo $id?>);
+</script>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -116,6 +150,7 @@ $id = $_GET['id'];
                         ?>
                     </ul>
                 </li>
+
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>
@@ -124,67 +159,83 @@ $id = $_GET['id'];
     </div>
 </nav>
 <div class="jumbotron text-center">
-    <h1>Support Circle</h1>
+    <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?></h1>
 </div>
 
+
+
 <?php
-$sqlPatient="SELECT * FROM `account` WHERE id='$id'";
-$patient=$conn->query($sqlPatient);
-if($patient->num_rows>0){
-    while($rowname=$patient->fetch_assoc()){
-        $usernamePatient= $rowname["username"];
 
+$sqlScale  = "SELECT * FROM `scale`WHERE id = '$id' ORDER BY `timeStamp` DESC LIMIT 1";
 
+$resultScale = $conn->query($sqlScale);
+if($resultScale->num_rows>0) {
+    while ($rowname = $resultScale->fetch_assoc()) {
+        echo"<div style=\"overflow-x: scroll\">";
+        echo"<table class='table table-hover row-clickable' id='doctorTable' >";
+        echo"<tr>";
+        echo"<th>Most Recent Pain Rate</th>";
+        echo"<th>Most Recent Breathlessness Rate</th>";
+        echo"<th>Most Recent Performance Score</th>";
 
-        $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$usernamePatient'";
-        $support=$conn->query($sqlSupport);
-        if($support->num_rows>0){
-            while($rowname=$support->fetch_assoc()){
-               // echo "<div style='overflow-x: scroll'>";
-                echo "<table class='table table-hover row-clickable' id='doctorTable' >";
-                echo"<tr>";
-                echo"<th>Support Circle</th>";
-                echo "<th>Relation</th>";
-                echo "</tr>";
-                echo "<tr>";
-
-                $supportUser= $rowname["username"];
-                $relation = $rowname["relation"];
-                echo "<td>" . $supportUser . "</td>";
-                echo "<td>" . $relation . "</td>";
-
-                echo "</tr>";
-
-
-            }
+        echo"</tr>";
+        echo "<tr>";
+        if($rowname["pain"]>=8){
+            echo "<td style='background-color: red;color: black'>" . $rowname["pain"] . "</a></td>";
         }
+
+        else if($rowname["pain"]>=4&&$rowname["pain"]<=7){
+            echo "<td style='background-color: orange;color: black'>" . $rowname["pain"] . "</a></td>";
+        }
+        else{
+            echo "<td style='background-color: limegreen;color: black'>" . $rowname["pain"] . "</a></td>";
+        }
+        if($rowname["breathlessness"]=5){
+            echo "<td style='background-color: red;color: black'>" . $rowname["breathlessness"] . "</a></td>";
+        }
+
+        else if($rowname["breathlessness"]>=2&&$rowname["breathlessness"]<=4){
+            echo "<td style='background-color: orange;color: black'>" . $rowname["breathlessness"] . "</a></td>";
+        }
+        else{
+            echo "<td style='background-color: limegreen;color: black'>" . $rowname["breathlessness"] . "</a></td>";
+        }
+        if($rowname["performance"]>=3){
+            echo "<td style='background-color: red;color: black'>" . $rowname["performance"] . "</a></td>";
+        }
+
+        else if($rowname["performance"]>=1&&$rowname["performance"]<=2){
+            echo "<td style='background-color: orange;color: black'>" . $rowname["performance"] . "</a></td>";
+        }
+        else{
+            echo "<td style='background-color: limegreen;color: black'>" . $rowname["performance"] . "</a></td>";
+        }
+
+        echo "</tr>";
     }
 }
-
+else{
+    echo"<h2>Patient has not recorded any pain, breathlessness or performance issues</h2>";
+}
+echo" </table>";
+echo "</div>";
 ?>
-</table>
-<!--//</div>-->
 
-<h2>Patient's friends or family may add symptoms they are noticing or any other additional notes they'd like to log. They will appear here if there are any.</h2>
+<h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2>
 <div class="box" style="height: inherit">
     <?php
-    $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
-    $patient=$conn->query($sqlPatient);
-    if($patient->num_rows>0) {
-        while ($rowname = $patient->fetch_assoc()) {
-            $usernamePatient = $rowname["username"];
-            $sql1 = "SELECT * FROM `supportSubmit` WHERE `survivor`= '$usernamePatient'";
-            $result1 = $conn->query($sql1);
-            $counter = 0;
-            if ($result1->num_rows > 0) {
-                while ($rowname = $result1->fetch_assoc()) {
-                    $counter++;
-                    $symptom = $rowname["symptom"];
-                    $info = $rowname["additional"];
-                    $seen = $rowname["seen"];
-                    if ($info != "") {
-                        if ($seen == "false") {
-                            echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+    $sql  = "SELECT * FROM `scale` WHERE `id`= '$id'";
+    $result=$conn->query($sql);
+    $counter=0;
+    if($result->num_rows>0) {
+        while ($rowname = $result->fetch_assoc()) {
+            $counter++;
+            $info = $rowname["additionalInfo"];
+            $seen = $rowname["seen"];
+            $symptom = $rowname["symptom"];
+            if ($info != "") {
+                if ($seen == "false") {
+                    echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
@@ -192,83 +243,82 @@ if($patient->num_rows>0){
                        <input type='hidden' name='divID' value='$info'>
                        <input type='submit' value='Respond' class='btn'>
 </form>
-
 <br>
 </div>";
-                        } else {
-                            echo "<p>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
-                        }
-                    }
-                    if ($symptom != "") {
-                        $counter++;
-                        if ($seen == "false") {
-                            echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
-                       <div id='content_$counter' class='comments' style='display:none'>
-                       <form method='post' name='commentsSection2'>
-                       <input type='text' name='comment2' placeholder='Respond to patient...'><br>
-                       <input type='hidden' name='action2' value='filled'>
-                       <input type='hidden' name='divID2' value='$symptom'>
-                       <input type='submit' value='Respond' class='btn'></form><br></div>";
 
-                        } else {
-                            echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                } else {
+                    echo "<p>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
-                        }
-                    }
                 }
+
             }
+            if ($symptom != "") {
+                if ($seen == "false") {
+                    $counter++;
+                    echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                       <div id='content_$counter' class='comments' style='display:none'>
+                       <form method='post' name='commentsSection'>
+                       <input type='text' name='comment' placeholder='Respond to patient...'><br>
+                       <input type='hidden' name='action' value='filled'>
+                       <input type='hidden' name='divID' value='$info'>
+                       <input type='submit' value='Respond' class='btn'>
+</form>
+<br>
+</div>";
+
+                } else {
+                    echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+
+                }
+
+            }
+
         }
     }
     ?>
 </div>
+
+
 <?php
 if($action==="filled"){
     $info = safePOST($conn, "divID");
-    $response = (safePost($conn,"comment"));
-        $sql = "UPDATE `supportSubmit` SET `seen`='true',`response`='$response' WHERE `additional`='$info'";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p class='center'>Response has been sent!</p>";
-            ?>
-            <script>
-                window.location.href = "proSupport.php?id=+<?php echo $id ?>";
-            </script>
-            <?php
-        }
-}
-
-if($action2==="filled"){
-    $symptom = safePOST($conn, "divID2");
-    $response = (safePost($conn,"comment2"));
-    $sql2 = "UPDATE `supportSubmit` SET `seen`='true',`response`='$response' WHERE `symptom`='$symptom'";
-    if ($conn->query($sql2) === TRUE) {
+    $comment = (safePost($conn,"comment"));
+    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `additionalInfo`='$info'";
+    if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Response has been sent!</p>";
         ?>
         <script>
-            window.location.href = "proSupport.php?id=+<?php echo $id ?>";
+            window.location.href = "patient.php?id=+<?php echo $id ?>";
         </script>
         <?php
     }
 }
-
-
-
-
-
 ?>
+
+
+
+
 <br>
 <script>
 
-    function showCommentOption(divID) {
-        var x = document.getElementById("content_"+divID);
-        console.log("div id " + divID );
+    function markAsSeen(counter){
+        jQuery.post("markAsSeen.php", {"Counter": counter}, function(data){
+            alert("Marked as Seen");
+        }).fail(function()
+        {
+            alert("something broke in submitting your records");
+        });
+    }
+
+    function showCommentOption(counter) {
+        var x = document.getElementById("content_"+counter);
+        console.log("div id " + counter );
         if (x.style.display === "none") {
             x.style.display = "block";
         } else {
             x.style.display = "none";
         }
     }
-
-
 </script>
 
 </body>
@@ -277,6 +327,9 @@ if($action2==="filled"){
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='progress.php?id=+<?php echo $id?>'"></div>
+        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Status Charts  </p>
+
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

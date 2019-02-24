@@ -80,6 +80,9 @@ $loginOK = false; //TODO make this work with database values
                 <li><a href="createID.php">ADD PATIENT</a></li>
 
             </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li><a href="../patient/logout.php">LOGOUT</a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -87,7 +90,7 @@ $loginOK = false; //TODO make this work with database values
     <h1>Generate ID</h1>
 </div>
 
-<div class="col-md-6" id="newPatient">
+<div class="center-div" id="newPatient">
     <form name="register" method="post" onsubmit="return checkForm()" >
         <h2 style="color:black">Create New Patient Details</h2>
         <p class="lead" style="color:#f7f7f7;">
@@ -106,6 +109,7 @@ $loginOK = false; //TODO make this work with database values
     </form>
 
 </div>
+<br>
 <script>
     function checkForm(){
         var forename = document.getElementById("forename");
@@ -219,8 +223,8 @@ echo "<p class='center'>Registration was successful!</p>";
 ?>
 
 </body>
-<div class="clear"></div>
-
+<br>
+<br>
 <footer>
     <div class="footer">
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>

@@ -108,9 +108,11 @@ while ($rowname = $result->fetch_assoc()) {
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD PATIENT</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE INFO <span class="caret"></span></a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PATIENT INFORMATION <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progress.php?id=<?php echo +$id ?>">PROGRESS CHARTS</a></li>
+                        <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
+                        <li><a href="patientInfo.php?id=<?php echo +$id ?>">RECORDS</a></li>
+                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
@@ -187,6 +189,8 @@ else{
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='proSupport.php?id=+<?php echo $id?>'"></div>
+        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Support Circle  </p>
 
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>

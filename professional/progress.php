@@ -313,7 +313,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
                 title:{
                     text: "Pain",
@@ -348,7 +348,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -385,7 +385,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -423,7 +423,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -461,7 +461,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -497,7 +497,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -547,9 +547,11 @@ if($entriesM!=0) {
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD PATIENT</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE INFO <span class="caret"></span></a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PATIENT INFORMATION <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progress.php?id=<?php echo +$id ?>">PROGRESS CHARTS</a></li>
+                        <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
+                        <li><a href="patientInfo.php?id=<?php echo +$id ?>">RECORDS</a></li>
+                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
@@ -588,7 +590,6 @@ if($entriesM!=0) {
                         }
                         else{
                             echo"<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE</a></li>";
-
                         }
                         ?>
                     </ul>
@@ -606,10 +607,10 @@ if($entriesM!=0) {
 
 
 <div class="jumbotron text-center" id="jumbo1">
-    <h1><?php echo  $patientname?>'s Progress Over the Past Month</h1>
+    <h1><?php echo  $patientname?>'s Records Over the Past Month</h1>
 </div>
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
-    <h1><?php echo  $patientname?>'s Progress from the Beginning</h1>
+    <h1><?php echo  $patientname?>'s Records from the Beginning</h1>
 </div>
 
 
@@ -632,13 +633,13 @@ if($entries!=0) {
 
 ?>
 <div id="allTime" style="position:absolute" class="center-div">
-    <div id="painAllTime" style="height: 30rem; width: 100%;"></div>
+    <div id="painAllTime" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="breathAllTime" style="height: 30rem; width:100%;"></div>
+    <div id="breathAllTime" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="performanceAllTime" style="height: 30rem; width:100%;"></div>
+    <div id="performanceAllTime" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
     <?php }
@@ -651,13 +652,13 @@ if($entries!=0) {
 <?php
 if($entriesM!=0){?>
 <div id="prevMonth" style="position:absolute" class="center-div">
-    <div id="painMonth" style="height: 30rem;width: 100%;"></div>
+    <div id="painMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="breathMonth" style="height: 30rem; width: 100%;"></div>
+    <div id="breathMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="performanceMonth" style="height: 30rem; width: 100%;"></div>
+    <div id="performanceMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
     <?php }
@@ -718,6 +719,8 @@ if($entriesM!=0){?>
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='weightChartDoc.php?id=+<?php echo $id?>'"></div>
+        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Weight Chart  </p>
 
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div>

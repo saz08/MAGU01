@@ -102,9 +102,11 @@ if($patient->num_rows>0){
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD PATIENT</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE INFO <span class="caret"></span></a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PATIENT INFORMATION <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progress.php?id=<?php echo +$id ?>">PROGRESS CHARTS</a></li>
+                        <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
+                        <li><a href="patientInfo.php?id=<?php echo +$id ?>">RECORDS</a></li>
+                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
@@ -181,7 +183,7 @@ if($patient->num_rows>0){
 
         echo"</tr>";
                 echo "<tr>";
-                echo "<td>" . $forename . "</td>";
+                echo "<td><a href='patientInfo.php?id=+".$rowname["id"]."'>" . $forename. "</a></td>";
                 echo "<td>" . $surname . "</td>";
                 echo "<td>" . $birthday . "</td>";
                 echo "<td>" . $gender . "</td>";
@@ -200,162 +202,12 @@ if($patient->num_rows>0){
     </table>
 </div>
 
-        <?php
-
-        $sqlScale  = "SELECT * FROM `scale`WHERE id = '$id' ORDER BY `timeStamp` DESC LIMIT 1";
-
-        $resultScale = $conn->query($sqlScale);
-        if($resultScale->num_rows>0) {
-            while ($rowname = $resultScale->fetch_assoc()) {
-                echo"<div style=\"overflow-x: scroll\">";
-                echo"<table class='table table-hover row-clickable' id='doctorTable' >";
-        echo"<tr>";
-          echo"<th>Most Recent Pain Rate</th>";
-           echo"<th>Most Recent Breathlessness Rate</th>";
-            echo"<th>Most Recent Performance Score</th>";
-
-        echo"</tr>";
-                echo "<tr>";
-                if($rowname["pain"]>=8){
-                    echo "<td style='background-color: red;color: black'>" . $rowname["pain"] . "</a></td>";
-                }
-
-                else if($rowname["pain"]>=4&&$rowname["pain"]<=7){
-                    echo "<td style='background-color: orange;color: black'>" . $rowname["pain"] . "</a></td>";
-                }
-                else{
-                    echo "<td style='background-color: limegreen;color: black'>" . $rowname["pain"] . "</a></td>";
-                }
-                if($rowname["breathlessness"]=5){
-                    echo "<td style='background-color: red;color: black'>" . $rowname["breathlessness"] . "</a></td>";
-                }
-
-                else if($rowname["breathlessness"]>=2&&$rowname["breathlessness"]<=4){
-                    echo "<td style='background-color: orange;color: black'>" . $rowname["breathlessness"] . "</a></td>";
-                }
-                else{
-                    echo "<td style='background-color: limegreen;color: black'>" . $rowname["breathlessness"] . "</a></td>";
-                }
-                if($rowname["performance"]>=3){
-                    echo "<td style='background-color: red;color: black'>" . $rowname["performance"] . "</a></td>";
-                }
-
-                else if($rowname["performance"]>=1&&$rowname["performance"]<=2){
-                    echo "<td style='background-color: orange;color: black'>" . $rowname["performance"] . "</a></td>";
-                }
-                else{
-                    echo "<td style='background-color: limegreen;color: black'>" . $rowname["performance"] . "</a></td>";
-                }
-
-                echo "</tr>";
-            }
-        }
-        else{
-            echo"<h2>Patient has not recorded any pain, breathlessness or performance issues</h2>";
-        }
-       echo" </table>";
-        echo "</div>";
-        ?>
-
-<h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2>
-<div class="box" style="height: inherit">
-    <?php
-    $sql  = "SELECT * FROM `scale` WHERE `id`= '$id'";
-    $result=$conn->query($sql);
-    $counter=0;
-    if($result->num_rows>0) {
-        while ($rowname = $result->fetch_assoc()) {
-            $counter++;
-            $info = $rowname["additionalInfo"];
-            $seen = $rowname["seen"];
-            $symptom = $rowname["symptom"];
-            if ($info != "") {
-                if ($seen == "false") {
-                    echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
-                       <div id='content_$counter' class='comments' style='display:none'>
-                       <form method='post' name='commentsSection'>
-                       <input type='text' name='comment' placeholder='Respond to patient...'><br>
-                       <input type='hidden' name='action' value='filled'>
-                       <input type='hidden' name='divID' value='$info'>
-                       <input type='submit' value='Respond' class='btn'>
-</form>
-<br>
-</div>";
-
-                } else {
-                    echo "<p>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
-
-                }
-
-            }
-            if ($symptom != "") {
-                if ($seen == "false") {
-                    $counter++;
-                    echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
-                       <div id='content_$counter' class='comments' style='display:none'>
-                       <form method='post' name='commentsSection'>
-                       <input type='text' name='comment' placeholder='Respond to patient...'><br>
-                       <input type='hidden' name='action' value='filled'>
-                       <input type='hidden' name='divID' value='$info'>
-                       <input type='submit' value='Respond' class='btn'>
-</form>
-<br>
-</div>";
-
-                } else {
-                    echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
-
-                }
-
-            }
-
-        }
-    }
-    ?>
-</div>
-
-
-<?php
-if($action==="filled"){
-    $info = safePOST($conn, "divID");
-    $comment = (safePost($conn,"comment"));
-    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `additionalInfo`='$info'";
-    if ($conn->query($sql) === TRUE) {
-        echo "<p class='center'>Response has been sent!</p>";
-        ?>
-        <script>
-            window.location.href = "patient.php?id=+<?php echo $id ?>";
-        </script>
-        <?php
-    }
-}
-?>
 
 
 
 
 <br>
-<script>
 
-    function markAsSeen(counter){
-        jQuery.post("markAsSeen.php", {"Counter": counter}, function(data){
-            alert("Marked as Seen");
-        }).fail(function()
-        {
-            alert("something broke in submitting your records");
-        });
-    }
-
-    function showCommentOption(counter) {
-        var x = document.getElementById("content_"+counter);
-        console.log("div id " + counter );
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-</script>
 
 </body>
 <div class="clear"></div>
@@ -363,6 +215,8 @@ if($action==="filled"){
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='patientInfo.php?id=+<?php echo $id?>'"></div>
+        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Records  </p>
 
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
