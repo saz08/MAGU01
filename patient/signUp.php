@@ -97,7 +97,7 @@ if($loginOK) {
     <title>Project</title>
 
 </head>
-<title>Project</title>
+<title>Survivors</title>
 <body onload="checkAlreadyLoggedIn()" id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <nav class="navbar navbar-default navbar-fixed-top">

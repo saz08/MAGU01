@@ -109,7 +109,7 @@ if($sitResult->num_rows>0) {
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Physical Activity Chart</title>
     <script type="text/javascript">
         window.onload = function() {
             CanvasJS.addColorSet("greenShades",

@@ -86,7 +86,7 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Add Info</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -226,6 +226,7 @@ if($action2==="filled"){
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
         <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
+        <p style="float:right; font-size: 2rem; color: black">Submit!  </p>
 
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>

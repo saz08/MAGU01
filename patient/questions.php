@@ -86,7 +86,7 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Questions</title>
     <style>
         input {
             display: table-cell;

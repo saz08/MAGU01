@@ -313,7 +313,7 @@ if($entriesM!=0) {
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Record Chart</title>
     <script>
 
         window.onload = function() {

@@ -76,7 +76,7 @@ $loginOK = false; //TODO make this work with database values
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Weight Chart</title>
     <script>
        window.onload = function () {
 

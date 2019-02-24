@@ -83,7 +83,7 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Monitor Performance</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -208,6 +208,7 @@ if($loginOK) {
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
         <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
+        <p style="float:right; font-size: 2rem; color: black">Continue to record more information </p>
 
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>

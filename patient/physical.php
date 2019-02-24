@@ -81,7 +81,7 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Monitor Physical Activity</title>
 
 
 </head>

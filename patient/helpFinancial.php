@@ -85,7 +85,7 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Financial Help</title>
 <style>
     .collapsible {
         background-color: purple;

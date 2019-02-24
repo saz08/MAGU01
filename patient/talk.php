@@ -78,7 +78,7 @@ $loginOK = false; //TODO make this work with database values
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Forum Room</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">

@@ -80,7 +80,7 @@ $loginOK = false; //TODO make this work with database values
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Survivors</title>
 
 </head>
 
@@ -175,7 +175,7 @@ if($resultNew->num_rows<1) {
   <li>Monitor how much physical activity you do, we want you to improve!</li>
   <li>Get involved in our patient forum room</li>
   <li>Find helpful links regarding general info, financial, emotional and physical help</li>
-  <li>View helpful charts showing your progress</li>
+  <li>View helpful charts showing your status</li>
   <li>Log questions you'd like to remember for your next appointment</li>
   <li>Add friends or family members to a support circle, where they can view your progress and enter symptoms on your behalf</li>
 
@@ -247,8 +247,9 @@ if($resultPhysical -> num_rows>0){
         }
         if($sit>=5) {
             echo "<div class='box'>
-                    <p>Your last physical recording shows you spent more than 4 days sitting down.\n 
-                    Try walking around the house, garden or along the street.
+                    <p>Your last physical recording shows you spent more than 4 days sitting down.<br> 
+                    Try walking around the house, garden or along the street.<br>
+                    If you're having trouble finding physical activities, click <a href=helpPhysical.php>HERE</a> to see what's near you!!
                     </p>
                 </div>";
         }
@@ -261,41 +262,30 @@ if($resultPhysical -> num_rows>0){
     $resultScale = $conn->query($sqlScale);
     if($resultScale->num_rows>0) {
         while ($rowname = $resultScale->fetch_assoc()) {
-            echo"<div class='box'>";
             $pain = $rowname["pain"];
             $breath = $rowname["breathlessness"];
             $performance=$rowname["performance"];
 
-            if($pain>=8){
-                echo"<p>Your most recent pain score was $pain. <br> Common suggestions are: check you are still taking your antibiotics correctly</p>";
+            if($pain>=7){
+                echo"<div class='box'>";
+                echo"<p>Your most recent pain score was $pain. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: check you are still taking your antibiotics correctly</p>";
+                echo"</div>";
+
             }
-            if($pain>=4 && $pain<=7){
-                echo"<p>Your most recent pain score was $pain. <br> Common suggestions are: ensure you are ok</p>";
-            }
-            if($pain<4){
-                echo"<p>Your most recent pain score was $pain. <br> You are progressing well!</p>";
-            }
-            if($breath=5){
-                echo"<p>Your most recent breathlessness score was $breath. <br> Common suggestions are: take it easy for the next few days</p>";
-            }
-            if($breath>=2&&$breath<=4){
-                echo"<p>Your most recent breathlessness score was $breath. <br> Suggestion:</p>";
-            }
-            if($breath<4){
-                echo"<p>Your most recent breathlessness score was $breath. <br> You are progressing well!</p>";
+            if($breath>=3){
+                echo"<div class='box'>";
+                echo"<p>Your most recent breathlessness score was $breath. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: take it easy for the next few days</p>";
+                echo"</div>";
+
             }
             if($performance>=3){
-                echo"<p>Your most recent performance score was $performance. <br> Seek help</p>";
-            }
-            if($performance>=1&&$performance<=2){
-                echo"<p>Your most recent performance score was $performance. <br> Suggestions</p>";
-            }
-            if($performance<1){
-                echo"<p>Your most recent performance score was $performance. <br> You are progressing well!</p>";
+                echo"<div class='box'>";
+                echo"<p>Your most recent performance score was $performance. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: </p>";
+                echo"</div>";
+
             }
         }
     }
-echo"</div>";
     ?>
 
 
@@ -305,9 +295,7 @@ echo"</div>";
 
 
 <script>
-    function goRecord(){
-        window.location.href="recordOptions.php";
-    }
+
 
     function markAndDelete(response){
         jQuery.post("markAsSeen.php", {"Response": response}, function(data){

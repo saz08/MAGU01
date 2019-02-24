@@ -84,7 +84,7 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Monitor Weight</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -158,7 +158,7 @@ if($loginOK) {
     <input id="inputKilograms" type="number" step="0.01" placeholder="KG" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
     <span id="outputStones"></span>
     <input type="hidden" name="action" value="filled">
-    <input type="submit" name="submit" value="Submit"/>
+    <input type="submit" name="submit" value="Submit" class="btn"/>
 </form>
 </div>
 
@@ -168,7 +168,7 @@ if($loginOK) {
     <input id="inputKilograms" type="number" step="0.01" placeholder="LBS" name="LBS" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">
     <span id="outputKilograms"></span>
     <input type="hidden" name="action2" value="filled">
-    <input type="submit" name="submit" value="Submit"/>
+    <input type="submit" name="submit" value="Submit" class="btn"/>
 </form>
 </div>
 
@@ -191,7 +191,7 @@ if($action === "filled") {
     if ($conn->query($sql) === TRUE) {
         ?>
         <script>
-            window.location.href = "index.php";
+            window.location.href = "weightChart.php";
         </script>
         <?php
     }

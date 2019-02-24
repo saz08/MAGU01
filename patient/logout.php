@@ -44,7 +44,7 @@ session_destroy();
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <meta charset="UTF-8">
-    <title>Adapt To You</title>
+    <title>Logging Out...</title>
     <script>
 
         if(localStorage.getItem("loginOK")===null){

@@ -79,21 +79,3 @@ $conn->query($sql);
 
 
 ?>
-<script>
-
-</script>
-
-
-
-</body>
-<div class="clear"></div>
-<script>
-</script>
-<footer>
-    <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
-
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div></footer>
-</html>
