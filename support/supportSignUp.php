@@ -181,45 +181,6 @@ if($loginOK) {
                 <script>alert("Username not recognised")</script><?php
             }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             ?>
         </div>
 
@@ -292,7 +253,7 @@ if($loginOK) {
             $password = (safePost($conn,"password"));
             $survivor = (safePost($conn,"survivor"));
             $relation = (safePost($conn,"relation"));
-
+            $reject = "false";
 
 
 
@@ -301,12 +262,15 @@ if($loginOK) {
             if($result->num_rows>=1){
                 ?><script>alert("Username Already in Use");</script> <?php
                 echo "<p> * Username is already registered * ";
+                $reject = "true";
             }
             $query2 = "SELECT `username` FROM `account` WHERE `username` = '$usernameSupport'";
             $result2 = $conn->query($query2);
             if($result2->num_rows>=1){
                 ?><script>alert("Username Already in Use");</script> <?php
                 echo "<p> * Username is already registered * ";
+                $reject = "true";
+
             }
 
 
@@ -317,12 +281,13 @@ if($loginOK) {
         if($resultID->num_rows<1) {
             ?><script>alert("ID does not exist");</script><?php
             echo "<p> * Survivor username is not registered * ";
+        $reject = "true";
 
             }
 
-
-        $passwordNew = password_hash("$password",PASSWORD_DEFAULT);
-        $sqlInsert  = "INSERT INTO `supportAcc` (`username`, `password`, `survivor`, `relation`) VALUES ('$usernameSupport', '$passwordNew', '$survivor', '$relation')";
+        if($reject!="true"){
+        $passwordNew = password_hash("$password", PASSWORD_DEFAULT);
+        $sqlInsert = "INSERT INTO `supportAcc` (`username`, `password`, `survivor`, `relation`) VALUES ('$usernameSupport', '$passwordNew', '$survivor', '$relation')";
         if ($conn->query($sqlInsert) === TRUE) {
         echo "<p class='center'>Registration was successful!</p>";
         $loginOK = true;
@@ -337,7 +302,7 @@ if($loginOK) {
             <?php
         }
 
-
+        }
         }
         ?>
 

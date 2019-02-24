@@ -335,7 +335,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
                 title:{
                     text: "Pain",
@@ -370,7 +370,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -407,7 +407,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -445,7 +445,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -483,7 +483,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -519,7 +519,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-                height: 400,
+//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -614,10 +614,10 @@ if($entriesM!=0) {
 
 
 <div class="jumbotron text-center" id="jumbo1">
-    <h1><?php echo  $survivor?>'s Progress Over the Past Month</h1>
+    <h1><?php echo  $survivor?>'s Records Over the Past Month</h1>
 </div>
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
-    <h1><?php echo  $survivor?>'s Progress from the Beginning</h1>
+    <h1><?php echo  $survivor?>'s Records from the Beginning</h1>
 </div>
 <br>
 <div class="box">
@@ -639,13 +639,13 @@ if($entries!=0) {
 
 ?>
 <div id="allTime" style="position:absolute" class="center-div">
-    <div id="painAllTime" style="height: 30rem; width: 100%;"></div>
+    <div id="painAllTime" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="breathAllTime" style="height: 30rem; width:100%;"></div>
+    <div id="breathAllTime" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="performanceAllTime" style="height: 30rem; width:100%;"></div>
+    <div id="performanceAllTime" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
     <?php }
@@ -654,17 +654,18 @@ if($entries!=0) {
     }
     ?>
 </div>
+<br>
 
 <?php
 if($entriesM!=0){?>
 <div id="prevMonth" style="position:absolute" class="center-div">
-    <div id="painMonth" style="height: 30rem;width: 100%;"></div>
+    <div id="painMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="breathMonth" style="height: 30rem; width: 100%;"></div>
+    <div id="breathMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
-    <div id="performanceMonth" style="height: 30rem; width: 100%;"></div>
+    <div id="performanceMonth" style="height: 40rem; width: 100%;"></div>
     <br>
     <br>
     <?php }
@@ -673,6 +674,7 @@ if($entriesM!=0){?>
     }
     ?>
 </div>
+<br>
 
 
 
