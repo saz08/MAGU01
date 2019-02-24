@@ -41,6 +41,8 @@ $action = safePOST($conn, "action");
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/forAll.js"></script>
+    <script src="../js/docJS.js"></script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
@@ -174,12 +176,17 @@ if($resultScale->num_rows>0) {
         echo"<div style=\"overflow-x: scroll\">";
         echo"<table class='table table-hover row-clickable' id='doctorTable' >";
         echo"<tr>";
+        echo"<th>Entry Date</th>";
         echo"<th>Most Recent Pain Rate</th>";
         echo"<th>Most Recent Breathlessness Rate</th>";
         echo"<th>Most Recent Performance Score</th>";
-
         echo"</tr>";
         echo "<tr>";
+        $date = $rowname["timeStamp"];
+        $date2 = (new DateTime($date))->format('d/m/Y');
+
+        echo "<td style='background-color: white;color: black'>" . $date2 . "</a></td>";
+
         if($rowname["pain"]>=8){
             echo "<td style='background-color: red;color: black'>" . $rowname["pain"] . "</a></td>";
         }
