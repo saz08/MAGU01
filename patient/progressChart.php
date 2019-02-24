@@ -577,7 +577,7 @@ if($entriesM!=0) {
                     </ul>
                 </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progressChart.php">PROGRESS CHARTS</a></li>
+                        <li><a href="progressChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
@@ -595,10 +595,10 @@ if($entriesM!=0) {
 
 
 <div class="jumbotron text-center" id="jumbo1">
-    <h1>My Progress Over the Past Month <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>My Records Over the Past Month <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
-    <h1>My Progress from the Beginning <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>My Records from the Beginning <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <?php if($entries!=0&&$entriesM!=0) { ?>
@@ -720,6 +720,7 @@ if($entriesM=0&&$entries=0){
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

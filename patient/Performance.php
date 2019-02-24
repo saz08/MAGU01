@@ -115,7 +115,7 @@ if($loginOK) {
                     </ul>
                 </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progressChart.php">PROGRESS CHARTS</a></li>
+                        <li><a href="progressChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
