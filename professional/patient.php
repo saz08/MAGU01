@@ -210,6 +210,7 @@ if($patient->num_rows>0){
 
 <br>
 
+<p style="float:right; font-size: 2rem; color: black; ">Continue to Patient's Records  </p>
 
 </body>
 <div class="clear"></div>
@@ -218,7 +219,6 @@ if($patient->num_rows>0){
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
         <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='patientInfo.php?id=+<?php echo $id?>'"></div>
-        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Records  </p>
 
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>

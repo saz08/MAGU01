@@ -191,8 +191,15 @@ if($loginOK) {
                 <p>Create Username:<br> <input type="text" name="username"  id="username"/></p>
                 <p>Create Password: <br><input type="password" name="password"  id="password"/></p>
                 <p>Enter Username of Survivor: <br><input type="text" name="survivor"  id="survivor"/></p>
-                <p>Relation to You:<br><input type="text" name="relation"  id="relation"/></p>
-                <input type="hidden" name="action2" value="filled">
+                <p>Relation to You:<br>
+                 <select id="relation" name="relation">
+                    <option></option>
+                    <option value="Parent">Parent</option>
+                    <option value="Child">Child</option>
+                    <option value="Sibling">Sibling</option>
+                    <option value="Friend">Friend</option>
+                 </select></p>
+                   <input type="hidden" name="action2" value="filled">
                 <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register"></p>
                 </p>
             </form>

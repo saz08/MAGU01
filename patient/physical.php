@@ -114,11 +114,11 @@ if($loginOK) {
                     </ul>
                 </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progressChart.php">STATUS CHARTS</a></li>
+                        <li><a href="statusChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
-                        <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                        <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
-                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+                        <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
 
                     </ul>
                 </li>
@@ -211,7 +211,7 @@ if($action === "filled") {
     if ($conn->query($sql) === TRUE) {
         ?>
         <script>
-            window.location.href = "pieChart.php";
+            window.location.href = "physicalChart.php";
         </script>
         <?php
     }

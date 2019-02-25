@@ -141,14 +141,15 @@ if($patient->num_rows>0){
         $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$usernamePatient'";
         $support=$conn->query($sqlSupport);
         if($support->num_rows>0){
+            echo "<table class='table table-hover row-clickable' id='doctorTable' >";
+            echo"<tr>";
+            echo"<th>Support Circle</th>";
+            echo "<th>Relation</th>";
+            echo "</tr>";
+            echo "<tr>";
             while($rowname=$support->fetch_assoc()){
                // echo "<div style='overflow-x: scroll'>";
-                echo "<table class='table table-hover row-clickable' id='doctorTable' >";
-                echo"<tr>";
-                echo"<th>Support Circle</th>";
-                echo "<th>Relation</th>";
-                echo "</tr>";
-                echo "<tr>";
+
 
                 $supportUser= $rowname["username"];
                 $relation = $rowname["relation"];

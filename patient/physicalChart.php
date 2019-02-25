@@ -180,11 +180,11 @@ if($sitResult->num_rows>0) {
                     </ul>
                 </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progressChart.php">STATUS CHARTS</a></li>
+                        <li><a href="statusChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
-                        <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                        <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
-                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+                        <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
 
                     </ul>
                 </li>
@@ -222,6 +222,8 @@ if($result->num_rows<1) {
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='questions.php'"></div>
+        <p style="float:right; font-size: 2rem; color: black">Continue to Questions  </p>
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

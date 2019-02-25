@@ -20,18 +20,6 @@ body {
     background-color: #DDA8FF;
 }
 
-/*#container {*/
-    /*min-height:100%;*/
-    /*position:relative;*/
-/*}*/
-
-/*#footer {*/
-    /*position:absolute;*/
-    /*bottom:0;*/
-    /*width:100%;*/
-    /*height:60px;   !* Height of the footer *!*/
-    /*background:#6cf;*/
-/*}*/
 
 .footer {
     position: fixed;
@@ -41,6 +29,7 @@ body {
     background-color: #DDA8FF;
     color: black;
     text-align: center;
+    /*height: 7rem;*/
 }
 
 .btn{
@@ -518,6 +507,7 @@ table.row-clickable tbody tr td a {
     /*top: 40rem;*/
     /*left: 30%;*/
     width: 100%;
+    height: 100%;
 
 }
 

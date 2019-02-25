@@ -102,11 +102,11 @@ $username = $_SESSION["userName"];
                     </ul>
                 </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progressChart.php">STATUS CHARTS</a></li>
+                        <li><a href="statusChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
-                        <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                        <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
-                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+                        <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
 
                     </ul>
                 </li>
@@ -159,14 +159,15 @@ if($action === "filled") {
 $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$username'";
 $support=$conn->query($sqlSupport);
 if($support->num_rows>0){
+    echo "<div class='container-fluid bg-1 text-center'><h2>Your Supporters</h2></div>";
+    echo "<table class='table table-hover row-clickable' id='doctorTable' >";
+    echo" <tr>";
+    echo"<th>Support Circle</th>";
+    echo "<th>Relation</th>";
+    echo "</tr>";
+    echo "<tr>";
     while($rowname=$support->fetch_assoc()){
-        echo "<div class='container-fluid bg-1 text-center'><h2>Your Supporters</h2></div>";
-        echo "<table class='table table-hover row-clickable' id='doctorTable' >";
-        echo" <tr>";
-        echo"<th>Support Circle</th>";
-        echo "<th>Relation</th>";
-        echo "</tr>";
-        echo "<tr>";
+
 
         $supportUser= $rowname["username"];
         $relation = $rowname["relation"];

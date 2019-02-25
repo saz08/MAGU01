@@ -153,11 +153,11 @@ if($loginOK) {
                     </ul>
                 </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="progressChart.php">STATUS CHARTS</a></li>
+                        <li><a href="statusChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
-                        <li><a href="pieChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                        <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
                         <li><a href="questions.php">QUESTIONS</a></li>
-                        <li><a href="supportTxt.php">SUPPORT CIRCLE</a></li>
+                        <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
 
                     </ul>
                 </li>
@@ -183,6 +183,13 @@ if($loginOK) {
 <div class="content">
     <p>Roy Castle Lung Cancer Foundation have support groups for you: <a href="https://www.roycastle.org/how-we-help/services-for-you/support-groups"> Roy Castle Website</a>
     <p>Please feel free to post in our Survivors forum and communicate with others: <a href="https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/talk.php"> TALK!</a>
+
+</div>
+
+<button class="collapsible">Anxiety</button>
+<div class="content">
+    <p>Anxiety about going for a scan: <a href="https://medivizor.com/blog/2014/06/03/15-tips-cope-scanxiety/"> "Scanxiety"</a>
+    <p>PET Scan Information: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/getting-diagnosed/tests-stage/pet-ct-scan"> Cancer Research UK</a>
 
 </div>
 
@@ -214,6 +221,8 @@ if($loginOK) {
 <footer>
     <div class="footer">
         <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
+        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='helpPhysical.php'"></div>
+        <p style="float:right; font-size: 2rem; color: black">Continue to Physical Help  </p>
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

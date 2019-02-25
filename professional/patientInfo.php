@@ -24,6 +24,8 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
+$action2 = safePOST($conn, "action2");
+
 
 ?>
 
@@ -264,16 +266,17 @@ echo "</div>";
                     $counter++;
                     echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
-                       <form method='post' name='commentsSection'>
+                       <form method='post' name='commentsSymptom'>
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
-                       <input type='hidden' name='action' value='filled'>
-                       <input type='hidden' name='divID' value='$info'>
+                       <input type='hidden' name='action2' value='filled'>
+                       <input type='hidden' name='divID2' value='$symptom'>
                        <input type='submit' value='Respond' class='btn'>
-</form>
-<br>
-</div>";
+                    </form>
+                    <br>
+                    </div>";
 
-                } else {
+                }
+                else {
                     echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
                 }
@@ -290,12 +293,41 @@ echo "</div>";
 if($action==="filled"){
     $info = safePOST($conn, "divID");
     $comment = (safePost($conn,"comment"));
-    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `additionalInfo`='$info'";
+    $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
+    $patient=$conn->query($sqlPatient);
+    if($patient->num_rows>0){
+        while($rowname=$patient->fetch_assoc()){
+            $usernamePatient= $rowname["username"];
+        }
+    }
+    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Response has been sent!</p>";
         ?>
         <script>
-            window.location.href = "patient.php?id=+<?php echo $id ?>";
+            window.location.href = "patientInfo.php?id=+<?php echo $id ?>";
+        </script>
+        <?php
+    }
+}
+?>
+<?php
+if($action2==="filled"){
+    $symptom = safePOST($conn, "divID2");
+    $comment = (safePost($conn,"comment"));
+    $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
+    $patient=$conn->query($sqlPatient);
+    if($patient->num_rows>0){
+        while($rowname=$patient->fetch_assoc()){
+            $usernamePatient= $rowname["username"];
+        }
+    }
+    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
+    if ($conn->query($sql) === TRUE) {
+        echo "<p class='center'>Response has been sent!</p>";
+        ?>
+        <script>
+            window.location.href = "patientInfo.php?id=+<?php echo $id ?>";
         </script>
         <?php
     }

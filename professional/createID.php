@@ -119,6 +119,7 @@ $loginOK = false; //TODO make this work with database values
         var dob = document.getElementById("DoB");
         var male = document.getElementById("male");
         var female = document.getElementById("female");
+        var email = document.getElementById("patientEmail");
         var address = document.getElementById("address");
         var contact = document.getElementById("contact");
         var docEmail = document.getElementById("docEmail");
@@ -135,31 +136,45 @@ $loginOK = false; //TODO make this work with database values
         address.style.background = "white";
         contact.style.background = "white";
         docEmail.style.background = "white";
+        email.style.background="white";
 
 
 
 
         if(forename.value === null || forename.value === ""){
-            errs += " Please enter your email address\n";
+            errs += " Please enter the patient's forename\n";
             forename.style.background = "pink";
         }
 
         if(surname.value === null || surname.value === ""){
-            errs += " Please enter your email address\n";
+            errs += " Please enter the patient's surname\n";
             surname.style.background = "pink";
+        }
+        if(dob.value === null || dob.value === ""){
+            errs += " Please enter the patient's date of birth\n";
+            dob.style.background = "pink";
+        }
+        if(male.value === null || male.value === "" && female.value === null || female.value === "" ){
+            errs += " Please enter the patient's gender\n";
+            male.style.background = "pink";
+            female.style.background = "pink";
+        }
+        if(email.value===null||email.value===""){
+            errs+= "Please enter the patient's email address\n";
+            email.style.background="pink";
         }
 
         if(address.value===null||address.value===""){
-            errs+= "Please enter a valid survivor's username\n";
+            errs+= "Please enter the patient's address\n";
             address.style.background="pink";
         }
 
         if(contact.value===null||contact.value===""){
-            errs+= "Please enter how you know the patient. EG: Partner, friend, parent...\n";
+            errs+= "Please enter a contact number for the patient\n";
             contact.style.background="pink";
         }
         if(docEmail.value===null||docEmail.value===""){
-            errs+= "Please enter how you know the patient. EG: Partner, friend, parent...\n";
+            errs+= "Please enter the doctor's email for this patient\n";
             docEmail.style.background="pink";
         }
 
