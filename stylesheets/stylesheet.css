@@ -29,6 +29,8 @@ body {
     background-color: #DDA8FF;
     color: black;
     text-align: center;
+    font-family: Montserrat, sans-serif;
+
     /*height: 7rem;*/
 }
 
@@ -173,7 +175,8 @@ h4 {
     background-color: purple;
     z-index: 9999;
     border: 0;
-    font-size: 12px !important;
+    font-size: 1.5rem;
+    /*font-size: 12px !important;*/
     line-height: 1.42857143 !important;
     letter-spacing: 4px;
     border-radius: 0;
@@ -277,13 +280,6 @@ div.inputRight{
     width: 100%;
 }
 
-/*#colors{*/
-    /*#C9CAD9;*/
-    /*#D1D2F9;*/
-    /*#A3BCF9;*/
-    /*#7796CB;*/
-    /*#576490*/
-/*}*/
 
 .slidecontainer {
     width: 100%;
@@ -374,10 +370,6 @@ output {
     width: 100%;
 }
 
-/*svg {*/
-    /*-webkit-transform: rotate(-90deg);*/
-    /*transform: rotate(-90deg);*/
-/*}*/
 
 .circle_animation {
     stroke-dasharray: 440; /* this value is the pixel circumference of the circle */
@@ -450,41 +442,6 @@ table.row-clickable tbody tr td a {
     padding: 8px;
 }
 
-/*.collapsible {*/
-    /*background-color: #777;*/
-    /*color: white;*/
-    /*cursor: pointer;*/
-    /*padding: 18px;*/
-    /*width: 100%;*/
-    /*border: none;*/
-    /*text-align: left;*/
-    /*outline: none;*/
-    /*font-size: 15px;*/
-/*}*/
-
-/*.active, .collapsible:hover {*/
-    /*background-color: #555;*/
-/*}*/
-
-/*.collapsible:after {*/
-    /*content: '\002B';*/
-    /*color: white;*/
-    /*font-weight: bold;*/
-    /*float: right;*/
-    /*margin-left: 5px;*/
-/*}*/
-
-/*.active:after {*/
-    /*content: "\2212";*/
-/*}*/
-
-/*.content {*/
-    /*padding: 0 18px;*/
-    /*max-height: 0;*/
-    /*overflow: hidden;*/
-    /*transition: max-height 0.2s ease-out;*/
-    /*background-color: #f1f1f1;*/
-/*}*/
 
 .divChart{
     position: absolute;
@@ -528,4 +485,43 @@ and (max-device-width : 480px) {
 
 .dropdown-menu{
     background-color: purple;
+}
+
+
+.navbarBottom {
+    overflow: hidden;
+    background-color: purple;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-family: Montserrat, sans-serif;
+    /*font-size: 12px !important;*/
+
+}
+
+.navbarBottom a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 1.5rem;
+
+    /*font-size: 17px;*/
+}
+
+.navbarBottom a:hover {
+    background: mediumpurple;
+    color: black;
+}
+
+.navbarBottom a.active {
+    background-color: purple;
+    color: white;
+}
+
+.dropdown{
+    font-size: 1.5rem;
+
 }
