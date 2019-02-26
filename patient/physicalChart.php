@@ -56,6 +56,9 @@ while ($rowname = $vigResult->fetch_assoc()) {
     $vigorous = $rowname["SUM(`vigorous`)"];
     }
 }
+else{
+    $vigorous=0;
+}
 
 $sumMod  = "SELECT SUM(`moderate`) FROM `physical` WHERE `username` = '$username'";
 $modResult= $conn->query($sumMod);
@@ -63,6 +66,9 @@ if($modResult->num_rows>0) {
     while ($rowname = $modResult->fetch_assoc()) {
         $moderate = $rowname["SUM(`moderate`)"];
     }
+}
+else{
+    $moderate=0;
 }
 
 $sumWalk  = "SELECT SUM(`walking`) FROM `physical` WHERE `username` = '$username'";
@@ -72,6 +78,9 @@ if($walkResult->num_rows>0) {
         $walking = $rowname["SUM(`walking`)"];
     }
 }
+else{
+    $walking=0;
+}
 
 $sumSit  = "SELECT SUM(`sitting`) FROM `physical` WHERE `username` = '$username'";
 $sitResult= $conn->query($sumSit);
@@ -80,7 +89,65 @@ if($sitResult->num_rows>0) {
         $sitting = $rowname["SUM(`sitting`)"];
     }
 }
+else{
+    $sitting=0;
+}
 
+$weekVig  = "SELECT `vigorous` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
+$weekVigResult= $conn->query($weekVig);
+if($weekVigResult->num_rows>0) {
+    while ($rowname = $weekVigResult->fetch_assoc()) {
+        $vigWeek = $rowname["vigorous"];
+    }
+}
+else{
+    $vigWeek=0;
+}
+
+$weekMod  = "SELECT `moderate` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
+$weekModResult= $conn->query($weekMod);
+if($weekModResult->num_rows>0) {
+    while ($rowname = $weekModResult->fetch_assoc()) {
+        $modWeek = $rowname["moderate"];
+    }
+}
+else{
+    $modWeek=0;
+}
+$weekWalk  = "SELECT `walking` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
+$weekWalkResult= $conn->query($weekWalk);
+if($weekWalkResult->num_rows>0) {
+    while ($rowname = $weekWalkResult->fetch_assoc()) {
+        $walkWeek = $rowname["walking"];
+    }
+}
+else{
+    $walkWeek=0;
+}
+$weekSitting  = "SELECT `sitting` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
+$weekSittingResult= $conn->query($weekSitting);
+if($weekSittingResult->num_rows>0) {
+    while ($rowname = $weekSittingResult->fetch_assoc()) {
+        $sittingWeek = $rowname["sitting"];
+    }
+}
+else{
+    $sittingWeek=0;
+}
+
+if(($vigorous+$moderate+$walking+$sitting)==0){
+    $entries = 0;
+}
+else{
+    $entries=1;
+}
+
+if(($vigWeek+$modWeek+$walkWeek+$sittingWeek)==0){
+    $entriesW = 0;
+}
+else{
+    $entriesW=1;
+}
 
 
 
@@ -122,6 +189,9 @@ if($sitResult->num_rows>0) {
                     "#90EE90"
                 ]);
             var options = {
+                width: window.innerWidth,
+                height: 400,
+
                 backgroundColor: "#DDA8FF",
                 colorSet: "greenShades",
                 data: [{
@@ -146,7 +216,36 @@ if($sitResult->num_rows>0) {
                     ]
                 }]
             };
+            var week = {
+                width: window.innerWidth,
+                height: 400,
+                backgroundColor: "#DDA8FF",
+                colorSet: "greenShades",
+                data: [{
+                    type: "pie",
+                    startAngle: 45,
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabel: "{label} ({y} Days)",
+                    indexLabelPlacement: "outside",
+                    indexLabelBackgroundColor: "white",
+                    indexLabelFontSize: 20,
+                    indexLabelWrap: true,
+                    yValueFormatString:"#,##0.#"%"",
+                    dataPoints: [
+                        <?php
+                        echo "{label: 'Vigorous', y: $vigWeek}, ";
+                        echo "{label: 'Moderate', y: $modWeek}, ";
+                        echo "{label: 'Walking', y: $walkWeek}, ";
+                        echo "{label: 'Sitting', y: $sittingWeek}, ";
+                        ?>
+
+                    ]
+                }]
+            };
+
             $("#chartContainer").CanvasJSChart(options);
+            $("#chartContainerWeek").CanvasJSChart(week);
 
         }
     </script>
@@ -210,15 +309,86 @@ if($result->num_rows<1) {
 <br>
 <button class="btn" onclick="window.location.href='physical.php'">Make an entry</button>
 <br>
-<div id="chartContainer" style="height: 30rem; width: 100%;"></div>
+<?php if(($entries&&$entriesW)!=0){ ?>
+<div class="box">
+    <form method="get" class="radiostyle">
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
+            <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
+            <span class="checkmark"></span>
+        </label>
+        <br>
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on most recent record
+            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
+            <span class="checkmark"></span>
 
+        </label>
+    </form>
+</div>
+<?php }?>
+<br>
+<?php if($entries!=0){ ?>
+    <h2 id="allTime">All Records</h2>
+<div id="chartContainer" style="position:absolute" class="center-div">
+<div id="allTime" style="height: 40rem; width: 100%;"></div>
+</div>
+<?php } ?>
+<br>
 
+<?php if($entriesW!=0){ ?>
+    <h2 id="week">Most recent record</h2>
+<div id="chartContainerWeek" style="position:absolute" class="center-div">
+<div id="prevWeek" style="height: 40rem; width: 100%;"></div>
+</div>
+<?php } ?>
+<br>
 
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script>
+    var x = document.getElementById("chartContainer");
+    var y = document.getElementById("chartContainerWeek");
+    var alltime = document.getElementById("allTime");
+    var week = document.getElementById("week");
 
 
+    x.style.display="none";
+    alltime.style.display="none";
+    y.style.display="block";
+    week.style.display="block";
+
+
+    function submitAll(){
+        if (x.style.display === "none") {
+            y.style.display="none";
+            week.style.display="none";
+            x.style.display = "block";
+            alltime.style.display="block";
+
+        } else {
+            x.style.display = "block";
+            alltime.style.display="block";
+            week.style.display="none";
+        }
+    }
+
+    function submitMonth(){
+        if (y.style.display === "none") {
+            x.style.display="none";
+            alltime.style.display="none";
+            y.style.display = "block";
+            week.style.display="block";
+
+        } else {
+            y.style.display = "block";
+            week.style.display="block";
+            alltime.style.display="none";
+
+        }
+
+    }
+</script>
 </body>
+
 <footer>
     <div class="footer">
         <div class="navbarBottom">
