@@ -309,6 +309,5 @@ if($resultPhysical -> num_rows>0){
 
 <footer>
     <div class="footer">
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

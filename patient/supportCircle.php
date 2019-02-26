@@ -92,15 +92,18 @@ $username = $_SESSION["userName"];
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
                         <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
                     </ul>
-                </li>                  <li><a href="talk.php">TALK</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
+                </li>
+                <li><a href="talk.php">TALK</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="helpInfo.php">INFO</a></li>
                         <li><a href="helpFinancial.php">FINANCIAL</a></li>
                         <li><a href="helpEmotional.php">EMOTIONAL</a></li>
                         <li><a href="helpPhysical.php">PHYSICAL</a></li>
                     </ul>
-                </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="statusChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
@@ -187,7 +190,7 @@ if($support->num_rows>0){
 
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div></footer>
+        <div class="navbarBottom">
+            <a onclick="goBack()" class="active">BACK</a>
+        </div>    </div></footer>
 </html>

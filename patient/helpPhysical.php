@@ -225,7 +225,7 @@ if($loginOK) {
 
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div></footer>
+        <div class="navbarBottom">
+            <a onclick="goBack()" class="active">BACK</a>
+        </div>    </div></footer>
 </html>

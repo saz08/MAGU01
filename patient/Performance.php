@@ -206,10 +206,10 @@ if($loginOK) {
 
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="submit()"></div>
-        <p style="float:right; font-size: 2rem; color: black">Continue to record more information </p>
+        <div class="navbarBottom">
+            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="submit()" style="float:right">NEXT: MORE INFO</a>
+        </div>
 
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div></footer>
 </html>

@@ -220,9 +220,9 @@ if($loginOK) {
 
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='helpPhysical.php'"></div>
-        <p style="float:right; font-size: 2rem; color: black">Continue to Physical Help  </p>
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+        <div class="navbarBottom">
+            <a onclick="goBack()" class="active">BACK</a>
+            <a href="helpPhysical.php" style="float:right">NEXT: PHYSICAL HELP</a>
+        </div>
     </div></footer>
 </html>
