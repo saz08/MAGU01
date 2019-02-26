@@ -725,7 +725,12 @@ if($entriesM!=0){?>
 </body>
 <footer>
     <div class="footer">
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+<!--        <div class="navbarBottom">-->
+<!--            <a onclick="goBack()" class="active">BACK</a>-->
+<!--        </div>    -->
+        <div class="navbarBottom">
+            <a href="supportInput.php" style="float:right">NEXT: RECORD</a>
+        </div>
     </div>
 </footer>
 </html>
