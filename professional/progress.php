@@ -610,11 +610,12 @@ if($entriesM!=0) {
 
 <div class="jumbotron text-center" id="jumbo1">
     <h1><?php echo  $patientname?>'s Records Over the Past Month</h1>
+    <br>
 </div>
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
     <h1><?php echo  $patientname?>'s Records from the Beginning</h1>
 </div>
-
+<br>
 
 <div class="box">
     <form method="get" class="radiostyle">
@@ -720,11 +721,11 @@ if($entriesM!=0){?>
 </body>
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='weightChartDoc.php?id=+<?php echo $id?>'"></div>
-        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Weight Chart  </p>
 
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+        <div class="navbarBottom">
+            <a onclick="goBack()">BACK</a>
+            <a href="weightChartDoc.php?id=+<?php echo $id ?>" style="float:right">NEXT: WEIGHT CHART</a>
+        </div>
     </div>
 </footer>
 </html>

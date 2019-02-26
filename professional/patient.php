@@ -163,7 +163,7 @@ if($patient->num_rows>0){
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?></h1>
 </div>
-
+<br>
 
 
         <?php
@@ -210,16 +210,16 @@ if($patient->num_rows>0){
 
 <br>
 
-<p style="float:right; font-size: 2rem; color: black; ">Continue to Patient's Records  </p>
 
 </body>
 <div class="clear"></div>
 
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='patientInfo.php?id=+<?php echo $id?>'"></div>
 
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+        <div class="navbarBottom">
+            <a onclick="goBack()">BACK</a>
+            <a href="patientInfo.php?id=+<?php echo $id ?>" style="float:right">NEXT: PATIENT INFO</a>
+        </div>
     </div></footer>
 </html>

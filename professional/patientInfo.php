@@ -166,7 +166,7 @@ if($patient->num_rows>0){
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?></h1>
 </div>
 
-
+<br>
 
 <?php
 
@@ -365,10 +365,9 @@ if($action2==="filled"){
 
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='progress.php?id=+<?php echo $id?>'"></div>
-        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Status Charts  </p>
-
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+        <div class="navbarBottom">
+            <a onclick="goBack()">BACK</a>
+            <a href="progress.php?id=+<?php echo $id ?>" style="float:right">NEXT: PATIENT STATUS</a>
+        </div>
     </div></footer>
 </html>

@@ -25,8 +25,26 @@ $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
 
-$username = $_SESSION["userName"];
+if(isset($_SESSION["sessionuser"])){
+    $user = $_SESSION["sessionuser"];
+    $sessionuser = $_SESSION["sessionuser"];
+}
 
+else{
+    $sessionuser ="";
+    $user = safePOSTNonMySQL("username");
+    $pass = safePOSTNonMySQL("password");
+}
+
+if($_SESSION['userName']==null){
+    $_SESSION['userName'] = "unknownUser";
+    ?> <script>
+        localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOKDoc', "no");
+    </script><?php
+}
+
+$username = $_SESSION["userName"];
 
 ?>
 
@@ -94,6 +112,7 @@ $username = $_SESSION["userName"];
 
     </tr>
     <?php
+
     $sqlDoc = "SELECT * FROM `docAcc` WHERE `username` = '$username'";
     $resultDoc = $conn->query($sqlDoc);
     if($resultDoc->num_rows>0){

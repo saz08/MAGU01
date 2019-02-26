@@ -186,14 +186,13 @@ else{
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 </body>
-
+<div class="clear"> </div>
 
 <footer>
     <div class="footer">
-        <div class="glyphicon glyphicon-arrow-left" style="float:left" id="arrows" onclick="goBack()"></div>
-        <div class="glyphicon glyphicon-arrow-right" style="float:right" id="arrows" onclick="window.location.href='proSupport.php?id=+<?php echo $id?>'"></div>
-        <p style="float:right; font-size: 2rem; color: black">Continue to Patient's Support Circle  </p>
-
-        <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
+        <div class="navbarBottom">
+            <a onclick="goBack()">BACK</a>
+            <a href="proSupport.php?id=+<?php echo $id ?>" style="float:right">NEXT: SUPPORT CIRCLE</a>
+        </div>
     </div></footer>
 </html>
