@@ -193,7 +193,7 @@ else{
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a href="physicalChart.php" style="float:right">NEXT: PHYSICAL CHART</a>
         </div>
     </div></footer>

@@ -298,6 +298,7 @@ if($entriesM!=0) {
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -619,12 +620,12 @@ if($entriesM!=0) {
 
 <div class="box">
     <form method="get" class="radiostyle">
-        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on all records
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
             <span class="checkmark"></span>
             <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
         </label>
         <br>
-        <label class="container" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
             <span class="checkmark"></span>
             <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
 

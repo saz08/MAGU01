@@ -131,7 +131,7 @@ $username = $_SESSION["userName"];
 <br>
 
 
-<div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. If you don't have anything you'd like to add, please leave blank and press the bottom left arrow.</div>
+<div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. If you don't have anything you'd like to add, please leave blank</div>
 <form name="symptom" method="post" >
     Symptoms:
     <select id="select" name="select">
@@ -149,7 +149,8 @@ $username = $_SESSION["userName"];
     <input type="hidden" name="action" value="filled">
     <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
 </form>
-<div class="box">Or... you can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank and press the bottom left arrow.</div>
+<br>
+<div class="box">Or... you can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank</div>
 
 <form name="additional" method="post">
     <input type="text" name="additional"  id="additional"/>
@@ -200,7 +201,7 @@ if($action==="filled"){
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a href="supportDocFeedback.php" style="float:right">NEXT: FEEDBACK</a>
         </div>
     </div>

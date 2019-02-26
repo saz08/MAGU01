@@ -307,9 +307,11 @@ if($loginOK) {
 <div class="clear"></div>
 
 <footer>
+
     <div class="footer">
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div></footer>
+    </div>
+</footer>
 </html>
 
 <?php

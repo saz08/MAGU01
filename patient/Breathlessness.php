@@ -133,7 +133,7 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Monitor breathlessness <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<br>
 <div class="box">The following is the MRC Breathlessness scale. Please tick the box that you feel you apply to</div>
 
 <form method="get" class="radiostyle">
@@ -196,7 +196,7 @@ if($loginOK) {
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a onclick="submit()" style="float:right">NEXT: PERFORMANCE</a>
         </div>
     </div></footer>

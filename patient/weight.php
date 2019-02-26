@@ -272,7 +272,7 @@ if($action2==="filled"){
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a href="scale.php" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a href="physical.php" style="float:right">NEXT: PHYSICAL</a>
         </div>
     </div>

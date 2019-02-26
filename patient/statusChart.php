@@ -600,6 +600,7 @@ if($entriesM!=0) {
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
     <h1>My Records from the Beginning <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+<br>
 
 <?php if($entries!=0&&$entriesM!=0) { ?>
     <div class="box">
@@ -720,7 +721,7 @@ if($entriesM=0&&$entries=0){
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a href="weightChart.php" style="float:right">NEXT: WEIGHT CHART</a>
         </div>
     </div></footer>

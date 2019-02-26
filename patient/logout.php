@@ -101,11 +101,7 @@ session_destroy();
 <script src="../../dist/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-<script>
-    document.cookie="calorieCookie="+0;
-    document.cookie="distanceCookie="+0;
-    document.cookie="scoreCookie="+0;
-</script>
+
 </body>
 <div class="clear"></div>
 

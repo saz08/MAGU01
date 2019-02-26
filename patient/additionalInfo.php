@@ -225,7 +225,7 @@ if($action2==="filled"){
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a onclick="submitRecord()" style="float:right">SUBMIT</a>
         </div>
     </div></footer>

@@ -92,6 +92,7 @@ if($loginOK) {
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -201,8 +202,16 @@ if($loginOK) {
                 <p>Create Password:<input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                 <p>Enter ID: <br><input type="number" name="id" value="" id="id"/></p>
                 <p>Smoker Status <i>*Optional*</i></p>
-                <input type="radio" name="smoker" value="smoker" id="smoker"> Current
-                <input type="radio" name="smoker" value="nonsmoker" id="nonsmoker">Never
+                <p>
+                <label for="smoker">
+                <input type="radio" name="smoker" value="smoker" id="smoker" class="radiostyle">
+                    Current
+                </label>
+                </p>
+                <label for="nonsmoker">
+                <input type="radio" name="smoker" value="nonsmoker" id="nonsmoker" class="radiostyle">
+                    Never
+                </label>
                 <input type="hidden" name="action2" value="filled">
                 <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register"></p>
                 </p>

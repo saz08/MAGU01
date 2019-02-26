@@ -187,7 +187,7 @@ if($loginOK) {
     <div class="footer">
 
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a onclick="submit()" style="float:right">NEXT: BREATHLESSNESS</a>
         </div>
     </div></footer>

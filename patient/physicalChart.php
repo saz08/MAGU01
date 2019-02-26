@@ -169,6 +169,7 @@ else{
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
@@ -392,7 +393,7 @@ if($result->num_rows<1) {
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a href="questions.php" style="float:right">NEXT: QUESTIONS</a>
         </div>
     </div></footer>

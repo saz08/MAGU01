@@ -153,6 +153,21 @@ if($loginOK) {
 
     <p>Life after Treatment: <a href="https://www.macmillan.org.uk/information-and-support/lung-cancer/non-small-cell-lung-cancer/treating/after-treatment-for-lung-cancer">MacMillan</a></p>
 </div>
+<?php
+
+$sqlUser = "SELECT `smokingStatus` FROM `account` WHERE `username` = '$username' AND `smokingStatus`='Current'";
+$userResult = $conn->query($sqlUser);
+if($userResult->num_rows>0) {
+    ?>
+    <button class="collapsible">Quitting Smoking</button>
+    <div class="content">
+        <p>Problems after Surgery: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/treatment/surgery/possible-problems">Cancer Research UK</a></p>
+
+        <p>Life after Treatment: <a href="https://www.macmillan.org.uk/information-and-support/lung-cancer/non-small-cell-lung-cancer/treating/after-treatment-for-lung-cancer">MacMillan</a></p>
+    </div>
+<?php
+}
+?>
 
 
 

@@ -216,10 +216,10 @@ if($patient->num_rows>0){
 
 <footer>
     <div class="footer">
-
         <div class="navbarBottom">
             <a onclick="goBack()">BACK</a>
             <a href="patientInfo.php?id=+<?php echo $id ?>" style="float:right">NEXT: PATIENT INFO</a>
         </div>
-    </div></footer>
+    </div>
+</footer>
 </html>

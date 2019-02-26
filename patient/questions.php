@@ -252,7 +252,7 @@ if($resultJournal->num_rows>0) {
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
             <a href="supportCircle.php" style="float:right">NEXT: SUPPORT CIRCLE</a>
         </div>
     </div>

@@ -132,7 +132,7 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Monitor your physical activity <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<br>
 <div class="box">The following questions have been adapted from the YOUTHREX International Physical Acitivity Questionnaire.</div>
 <br>
 <div class="box">
@@ -225,6 +225,6 @@ if($action === "filled") {
 <footer>
     <div class="footer">
         <div class="navbarBottom">
-            <a onclick="goBack()" class="active">BACK</a>
+            <a onclick="goBack()" >BACK</a>
         </div>    </div></footer>
 </html>
