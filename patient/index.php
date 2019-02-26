@@ -48,7 +48,6 @@ $_SESSION['userName'] = "unknownUser";
 }
 
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
 $loginOK = false; //TODO make this work with database values
 
 
