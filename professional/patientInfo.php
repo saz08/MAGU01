@@ -186,38 +186,41 @@ if($resultScale->num_rows>0) {
         echo "<tr>";
         $date = $rowname["timeStamp"];
         $date2 = (new DateTime($date))->format('d/m/Y');
+        $pain = $rowname["pain"];
+        $breath = $rowname["breathlessness"];
+        $performance = $rowname["performance"];
 
         echo "<td style='background-color: white;color: black'>" . $date2 . "</a></td>";
 
-        if($rowname["pain"]>=8){
-            echo "<td style='background-color: red;color: black'>" . $rowname["pain"] . "</a></td>";
+        if($rowname["pain"]>=7){
+            echo "<td style='background-color: red;color: black'>" . $pain . "</a></td>";
         }
 
-        else if($rowname["pain"]>=4&&$rowname["pain"]<=7){
-            echo "<td style='background-color: orange;color: black'>" . $rowname["pain"] . "</a></td>";
+        else if($rowname["pain"]>=4&&$rowname["pain"]<7){
+            echo "<td style='background-color: orange;color: black'>" . $pain. "</a></td>";
         }
         else{
-            echo "<td style='background-color: limegreen;color: black'>" . $rowname["pain"] . "</a></td>";
+            echo "<td style='background-color: limegreen;color: black'>" . $pain . "</a></td>";
         }
-        if($rowname["breathlessness"]=5){
-            echo "<td style='background-color: red;color: black'>" . $rowname["breathlessness"] . "</a></td>";
+        if($rowname["breathlessness"]>=4){
+            echo "<td style='background-color: red;color: black'>" . $breath . "</a></td>";
         }
 
-        else if($rowname["breathlessness"]>=2&&$rowname["breathlessness"]<=4){
-            echo "<td style='background-color: orange;color: black'>" . $rowname["breathlessness"] . "</a></td>";
+        else if($rowname["breathlessness"]>=2&&$rowname["breathlessness"]<4){
+            echo "<td style='background-color: orange;color: black'>" .$breath . "</a></td>";
         }
         else{
-            echo "<td style='background-color: limegreen;color: black'>" . $rowname["breathlessness"] . "</a></td>";
+            echo "<td style='background-color: limegreen;color: black'>" . $breath . "</a></td>";
         }
         if($rowname["performance"]>=3){
-            echo "<td style='background-color: red;color: black'>" . $rowname["performance"] . "</a></td>";
+            echo "<td style='background-color: red;color: black'>" . $performance . "</a></td>";
         }
 
-        else if($rowname["performance"]>=1&&$rowname["performance"]<=2){
-            echo "<td style='background-color: orange;color: black'>" . $rowname["performance"] . "</a></td>";
+        else if($rowname["performance"]==2){
+            echo "<td style='background-color: orange;color: black'>" .$performance . "</a></td>";
         }
         else{
-            echo "<td style='background-color: limegreen;color: black'>" . $rowname["performance"] . "</a></td>";
+            echo "<td style='background-color: limegreen;color: black'>" . $performance. "</a></td>";
         }
 
         echo "</tr>";

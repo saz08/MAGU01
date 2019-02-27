@@ -51,27 +51,51 @@ if($resultID->num_rows>0) {
     }
 }
 
+if($pain>=7){
+    $redPainWarning = "Red Pain Rating greater than 7";
+    $redPain = "true";
+}
+else{
+    $redPain = "false";
+}
+if($breathlessness>=4){
+    $redBreathWarning = "Red Breathlessness Score greater than 4";
+    $redBreath= "true";
+}
+else{
+    $redBreath = "false";
+}
+if($performance>=3){
+    $redPerformanceWarning="Red Performance score greater than 2";
+    $redPerformance = "true";
+}
+else{
+    $redPerformance = "false";
+}
 
-    if($pain>=4&&$pain<=7){
-        $amberPainWarning = "Amber Pain Rating between 4 and 7";
-    }
-    if($breathlessness>=2&&$breathlessness<=4){
-        $amberBreathWarning = "Amber Breathlessness Score between 2 and 4";
-    }
-    if($performance==2){
-        $amberPerformanceWarning="Amber Performance Score of 2";
-    }
+if($pain>=4&&$pain<7){
+    $amberPainWarning = "Amber Pain Rating between 4 and 7";
+    $amberPain = "true";
+}
+else{
+    $amberPain = "false";
+}
+if($breathlessness>=2&&$breathlessness<4){
+    $amberBreathWarning = "Amber Breathlessness Score between 2 and 4";
+    $amberBreath = "true";
+}
+else{
+    $amberBreath = "false";
+}
+if($performance==2){
+    $amberPerformanceWarning="Amber Performance Score of 2";
+    $amberPerformance="true";
+}
+else{
+    $amberPerformance = "false";
+}
 
 
-    if($pain>7){
-        $redPainWarning = "Red Pain Rating greater than 7";
-    }
-    if($breathlessness>4){
-        $redBreathWarning = "Red Breathlessness Score greater than 4";
-    }
-    if($performance>=3){
-        $redPerformanceWarning="Red Performance score greater than 2";
-    }
 
 
 $txtSQL  = "SELECT `docEmail` FROM `chi` WHERE `id`='$id'";
@@ -94,7 +118,7 @@ if($resultName->num_rows>0) {
 }
 
 
-if($pain>=4&&$pain<=7||$breathlessness>=2&&$breathlessness<=4||$performance==2){
+if($amberPain==="true"||$amberBreath==="true"||$amberPerformance==="true"){
     $from = "Remote Monitoring ";
     $message = $amberPainWarning."\n".$amberBreathWarning."\n".$amberPerformanceWarning." \nPlease contact within 2 hours ";
     $headers="From: $from\n";
@@ -102,8 +126,7 @@ if($pain>=4&&$pain<=7||$breathlessness>=2&&$breathlessness<=4||$performance==2){
     mail($to,$subject,$message,$headers);
 
 }
-
-if($pain>7||$breathlessness>4||$performance>2){
+if($redPain==="true"||$redBreath==="true"||$redPerformance==="true"){
     $from = "Remote Monitoring";
     $message = $redPainWarning."\n".$redBreathWarning."\n".$redPerformanceWarning."\nPlease contact immediately!";
     $headers="From: $from\n";
