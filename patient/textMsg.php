@@ -119,7 +119,7 @@ if($resultName->num_rows>0) {
 
 
 if($amberPain==="true"||$amberBreath==="true"||$amberPerformance==="true"){
-    $from = "Remote Monitoring ";
+    $from = "Survivors";
     $message = $amberPainWarning."\n".$amberBreathWarning."\n".$amberPerformanceWarning." \nPlease contact within 2 hours ";
     $headers="From: $from\n";
     $subject="Amber Warning for Patient ". $patientForename." ".$patientSurname;
@@ -127,7 +127,7 @@ if($amberPain==="true"||$amberBreath==="true"||$amberPerformance==="true"){
 
 }
 if($redPain==="true"||$redBreath==="true"||$redPerformance==="true"){
-    $from = "Remote Monitoring";
+    $from = "Survivors";
     $message = $redPainWarning."\n".$redBreathWarning."\n".$redPerformanceWarning."\nPlease contact immediately!";
     $headers="From: $from\n";
     $subject="Red Warning for Patient ". $patientForename." ".$patientSurname;
