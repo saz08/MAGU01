@@ -623,13 +623,13 @@ if($entriesM!=0) {
 <div class="box">
     <form method="get" class="radiostyle">
         <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
-            <span class="checkmark"></span>
             <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
+            <span class="checkmark"></span>
         </label>
         <br>
         <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
-            <span class="checkmark"></span>
             <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
+            <span class="checkmark"></span>
 
         </label>
     </form>

@@ -238,10 +238,11 @@ echo "<p class='center'>Registration was successful!</p>";
 
 }
 ?>
-
+<div class="clear"></div>
+<br>
+<br>
 </body>
-<br>
-<br>
+
 <footer>
     <div class="navbarBottom">
         <a onclick="goBack()">BACK</a>
