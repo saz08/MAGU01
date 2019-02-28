@@ -183,7 +183,7 @@ if($loginOK) {
             <input type="text" name="question" placeholder="Type a question here..."><br>
             <input type="hidden" name="action" value="filled">
             <br>
-            <input type="submit" value="Save Question" class="btn"><br>
+            <input type="submit" value="Save Question" class="btn" id="button"><br>
         </form>
     </div>
 <br>
@@ -222,7 +222,7 @@ if($resultJournal->num_rows>0) {
                     $question = $rowname["question"];
                     echo "<tr>";
                     echo "<td style='float:left'>" . $question . "</td>";
-                    echo "<td><form><input type='button' value='Delete' onclick='deleteQ($pos)' class='btn'/></form></td>";
+                    echo "<td><form><input type='button' value='Delete' onclick='deleteQ($pos)' class='btn' id='button'/></form></td>";
                     echo "</tr>";
                     $questionNo++;
                 }

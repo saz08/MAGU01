@@ -93,7 +93,6 @@ if($loginOK) {
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
-
     <meta charset="UTF-8">
     <title>Project</title>
 
@@ -108,6 +107,7 @@ if($loginOK) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+
             <a class="navbar-brand" href="#myPage"> </a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
@@ -136,7 +136,7 @@ if($loginOK) {
                 <p>Username:<br> <input type="text" name="username" value=""/></p>
                 <p>Password: <br><input type="password" name="password" value=""/></p>
                 <input type="hidden" name="action" value="filled">
-                <p><input type="submit" name="submitLogon" id="loginButton"class="btn" value="Login"></p>
+                <p><input type="submit" name="submitLogon" id="loginButton" class="btn" style="font-size: 2rem;" value="Login"></p>
                 </p>
             </form>
 
@@ -213,8 +213,9 @@ if($loginOK) {
                     Never
                 </label>
                 <input type="hidden" name="action2" value="filled">
-                <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register"></p>
+                <p><input type="submit" name="submitReg" id="signUpButton" class="btn" style="font-size: 2rem;" value="Register"></p>
                 </p>
+                <br>
             </form>
 
         </div>
@@ -334,13 +335,9 @@ if($loginOK) {
     </div>
 
 
-</div> <!-- / main container -->
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+</div>
+<br>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 <div class="clear"></div>
 

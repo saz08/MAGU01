@@ -147,7 +147,7 @@ $username = $_SESSION["userName"];
         <option value="Sickness">Sickness</option>
     </select>
     <input type="hidden" name="action" value="filled">
-    <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
+    <p><input type="submit" name="submit" id="button" class="btn" value="Submit"></p>
 </form>
 <br>
 <div class="box">Or... you can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank</div>
@@ -155,7 +155,7 @@ $username = $_SESSION["userName"];
 <form name="additional" method="post">
     <input type="text" name="additional"  id="additional"/>
     <input type="hidden" name="action2" value="filled">
-    <p><input type="submit" name="submit" id="submit" class="btn" value="Submit"></p>
+    <p><input type="submit" name="submit" id="button" class="btn" value="Submit"></p>
 </form>
 <br>
 

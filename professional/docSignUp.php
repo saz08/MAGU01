@@ -124,7 +124,7 @@ if($loginOK) {
                 <p>Username:<br> <input type="text" name="username"/></p>
                 <p>Password: <br><input type="password" name="password"/></p>
                 <input type="hidden" name="action" value="filled">
-                <p><input type="submit" name="submitLogon" id="loginButton"class="btn" value="Login"></p>
+                <p><input type="submit" name="submitLogon" id="loginButton" class="btn" style="font-size: 2rem;" value="Login"></p>
             </form>
             </p>
             <?php
@@ -192,7 +192,7 @@ if($loginOK) {
                 <p>Create Username:<br> <input type="text" name="username"  id="username"/></p>
                 <p>Create Password: <br><input type="password" name="password"  id="password"/></p>
                 <input type="hidden" name="action2" value="filled">
-                <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register"></p>
+                <p><input type="submit" name="submitReg" id="signUpButton" class="btn" style="font-size: 2rem;" value="Register"></p>
                 </p>
             </form>
 

@@ -12,7 +12,7 @@ html{
 
 body {
     /*font: 400 15px Arial , sans-serif;*/
-    font: 400 15px Montserrat, sans-serif;
+    font: 400 2rem Montserrat, sans-serif;
     font-family: Montserrat, sans-serif;
 
     line-height: 1.8;
@@ -48,7 +48,21 @@ body {
     border-radius: 5rem;
     background-color: lavender;
     font: 400 15px Montserrat, sans-serif;
+    color: black;
+    display:flex;
+    resize: none;
+}
 
+.comment{
+    width: 90%;
+    height: 20%;
+    float:right;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: mediumpurple;
+    border-radius: 5rem;
+    background-color: lavender;
+    font: 400 15px Montserrat, sans-serif;
     color: black;
     display:flex;
     resize: none;
@@ -66,18 +80,18 @@ h1{
 
 }
 h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     /*text-transform: uppercase;*/
-    color: #303030;
+    color: black;
     font-weight: 600;
     margin-bottom: 30px;
     font-family: Montserrat, sans-serif;
 
 }
 h4 {
-    font-size: 2rem;
+    font-size: 2.25rem;
     line-height: 1.375em;
-    color: #303030;
+    color: black;
     font-weight: 400;
     margin-bottom: 30px;
     font-family: Montserrat, sans-serif;
@@ -85,9 +99,15 @@ h4 {
 }
 
 p{
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-family: Montserrat, sans-serif;
 }
+
+#button{
+    font-size: 2rem;
+}
+
+
 
 
 .jumbotron {
@@ -170,8 +190,7 @@ p{
     background-color: purple;
     z-index: 9999;
     border: 0;
-    font-size: 1.5rem;
-    /*font-size: 12px !important;*/
+    font-size: 2rem;
     line-height: 1.42857143 !important;
     letter-spacing: 4px;
     border-radius: 0;
@@ -324,7 +343,7 @@ input {
 output {
     display: block;
     margin: 25px auto;
-    font-size:2em;
+    font-size:2rem;
 }
 
 .box {
@@ -335,17 +354,25 @@ output {
     border: mediumpurple;
     border-radius: 5rem;
     background-color: floralwhite;
-    font: 400 15px Montserrat, sans-serif;
+    font: 400 2rem Montserrat, sans-serif;
+    color: black;
+    resize: none;
+}
+
+.borderBox {
+    width: 100%;
+    height: inherit;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: purple;
+    border-style:solid;
+    border-radius: 5rem;
+    font: 400 2rem Montserrat, sans-serif;
     color: black;
     resize: none;
 }
 
 
-
-#arrows{
-    font-size:5rem;
-    color:rebeccapurple;
-}
 
 
 .item {
@@ -401,14 +428,17 @@ output {
 }
 
 #doctorTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: Montserrat, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    font-size: 2rem;
 }
 
 #doctorTable td, #doctorTable th {
     border: 1px solid #ddd;
     padding: 8px;
+    font-size: 2rem;
+
 }
 
 #doctorTable tr:nth-child(even){background-color: #f2f2f2;}
@@ -475,7 +505,31 @@ and (max-device-width : 480px) {
 
 .dropdown-menu{
     background-color: purple;
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-size: 1.75rem;
 }
+
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #DDA8FF
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+
 
 
 .navbarBottom {
@@ -485,7 +539,7 @@ and (max-device-width : 480px) {
     bottom: 0;
     width: 100%;
     font-family: Montserrat, sans-serif;
-    /*font-size: 12px !important;*/
+    font-size: 2rem;
 
 }
 
@@ -496,9 +550,7 @@ and (max-device-width : 480px) {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 1.5rem;
-
-    /*font-size: 17px;*/
+    font-size: 2rem;
 }
 
 .navbarBottom a:hover {
@@ -512,6 +564,6 @@ and (max-device-width : 480px) {
 }
 
 .dropdown{
-    font-size: 1.5rem;
+    font-size: 2rem;
 
 }

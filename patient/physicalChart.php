@@ -308,7 +308,7 @@ if($result->num_rows<1) {
 }
 ?>
 <br>
-<button class="btn" onclick="window.location.href='physical.php'">Make an entry</button>
+<button class="btn" id="button" onclick="window.location.href='physical.php'">Make an entry</button>
 <br>
 <?php if(($entries&&$entriesW)!=0){ ?>
 <div class="box">

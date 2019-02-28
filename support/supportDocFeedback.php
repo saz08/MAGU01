@@ -152,7 +152,7 @@ if($result->num_rows>0){
             <p>
                 The doctor has responded to your query: <?php if($symptom==""){echo $additional; }else{ echo $symptom;} ?> <br>
                 Response: <?php echo $response ?>
-                <button class="btn" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
+                <button class="btn" id="button" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
             </p>
         </div>
         <?php

@@ -187,7 +187,7 @@ if($loginOK) {
         </select>
     </label>
     <input type="hidden" name="action" value="filled">
-    <input type="submit" class="btn" name="submit" value="Submit"/>
+    <input type="submit" class="btn" id="button" name="submit" value="Submit"/>
 </form>
 
 </div>

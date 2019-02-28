@@ -124,7 +124,7 @@ if($loginOK) {
                 <p>Username:<br> <input type="text" name="username" value=""/></p>
                 <p>Password: <br><input type="password" name="password" value=""/></p>
                 <input type="hidden" name="action" value="filled">
-                <p><input type="submit" name="submitLogon" id="loginButton"class="btn" value="Login"></p>
+                <p><input type="submit" name="submitLogon" id="loginButton" style="font-size: 2rem;" class="btn" value="Login"></p>
             </form>
             </p>
             <?php
@@ -200,7 +200,7 @@ if($loginOK) {
                     <option value="Friend">Friend</option>
                  </select></p>
                    <input type="hidden" name="action2" value="filled">
-                <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register"></p>
+                <p><input type="submit" name="submitReg" id="signUpButton"  style="font-size: 2rem;" class="btn" value="Register"></p>
                 </p>
             </form>
 

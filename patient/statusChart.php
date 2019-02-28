@@ -342,7 +342,8 @@ if($entriesM!=0) {
                     //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
-                    indexLabelFontSize: 17,
+                    indexLabelFontSize: 20,
+                    indexLabelFontColor: "black",
                     indexLabelFontFamily: "Montserrat, sans-serif",
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
@@ -380,7 +381,8 @@ if($entriesM!=0) {
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
 
-                    indexLabelFontSize: 17,
+                    indexLabelFontSize: 20,
+                    indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
                     dataPoints: [
@@ -417,7 +419,8 @@ if($entriesM!=0) {
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
 
-                    indexLabelFontSize: 17,
+                    indexLabelFontSize: 20,
+                    indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
                     dataPoints: [
@@ -454,8 +457,8 @@ if($entriesM!=0) {
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
-
-                    indexLabelFontSize: 17,
+                    indexLabelFontSize: 20,
+                    indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
                     dataPoints: [
@@ -493,7 +496,8 @@ if($entriesM!=0) {
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
 
-                    indexLabelFontSize: 17,
+                    indexLabelFontSize: 20,
+                    indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
                     dataPoints: [
@@ -529,7 +533,8 @@ if($entriesM!=0) {
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
 
-                    indexLabelFontSize: 17,
+                    indexLabelFontSize: 20,
+                    indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
                     dataPoints: [
@@ -563,7 +568,7 @@ if($entriesM!=0) {
                 <li><a href="index.php">HOME</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="scale.php">HEALTH MONITORING</a></li>
+                        <li><a href="scale.php" >HEALTH MONITORING</a></li>
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
                         <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
                     </ul>
@@ -575,7 +580,8 @@ if($entriesM!=0) {
                         <li><a href="helpEmotional.php">EMOTIONAL</a></li>
                         <li><a href="helpPhysical.php">PHYSICAL</a></li>
                     </ul>
-                </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="statusChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
@@ -664,7 +670,7 @@ if($entriesM!=0){?>
 <?php
 if($entriesM=0&&$entries=0){
 ?>
-    <button class="btn" onclick="window.location.href='scale.php'">Make an entry</button>
+    <button class="btn" id="button" onclick="window.location.href='scale.php'">Make an entry</button>
 
     <?php
 }

@@ -123,16 +123,18 @@ $username = $_SESSION["userName"];
 <div class="jumbotron text-center">
     <h1>Add to your Support Circle <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <br>
 <div class="container-fluid bg-1 text-center">
+    <div class="box">
 
 <h4>Please enter the email address of the person you would like to be in your support circle.</h4>
     <h4>We will send them a link for them to sign up and join you.</h4>
-    <p>Any supporters will appear below!</p>
+        <p>Any supporters will appear below!</p></div>
     <form method="post">
     <input type="email" name="email"/>
 <input type="hidden" name="action" value="filled">
-<input type="submit" name="submit" class="btn" value="Add Supporter">
+<input type="submit" name="submit" class="btn" id="button" value="Add Supporter">
     </form>
 
 </div>

@@ -180,7 +180,7 @@ else{
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <?php }?>
 <br>
-<button class="btn" onclick="window.location.href='weight.php'">Make an entry</button>
+<button class="btn" id="button" onclick="window.location.href='weight.php'">Make an entry</button>
 <br>
 <br>
 

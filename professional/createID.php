@@ -62,9 +62,10 @@ $loginOK = false; //TODO make this work with database values
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Create Patient ID</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -106,12 +107,14 @@ $loginOK = false; //TODO make this work with database values
         <p>Contact No:<br><input type="text" name="contact"  id="contact"/></p>
         <p>Doctor's Email Address:<br><input type="email" name="docEmail"  id="docEmail"/></p>
         <input type="hidden" name="action2" value="filled">
-        <p><input type="submit" name="submitReg" id="signUpButton" class="btn" value="Register Patient"></p>
+        <p><input type="submit" name="submitReg" id="signUpButton" class="btn" id="button" value="Register Patient"></p>
         </p>
+        <br>
+        <br>
     </form>
 
 </div>
-<br>
+
 <script>
     function checkForm(){
         var forename = document.getElementById("forename");
@@ -124,8 +127,6 @@ $loginOK = false; //TODO make this work with database values
         var contact = document.getElementById("contact");
         var docEmail = document.getElementById("docEmail");
 
-
-
         var errs = "";
 
         forename.style.background = "white";
@@ -137,9 +138,6 @@ $loginOK = false; //TODO make this work with database values
         contact.style.background = "white";
         docEmail.style.background = "white";
         email.style.background="white";
-
-
-
 
         if(forename.value === null || forename.value === ""){
             errs += " Please enter the patient's forename\n";
@@ -212,30 +210,23 @@ if($action2 === "filled") {
         $id=rand();
     }
 
-
-
     $from = "Remote Monitoring";
     $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/signUp.php \n You will need to enter this ID to sign up: ".$id."\n Thanks!";
     $headers="From: $from\n";
     $subject="Welcome to Survivors ".$forename."!";
     mail($patientEmail,$subject,$message,$headers);
 
-
 $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `gender`,`patientEmail`, `address`, `contactNo`, `docEmail`) VALUES ('$forename', '$surname', '$id', '$dob', '$genderFinal','$patientEmail', '$address', '$contactNo', '$docEmail')";
 
     if ($conn->query($insert) === TRUE) {
-echo "<p class='center'>Registration was successful!</p>";
-
-
+        echo "<p class='center'>Registration was successful!</p>";
 ?>
     <script>
         alert("Patient created");
         window.location.href = "createID.php";
     </script>
     <?php
-}
-
-
+    }
 }
 ?>
 <div class="clear"></div>
