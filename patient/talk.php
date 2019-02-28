@@ -200,6 +200,7 @@ if($action==="filled"){
     $post = (safePost($conn,"createPost"));
     $username = $_SESSION["userName"];
 
+
     $sql  = "INSERT INTO `forum` (`pos`,`username`, `post`) VALUES (NULL ,'$username', '$post')";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Forum Post was successful!</p>";

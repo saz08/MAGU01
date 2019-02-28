@@ -64,3 +64,10 @@ $sql2 = "DELETE FROM `comments` WHERE `pos` = '$position'";
 $conn->query($sql);
 $conn->query($sql2);
 
+$sqlCheck = "SELECT * FROM `forum`";
+$result = $conn->query($sqlCheck);
+if($result->num_rows<1) {
+    $sqlAlter = "ALTER TABLE `forum` AUTO_INCREMENT=1";
+    $conn->query($sqlAlter);
+
+}

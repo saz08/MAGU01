@@ -37,9 +37,11 @@ function deletePost(posDB){
 }
 
 
-function deleteComment(posID){
-    var posComment = posID;
-    jQuery.post("deleteComment.php", {"Position": posComment}, function(data){
+function deleteComment(comment){
+    // var posComment = pos;
+    var com = comment;
+
+    jQuery.post("deleteComment.php", {"Comment":com}, function(data){
         alert("Comment deleted successfully");
         window.location.href="talk.php";
     }).fail(function()
