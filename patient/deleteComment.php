@@ -50,9 +50,10 @@ if($_SESSION['userName']==null){
 $username = $_SESSION["userName"];
 $loginOK = false; //TODO make this work with database values
 
-$position = $_POST['Position'];
+//$pos = $_POST['Position'];
+$com = $_POST['Comment'];
 
-$sql2 = "DELETE FROM `comments` WHERE `pos` = '$position'";
+$sql2 = "DELETE FROM `comments` WHERE `patientComment` = '$com' AND `username`='$username'";
 
 $conn->query($sql2);
 

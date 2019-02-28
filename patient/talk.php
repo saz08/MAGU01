@@ -131,7 +131,7 @@ $loginOK = false; //TODO make this work with database values
 <form method="post" name="createForumPost" >
     Create a post: <input type="text" name="createPost" placeholder="Type in here!"><br>
     <input type="hidden" name="action" value="filled">
-    <input type="submit" value="Submit" class="btn">
+    <input type="submit" value="Submit" class="btn" id="button">
 </form><br>
 
 <?php
@@ -144,28 +144,7 @@ if($result->num_rows>0){
         $usernameDB= $rowname["username"];
         $post = $rowname["post"];
 
-        echo"<br><div class='forum'><br><p>".$usernameDB." :".$post." </p></div>"?>
-<!--        <p style="float:right">Tap Twice to Show Support:-->
-<!--            --><?php
-//            $sqlHEART = "SELECT `heart` FROM `forum` WHERE `pos` = '$divID'";
-//            $resultHEART = $conn->query($sqlHEART);
-//            if($resultHEART->num_rows>0){
-//                while($rowname=$resultHEART->fetch_assoc()){
-//                    $heartCounter = $rowname["heart"];
-//                }
-//            }
-//            else{
-//                $heartCounter=0;
-//            }
-//            if($heartCounter>0){
-//                echo "<i class='heart fa fa-heart'  id='support' onclick='heartClick($divID)'>$heartCounter</i></p>";
-//
-//            }
-//            else{
-//                echo "<i class='heart fa fa-heart-o' id='support' onclick='heartClick($divID)'></i></p>";
-//
-//            }
-
+        echo"<br><div class='forum'><br><br><p>".$usernameDB." :".$post." </p></div>";
 
         $sql2  = "SELECT * FROM `comments`";
         $result2 = $conn->query($sql2);
@@ -175,9 +154,12 @@ if($result->num_rows>0){
                 $usernameC = $rowname["username"];
                 $comment = $rowname["patientComment"];
                 if($posID==$posDB) {
-                    echo "<div class='forum'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div>";
+                    echo "<div class='comment'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div><br>";
                     if($username===$usernameC){
-                        echo "<button class='btn' onclick='deleteComment($posID)'>Delete Your Comment</button>";
+                        $comment = $rowname["patientComment"];
+?><button class="btn" id="button" style="float:right" onclick="deleteComment('<?php echo $comment ?>')">Delete Your Comment</button><br>
+                        <?php
+
                     }
                 }
 
@@ -187,24 +169,26 @@ if($result->num_rows>0){
 
         ?>
 
-        <button class="btn" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show">Add a comment</button>
+        <button class="btn" id="button" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show" style="float:right">Add a comment</button>
         <br>
             <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
                     <input type="text" name="comment" placeholder="Leave a comment here..."><br>
                     <input type="hidden" name="action2" value="filled">
                     <input type="hidden" name="divID" value="<?php echo $posDB?>">
-                    <input type="submit" value="Comment" class="btn">
-                </form><br></div>
+                    <input type="submit" value="Comment" class="btn" id="button">
+                </form></div>
+<br>
+
 
         <?php
 
         if($usernameDB===$username){
-            echo"<button class='btn' onclick='deletePost($posDB)' value='hide/show'>Delete Your Post</button><br>";
+            echo"<button class='btn' id='button' onclick='deletePost($posDB)' value='hide/show' style='float:right'>Delete Your Post</button><br>";
         }
 
-
         $divID++;
+
     }
 }
 ?>
