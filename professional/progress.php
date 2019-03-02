@@ -617,21 +617,28 @@ if($entriesM!=0) {
     <h1><?php echo  $patientname?>'s Records from the Beginning</h1>
 </div>
 <br>
+<?php
+if($entries!=0&&$entriesM!=0) {
+    ?>
+    <div class="box">
+        <form method="get" class="radiostyle">
+            <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
+                <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
+                <span class="checkmark"></span>
 
-<div class="box">
-    <form method="get" class="radiostyle">
-        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
-            <span class="checkmark"></span>
-            <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
-        </label>
-        <br>
-        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on the records from this month
-            <span class="checkmark"></span>
-            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
+            </label>
+            <br>
+            <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on the records
+                from this month
+                <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()" checked >
+                <span class="checkmark" ></span>
 
-        </label>
-    </form>
-</div>
+            </label>
+        </form>
+    </div>
+    <?php
+}
+?>
 <?php
 if($entries!=0) {
 

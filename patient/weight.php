@@ -140,13 +140,13 @@ if($loginOK) {
 <br>
 <div class="box">
     <form method="get" class="radiostyle">
-        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Record Weight in Stone
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Record Weight in Stones
             <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitStone()">
             <span class="checkmark"></span>
         </label>
         <br>
         <label class="radioContainer" style="font-family: Montserrat, sans-serif">Record Weight in Kilograms
-            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitKG()">
+            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitKG()" checked>
             <span class="checkmark"></span>
         </label>
     </form>

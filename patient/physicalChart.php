@@ -319,7 +319,7 @@ if($result->num_rows<1) {
         </label>
         <br>
         <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on most recent record
-            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()">
+            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()" checked>
             <span class="checkmark"></span>
 
         </label>
