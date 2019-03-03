@@ -245,13 +245,13 @@ while ($rowname = $resultScale->fetch_assoc()) {
 
             if($pain>=7){
                 echo"<div class='box'>";
-                echo"<p>Your most recent pain score was $pain. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: check you are still taking your antibiotics correctly</p>";
+                echo"<p>Your most recent pain score was $pain. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: </p>";
                 echo"</div>";
 
             }
-            if($breath>=3){
+            if($breath>=4){
                 echo"<div class='box'>";
-                echo"<p>Your most recent breathlessness score was $breath. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: take it easy for the next few days</p>";
+                echo"<p>Your most recent breathlessness score was $breath. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are:</p>";
                 echo"</div>";
 
             }

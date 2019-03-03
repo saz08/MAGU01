@@ -182,12 +182,10 @@ if($loginOK) {
         });
     }
 </script>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    </div>
 </body>
-<div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
-        </div>    </div></footer>
+
 </html>

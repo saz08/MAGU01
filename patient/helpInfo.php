@@ -138,18 +138,11 @@ if($loginOK) {
     <h1>Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
-<button class="collapsible">About Lung Cancer</button>
-<div class="content">
-    <p>This is the Cancer Research UK page about Lung Cancer</p>
-    <p>About: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer?ds_kids=p3731628530&adc=cpc&gclid=CjwKCAiA9qHhBRB2EiwA7poaeO1QKd-ItjNALPRFC1CFz_9Rh0TjlvZHd8DSRNSqDkl3UDlvFv_YoBoCMb0QAvD_BwE">Cancer Research UK: Lung Cancer</a></p>
-</div>
-<button class="collapsible">Complicated Terms</button>
-<div class="content">
-    <p>Complicated Terms: <a href="https://lungcanceralliance.org/resources-and-support/glossary/">Lung Cancer Alliance Glossary</a></p>
-</div>
+<button class="collapsible" onclick="window.location.href='glossary.php'">Complicated Terms</button>
+
 <button class="collapsible">What Happens After Surgery?</button>
 <div class="content">
-    <p>Problems after Surgery: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/treatment/surgery/possible-problems">Cancer Research UK</a></p>
+    <p>Problems after Surgery: <div id="problems"></div></p>
 
     <p>Life after Treatment: <a href="https://www.macmillan.org.uk/information-and-support/lung-cancer/non-small-cell-lung-cancer/treating/after-treatment-for-lung-cancer">MacMillan</a></p>
 </div>
@@ -175,7 +168,14 @@ if($userResult->num_rows>0) {
 
 
 <script>
-
+        var xhr= new XMLHttpRequest();
+        xhr.open('GET', '../html/problemsCR.html', true);
+        xhr.onreadystatechange= function() {
+            if (this.readyState!==4) return;
+            if (this.status!==200) return; // or whatever error handling you want
+            document.getElementById('problems').innerHTML= this.responseText;
+        };
+        xhr.send();
 
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -191,15 +191,17 @@ if($userResult->num_rows>0) {
             }
         });
     }
+
+    function next(){
+        window.location.href="helpFinancial.php";
+    }
 </script>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
 <div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
-            <a href="helpFinancial.php" style="float:right">NEXT: FINANCIAL</a>
-        </div>
-    </div></footer>
+
 </html>

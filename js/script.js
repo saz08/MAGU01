@@ -17,10 +17,10 @@ if(localStorage.getItem("username")==="unknownUser"){
 
 //WEIGHT
 function weightConverter(valNum) {
-    document.getElementById("outputStones").innerHTML="<h2>Value in Stone: "+valNum*0.1574+" Stone</h2>";
+    document.getElementById("outputStones").innerHTML="<h2>Value in Stone: "+(valNum*0.1574).toFixed(2)+" Stone</h2>";
 }
 function weightConverterKG(valNum) {
-    document.getElementById("outputKilograms").innerHTML="<h2>Value in Kilogram: "+valNum/0.15747+"Kilogram</h2>";
+    document.getElementById("outputKilograms").innerHTML="<h2>Value in Kilogram: "+(valNum/0.15747).toFixed(2)+"Kilogram</h2>";
 }
 
 //TALK

@@ -133,11 +133,14 @@ if($loginOK) {
     <h1>Monitor your physical activity <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
-<div class="box">The following questions have been adapted from the YOUTHREX International Physical Acitivity Questionnaire.</div>
+<div class="box">The following questions have been adapted from the YOUTHREX International Physical Acitivity Questionnaire.
+    <p>
+        <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
+    </p></div>
 <br>
 <div class="box">
 <form method="post" class="WHOstyle">
-    <label class="container">1: During the last 7 days, on how many days did you do vigorous physical activities, like heavy lifting, digging, aerobics or fast bicycling?
+    <label class="container"><details><summary>1: During the last 7 days, on how many days did you do vigorous physical activities?</summary>Such as: heavy lifting, digging, aerobics or fast bicycling</details>
         <select name="vigorous">
             <option value="0">0</option>
             <option value="1">1</option>
@@ -150,7 +153,7 @@ if($loginOK) {
         </select>
     </label>
 
-    <label class="container">2: During the last 7 days, on how many days did you do moderate physical activities like carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.
+    <label class="container"><details><summary>2: During the last 7 days, on how many days did you do moderate physical activities?</summary>Such as: carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.</details>
         <select name="moderate">
             <option value="0">0</option>
             <option value="1">1</option>
@@ -191,6 +194,7 @@ if($loginOK) {
 </form>
 
 </div>
+<div class="clear"></div>
 <?php
 if($action === "filled") {
     $vig = (safePost($conn,"vigorous"));
@@ -218,13 +222,11 @@ if($action === "filled") {
 }
 
 ?>
-
+<div>
+    <button class="btn" onclick="goBack()"><b><</b> Back </button>
+</div>
 </body>
 <div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-        </div>    </div></footer>
+
 </html>

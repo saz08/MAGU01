@@ -131,7 +131,7 @@ $username = $_SESSION["userName"];
 <h4>Please enter the email address of the person you would like to be in your support circle.</h4>
     <h4>We will send them a link for them to sign up and join you.</h4>
         <p>Any supporters will appear below!</p></div>
-    <form method="post">
+    <form method="post" class="box-transparent">
     <input type="email" name="email"/>
 <input type="hidden" name="action" value="filled">
 <input type="submit" name="submit" class="btn" id="button" value="Add Supporter">
@@ -186,13 +186,11 @@ if($support->num_rows>0){
 }
 ?>
 </table>
-
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+</div>
 </body>
 <div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-        </div>    </div></footer>
+
 </html>

@@ -150,46 +150,38 @@ if($loginOK) {
 </div>
 <br>
 
-<div class="box">On a scale of 0 - 10, 0 meaning no pain and 10 meaning extremely painful . Please rate your pain using the slider below </div>
+<div class="box">On a scale of 0 - 10, 0 meaning no pain and 10 meaning extremely painful. Please rate your pain using the slider below.</div>
 
-<div id="pain scale" class="slidecontainer">
+<div id="painscale" class="slidecontainer">
 
     <form>
         <input type="range"  step="1" min="0" max="10" class="slider" id="myRange" oninput="outputUpdate(value)">
         <div style="float:left"><p style="font-size: 2em">0</p></div>
         <div style="float:right"><p style="font-size: 2em">10</p></div>
-        <output for=value id="output" style="color: black">5</output>
+        <output for=value id="output" style="color: black;font-size: 1.5em">5</output>
     </form>
 </div>
 
 
 
-
 <script>
-
-    var slider = document.getElementById("myRange");
-    var value;
-
-
-    function submit(){
-        console.log(this.value + "value");
-        localStorage.setItem("Pain",slider.value);
-        window.location.href="Breathlessness.php";
-    }
-
     function outputUpdate(num) {
         document.querySelector('#output').value = num;
     }
+
+    function next(){
+        window.location.href="Breathlessness.php";
+    }
 </script>
-</body>
 <div class="clear"></div>
+<br>
+<br>
+<br>
+<div>
+    <button class="btn" onclick="goBack()"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 
-<footer>
-    <div class="footer">
+</body>
 
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a onclick="submit()" style="float:right">NEXT: BREATHLESSNESS</a>
-        </div>
-    </div></footer>
 </html>

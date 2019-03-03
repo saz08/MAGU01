@@ -52,14 +52,14 @@ if($resultID->num_rows>0) {
 }
 
 if($pain>=7){
-    $redPainWarning = "Red Pain Rating greater than 7";
+    $redPainWarning = "Red Pain Rating greater than 6";
     $redPain = "true";
 }
 else{
     $redPain = "false";
 }
 if($breathlessness>=4){
-    $redBreathWarning = "Red Breathlessness Score greater than 4";
+    $redBreathWarning = "Red Breathlessness Score greater than 3";
     $redBreath= "true";
 }
 else{
@@ -74,14 +74,14 @@ else{
 }
 
 if($pain>=4&&$pain<7){
-    $amberPainWarning = "Amber Pain Rating between 4 and 7";
+    $amberPainWarning = "Amber Pain Rating between 4 and 6";
     $amberPain = "true";
 }
 else{
     $amberPain = "false";
 }
 if($breathlessness>=2&&$breathlessness<4){
-    $amberBreathWarning = "Amber Breathlessness Score between 2 and 4";
+    $amberBreathWarning = "Amber Breathlessness Score between 2 and 3";
     $amberBreath = "true";
 }
 else{

@@ -87,47 +87,47 @@ if($loginOK) {
 
     <meta charset="UTF-8">
     <title>Questions</title>
-    <style>
-        input {
-            display: table-cell;
-            vertical-align: middle
-        }
-
-        .caroBox{
-            display:inline-block;
-            width: 100%;
-            height: 50%;
-        }
-
-        .box{
-            display:inline-block;
-            margin: 0 10px;
-            width: 100%;
-            height:20%;
-            border: 1px solid #B132E8;
-            background:#DDA8FF ;
-
-        }
-        @media screen and (max-width:800px){
-            display: block;
-        }
-
-        label{
-            display:block;
-            padding-left:15px;
-            text-indent: -15px;
-        }
-        .choices{
-            width:13px;
-            height:13px;
-            padding:0;
-            margin:0;
-            vertical-align:bottom;
-            position:relative;
-            top:-1px;
-            *overflow:hidden;
-        }
-    </style>
+<!--    <style>-->
+<!--        input {-->
+<!--            display: table-cell;-->
+<!--            vertical-align: middle-->
+<!--        }-->
+<!---->
+<!--        .caroBox{-->
+<!--            display:inline-block;-->
+<!--            width: 100%;-->
+<!--            height: 50%;-->
+<!--        }-->
+<!---->
+<!--        .box{-->
+<!--            display:inline-block;-->
+<!--            margin: 0 10px;-->
+<!--            width: 100%;-->
+<!--            height:20%;-->
+<!--            border: 1px solid #B132E8;-->
+<!--            background:#DDA8FF ;-->
+<!---->
+<!--        }-->
+<!--        @media screen and (max-width:800px){-->
+<!--            display: block;-->
+<!--        }-->
+<!---->
+<!--        label{-->
+<!--            display:block;-->
+<!--            padding-left:15px;-->
+<!--            text-indent: -15px;-->
+<!--        }-->
+<!--        .choices{-->
+<!--            width:13px;-->
+<!--            height:13px;-->
+<!--            padding:0;-->
+<!--            margin:0;-->
+<!--            vertical-align:bottom;-->
+<!--            position:relative;-->
+<!--            top:-1px;-->
+<!--            *overflow:hidden;-->
+<!--        }-->
+<!--    </style>-->
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -176,8 +176,13 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Questions <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-    <div class="container-fluid bg-2 text-center">
 
+<div class="box">
+    <p>This page can be used to store questions for any upcoming appointments or as a diary. Anything entered will NOT be sent to your doctor so you will not recieve a response for anything entered here.</p>
+    <p>If you want a response, please use the additional info page when recording your weekly scales</p>
+</div>
+<br>
+    <div class="box-transparent">
         <p>Note down any questions you have</p>
         <form method="post" name="questions">
             <input type="text" name="question" placeholder="Type a question here..."><br>
@@ -205,7 +210,7 @@ if($resultJournal->num_rows>0) {
 
 
 ?>
-    <div class="container-fluid bg-3 text-center">
+    <div class="box-transparent">
         <table class="table table-striped" id="questionTable">
             <tr>
                 <th>Questions</th>
@@ -246,15 +251,16 @@ if($resultJournal->num_rows>0) {
         });
 
     }
+
+    function next(){
+        window.location.href="supportCircle.php";
+    }
 </script>
 <div class="clear"></div>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a href="supportCircle.php" style="float:right">NEXT: SUPPORT CIRCLE</a>
-        </div>
-    </div>
-</footer>
+
 </html>

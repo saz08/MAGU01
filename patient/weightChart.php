@@ -185,16 +185,18 @@ else{
 <br>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
+<script>
+    function next(){
+        window.location.href="physicalChart.php";
+    }
+</script>
+<div>
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
 <br>
 <br>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a href="physicalChart.php" style="float:right">NEXT: PHYSICAL CHART</a>
-        </div>
-    </div></footer>
+
 </html>

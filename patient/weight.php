@@ -265,16 +265,16 @@ if($action2==="filled"){
             }
         });
     }
-</script>
-</body>
-<div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a href="physical.php" style="float:right">NEXT: PHYSICAL</a>
-        </div>
-    </div>
-</footer>
+    function next(){
+        window.location.href="physical.php";
+    }
+</script>
+<div>
+    <button class="btn" onclick="goBack()"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
+</body>
+
+
 </html>

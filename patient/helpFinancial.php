@@ -174,15 +174,16 @@ if($loginOK) {
             }
         });
     }
-</script>
-</body>
-<div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
-            <a href="helpEmotional.php" style="float:right">NEXT: EMOTIONAL HELP</a>
-        </div>
-    </div></footer>
+    function next(){
+        window.location.href="helpEmotional.php";
+    }
+</script>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
+</body>
+
+
 </html>

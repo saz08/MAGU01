@@ -713,6 +713,10 @@ if($entriesM=0&&$entries=0){
         }
 
     }
+
+    function next(){
+        window.location.href="weightChart.php";
+    }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <br>
@@ -720,16 +724,12 @@ if($entriesM=0&&$entries=0){
 <br>
 <br>
 <br>
-<br>
-<br>
+<div class="clear"></div>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a href="weightChart.php" style="float:right">NEXT: WEIGHT CHART</a>
-        </div>
-    </div></footer>
 </html>
 

@@ -138,7 +138,7 @@ if($loginOK) {
 </div>
 
 <div class="box">Here is a small list of common symptoms. If you feel you apply to one, please choose one then press the bottom right arrow to submit.</div>
-<form name="symptom" method="post" >
+<form name="symptom" method="post" class="box-transparent" >
     Symptoms:
     <select id="select" name="select">
         <option></option>
@@ -156,7 +156,7 @@ if($loginOK) {
 </form>
 <div class="box">OR... if you don't feel you apply to any of those symptoms, you can enter anything you have noticed about yourself or any worries. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
 
-    <form name="additional" method="post" >
+    <form name="additional" method="post" class="box-transparent" >
         <input type="text" name="additional"  id="additional"/>
         <input type="hidden" name="action" value="filled">
 
@@ -219,14 +219,11 @@ if($action2==="filled"){
         document.querySelector('#output').value = num;
     }
 </script>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
-<div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a onclick="submitRecord()" style="float:right">SUBMIT</a>
-        </div>
-    </div></footer>
+
 </html>

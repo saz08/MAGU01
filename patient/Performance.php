@@ -136,7 +136,7 @@ if($loginOK) {
 <br>
 
 
-<div class="box">The following is the ECOG/WHO Performance Status scale. Please tick the box that you feel you apply to
+<div class="box">The following is the ECOG/WHO (Eastern Cooperative Oncology Group/ World Health Organization) Performance Status scale.<p> Please tick the box that you feel you apply to</p>
 <p>
    <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
 </p></div>
@@ -202,16 +202,16 @@ if($loginOK) {
     function outputUpdate(num) {
         document.querySelector('#output').value = num;
     }
+
+    function next(){
+        window.location.href="additionalInfo.php";
+    }
 </script>
+<div>
+    <button class="btn" onclick="goBack()"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
-<div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a onclick="submit()" style="float:right">NEXT: MORE INFO</a>
-        </div>
 
-    </div></footer>
 </html>

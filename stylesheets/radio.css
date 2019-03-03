@@ -66,7 +66,9 @@
 }
 
 .radiostyle{
-    width:100%;
+    width:50%;
+    position: relative;
+    left: 20%;
     height:inherit;
     box-sizing: border-box;
     border: mediumpurple;
@@ -75,11 +77,14 @@
     font-size: 2rem;
     color: black;
     resize: none;
+    padding-left: 20px;
 
 }
 
 .WHOstyle{
-    width:100%;
+    width:50%;
+    position: relative;
+    left: 20%;
     height:inherit;
     box-sizing: border-box;
     border: mediumpurple;
@@ -88,10 +93,13 @@
     font-size: 2rem;
     color: black;
     resize: none;
+    padding-left: 20px;
 }
 
  .weightStyle{
-     width:100%;
+     width:50%;
+     position: relative;
+     left: 20%;
      height:inherit;
      box-sizing: border-box;
      border: mediumpurple;
@@ -105,12 +113,33 @@
     .radiostyle{
         height: inherit;
         border-radius: 2rem;
+        width:100%;
+        position: relative;
+        left: 0;
     }
 
     .WHOstyle{
         height: inherit;
         border-radius: 2rem;
+        width:100%;
+        position: relative;
+        left: 0;
+    }
+
+    .weightStyle{
+        width:100%;
+        position: relative;
+        left: 0;
+        height:inherit;
+        box-sizing: border-box;
+        border: mediumpurple;
+        border-radius: 5rem;
+        font-size: 2rem;
+        color: black;
+        resize: none;
     }
 }
+
+
 
 

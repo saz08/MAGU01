@@ -183,11 +183,10 @@ else{
             CanvasJS.addColorSet("greenShades",
                 [//colorSet Array
 
-                    "#2F4F4F",
-                    "#008080",
-                    "#2E8B57",
-                    "#3CB371",
-                    "#90EE90"
+                    "#FF9400",
+                    "#E8001E",
+                    "#5000FF",
+                    "#00BDE8"
                 ]);
             var options = {
                 width: window.innerWidth,
@@ -387,15 +386,16 @@ if($result->num_rows<1) {
         }
 
     }
+
+    function next(){
+        window.location.href="questions.php";
+    }
 </script>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
 
-<footer>
-    <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a href="questions.php" style="float:right">NEXT: QUESTIONS</a>
-        </div>
-    </div></footer>
 </html>
 

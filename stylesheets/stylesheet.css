@@ -37,6 +37,7 @@ body {
 .btn{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background-color: #B132E8;
+    font-size: 2rem;
 }
 
 .forum{
@@ -291,7 +292,17 @@ div.inputRight{
 
 
 .slidecontainer {
-    width: 100%;
+    width: 50%;
+    position: relative;
+    left: 20%;
+}
+
+@media screen and (max-width: 480px) {
+    .slidecontainer {
+        width: 100%;
+        left:0;
+        position: absolute;
+    }
 }
 
 .slider {
@@ -347,7 +358,7 @@ output {
 }
 
 .box {
-    width: 100%;
+    width: 50%;
     height: inherit;
     padding: 12px 20px;
     box-sizing: border-box;
@@ -355,9 +366,61 @@ output {
     border-radius: 5rem;
     background-color: floralwhite;
     font: 400 2rem Montserrat, sans-serif;
+    position: relative;
+    left: 20%;
     color: black;
     resize: none;
 }
+
+.box-transparent{
+    width: 50%;
+    height: inherit;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: mediumpurple;
+    border-radius: 5rem;
+    background-color: #DDA8FF;
+    font: 400 2rem Montserrat, sans-serif;
+    position: relative;
+    left: 20%;
+    color: black;
+    resize: none;
+}
+
+@media screen and (max-width: 480px) {
+    /* Styles */
+    .box {
+        width: 100%;
+        height: inherit;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: mediumpurple;
+        border-radius: 5rem;
+        background-color: floralwhite;
+        font: 400 2rem Montserrat, sans-serif;
+        color: black;
+        resize: none;
+        position: relative;
+        left: 0;
+    }
+
+    .box-transparent{
+        width: 100%;
+        height: inherit;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: mediumpurple;
+        border-radius: 5rem;
+        background-color: #DDA8FF;
+        font: 400 2rem Montserrat, sans-serif;
+        position: relative;
+        left: 0;
+        color: black;
+        resize: none;
+    }
+
+}
+
 
 .borderBox {
     width: 100%;
