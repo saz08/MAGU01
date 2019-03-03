@@ -140,26 +140,53 @@ if($loginOK) {
 
 <button class="collapsible">Benefits</button>
 <div class="content">
-    <p>Learn about the benefits available to you: <a href="https://www.macmillan.org.uk/information-and-support/organising/benefits-and-financial-support/benefits-and-your-rights">MacMillan Support</a> -
-        <a href="https://www.cancerresearchuk.org/about-cancer/coping/practically/financial-support/government-benefits/available-benefits">Cancer Research: Available Benefits</a></p>
+        <div id="benefitsCR"></div>
 </div>
 <button class="collapsible">Blue Disabled Badge</button>
 <div class="content">
-    <p>Apply for a Blue Disabled Badge <a href="https://www.mygov.scot/apply-blue-badge/">Here</a></p>
+    <div id="blueBadge"></div>
 </div>
 <button class="collapsible">Getting Back to Work</button>
 <div class="content">
-    <p>Maggies Centre<a href="https://www.maggiescentres.org/how-maggies-can-help/help-available/practical-support/returning-to-work-after-cancer/">: "Where Now" course</a></p>
-    <p>Macmillan:<a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/information-for-employees/going-back-to-work.html"> Going Back to Work</a></p>
-    <p>Your rights at work:<a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/information-for-employees/your-rights.html?gclid=Cj0KCQiAtbnjBRDBARIsAO3zDl9ejVCOymLuAfKHRfCfM7MXTtt7zIMVA3AnB20MSAFqmnKqidSZ-UQaAl7PEALw_wcB&gclsrc=aw.ds"> MacMillan</a></p>
+    <div id="return"></div>
+
 
 </div>
-
+<div class="clear"></div>
 
 
 
 
 <script>
+
+    var xhr= new XMLHttpRequest();
+    xhr.open('GET', '../html/benefits.html', true);
+    xhr.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('benefitsCR').innerHTML= this.responseText;
+    };
+    xhr.send();
+
+    var blue= new XMLHttpRequest();
+    blue.open('GET', '../html/blueBadge.html', true);
+    blue.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('blueBadge').innerHTML= this.responseText;
+    };
+    blue.send();
+
+    var returning= new XMLHttpRequest();
+    returning.open('GET', '../html/return.html', true);
+    returning.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('return').innerHTML= this.responseText;
+    };
+    returning.send();
+
+
     var coll = document.getElementsByClassName("collapsible");
     var i;
 

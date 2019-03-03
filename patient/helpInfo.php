@@ -142,9 +142,15 @@ if($loginOK) {
 
 <button class="collapsible">What Happens After Surgery?</button>
 <div class="content">
-    <p>Problems after Surgery: <div id="problems"></div></p>
-
-    <p>Life after Treatment: <a href="https://www.macmillan.org.uk/information-and-support/lung-cancer/non-small-cell-lung-cancer/treating/after-treatment-for-lung-cancer">MacMillan</a></p>
+    <div id="problems"></div>
+</div>
+<button class="collapsible">Recovering After Surgery</button>
+<div class="content">
+    <div id="recovery"></div>
+</div>
+<button class="collapsible">Coping with Breathlessness</button>
+<div class="content">
+    <div id="breath"></div>
 </div>
 <?php
 
@@ -154,9 +160,7 @@ if($userResult->num_rows>0) {
     ?>
     <button class="collapsible">Quitting Smoking</button>
     <div class="content">
-        <p>Problems after Surgery: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/treatment/surgery/possible-problems">Cancer Research UK</a></p>
-
-        <p>Life after Treatment: <a href="https://www.macmillan.org.uk/information-and-support/lung-cancer/non-small-cell-lung-cancer/treating/after-treatment-for-lung-cancer">MacMillan</a></p>
+ENTER INFO
     </div>
 <?php
 }
@@ -176,6 +180,24 @@ if($userResult->num_rows>0) {
             document.getElementById('problems').innerHTML= this.responseText;
         };
         xhr.send();
+
+        var brh= new XMLHttpRequest();
+        brh.open('GET', '../html/breathless.html', true);
+        brh.onreadystatechange= function() {
+            if (this.readyState!==4) return;
+            if (this.status!==200) return; // or whatever error handling you want
+            document.getElementById('breath').innerHTML= this.responseText;
+        };
+        brh.send();
+
+        var recovery= new XMLHttpRequest();
+        recovery.open('GET', '../html/recovery.html', true);
+        recovery.onreadystatechange= function() {
+            if (this.readyState!==4) return;
+            if (this.status!==200) return; // or whatever error handling you want
+            document.getElementById('recovery').innerHTML= this.responseText;
+        };
+        recovery.send();
 
     var coll = document.getElementsByClassName("collapsible");
     var i;
