@@ -361,6 +361,10 @@ if($action2==="filled"){
             x.style.display = "none";
         }
     }
+
+    function next(){
+        window.location.href="progress.php?id=+<?php echo $id ?>";
+    }
 </script>
 
 </body>
@@ -368,9 +372,9 @@ if($action2==="filled"){
 
 <footer>
     <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
-            <a href="progress.php?id=+<?php echo $id ?>" style="float:right">NEXT: PATIENT STATUS</a>
+        <div class="footer">
+            <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+            <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
         </div>
     </div></footer>
 </html>

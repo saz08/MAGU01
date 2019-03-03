@@ -716,6 +716,9 @@ if($entriesM!=0){?>
 
     }
 
+    function next(){
+        window.location.href="supportInput.php";
+    }
 </script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
@@ -725,12 +728,9 @@ if($entriesM!=0){?>
 </body>
 <footer>
     <div class="footer">
-<!--        <div class="navbarBottom">-->
-<!--            <a onclick="goBack()" class="active">BACK</a>-->
-<!--        </div>    -->
-        <div class="navbarBottom">
-            <a href="supportInput.php" style="float:right">NEXT: RECORD</a>
-        </div>
+        <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+        <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
     </div>
+
 </footer>
 </html>

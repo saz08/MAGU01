@@ -101,8 +101,34 @@ if($loginOK) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.php">HOME</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
+                <ul class = "nav navbar-nav navbar-left">
+                    <?php
+                    $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
+                    $supportInfo = $conn->query($sqlInfo);
+                    if ($supportInfo->num_rows > 0) {
+                        while ($rowname = $supportInfo->fetch_assoc()) {
+                            $seen = $rowname["seen"];
+                            $responseDoc = $rowname["response"];
+                            $important="false";
+                            if ($seen === "true" && $responseDoc != "") {
+                                $important = "true";
+                            }
+                            else {
+                                $important = "false";
+                            }
+                        }
+                    }
+                    else{
+                        $important="false";
+                    }
+
+                    if($important==="true"){
+                        echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
+                    }
+                    else{
+                        echo"<li><a href='index.php'>HOME</a></li>";
+                    }
+                    ?>                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="scale.php">HEALTH MONITORING</a></li>
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
@@ -160,8 +186,9 @@ if($userResult->num_rows>0) {
     ?>
     <button class="collapsible">Quitting Smoking</button>
     <div class="content">
-ENTER INFO
-    </div>
+<div id="smoking">
+
+</div>    </div>
 <?php
 }
 ?>
@@ -180,6 +207,15 @@ ENTER INFO
             document.getElementById('problems').innerHTML= this.responseText;
         };
         xhr.send();
+
+        var smk= new XMLHttpRequest();
+        smk.open('GET', '../html/smoking.html', true);
+        smk.onreadystatechange= function() {
+            if (this.readyState!==4) return;
+            if (this.status!==200) return; // or whatever error handling you want
+            document.getElementById('smoking').innerHTML= this.responseText;
+        };
+        smk.send();
 
         var brh= new XMLHttpRequest();
         brh.open('GET', '../html/breathless.html', true);

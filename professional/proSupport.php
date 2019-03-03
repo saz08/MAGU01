@@ -279,8 +279,9 @@ if($action2==="filled"){
 
 <footer>
     <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
+        <div class="footer">
+            <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
         </div>
+
     </div></footer>
 </html>

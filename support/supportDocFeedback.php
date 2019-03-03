@@ -164,14 +164,17 @@ if($result->num_rows>0){
 <br>
 
 <div class="clear"></div>
-
+<script>
+    function next(){
+        window.location.href="supportHelp.php";
+    }
+</script>
 </body>
 <footer>
     <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a href="supportHelp.php" style="float:right">NEXT: HELP</a>
-        </div>
+        <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+        <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
     </div>
+
 </footer>
 </html>

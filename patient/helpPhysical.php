@@ -100,8 +100,34 @@ if($loginOK) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.php">HOME</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
+                <ul class = "nav navbar-nav navbar-left">
+                    <?php
+                    $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
+                    $supportInfo = $conn->query($sqlInfo);
+                    if ($supportInfo->num_rows > 0) {
+                        while ($rowname = $supportInfo->fetch_assoc()) {
+                            $seen = $rowname["seen"];
+                            $responseDoc = $rowname["response"];
+                            $important="false";
+                            if ($seen === "true" && $responseDoc != "") {
+                                $important = "true";
+                            }
+                            else {
+                                $important = "false";
+                            }
+                        }
+                    }
+                    else{
+                        $important="false";
+                    }
+
+                    if($important==="true"){
+                        echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
+                    }
+                    else{
+                        echo"<li><a href='index.php'>HOME</a></li>";
+                    }
+                    ?>                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="scale.php">HEALTH MONITORING</a></li>
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
@@ -139,33 +165,50 @@ if($loginOK) {
 
 <button class="collapsible">What can I do?</button>
 <div class="content">
-    <p><a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/treatment/surgery/after-surgery"> Cancer Research </a>suggests...</p>
-    <p>
-        Sitting for less time each day, walking around the house a bit more each day, building up to walking outside
-    </p></div>
+    <div id="physical"></div>
+    </div>
 <button class="collapsible">Suggested Activities</button>
 <div class="content">
-    <p>Suggested Activities from <a href="https://www.cancer.net/blog/2018-08/benefits-exercise-people-with-lung-cancer"> Cancer.net</a></p>
-    <p>
-        Breathing exercises, Stretching exercises, Aerobic exercises, Strength training
-    </p>
-    <p>Introduce physical activity from <a href="https://www.cancer.net/blog/2018-08/benefits-exercise-people-with-lung-cancer"> verywellhealth.com</a></p>
-    <p>
-        Plant a garden, dance to the radio, sign up for yoga, purchase a pedometer and set a step goal!
-    </p>
+<div id="activity"></div>
 </div>
 <button class="collapsible">Classes for You</button>
 <div class="content">
-    <p>MacMillan Tools to <a href="https://www.macmillan.org.uk/information-and-support/coping/maintaining-a-healthy-lifestyle/keeping-active/tools-help-move-more.html"> Help You Move More</a></p>
-    <p>MacMillan Move More Classes<a href="https://www.macmillan.org.uk/about-us/health-professionals/programmes-and-services/move-more-scotland.html"> "Where Now" course</a></p>
-
+    <div id="classes"></div>
 </div>
 
-
+<div class="clear"></div>
 
 
 
 <script>
+
+    var cls= new XMLHttpRequest();
+    cls.open('GET', '../html/classes.html', true);
+    cls.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('classes').innerHTML= this.responseText;
+    };
+    cls.send();
+
+    var phy= new XMLHttpRequest();
+    phy.open('GET', '../html/physical.html', true);
+    phy.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('physical').innerHTML= this.responseText;
+    };
+    phy.send();
+
+    var act= new XMLHttpRequest();
+    act.open('GET', '../html/activities.html', true);
+    act.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('activity').innerHTML= this.responseText;
+    };
+    act.send();
+
 
     var coll = document.getElementsByClassName("collapsible");
     var i;

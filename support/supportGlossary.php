@@ -67,15 +67,15 @@ $username = $_SESSION["userName"];
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-    <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
+    <script src="../js/forAll.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
-
+    <title>Glossary</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -129,78 +129,53 @@ $username = $_SESSION["userName"];
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
-<<button class="collapsible">What Happens After Surgery?</button>
-<div class="content">
-    <div id="problems"></div>
-</div>
-<button class="collapsible">Recovering After Surgery</button>
-<div class="content">
-    <div id="recovery"></div>
-</div>
-<button class="collapsible" onclick="window.location.href='supportGlossary.php'">Complicated Terms</button>
-
-<button class="collapsible">Helping your Survivor</button>
-<div class="content">
-    <p>Caring for your loved one: <a href="https://www.lungcancer.org/find_information/publications/156-caring_for_your_loved_one_with_lung_cancer">Lung Cancer.org</a></p>
-    <p>Organisations: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/living-with/resources-books">Cancer Research</a></p>
-</div>
-<button class="collapsible">Support for You</button>
-<div class="content">
-    <p>Support for you and your family: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/advanced/living-with/support-at-home">Cancer Research</a></p>
-    <p>Support Groups: <a href="https://www.roycastle.org/how-we-help/services-for-you/support-groups">Roy Castle Support Groups</a></p>
-    <p>Balancing work and being a carer: <a href="https://www.macmillan.org.uk/information-and-support/organising/work-and-cancer/if-youre-a-carer#162557">MacMillan</a></p>
-
-</div>
-
-
 <br>
-
-
-
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search a keyword.." title="Start typing">
+<div id="x" class="box">
+</div>
 <script>
     var xhr= new XMLHttpRequest();
-    xhr.open('GET', '../html/problemsCR.html', true);
+    xhr.open('GET', '../html/glossary.html', true);
     xhr.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('problems').innerHTML= this.responseText;
+        document.getElementById('x').innerHTML= this.responseText;
     };
     xhr.send();
 
 
-    var rec= new XMLHttpRequest();
-    rec.open('GET', '../html/recovery.html', true);
-    rec.onreadystatechange= function() {
-        if (this.readyState!==4) return;
-        if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('recovery').innerHTML= this.responseText;
-    };
-    rec.send();
-
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
+        function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        console.log("input si + "+ filter);
+        ul=document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+    }
+        else {
+        li[i].style.display = "none";
+    }
+    }
     }
 </script>
+
+
+
+
+
+
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+</div>
 </body>
 <div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
-    </div>
-  </footer>
+
 </html>

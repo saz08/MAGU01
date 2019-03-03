@@ -125,7 +125,8 @@ $loginOK = false; //TODO make this work with database values
                 else{
                     echo"<li><a href='index.php'>HOME</a></li>";
                 }
-                ?>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
+                ?>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="scale.php">HEALTH MONITORING</a></li>
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>

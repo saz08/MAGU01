@@ -184,15 +184,19 @@ else{
 <br>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
+<script>
+    function next(){
+        window.location.href="proSupport.php?id=+<?php echo $id ?>";
+    }
+</script>
 </body>
 <div class="clear"> </div>
 
 <footer>
     <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
-            <a href="proSupport.php?id=+<?php echo $id ?>" style="float:right">NEXT: SUPPORT CIRCLE</a>
+        <div class="footer">
+            <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+            <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
         </div>
     </div></footer>
 </html>

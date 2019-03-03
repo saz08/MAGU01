@@ -210,15 +210,19 @@ if($patient->num_rows>0){
 
 <br>
 
-
+<script>
+    function next(){
+        window.location.href="patientInfo.php?id=+<?php echo $id?>";
+    }
+</script>
 </body>
 <div class="clear"></div>
 
 <footer>
     <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
-            <a href="patientInfo.php?id=+<?php echo $id ?>" style="float:right">NEXT: PATIENT INFO</a>
+        <div class="footer">
+            <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+            <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
         </div>
     </div>
 </footer>

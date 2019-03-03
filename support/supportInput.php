@@ -196,14 +196,18 @@ if($action==="filled"){
 
 ?>
 <div class="clear"></div>
-
+<script>
+    function next(){
+        window.location.href="supportDocFeedback.php";
+    }
+</script>
 </body>
+
 <footer>
     <div class="footer">
-        <div class="navbarBottom">
-            <a onclick="goBack()" >BACK</a>
-            <a href="supportDocFeedback.php" style="float:right">NEXT: FEEDBACK</a>
-        </div>
+        <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+        <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
     </div>
+
 </footer>
 </html>

@@ -717,7 +717,9 @@ if($entriesM!=0){?>
 
     }
 
-
+function next(){
+        window.location.href="weightChartDoc.php?id=+<?php echo $id ?>";
+}
 </script>
 
 
@@ -729,10 +731,9 @@ if($entriesM!=0){?>
 </body>
 <footer>
     <div class="footer">
-
-        <div class="navbarBottom">
-            <a onclick="goBack()">BACK</a>
-            <a href="weightChartDoc.php?id=+<?php echo $id ?>" style="float:right">NEXT: WEIGHT CHART</a>
+        <div class="footer">
+            <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+            <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
         </div>
     </div>
 </footer>

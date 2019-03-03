@@ -100,8 +100,34 @@ if($loginOK) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <li><a href="index.php">HOME</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
+                <ul class = "nav navbar-nav navbar-left">
+                    <?php
+                    $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
+                    $supportInfo = $conn->query($sqlInfo);
+                    if ($supportInfo->num_rows > 0) {
+                        while ($rowname = $supportInfo->fetch_assoc()) {
+                            $seen = $rowname["seen"];
+                            $responseDoc = $rowname["response"];
+                            $important="false";
+                            if ($seen === "true" && $responseDoc != "") {
+                                $important = "true";
+                            }
+                            else {
+                                $important = "false";
+                            }
+                        }
+                    }
+                    else{
+                        $important="false";
+                    }
+
+                    if($important==="true"){
+                        echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
+                    }
+                    else{
+                        echo"<li><a href='index.php'>HOME</a></li>";
+                    }
+                    ?>                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="scale.php">HEALTH MONITORING</a></li>
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
@@ -150,11 +176,10 @@ if($loginOK) {
 
 <button class="collapsible">Anxiety</button>
 <div class="content">
-    <p>Anxiety about going for a scan: <a href="https://medivizor.com/blog/2014/06/03/15-tips-cope-scanxiety/"> "Scanxiety"</a>
-    <p>PET Scan Information: <a href="https://www.cancerresearchuk.org/about-cancer/lung-cancer/getting-diagnosed/tests-stage/pet-ct-scan"> Cancer Research UK</a>
+    <div id="anxiety"></div>
 
 </div>
-
+<div class="clear"></div>
 
 
 
@@ -168,6 +193,15 @@ if($loginOK) {
         document.getElementById('survivor').innerHTML= this.responseText;
     };
     xhr.send();
+
+    var pet= new XMLHttpRequest();
+    pet.open('GET', '../html/petscan.html', true);
+    pet.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        document.getElementById('anxiety').innerHTML= this.responseText;
+    };
+    pet.send();
 
     var spt= new XMLHttpRequest();
     spt.open('GET', '../html/support.html', true);
