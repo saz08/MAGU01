@@ -162,6 +162,7 @@ if($patient->num_rows>0){
 </nav>
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?></h1>
+    <button class="btn" style="float:right" onclick="delPatient()">Delete Patient</button>
 </div>
 <br>
 
@@ -214,16 +215,24 @@ if($patient->num_rows>0){
     function next(){
         window.location.href="patientInfo.php?id=+<?php echo $id?>";
     }
+
+    function delPatient(){
+        var id = localStorage.getItem("id");
+        jQuery.post("delPatient.php", {"id": id}, function(data){
+            alert("Patient Details Successfully Deleted");
+        }).fail(function()
+        {
+            alert("Failed to successfully delete patient records. Please check your internet connection and try again.");
+        });
+    }
 </script>
 </body>
 <div class="clear"></div>
 
 <footer>
     <div class="footer">
-        <div class="footer">
             <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
             <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
-        </div>
     </div>
 </footer>
 </html>

@@ -235,8 +235,8 @@ $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `
 </body>
 
 <footer>
-    <div class="navbarBottom">
-        <a onclick="goBack()">BACK</a>
+    <div class="footer">
+        <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
     </div>
 </footer>
 </html>
