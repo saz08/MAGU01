@@ -174,7 +174,7 @@ if($resultNew->num_rows<1) {
 <h2>Welcome to Survivors!</h2>
 <p>This is where you can 
 <ul>
-  <li>Record your pain, breathlessness, performance and any other queries you're unsure of!</li>
+  <li>Record your pain, breathlessness, performance and any other queries you're unsure of! <button class='btn' onclick='goToScale()'>Start now!</button></li>
   <li>Monitor your weight, it is important that we don't see a sudden increase or decrease in your weight</li>
   <li>Monitor how much physical activity you do, we want you to improve!</li>
   <li>Get involved in our patient forum room</li>
@@ -269,31 +269,31 @@ while ($rowname = $resultScale->fetch_assoc()) {
 
 
 
-$sqlPhysical = "SELECT * FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
-$resultPhysical = $conn->query($sqlPhysical);
-if($resultPhysical -> num_rows>0){
-    while($rowname=$resultPhysical->fetch_assoc()){
-        $vig = $rowname["vigorous"];
-        $mod = $rowname["moderate"];
-        $walk = $rowname["walking"];
-        $sit = $rowname["sitting"];
-        if($walk<=3){
-            echo"<div class='box'>
-                    <p>Your last physical recording shows you only walked less than 3 days out of 7 last week.<br> 
-                    If you're having trouble finding physical activities, click <a href=helpPhysical.php>HERE</a> to see what's near you!!
-                    </p>
-                </div>";
-        }
-        if($sit>=5) {
-            echo "<div class='box'>
-                    <p>Your last physical recording shows you spent more than 4 days sitting down.<br> 
-                    Try walking around the house, garden or along the street.<br>
-                    If you're having trouble finding physical activities, click <a href=helpPhysical.php>HERE</a> to see what's near you!!
-                    </p>
-                </div>";
-        }
-    }
-}
+//$sqlPhysical = "SELECT * FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
+//$resultPhysical = $conn->query($sqlPhysical);
+//if($resultPhysical -> num_rows>0){
+//    while($rowname=$resultPhysical->fetch_assoc()){
+//        $vig = $rowname["vigorous"];
+//        $mod = $rowname["moderate"];
+//        $walk = $rowname["walking"];
+//        $sit = $rowname["sitting"];
+//        if($walk<=3){
+//            echo"<div class='box'>
+//                    <p>Your last physical recording shows you only walked less than 3 days out of 7 last week.<br>
+//                    If you're having trouble finding physical activities, click <a href=helpPhysical.php>HERE</a> to see what's near you!!
+//                    </p>
+//                </div>";
+//        }
+//        if($sit>=5) {
+//            echo "<div class='box'>
+//                    <p>Your last physical recording shows you spent more than 4 days sitting down.<br>
+//                    Try walking around the house, garden or along the street.<br>
+//                    If you're having trouble finding physical activities, click <a href=helpPhysical.php>HERE</a> to see what's near you!!
+//                    </p>
+//                </div>";
+//        }
+//    }
+//}
 
 ?>
 
@@ -301,7 +301,9 @@ if($resultPhysical -> num_rows>0){
 
 
 <script>
-
+function goToScale(){
+    window.location.href="scale.php";
+}
 
     function markAndDelete(response){
         jQuery.post("markAsSeen.php", {"Response": response}, function(data){

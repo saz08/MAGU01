@@ -357,6 +357,11 @@ output {
     font-size:2rem;
 }
 
+.side{
+    width:20%;
+    left:0;
+}
+
 .box {
     width: 50%;
     height: inherit;
@@ -564,6 +569,10 @@ and (max-device-width : 480px) {
 
     }
 
+}
+
+a:hover{
+  background-color: mediumpurple;
 }
 
 .dropdown-menu{

@@ -84,11 +84,61 @@ if($loginOK) {
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
+    <script type="text/javascript">
+        if($(window).width>=500) {
+            $(function () {
+                var offset = $("#sidebar").offset();
+                var topPadding = 15;
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() > offset.top) {
+                        $("#sidebar").stop().animate({
+                            marginTop: $(window).scrollTop() - offset.top + topPadding
+                        });
+                    } else {
+                        $("#sidebar").stop().animate({
+                            marginTop: 0
+                        });
+                    }
+                    ;
+                });
+            });
+        }
+    </script>
+<style>
+    @media screen and (max-width: 480px) {
+        #sidebar {
+            visibility: hidden;
+            height:0;
+            width:0;
+        }
+        #sidebar ul{
+            visibility: hidden;
+        }
+        #sidebar li a{
+            visibility: hidden;
+            width:0;
+            height:0;
+        }
+    }
+    #sidebar ul {
+        background: purple;
+    }
+    #sidebar li a{
+        color:white;
+        height:2rem;
+    }
+    li { margin: 0 0 0 20px; }
+    #main { width: 390px; float: left; }
+    #sidebar { width: 190px; float: right; }
 
+</style>
     <meta charset="UTF-8">
     <title>Glossary</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="page-wrap">
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -159,11 +209,37 @@ if($loginOK) {
     </div>
 </nav>
 
+
 <div class="jumbotron text-center">
     <h1>Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search a keyword.." title="Start typing">
+<input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search a keyword.." title="Start typing">
+<div id="sidebar">
+    <ul>
+        <li  ><a href="#a">A</a></li>
+        <li  ><a href="#b">B</a></li>
+        <li  ><a href="#c">C</a></li>
+        <li  ><a href="#d">D, E</a></li>
+        <li  ><a href="#f">F, G, H</a></li>
+        <li  ><a href="#i">I</a></li>
+        <li  ><a href="#l">L</a></li>
+        <li  ><a href="#m">M</a></li>
+        <li  ><a href="#n">N</a></li>
+        <li  ><a href="#o">O</a></li>
+        <li  ><a href="#p">P</a></li>
+        <li  ><a href="#q">Q</a></li>
+        <li  ><a href="#r">R</a></li>
+        <li  ><a href="#s">S</a></li>
+        <li  ><a href="#t">T</a></li>
+        <li  ><a href="#u">U</a></li>
+        <li  ><a href="#v">V, W, X</a></li>
+
+
+    </ul>
+
+</div>
+
 <div id="x" class="box">
 </div>
 <script>
@@ -195,8 +271,8 @@ if($loginOK) {
     }
     }
     }
-</script>
 
+</script>
 
 
 
@@ -204,6 +280,7 @@ if($loginOK) {
 
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+</div>
 </div>
 </body>
 <div class="clear"></div>

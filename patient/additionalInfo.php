@@ -247,7 +247,7 @@ if($action2==="filled"){
 </script>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
-    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+    <button class="btn" style="float:right" onclick="submitRecord()"> Next <b> > </b></button>
 </div>
 </body>
 
