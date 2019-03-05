@@ -85,54 +85,105 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
-    <script type="text/javascript">
-        if($(window).width>=500) {
-            $(function () {
-                var offset = $("#sidebar").offset();
-                var topPadding = 15;
-                $(window).scroll(function () {
-                    if ($(window).scrollTop() > offset.top) {
-                        $("#sidebar").stop().animate({
-                            marginTop: $(window).scrollTop() - offset.top + topPadding
-                        });
-                    } else {
-                        $("#sidebar").stop().animate({
-                            marginTop: 0
-                        });
-                    }
-                    ;
-                });
-            });
+    <script>
+        function openNav() {
+            if(screen.width<500){
+                document.getElementById("x").style.width = "80%";
+                document.getElementById("x").style.left = "20%";
+                document.getElementById("mySidebar").style.width = "5.5rem";
+
+            }
+            if(screen.width>500){
+                document.getElementById("mySidebar").style.width = "7rem";
+
+            }
+
+        }
+
+        function closeNav() {
+            if(screen.width<500){
+                document.getElementById("x").style.left = "0";
+                document.getElementById("x").style.width = "100%";
+            }
+            if(screen.width>500) {
+                document.getElementById("x").style.left = "20%";
+                document.getElementById("x").style.width = "50%";
+            }
+            document.getElementById("mySidebar").style.width = "0";
         }
     </script>
-<style>
-    @media screen and (max-width: 480px) {
-        #sidebar {
-            visibility: hidden;
-            height:0;
-            width:0;
-        }
-        #sidebar ul{
-            visibility: hidden;
-        }
-        #sidebar li a{
-            visibility: hidden;
-            width:0;
-            height:0;
-        }
-    }
-    #sidebar ul {
-        background: purple;
-    }
-    #sidebar li a{
-        color:white;
-        height:2rem;
-    }
-    li { margin: 0 0 0 20px; }
-    #main { width: 390px; float: left; }
-    #sidebar { width: 190px; float: right; }
 
-</style>
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: purple;
+            overflow-x: hidden;
+            padding-top: 60px;
+            transition: 0.5s;
+
+        }
+
+
+
+
+
+        .sidenav .closebtn {
+            position: absolute;
+            /*top: 0;*/
+            /*right: 25px;*/
+            padding: 6px 8px 6px 16px;
+            font-size: 2rem;
+            /*margin-left: 50px;*/
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: purple;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 2rem;
+            color: white;
+            display: block;
+            transition: 0.3s;
+
+        }
+
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            font-size: 28px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+                width:10%;
+            }
+            .sidenav a {
+                font-size: 1rem;}
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Glossary</title>
 </head>
@@ -210,35 +261,46 @@ if($loginOK) {
 </nav>
 
 
-<div class="jumbotron text-center">
-    <h1>Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <div class="jumbotron text-center">
+    <h1 style="left:10%;width:80%;text-align: center" >Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
-<input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search a keyword.." title="Start typing">
-<div id="sidebar">
-    <ul>
-        <li  ><a href="#a">A</a></li>
-        <li  ><a href="#b">B</a></li>
-        <li  ><a href="#c">C</a></li>
-        <li  ><a href="#d">D, E</a></li>
-        <li  ><a href="#f">F, G, H</a></li>
-        <li  ><a href="#i">I</a></li>
-        <li  ><a href="#l">L</a></li>
-        <li  ><a href="#m">M</a></li>
-        <li  ><a href="#n">N</a></li>
-        <li  ><a href="#o">O</a></li>
-        <li  ><a href="#p">P</a></li>
-        <li  ><a href="#q">Q</a></li>
-        <li  ><a href="#r">R</a></li>
-        <li  ><a href="#s">S</a></li>
-        <li  ><a href="#t">T</a></li>
-        <li  ><a href="#u">U</a></li>
-        <li  ><a href="#v">V, W, X</a></li>
+<input type="text" style="left:20%;width:80%" id="myInput" onkeyup="myFunction()" placeholder="Search a keyword.." title="Start typing">
+    <button class="openbtn" onclick="openNav()">☰ A-Z</button>
 
-
-    </ul>
-
+    <div class="sidenav" id="mySidebar">
+    <br>
+    <a class="closebtn" onclick="closeNav()" >  <</a>
+<br>
+    <a href="#a">A</a>
+    <a href="#b">B</a>
+    <a href="#c">C</a>
+    <a href="#d">D</a>
+    <a href="#e">E</a>
+    <a href="#f">F</a>
+    <a href="#g">G</a>
+    <a href="#h">H</a>
+    <a href="#i">I</a>
+     <a href="#j">J</a>
+     <a href="#k">K</a>
+     <a href="#l">L</a>
+     <a href="#m">M</a>
+     <a href="#n">N</a>
+     <a href="#o">O</a>
+     <a href="#p">P</a>
+     <a href="#q">Q</a>
+     <a href="#r">R</a>
+     <a href="#s">S</a>
+     <a href="#t">T</a>
+     <a href="#u">U</a>
+     <a href="#v">V</a>
+     <a href="#w">W</a>
+     <a href="#x">X</a>
+     <a href="#y">Y</a>
+     <a href="#z">Z</a>
+    <br>
 </div>
+    <br>
 
 <div id="x" class="box">
 </div>
@@ -279,7 +341,7 @@ if($loginOK) {
 
 
 <div class="footer">
-    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" onclick="goBack()" style="left:10%"><b><</b> Back </button>
 </div>
 </div>
 </body>
