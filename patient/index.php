@@ -68,6 +68,8 @@ $loginOK = false; //TODO make this work with database values
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
@@ -85,6 +87,7 @@ $loginOK = false; //TODO make this work with database values
     localStorage.setItem("Pain","");
     localStorage.setItem("Performance","");
 </script>
+
 </head>
 
 <body>
@@ -95,7 +98,6 @@ $loginOK = false; //TODO make this work with database values
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#myPage">    </a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
@@ -126,23 +128,27 @@ $loginOK = false; //TODO make this work with database values
                     echo"<li><a href='index.php'>HOME</a></li>";
                 }
                 ?>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="scale.php">HEALTH MONITORING</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openRecord()">RECORD <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="record">
+                            <li><a href="scale.php">HEALTH MONITORING</a></li>
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
                         <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
                     </ul>
-                </li>                 <li><a href="talk.php">TALK</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                </li>
+
+
+                <li><a href="talk.php">TALK</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="help">
                         <li><a href="helpInfo.php">INFO</a></li>
                         <li><a href="helpFinancial.php">FINANCIAL</a></li>
                         <li><a href="helpEmotional.php">EMOTIONAL</a></li>
                         <li><a href="helpPhysical.php">PHYSICAL</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openProfile()">PROFILE <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="profile">
                         <li><a href="statusChart.php">STATUS CHARTS</a></li>
                         <li><a href="weightChart.php">WEIGHT CHART</a></li>
                         <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
@@ -203,8 +209,8 @@ if($resultInfo->num_rows>0) {
 <br>
         <div class="box">
             <p>
-                The doctor has responded to your query: <?php if($info!=""){echo $info;} if($symptom!=""){echo $symptom;} ?> <br>
-                Response: <?php echo $response ?>
+                <b>The doctor has responded to your query:</b> <?php if($info!=""){echo $info;} if($symptom!=""){echo $symptom;} ?> <br>
+                <b>Response:</b> <?php echo $response ?>
                 <button class="btn" id="button" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
             </p>
         </div>
@@ -224,9 +230,9 @@ while ($rowname = $resultScale->fetch_assoc()) {
     $date = $rowname["timeStamp"];
     $date2 = (new DateTime($date))->format('jS F Y');
 
-    echo "<br><div class='box'><p>Welcome Back! Please remember to keep track of how you feel and do not be scared to get in touch with your doctor if you feel it is serious!</p>
+    echo "<br><div class='box'><p><b>Welcome Back ". $username ."!</b><br> Keeping a log of how you feel is very helpful to you and your health professional. Do not be scared to get in touch with your doctor if you feel it is serious!</p>
 <p>The last time you recorded your pain, breathlessness and performance was " .$date2."</p>
-<p>It is recommended that you log your symptoms every 7 days, next logging date should be: ".date('jS F Y', strtotime($date2. '+ 7 days'));
+<p>Try and make an entry once a week,so your next logging date should be: ".date('jS F Y', strtotime($date2. '+ 7 days'));
        if(date('jS F Y', strtotime($date2. '+ 7 days'))==date('jS F Y')){
            echo "     <button class='btn' onclick='goRecord()'>Record Now!</button>";
        }
@@ -246,19 +252,19 @@ while ($rowname = $resultScale->fetch_assoc()) {
 
             if($pain>=7){
                 echo"<div class='box'>";
-                echo"<p>Your most recent pain score was $pain. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: </p>";
+                echo"<p>Your most recent pain score was $pain. <br> Your doctor has been notified and will contact you within 2 hours.<br> You can find suggestions on how to cope with your pain <b><a href='https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/helpInfo.php'>HERE!</a></b> </p>";
                 echo"</div>";
 
             }
             if($breath>=4){
                 echo"<div class='box'>";
-                echo"<p>Your most recent breathlessness score was $breath. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are:</p>";
+                echo"<p>Your most recent breathlessness score was $breath. <br> Your doctor has been notified and will contact you within 2 hours.<br> You can find suggestions on how to cope with breathlessness <b><a href='https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/helpInfo.php'>HERE!</a></b></p>";
                 echo"</div>";
 
             }
             if($performance>=3){
                 echo"<div class='box'>";
-                echo"<p>Your most recent performance score was $performance. <br> Your doctor has been notified and will contact you within 2 hours.<br> Common suggestions are: </p>";
+                echo"<p>Your most recent performance score was $performance. <br> Your doctor has been notified and will contact you within 2 hours.<br>  </p>";
                 echo"</div>";
 
             }
@@ -269,53 +275,9 @@ while ($rowname = $resultScale->fetch_assoc()) {
 
 
 
-//$sqlPhysical = "SELECT * FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
-//$resultPhysical = $conn->query($sqlPhysical);
-//if($resultPhysical -> num_rows>0){
-//    while($rowname=$resultPhysical->fetch_assoc()){
-//        $vig = $rowname["vigorous"];
-//        $mod = $rowname["moderate"];
-//        $walk = $rowname["walking"];
-//        $sit = $rowname["sitting"];
-//        if($walk<=3){
-//            echo"<div class='box'>
-//                    <p>Your last physical recording shows you only walked less than 3 days out of 7 last week.<br>
-//                    If you're having trouble finding physical activities, click <a href=helpPhysical.php>HERE</a> to see what's near you!!
-//                    </p>
-//                </div>";
-//        }
-//        if($sit>=5) {
-//            echo "<div class='box'>
-//                    <p>Your last physical recording shows you spent more than 4 days sitting down.<br>
-//                    Try walking around the house, garden or along the street.<br>
-//                    If you're having trouble finding physical activities, click <a href=helpPhysical.php>HERE</a> to see what's near you!!
-//                    </p>
-//                </div>";
-//        }
-//    }
-//}
 
 ?>
 
-
-
-
-<script>
-function goToScale(){
-    window.location.href="scale.php";
-}
-
-    function markAndDelete(response){
-        jQuery.post("markAsSeen.php", {"Response": response}, function(data){
-            alert("Read and Deleted");
-            window.location.href="index.php";
-        }).fail(function()
-        {
-            alert("something broke in submitting your records");
-        });
-    }
-
-</script>
 </body>
 <div class="clear"></div>
 

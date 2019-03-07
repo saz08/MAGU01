@@ -196,6 +196,7 @@ p{
     letter-spacing: 4px;
     border-radius: 0;
     font-family: Montserrat, sans-serif;
+    color: white;
 }
 .navbar li a, .navbar .navbar-brand {
     color: white !important;
@@ -208,6 +209,11 @@ p{
     border-color: transparent;
     color: rebeccapurple !important;
 }
+
+.icon-bar{
+    color: white;
+}
+
 footer .glyphicon {
     font-size: 20px;
     margin-bottom: 20px;

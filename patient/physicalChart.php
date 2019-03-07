@@ -258,7 +258,6 @@ else{
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#myPage">    </a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
@@ -289,31 +288,36 @@ else{
                     else{
                         echo"<li><a href='index.php'>HOME</a></li>";
                     }
-                    ?>                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">RECORD <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="scale.php">HEALTH MONITORING</a></li>
-                        <li><a href="weight.php">WEIGHT MONITORING</a></li>
-                        <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
-                    </ul>
-                </li>                  <li><a href="talk.php">TALK</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">HELP <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="helpInfo.php">INFO</a></li>
-                        <li><a href="helpFinancial.php">FINANCIAL</a></li>
-                        <li><a href="helpEmotional.php">EMOTIONAL</a></li>
-                        <li><a href="helpPhysical.php">PHYSICAL</a></li>
-                    </ul>
-                </li>                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROFILE <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="statusChart.php">STATUS CHARTS</a></li>
-                        <li><a href="weightChart.php">WEIGHT CHART</a></li>
-                        <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
-                        <li><a href="questions.php">QUESTIONS</a></li>
-                        <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
+                    ?>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openRecord()">RECORD <span class="caret"></span></a>
+                        <ul class="dropdown-menu" id="record">
+                            <li><a href="scale.php">HEALTH MONITORING</a></li>
+                            <li><a href="weight.php">WEIGHT MONITORING</a></li>
+                            <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
+                        </ul>
+                    </li>
 
-                    </ul>
-                </li>
-            </ul>
+
+                    <li><a href="talk.php">TALK</a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
+                        <ul class="dropdown-menu" id="help">
+                            <li><a href="helpInfo.php">INFO</a></li>
+                            <li><a href="helpFinancial.php">FINANCIAL</a></li>
+                            <li><a href="helpEmotional.php">EMOTIONAL</a></li>
+                            <li><a href="helpPhysical.php">PHYSICAL</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openProfile()">PROFILE <span class="caret"></span></a>
+                        <ul class="dropdown-menu" id="profile">
+                            <li><a href="statusChart.php">STATUS CHARTS</a></li>
+                            <li><a href="weightChart.php">WEIGHT CHART</a></li>
+                            <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                            <li><a href="questions.php">QUESTIONS</a></li>
+                            <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
+                        </ul>
+                    </li>
+                </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="logout.php">LOGOUT</a></li>
             </ul>

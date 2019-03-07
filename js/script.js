@@ -60,3 +60,41 @@ function showCommentOption(divID) {
     }
 }
 
+function openRecord(){
+    var record =document.getElementById("record");
+    if(record.style.display==="none"){
+        record.style.display="block";
+    }
+    else{
+        record.style.display="none";
+    }
+}
+function openHelp(){
+    var help =document.getElementById("help");
+    if(help.style.display==="none"){
+        help.style.display="block";
+    }
+    else{
+        help.style.display="none";
+    }
+}
+function openProfile(){
+    var profile =document.getElementById("profile");
+    if(profile.style.display==="none"){
+        profile.style.display="block";
+    }
+    else{
+        profile.style.display="none";
+    }
+}
+
+function markAndDelete(response){
+    jQuery.post("markAsSeen.php", {"Response": response}, function(data){
+        alert("Read and Deleted");
+        window.location.href="index.php";
+    }).fail(function()
+    {
+        alert("something broke in submitting your records");
+    });
+}
+
