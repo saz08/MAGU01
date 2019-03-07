@@ -95,7 +95,6 @@ if($loginOK) {
                 document.getElementById("mySidebar").style.width = "7rem";
 
             }
-
         }
 
         function closeNav() {

@@ -80,6 +80,7 @@ $loginOK = false; //TODO make this work with database values
     <script>
        window.onload = function () {
 
+
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
                 theme: "light2",
@@ -87,7 +88,7 @@ $loginOK = false; //TODO make this work with database values
                     text: "Weight Monitoring"
                 },
                 axisY:{
-                   title: "Weight (KG)"
+                   title: "Weight (LBS)"
                 },
                 axisX:{
                     title:"Entries"
@@ -100,7 +101,7 @@ $loginOK = false; //TODO make this work with database values
             $result= $conn->query($sql);
             if($result->num_rows>0) {
                 while ($rowname = $result->fetch_assoc()) {
-                    $y = $rowname["kg"];
+                    $y = $rowname["lbs"];
                     $timestamp = $rowname["timeStamp"];
                     $date2 = (new DateTime($timestamp))->format('d m Y');
                     echo "{y: $y},";
@@ -197,6 +198,8 @@ $loginOK = false; //TODO make this work with database values
 <div class="jumbotron text-center">
     <h1>My Weight Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+<button class="btn" id="button" onclick="window.location.href='weight.php'">Make an entry</button>
+
 <?php
 $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
 $result= $conn->query($sql);
@@ -207,24 +210,48 @@ else{
 ?>
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <?php }?>
-<br>
-<button class="btn" id="button" onclick="window.location.href='weight.php'">Make an entry</button>
-<br>
-<br>
 
+<div>
+<?php
+$sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
+$result= $conn->query($sql);
+if($result->num_rows>0) {
+    echo"<table id='table-weight'>
+        <tr>
+        <th>Date Entered</th>
+        <th>Weight (lbs)</th>
+        <th>Approximate Stones</th>
+
+</tr>";
+    while ($rowname = $result->fetch_assoc()) {
+        $y = $rowname["lbs"];
+        $timestamp = $rowname["timeStamp"];
+        $date2 = (new DateTime($timestamp))->format('d m Y');
+        $stones = round($y*0.071429,1,PHP_ROUND_HALF_UP);
+       echo"<tr>
+        <td>".$date2."</td>
+        <td>".$y."</td>
+        <td>".$stones."</td>";
+
+
+    }
+}
+
+?>
+</div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
     function next(){
         window.location.href="physicalChart.php";
     }
+
+
 </script>
-<div>
+<br>
+</body>
+
+<div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
-</body>
-<br>
-<br>
-
-
 </html>

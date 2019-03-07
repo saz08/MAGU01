@@ -82,11 +82,104 @@ if($loginOK) {
     <script src="../js/forAll.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <style>
+        .weightNav {
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            height: 90%;
+            top: 0;
+            bottom:0;
+            background-color: #DDA8FF;
+            overflow-x: scroll;
+            overflow-y: visible;
+            padding-top: 60px;
+            transition: 0.5s;
+        }
 
+        .weightNav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 2rem;
+            display: block;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .weightNav a:hover {
+            color: #f1f1f1;
+        }
+
+
+        .weightNav .closebtn {
+            position: absolute;
+            /*top: 0;*/
+            /*right: 25px;*/
+            padding: 6px 8px 6px 16px;
+            font-size: 2rem;
+            /*margin-left: 50px;*/
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: purple;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+
+        @media screen and (max-height: 450px) {
+            .weightNav {
+                padding-top: 15px;
+                width:10%;
+            }
+            .weightNav a {
+                font-size: 1rem;}
+        }
+    </style>
+<script>
+    function openNav() {
+        if(screen.width<500){
+            document.getElementById("x").style.width = "80%";
+            document.getElementById("x").style.left = "20%";
+            document.getElementById("stone").style.width = "80%";
+            document.getElementById("stone").style.left = "20%";
+            document.getElementById("mySidebar").style.width = "100%";
+
+        }
+        if(screen.width>500){
+            document.getElementById("mySidebar").style.width = "20%";
+
+        }
+    }
+
+    function closeNav() {
+        if(screen.width<500){
+            document.getElementById("x").style.left = "0";
+            document.getElementById("x").style.width = "100%";
+            document.getElementById("stone").style.width = "100%";
+            document.getElementById("stone").style.left = "0";
+        }
+        if(screen.width>500) {
+            document.getElementById("x").style.left = "20%";
+            document.getElementById("x").style.width = "50%";
+            document.getElementById("stone").style.width = "50%";
+            document.getElementById("stone").style.left = "20%";
+        }
+        document.getElementById("mySidebar").style.width = "0";
+    }</script>
     <meta charset="UTF-8">
     <title>Monitor Weight</title>
+
 </head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" >
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -163,51 +256,78 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Monitor your weight <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+<button class="openbtn" onclick="openNav()">Stones->Lbs</button>
 
-<div class="box"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
+
+<div class="box" id="x"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
     <p>Please weigh yourself once a week and input the results to keep track of your weight.</p>
-<p>You can input your weight in either KG or LBS</p></div>
-<br>
-<div class="box">
-    <form method="get" class="radiostyle">
-        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Record Weight in Stones
-            <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitStone()">
-            <span class="checkmark"></span>
-        </label>
-        <br>
-        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Record Weight in Kilograms
-            <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitKG()" checked>
-            <span class="checkmark"></span>
-        </label>
-    </form>
-
 </div>
-<div id="kilogram">
-<form method="post" class="weightStyle">
-    <h2>  Values are recorded using KG. Input value to see approximate conversion to LBS</h2>
-    <input id="inputKilograms" type="number" step="0.01" placeholder="KG" name="KG" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
+<br>
+
+
+
+<div id="stone" class="weightStyle">
+<form method="post" >
+    <h2>Values are recorded using LBS. Input value to see approximate conversion to Stones</h2>
+    <input id="inputLBS" type="number" step="0.01" placeholder="Enter your weight in pounds (lbs)" name="lbs" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
     <span id="outputStones"></span>
+    <br>
     <input type="hidden" name="action" value="filled">
     <input type="submit" name="submit" value="Submit" class="btn" id="button"/>
-</form>
+    </form>
 </div>
 
-<div id="stone">
-<form method="post" class="weightStyle">
-    <h2>Values are recorded using LBS. Input value to see approximate conversion to KG</h2>
-    <input id="inputKilograms" type="number" step="0.01" placeholder="LBS" name="LBS" oninput="weightConverterKG(this.value)" onchange="weightConverterKG(this.value)">
-    <span id="outputKilograms"></span>
-    <input type="hidden" name="action2" value="filled">
-    <input type="submit" name="submit" value="Submit" class="btn" id="button"/>
-</form>
+<div class="weightNav" id="mySidebar">
+    <br>
+    <a class="closebtn" onclick="closeNav()" style="color: white;background-color: mediumpurple" >  <</a>
+    <br>
+        <table id="table">
+            <tr>
+                <th>Stone</th>
+                <th>Pounds(lbs)</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>14</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>112</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>126</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>140</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>154</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>168</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>182</td>
+            </tr>
+        </table>
+    <br>
 </div>
+<div class="clear"></div>
 
 <div class="clear"></div>
 
 
+
+
+
 <?php
 if($action === "filled") {
-    $kg = (safePost($conn,"KG"));
+    $lbs = (safePost($conn,"lbs"));
     $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
     $resultID=$conn->query($sql1);
     if($resultID->num_rows>0) {
@@ -217,7 +337,7 @@ if($action === "filled") {
         }
     }
 
-    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`,`timeStamp`) VALUES ('$id', '$username', '$kg',CURRENT_TIMESTAMP)";
+    $sql  = "INSERT INTO `weight` (`id`, `username`, `lbs`,`timeStamp`) VALUES ('$id', '$username', '$lbs',CURRENT_TIMESTAMP)";
     if ($conn->query($sql) === TRUE) {
         ?>
         <script>
@@ -227,59 +347,26 @@ if($action === "filled") {
     }
 }
 
-if($action2==="filled"){
-    $lbs = (safePost($conn,"LBS"));
-    $sql2 = "SELECT `id` FROM `account` WHERE username = '$username'";
-    $resultID2 = $conn->query($sql2);
-    if($resultID2->num_rows>0) {
-        while ($rowname = $resultID2->fetch_assoc()) {
-            $id = $rowname["id"];
-        }
-    }
-    $kiloDiv = 0.15747;
-    $weight = $lbs/$kiloDiv;
-    $sql  = "INSERT INTO `weight` (`id`, `username`, `kg`,`timeStamp`) VALUES ('$id', '$username', '$weight' ,CURRENT_TIMESTAMP)";
-    if ($conn->query($sql) === TRUE) {
-        ?>
-        <script>
-            window.location.href = "weightChart.php";
-        </script>
-        <?php
-    }
-}
 ?>
 
 
 <script>
 
-    var x = document.getElementById("stone");
-    var y = document.getElementById("kilogram");
-    x.style.display="none";
-    y.style.display="block";
 
 
-    function submitStone(){
-        var x = document.getElementById("stone");
 
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            y.style.display="none";
-        } else {
-            x.style.display = "block";
-        }
 
-    }
 
-    function submitKG(){
-        var y = document.getElementById("kilogram");
-        if (y.style.display === "none") {
-            y.style.display = "block";
-            x.style.display="none";
-        } else {
-            y.style.display = "block";
-        }
-
-    }
+//    function submitKG(){
+//        var y = document.getElementById("kilogram");
+//        if (y.style.display === "none") {
+//            y.style.display = "block";
+//            x.style.display="none";
+//        } else {
+//            y.style.display = "block";
+//        }
+//
+//    }
 
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -301,7 +388,7 @@ if($action2==="filled"){
     }
 </script>
 <div>
-    <button class="btn" onclick="goBack()"><b><</b> Back </button>
+    <button class="btn" onclick="goBack()" style="left:50%"><b><</b> Back </button>
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
 </body>
