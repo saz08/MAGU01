@@ -163,6 +163,8 @@ $loginOK = false; //TODO make this work with database values
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Submit" class="btn" id="button">
 </form><br>
+<input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchForum()" placeholder="Search for a post" title="Start typing">
+<br>
 
 <?php
 $sql  = "SELECT * FROM `forum`";
@@ -174,7 +176,7 @@ if($result->num_rows>0){
         $usernameDB= $rowname["username"];
         $post = $rowname["post"];
 
-        echo"<br><div class='forum'><br><br><p>".$usernameDB." :".$post." </p></div>";
+        echo"<br><div class='forum' id='forumPost'><br><br><p>".$usernameDB." :".$post." </p></div>";
 
         $sql2  = "SELECT * FROM `comments`";
         $result2 = $conn->query($sql2);
@@ -187,7 +189,7 @@ if($result->num_rows>0){
                     echo "<div class='comment'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div><br>";
                     if($username===$usernameC){
                         $comment = $rowname["patientComment"];
-?><button class="btn" id="button" style="float:right" onclick="deleteComment('<?php echo $comment ?>')">Delete Your Comment</button><br>
+?><button class="btn" id="buttonDelComment" style="float:right" onclick="deleteComment('<?php echo $comment ?>')">Delete Your Comment</button><br>
                         <?php
 
                     }
@@ -199,7 +201,7 @@ if($result->num_rows>0){
 
         ?>
 
-        <button class="btn" id="button" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show" style="float:right">Add a comment</button>
+        <button class="btn" id="buttonAdd" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show" style="float:right">Add a comment</button>
         <br>
             <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
@@ -214,7 +216,7 @@ if($result->num_rows>0){
         <?php
 
         if($usernameDB===$username){
-            echo"<button class='btn' id='button' onclick='deletePost($posDB)' value='hide/show' style='float:right'>Delete Your Post</button><br>";
+            echo"<button class='btn' id='buttonDelPost' onclick='deletePost($posDB)' value='hide/show' style='float:right;font-size: 2rem'>Delete Your Post</button><br>";
         }
 
         $divID++;
@@ -259,7 +261,52 @@ if($action2==="filled"){
 }
 
 ?>
+<script>
 
+    function searchForum() {
+            var input = document.getElementById("myInput");
+            var filter = input.value.toLowerCase();
+            var nodes = document.getElementsByClassName('forum');
+             var btn = document.getElementsByClassName('btn');
+        var comments = document.getElementsByClassName("comment");
+        var buttonDelPost = document.getElementById("buttonDelPost");
+        var addBtn = document.getElementById("buttonAdd");
+        var buttonDelComment = document.getElementById("buttonDelComment");
+        buttonDelPost.style.display="none";
+        addBtn.style.display="none";
+        buttonDelComment.style.display="none";
+
+
+
+
+            for (i = 0; i < nodes.length; i++) {
+                for(x=0;x<comments.length; x++){
+                if (nodes[i].innerText.toLowerCase().includes(filter)) {
+                    nodes[i].style.display = "block";
+                    if(comments[x].innerText.toLowerCase().includes(filter)){
+                        comments[i].style.display="block";
+                        buttonDelPost.style.display="block";
+                        addBtn.style.display="block";
+                        buttonDelComment.style.display="block";
+                    }
+
+                } else {
+                    nodes[i].style.display = "none";
+                    btn[i].style.display = "none";
+//                    comments[i].style.display="none";
+                    buttonDelComment[i].style.display = "none";
+                    addBtn[i].style.display = "none";
+                    buttonDelPost.style.display = "none";
+
+                }
+                }
+            }
+
+
+
+
+    }
+</script>
 <br>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>

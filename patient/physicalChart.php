@@ -175,7 +175,6 @@ else{
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
-
     <meta charset="UTF-8">
     <title>Physical Activity Chart</title>
     <script type="text/javascript">
@@ -244,12 +243,16 @@ else{
                 }]
             };
 
+
             $("#chartContainer").CanvasJSChart(options);
             $("#chartContainerWeek").CanvasJSChart(week);
+        };
 
-        }
     </script>
 </head>
+
+
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -352,6 +355,11 @@ if($result->num_rows<1) {
             <span class="checkmark"></span>
 
         </label>
+        <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show a line chart
+            <input type="radio" class="choices" name="radio" value="3" id="3" onclick="submitLine()">
+            <span class="checkmark"></span>
+
+        </label>
     </form>
 </div>
 <?php }?>
@@ -371,20 +379,28 @@ if($result->num_rows<1) {
 </div>
 <?php } ?>
 <br>
+<h2 id="lineChartH">Line Chart</h2>
+<div id="lineChart" style="position:absolute" class="center-div">
 
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 <script>
     var x = document.getElementById("chartContainer");
     var y = document.getElementById("chartContainerWeek");
+    var z = document.getElementById("lineChartH");
+
     var alltime = document.getElementById("allTime");
     var week = document.getElementById("week");
+    var line = document.getElementById("lineChart");
+
 
 
     x.style.display="none";
     alltime.style.display="none";
     y.style.display="block";
     week.style.display="block";
+    z.style.display="none";
+    line.style.display="none";
 
 
     function submitAll(){
@@ -393,6 +409,8 @@ if($result->num_rows<1) {
             week.style.display="none";
             x.style.display = "block";
             alltime.style.display="block";
+            z.style.display="none";
+            line.style.display="none";
 
         } else {
             x.style.display = "block";
@@ -407,6 +425,8 @@ if($result->num_rows<1) {
             alltime.style.display="none";
             y.style.display = "block";
             week.style.display="block";
+            z.style.display="none";
+            line.style.display="none";
 
         } else {
             y.style.display = "block";
@@ -415,6 +435,25 @@ if($result->num_rows<1) {
 
         }
 
+    }
+
+    function submitLine(){
+        if (y.style.display === "none") {
+            z.style.display = "block";
+            line.style.display = "block";
+            x.style.display="none";
+            alltime.style.display="none";
+            y.style.display = "none";
+            week.style.display="none";
+        }
+        else{
+            z.style.display = "block";
+            line.style.display = "block";
+            x.style.display="none";
+            alltime.style.display="none";
+            y.style.display = "none";
+            week.style.display="none";
+        }
     }
 
     function next(){

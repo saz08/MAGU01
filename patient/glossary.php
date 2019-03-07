@@ -196,7 +196,7 @@ if($loginOK) {
     <h1 style="left:10%;width:80%;text-align: center" >Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
-<input type="text" style="left:20%;width:80%" id="myInput" onkeyup="myFunction()" placeholder="Search a keyword.." title="Start typing">
+<input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchGlossary()" placeholder="Search a keyword.." title="Start typing">
     <button class="openbtn" onclick="openNav()">☰ A-Z</button>
 
     <div class="sidenav" id="mySidebar">
@@ -246,7 +246,7 @@ if($loginOK) {
     xhr.send();
 
 
-        function myFunction() {
+        function searchGlossary() {
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
