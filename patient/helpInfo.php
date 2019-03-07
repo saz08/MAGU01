@@ -204,8 +204,6 @@ if($userResult->num_rows>0) {
 
 
 
-
-
 <script>
         var xhr= new XMLHttpRequest();
         xhr.open('GET', '../html/problemsCR.html', true);

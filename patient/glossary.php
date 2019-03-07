@@ -110,77 +110,7 @@ if($loginOK) {
         }
     </script>
 
-    <style>
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: purple;
-            overflow-x: hidden;
-            padding-top: 60px;
-            transition: 0.5s;
 
-        }
-
-
-
-
-
-        .sidenav .closebtn {
-            position: absolute;
-            /*top: 0;*/
-            /*right: 25px;*/
-            padding: 6px 8px 6px 16px;
-            font-size: 2rem;
-            /*margin-left: 50px;*/
-        }
-
-        .openbtn {
-            font-size: 20px;
-            cursor: pointer;
-            background-color: purple;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-        }
-
-        .openbtn:hover {
-            background-color: #444;
-        }
-
-        .sidenav a {
-            padding: 6px 8px 6px 16px;
-            text-decoration: none;
-            font-size: 2rem;
-            color: white;
-            display: block;
-            transition: 0.3s;
-
-        }
-
-
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
-
-        .main {
-            margin-left: 160px; /* Same as the width of the sidenav */
-            font-size: 28px; /* Increased text to enable scrolling */
-            padding: 0px 10px;
-        }
-
-        @media screen and (max-height: 450px) {
-            .sidenav {
-                padding-top: 15px;
-                width:10%;
-            }
-            .sidenav a {
-                font-size: 1rem;}
-        }
-    </style>
     <meta charset="UTF-8">
     <title>Glossary</title>
 </head>

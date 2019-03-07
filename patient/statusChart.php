@@ -305,6 +305,8 @@ if($entriesM!=0) {
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+
 
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
@@ -334,7 +336,7 @@ if($entriesM!=0) {
                     text: "Pain",
                     fontFamily: "Montserrat, sans-serif",
 
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -371,7 +373,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Breathlessness",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -409,7 +411,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Performance",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -448,7 +450,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Pain",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -486,7 +488,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Breathlessness",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -523,7 +525,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Performance",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -551,6 +553,27 @@ if($entriesM!=0) {
 
 
 
+    </script>
+    <script>
+        function openNav() {
+            if(screen.width<500){
+                document.getElementById("mySidebar").style.width = "90%";
+            }
+            if(screen.width>500){
+                document.getElementById("mySidebar").style.width = "30%";
+
+            }
+        }
+
+        function closeNav() {
+            if(screen.width<500){
+                document.getElementById("mySidebar").style.width = "0";
+
+            }
+            if(screen.width>500) {
+                document.getElementById("mySidebar").style.width = "0";
+            }
+        }
     </script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -635,8 +658,18 @@ if($entriesM!=0) {
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
     <h1>My Records from the Beginning <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<br>
 
+<br>
+<div class="sideBar" id="mySidebar">
+    <a class="closebtn" onclick="closeNav()" >  <</a>
+    <div class="circleKey" style="background-color:#008D00 ;"></div>
+    <p >Pain below 4. Breathlessness and Performance below 2</p>
+    <div class="circleKey" style="background-color:#E8AE00;"></div>
+    <p >Pain between 4 and 7. Breathlessness between 2 and 4 and Performance of 2</p>
+    <div class="circleKey" style="background-color:#FF0000 ;"></div>
+    <p >Pain greater than 7. Breathlessness greater than 4 and Performance greater than 3</p>
+
+</div>
 <?php if($entries!=0&&$entriesM!=0) { ?>
     <div class="box">
         <form method="get" class="radiostyle">
@@ -653,6 +686,8 @@ if($entriesM!=0) {
             </label>
         </form>
     </div>
+    <button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
+<br>
 
     <?php
 }
