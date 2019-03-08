@@ -83,6 +83,8 @@ if($loginOK) {
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+
     <script>
         function openNav() {
             if(screen.width<500){

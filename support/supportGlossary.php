@@ -73,7 +73,35 @@ $username = $_SESSION["userName"];
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
 
+
+    <script>
+        function openNav() {
+            if(screen.width<500){
+                document.getElementById("x").style.width = "80%";
+                document.getElementById("x").style.left = "20%";
+                document.getElementById("mySidebar").style.width = "5.5rem";
+
+            }
+            if(screen.width>500){
+                document.getElementById("mySidebar").style.width = "7rem";
+
+            }
+        }
+
+        function closeNav() {
+            if(screen.width<500){
+                document.getElementById("x").style.left = "0";
+                document.getElementById("x").style.width = "100%";
+            }
+            if(screen.width>500) {
+                document.getElementById("x").style.left = "20%";
+                document.getElementById("x").style.width = "50%";
+            }
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
     <meta charset="UTF-8">
     <title>Glossary</title>
 </head>
@@ -129,10 +157,44 @@ $username = $_SESSION["userName"];
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1  style="left:10%;width:80%;text-align: center">Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search a keyword.." title="Start typing">
+<button class="openbtn" onclick="openNav()">☰ A-Z</button>
+
+<div class="sidenav" id="mySidebar">
+    <br>
+    <a class="closebtn" onclick="closeNav()" >  <</a>
+    <br>
+    <a href="#a">A</a>
+    <a href="#b">B</a>
+    <a href="#c">C</a>
+    <a href="#d">D</a>
+    <a href="#e">E</a>
+    <a href="#f">F</a>
+    <a href="#g">G</a>
+    <a href="#h">H</a>
+    <a href="#i">I</a>
+    <a href="#j">J</a>
+    <a href="#k">K</a>
+    <a href="#l">L</a>
+    <a href="#m">M</a>
+    <a href="#n">N</a>
+    <a href="#o">O</a>
+    <a href="#p">P</a>
+    <a href="#q">Q</a>
+    <a href="#r">R</a>
+    <a href="#s">S</a>
+    <a href="#t">T</a>
+    <a href="#u">U</a>
+    <a href="#v">V</a>
+    <a href="#w">W</a>
+    <a href="#x">X</a>
+    <a href="#y">Y</a>
+    <a href="#z">Z</a>
+    <br>
+</div>
 <div id="x" class="box">
 </div>
 <script>
