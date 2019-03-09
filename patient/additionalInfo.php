@@ -105,22 +105,35 @@ if($loginOK) {
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
                         while ($rowname = $supportInfo->fetch_assoc()) {
-                            $seen = $rowname["seen"];
-                            $responseDoc = $rowname["response"];
-                            $important="false";
-                            if ($seen === "true" && $responseDoc != "") {
-                                $important = "true";
+                            $seenInfo = $rowname["seenInfo"];
+                            $resInfo = $rowname["resInfo"];
+                            $seenSymp = $rowname["seenSymp"];
+                            $resSymp = $rowname["resSymp"];
+                            $importantInfo="false";
+                            $importantSymp="false";
+
+                            if ($seenInfo === "true" && $resInfo != "") {
+                                $importantInfo = "true";
                             }
                             else {
-                                $important = "false";
+                                $importantInfo = "false";
                             }
+                            if ($seenSymp === "true" && $resSymp != "") {
+                                $importantSymp = "true";
+                            }
+                            else {
+                                $importantSymp = "false";
+                            }
+
                         }
                     }
                     else{
-                        $important="false";
+                        $importantInfo="false";
+                        $importantSymp = "false";
+
                     }
 
-                    if($important==="true"){
+                    if($importantInfo==="true"||$importantSymp==="true"){
                         echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                     }
                     else{
@@ -166,7 +179,7 @@ if($loginOK) {
     <h1>Additional Info <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
-<div class="box">Here is a small list of common symptoms. If you feel you apply to one, please choose one then press the bottom right arrow to submit.</div>
+<div class="box">Here is a small list of common symptoms. If you feel you apply to one, please choose one then press <b>next</b> to submit.</div>
 <form name="symptom" method="post" class="box-transparent" >
     Symptoms:
     <select id="select" name="select">
@@ -183,7 +196,7 @@ if($loginOK) {
     </select>
     <input type="hidden" name="action2" value="filled">
 </form>
-<div class="box">OR... if you don't feel you apply to any of those symptoms, you can enter anything you have noticed about yourself or any worries. If you don't have anything you'd like to add, please leave blank and press the bottom right arrow.</div>
+<div class="box">OR... if you don't feel you apply to any of those symptoms, you can enter anything you have noticed about yourself or any worries. If you don't have anything you'd like to add, please leave blank and press <b>next</b>.</div>
 
     <form name="additional" method="post" class="box-transparent" >
         <input type="text" name="additional"  id="additional"/>
@@ -197,9 +210,7 @@ if($loginOK) {
 if($action==="filled"){
     $info = (safePost($conn,"additional"));
 }
-else{
-    $info="not filled";
-}
+
 
 if($action2==="filled"){
     $symptom = (safePost($conn,"select"));

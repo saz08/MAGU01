@@ -96,22 +96,34 @@ $username = $_SESSION["userName"];
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
                     while ($rowname = $supportInfo->fetch_assoc()) {
-                        $seen = $rowname["seen"];
-                        $responseDoc = $rowname["response"];
-                        $important="false";
-                        if ($seen === "true" && $responseDoc != "") {
-                            $important = "true";
+                        $seenInfo = $rowname["seenInfo"];
+                        $resInfo = $rowname["resInfo"];
+                        $seenSymp = $rowname["seenSymp"];
+                        $resSymp = $rowname["resSymp"];
+                        $importantInfo="false";
+                        $importantSymp="false";
+
+                        if ($seenInfo === "true" && $resInfo != "") {
+                            $importantInfo = "true";
                         }
                         else {
-                            $important = "false";
+                            $importantInfo = "false";
+                        }
+                        if ($seenSymp === "true" && $resSymp != "") {
+                            $importantSymp = "true";
+                        }
+                        else {
+                            $importantSymp = "false";
                         }
                     }
                 }
                 else{
-                    $important="false";
+                    $importantInfo="false";
+                    $importantSymp = "false";
+
                 }
 
-                if($important==="true"){
+                if($importantInfo==="true"||$importantSymp==="true"){
                     echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
                 else{

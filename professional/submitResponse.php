@@ -48,47 +48,17 @@ if($loginOK) {
     }
 }
 
-$amberWarning="";
-$amberPainWarning="";
-$amberBreathWarning="";
-$amberPerformanceWarning="";
-$redWarning="";
-$redPainWarning="";
-$redBreathWarning="";
-$redPerformanceWarning="";
-$pain = $_POST['Pain'];
-$breathlessness = $_POST['Breathlessness'];
-$performance = $_POST['Performance'];
+
+
 $additional = $_POST['Additional'];
-$symptom = $_POST['Symptom'];
-$id = "";
+$resInfo = $_POST['resInfo'];
 $username = $_SESSION["userName"];
-$sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
-$resultID=$conn->query($sql1);
-if($resultID->num_rows>0) {
-    while ($rowname = $resultID->fetch_assoc()) {
-        $id = $rowname["id"];
 
-    }
-}
 
-if($additional!=""){
-    $seenInfo='false';
+if($resInfo!=""){
+    $sql = "UPDATE `supportSubmit` SET `seenInfo`='true',`resInfo`='$resInfo' WHERE `additional`='$additional'";
+    $conn->query($sql);
 }
-else{
-    $seenInfo = '';
-}
-
-if($symptom!=""){
-    $seenSymp='false';
-}
-else{
-    $seenSymp = '';
-}
-
-$sql  = "INSERT INTO `scale` (`id`, `username`, `pain`, `breathlessness`, `performance`, `additionalInfo`,`symptom` ,`timeStamp`, `seenInfo`,`seenSymp`, `resInfo`, `resSymp`) VALUES ('$id', '$username', '$pain', '$breathlessness', '$performance', '$additional','$symptom', CURRENT_TIMESTAMP, '$seenInfo', '$seenSymp','','')";
-
-$conn->query($sql);
 
 
 

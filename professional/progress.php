@@ -568,31 +568,46 @@ if($entriesM!=0) {
                                     while ($rowname = $supportInfo->fetch_assoc()) {
                                         $symptom = $rowname["symptom"];
                                         $additional = $rowname["additional"];
-                                        $seen = $rowname["seen"];
-                                        if ($seen === "false") {
-                                            if ($symptom != "" || $additional != "") {
-                                                $important="true";
+                                        $seenInfo = $rowname["seenInfo"];
+                                        $seenSymp = $rowname["seenSymp"];
+                                        $importantInfo="false";
+                                        $importantSymp="false";
+
+                                        if ($seenInfo === "false") {
+                                            if ($additional != "") {
+                                                $importantInfo="true";
                                             }
                                         }
                                         else{
-                                            $important="false";
+                                            $importantInfo="false";
+                                        }
+                                        if ($seenSymp === "false") {
+                                            if ($symptom != "") {
+                                                $importantSymp="true";
+                                            }
+                                        }
+                                        else{
+                                            $importantSymp="false";
                                         }
                                     }
                                 }
                                 else {
-                                    $important="false";
+                                    $importantInfo="false";
+                                    $importantSymp="false";
                                 }
                             }
                         }
                         else{
-                            $important="false";
+                            $importantInfo="false";
+                            $importantSymp="false";
                         }
-                        if($important==="true"){
+                        if($importantInfo==="true"||$importantSymp==="true"){
                             echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
 
                         }
                         else{
                             echo"<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE</a></li>";
+
                         }
                         ?>
                     </ul>

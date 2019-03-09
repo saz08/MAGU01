@@ -88,26 +88,40 @@ $id = $_GET['id'];
                                     while ($rowname = $supportInfo->fetch_assoc()) {
                                         $symptom = $rowname["symptom"];
                                         $additional = $rowname["additional"];
-                                        $seen = $rowname["seen"];
-                                        if ($seen === "false") {
-                                            if ($symptom != "" || $additional != "") {
-                                                $important="true";
+                                        $seenInfo = $rowname["seenInfo"];
+                                        $seenSymp = $rowname["seenSymp"];
+                                        $importantInfo="false";
+                                        $importantSymp="false";
+
+                                        if ($seenInfo === "false") {
+                                            if ($additional != "") {
+                                                $importantInfo="true";
                                             }
                                         }
                                         else{
-                                            $important="false";
+                                            $importantInfo="false";
+                                        }
+                                        if ($seenSymp === "false") {
+                                            if ($symptom != "") {
+                                                $importantSymp="true";
+                                            }
+                                        }
+                                        else{
+                                            $importantSymp="false";
                                         }
                                     }
                                 }
                                 else {
-                                    $important="false";
+                                    $importantInfo="false";
+                                    $importantSymp="false";
                                 }
                             }
                         }
                         else{
-                            $important="false";
+                            $importantInfo="false";
+                            $importantSymp="false";
                         }
-                        if($important==="true"){
+                        if($importantInfo==="true"||$importantSymp==="true"){
                             echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
 
                         }
@@ -182,39 +196,41 @@ if($patient->num_rows>0){
             if ($result1->num_rows > 0) {
                 while ($rowname = $result1->fetch_assoc()) {
                     $counter++;
+                    $supporter=$rowname["username"];
                     $symptom = $rowname["symptom"];
                     $info = $rowname["additional"];
-                    $seen = $rowname["seen"];
+                    $seenInfo = $rowname["seenInfo"];
+                    $seenSymp = $rowname["seenSymp"];
                     if ($info != "") {
-                        if ($seen == "false") {
-                            echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                        if ($seenInfo == "false") {
+                            echo "<p><b>".$supporter.":</b> ". $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
-                       <input type='text' name='comment' placeholder='Respond to patient...'><br>
+                       <input type='text' name='comment' id='resInfo' placeholder='Respond to patient...'><br>
                        <input type='hidden' name='action' value='filled'>
-                       <input type='hidden' name='divID' value='$info'>
-                       <input type='submit' value='Respond' class='btn'>
+                       <input type='hidden' name='divID' id='info' value='$info'>
+                       <input type='submit' value='Respond' class='btn' onclick='submitInfoResponse()'>
 </form>
 
 <br>
 </div>";
                         } else {
-                            echo "<p>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                            echo "<p><b>".$supporter.":</b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
                         }
                     }
                     if ($symptom != "") {
                         $counter++;
-                        if ($seen == "false") {
-                            echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                        if ($seenSymp == "false") {
+                            echo "<p><b>".$supporter.":</b>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection2'>
-                       <input type='text' name='comment2' placeholder='Respond to patient...'><br>
+                       <input type='text' name='comment2' id='resSymp' placeholder='Respond to patient...'><br>
                        <input type='hidden' name='action2' value='filled'>
-                       <input type='hidden' name='divID2' value='$symptom'>
-                       <input type='submit' value='Respond' class='btn'></form><br></div>";
+                       <input type='hidden' name='divID2' id='symptom' value='$symptom'>
+                       <input type='submit' value='Respond' class='btn' onclick='submitSymptomResponse()'></form><br></div>";
 
                         } else {
-                            echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                            echo "<p><b>".$supporter.":</b>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
                         }
                     }
@@ -228,29 +244,12 @@ if($patient->num_rows>0){
 if($action==="filled"){
     $info = safePOST($conn, "divID");
     $response = (safePost($conn,"comment"));
-        $sql = "UPDATE `supportSubmit` SET `seen`='true',`response`='$response' WHERE `additional`='$info'";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p class='center'>Response has been sent!</p>";
-            ?>
-            <script>
-                window.location.href = "proSupport.php?id=+<?php echo $id ?>";
-            </script>
-            <?php
-        }
+
 }
 
 if($action2==="filled"){
     $symptom = safePOST($conn, "divID2");
     $response = (safePost($conn,"comment2"));
-    $sql2 = "UPDATE `supportSubmit` SET `seen`='true',`response`='$response' WHERE `symptom`='$symptom'";
-    if ($conn->query($sql2) === TRUE) {
-        echo "<p class='center'>Response has been sent!</p>";
-        ?>
-        <script>
-            window.location.href = "proSupport.php?id=+<?php echo $id ?>";
-        </script>
-        <?php
-    }
 }
 
 
@@ -260,6 +259,34 @@ if($action2==="filled"){
 ?>
 <br>
 <script>
+
+    function submitInfoResponse(){
+        var additionalInfo = document.getElementById('info').value;
+        var resInfo = document.getElementById('resInfo').value;
+        console.log("additional info "+ additionalInfo);
+        console.log("additional info response "+ resInfo);
+
+        jQuery.post("submitResponse.php", {"Additional": additionalInfo,"resInfo":resInfo}, function(data){
+            alert("Records successfully saved");
+        }).fail(function()
+        {
+            alert("Your records were not submitted successfully. Please check your internet connection and try again.");
+        });
+    }
+
+    function submitSymptomResponse(){
+        var symptom = document.getElementById('symptom').value;
+        var resSymp = document.getElementById('resSymp').value;
+        console.log("symptom info "+ symptom);
+        console.log("symptom info response "+ resSymp);
+
+        jQuery.post("submitResponse.php", {"Symptom": symptom,"resSymp":resSymp}, function(data){
+            alert("Records successfully saved");
+        }).fail(function()
+        {
+            alert("Your records were not submitted successfully. Please check your internet connection and try again.");
+        });
+    }
 
     function showCommentOption(divID) {
         var x = document.getElementById("content_"+divID);

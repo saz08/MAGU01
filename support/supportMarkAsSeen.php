@@ -33,8 +33,21 @@ function safePOSTNonMySQL($name){
 }
 
 $response = $_POST['Response'];
-$sql  = "UPDATE `supportSubmit` SET `seen`='' WHERE `response`='$response'";
-$conn->query($sql);
+
+$sqlInfo  = "SELECT  `resInfo` FROM `supportSubmit` WHERE `resInfo` = '$response'";
+$resultInfo = $conn->query($sqlInfo);
+if($resultInfo->num_rows>0) {
+    $sql1  = "UPDATE `supportSubmit` SET `seenInfo`='' WHERE `resInfo` = '$response'";
+    $conn->query($sql1);
+}
+
+$sqlSymp = "SELECT  `resSymp` FROM `supportSubmit` WHERE `resSymp` = '$response'";
+$resultSymp = $conn->query($sqlSymp);
+if($resultSymp->num_rows>0) {
+    $sql2  = "UPDATE `supportSubmit` SET `seenSymp`='' WHERE `resSymp` = '$response'";
+    $conn->query($sql2);
+}
+
 
 
 

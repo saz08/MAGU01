@@ -102,22 +102,35 @@ if($loginOK) {
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
                         while ($rowname = $supportInfo->fetch_assoc()) {
-                            $seen = $rowname["seen"];
-                            $responseDoc = $rowname["response"];
-                            $important="false";
-                            if ($seen === "true" && $responseDoc != "") {
-                                $important = "true";
+                            $seenInfo = $rowname["seenInfo"];
+                            $resInfo = $rowname["resInfo"];
+                            $seenSymp = $rowname["seenSymp"];
+                            $resSymp = $rowname["resSymp"];
+                            $importantInfo="false";
+                            $importantSymp="false";
+
+                            if ($seenInfo === "true" && $resInfo != "") {
+                                $importantInfo = "true";
                             }
                             else {
-                                $important = "false";
+                                $importantInfo = "false";
                             }
+                            if ($seenSymp === "true" && $resSymp != "") {
+                                $importantSymp = "true";
+                            }
+                            else {
+                                $importantSymp = "false";
+                            }
+
                         }
                     }
                     else{
-                        $important="false";
+                        $importantInfo="false";
+                        $importantSymp = "false";
+
                     }
 
-                    if($important==="true"){
+                    if($importantInfo==="true"||$importantSymp==="true"){
                         echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                     }
                     else{
@@ -218,14 +231,12 @@ if($loginOK) {
 
     }
 
-    function next(){
-        window.location.href="Performance.php";
-    }
+
 
 </script>
 <div>
     <button class="btn" onclick="goBack()"><b><</b> Back </button>
-    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+    <button class="btn" style="float:right" onclick="submit()"> Next <b> > </b></button>
 </div>
 </body>
 

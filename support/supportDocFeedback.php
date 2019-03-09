@@ -96,22 +96,34 @@ $username = $_SESSION["userName"];
                         $supportInfo = $conn->query($sqlInfo);
                         if ($supportInfo->num_rows > 0) {
                             while ($rowname = $supportInfo->fetch_assoc()) {
-                                $seen = $rowname["seen"];
-                                $responseDoc = $rowname["response"];
-                                $important="false";
-                                if ($seen === "true" && $responseDoc != "") {
-                                    $important = "true";
+                                $seenInfo = $rowname["seenInfo"];
+                                $resInfo = $rowname["resInfo"];
+                                $seenSymp = $rowname["seenSymp"];
+                                $resSymp = $rowname["resSymp"];
+                                $importantInfo="false";
+                                $importantSymp="false";
+
+                                if ($seenInfo === "true" && $resInfo != "") {
+                                    $importantInfo = "true";
                                 }
                                 else {
-                                    $important = "false";
+                                    $importantInfo = "false";
+                                }
+                                if ($seenSymp === "true" && $resSymp != "") {
+                                    $importantSymp = "true";
+                                }
+                                else {
+                                    $importantSymp = "false";
                                 }
                             }
                         }
                         else{
-                            $important="false";
+                            $importantInfo="false";
+                            $importantSymp = "false";
+
                         }
 
-                if($important==="true"){
+                if($importantInfo==="true"||$importantSymp==="true"){
                     echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
                 else{
@@ -137,25 +149,44 @@ $username = $_SESSION["userName"];
 <div class="box">Doctors may respond to any information or symptoms you have logged. They will appear on this page!</div>
 
 <?php
-$sql  = "SELECT * FROM `supportSubmit` WHERE `username`= '$username' AND `seen` = 'true'";
+$sql  = "SELECT * FROM `supportSubmit` WHERE `username`= '$username' AND `seenInfo` = 'true' OR `seenSymp`='true'";
 $result=$conn->query($sql);
 $counter=0;
 if($result->num_rows>0){
     while($rowname=$result->fetch_assoc()){
         $symptom = $rowname["symptom"];
         $additional = $rowname["additional"];
-        $response = $rowname["response"];
+        $resInfo = $rowname["resInfo"];
+        $resSymp = $rowname["resSymp"];
 
-        ?>
-        <br>
-        <div class="box">
-            <p>
-                The doctor has responded to your query: <?php if($symptom==""){echo $additional; }else{ echo $symptom;} ?> <br>
-                Response: <?php echo $response ?>
-                <button class="btn" id="button" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
-            </p>
-        </div>
-        <?php
+        if($additional!="") {
+            ?>
+            <br>
+            <div class="box">
+                <p>
+                    The doctor has responded to your query: <?php echo $additional ?> <br>
+                    Response: <?php echo $resInfo ?>
+                    <button class="btn" id="button" onclick="markAndDelete('<?php echo $resInfo ?>')">Mark as Read and
+                        Delete
+                    </button>
+                </p>
+            </div>
+            <?php
+        }
+        if($symptom!="") {
+            ?>
+            <br>
+            <div class="box">
+                <p>
+                    The doctor has responded to your query: <?php echo $symptom ?> <br>
+                    Response: <?php echo $resSymp ?>
+                    <button class="btn" id="button" onclick="markAndDelete('<?php echo $resSymp ?>')">Mark as Read and
+                        Delete
+                    </button>
+                </p>
+            </div>
+            <?php
+        }
     }
 }
 

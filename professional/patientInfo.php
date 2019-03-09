@@ -124,26 +124,42 @@ if($patient->num_rows>0){
                                     while ($rowname = $supportInfo->fetch_assoc()) {
                                         $symptom = $rowname["symptom"];
                                         $additional = $rowname["additional"];
-                                        $seen = $rowname["seen"];
-                                        if ($seen === "false") {
-                                            if ($symptom != "" || $additional != "") {
-                                                $important="true";
+                                        $seenInfo = $rowname["seenInfo"];
+                                        $resInfo = $rowname["resInfo"];
+                                        $seenSymp = $rowname["seenSymp"];
+                                        $resSymp = $rowname["resSymp"];
+                                        $importantInfo="false";
+                                        $importantSymp="false";
+                                        if ($seenInfo === "false") {
+                                            if ($additional != "") {
+                                                $importantInfo="true";
                                             }
                                         }
                                         else{
-                                            $important="false";
+                                            $importantInfo="false";
+                                        }
+                                        if ($seenSymp === "false") {
+                                            if ($symptom != "") {
+                                                $importantSymp="true";
+                                            }
+                                        }
+                                        else{
+                                            $importantSymp="false";
                                         }
                                     }
                                 }
                                 else {
-                                    $important="false";
+                                    $importantInfo="false";
+                                    $importantSymp="false";
+
                                 }
                             }
                         }
                         else{
-                            $important="false";
+                            $importantInfo="false";
+                            $importantSymp="false";
                         }
-                        if($important==="true"){
+                        if($importantInfo==="true"||$importantSymp==="true"){
                             echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
 
                         }
@@ -243,11 +259,15 @@ echo "</div>";
         while ($rowname = $result->fetch_assoc()) {
             $counter++;
             $info = $rowname["additionalInfo"];
-            $seen = $rowname["seen"];
             $symptom = $rowname["symptom"];
+            $seenInfo = $rowname["seenInfo"];
+            $seenSymp = $rowname["seenSymp"];
+            $date = $rowname["timeStamp"];
+            $date2 = (new DateTime($date))->format('d/m/Y');
+
             if ($info != "") {
-                if ($seen == "false") {
-                    echo "<p>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                if ($seenInfo == "false") {
+                    echo "<p><b>".$date2.": </b>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
@@ -259,15 +279,15 @@ echo "</div>";
 </div>";
 
                 } else {
-                    echo "<p>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                    echo "<p><b>".$date2.": </b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
                 }
 
             }
             if ($symptom != "") {
-                if ($seen == "false") {
+                if ($seenSymp == "false") {
                     $counter++;
-                    echo "<p>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                    echo "<p><b>".$date2.": </b>" . $symptom . "<button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSymptom'>
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
@@ -280,7 +300,7 @@ echo "</div>";
 
                 }
                 else {
-                    echo "<p>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                    echo "<p><b>".$date2.": </b>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
                 }
 
@@ -303,7 +323,8 @@ if($action==="filled"){
             $usernamePatient= $rowname["username"];
         }
     }
-    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
+
+    $sql  = "UPDATE `scale` SET `seenInfo`='true',`resInfo`='$comment' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Response has been sent!</p>";
         ?>
@@ -325,7 +346,7 @@ if($action2==="filled"){
             $usernamePatient= $rowname["username"];
         }
     }
-    $sql  = "UPDATE `scale` SET `seen`='true',`response`='$comment' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
+    $sql  = "UPDATE `scale` SET `seenSymp`='true',`resSymp`='$comment' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Response has been sent!</p>";
         ?>

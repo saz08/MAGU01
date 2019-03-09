@@ -90,22 +90,34 @@ $username = $_SESSION["userName"];
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
                     while ($rowname = $supportInfo->fetch_assoc()) {
-                        $seen = $rowname["seen"];
-                        $responseDoc = $rowname["response"];
-                        $important="false";
-                        if ($seen === "true" && $responseDoc != "") {
-                            $important = "true";
+                        $seenInfo = $rowname["seenInfo"];
+                        $resInfo = $rowname["resInfo"];
+                        $seenSymp = $rowname["seenSymp"];
+                        $resSymp = $rowname["resSymp"];
+                        $importantInfo="false";
+                        $importantSymp="false";
+
+                        if ($seenInfo === "true" && $resInfo != "") {
+                            $importantInfo = "true";
                         }
                         else {
-                            $important = "false";
+                            $importantInfo = "false";
+                        }
+                        if ($seenSymp === "true" && $resSymp != "") {
+                            $importantSymp = "true";
+                        }
+                        else {
+                            $importantSymp = "false";
                         }
                     }
                 }
                 else{
-                    $important="false";
+                    $importantInfo="false";
+                    $importantSymp = "false";
+
                 }
 
-                if($important==="true"){
+                if($importantInfo==="true"||$importantSymp==="true"){
                     echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
                 else{
@@ -130,9 +142,8 @@ $username = $_SESSION["userName"];
 <br>
 <br>
 
-
-<div class="box">Please choose one symptom to enter, you can come back and enter more if you wish. If you don't have anything you'd like to add, please leave blank</div>
-<form name="symptom" method="post" >
+<div class="box">Here is a small list of common symptoms. If you feel your survivor applies to one, please choose one </div>
+<form name="symptom" method="post" class="box-transparent" >
     Symptoms:
     <select id="select" name="select">
         <option></option>
@@ -147,18 +158,16 @@ $username = $_SESSION["userName"];
         <option value="Sickness">Sickness</option>
     </select>
     <input type="hidden" name="action" value="filled">
-    <p><input type="submit" name="submit" id="button" class="btn" value="Submit"></p>
 </form>
-<br>
-<div class="box">Or... you can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank</div>
+<div class="box">You can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank</div>
 
-<form name="additional" method="post">
+<form name="additional" method="post" class="box-transparent" >
     <input type="text" name="additional"  id="additional"/>
     <input type="hidden" name="action2" value="filled">
-    <p><input type="submit" name="submit" id="button" class="btn" value="Submit"></p>
-</form>
-<br>
 
+    </p>
+</form>
+<button class="btn" id="button" onclick="submitSupport()">Submit!</button>
 <?php
 $username = $_SESSION["userName"];
 $sql1 = "SELECT * FROM `supportAcc` WHERE username = '$username'";
@@ -171,34 +180,33 @@ if($result->num_rows>0) {
 
 if($action2==="filled"){
     $info = (safePost($conn,"additional"));
-    $sql2 = "INSERT INTO `supportSubmit`(`username`,`survivor`, `symptom`, `additional`,`seen`,`response`) VALUES ('$username','$survivor', '', '$info','false','')";
-    $conn->query($sql2);
-    ?>
-    <script>
-        alert("Submitted successfully");
-        window.location.href="supportInput.php";
-    </script>
-    <?php
+
 }
-
-
 
 if($action==="filled"){
     $symptoms= (safePost($conn,"select"));
-    $sql  = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`,`seen`,`response`) VALUES ('$username','$survivor', '$symptoms', '','false','')";
-    $conn->query($sql);
-    ?><script>
-        alert("Submitted successfully");
-        window.location.href="supportInput.php";
-    </script>
-<?php
 }
+
+
 
 ?>
 <div class="clear"></div>
 <script>
     function next(){
         window.location.href="supportDocFeedback.php";
+    }
+
+    function submitSupport(){
+        var additionalInfo = document.getElementById('additional').value;
+        var symptom = document.getElementById('select').value;
+        // var additionalInfo = localStorage.getItem("Additional");
+        jQuery.post("infoSubmit.php", {"Additional": additionalInfo,"Symptom": symptom}, function(data){
+            alert("Records successfully saved");
+            window.location.href="supportInput.php";
+        }).fail(function()
+        {
+            alert("Your records were not submitted successfully. Please check your internet connection and try again.");
+        });
     }
 </script>
 </body>

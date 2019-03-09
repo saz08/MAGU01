@@ -48,29 +48,14 @@ if($loginOK) {
     }
 }
 
-$amberWarning="";
-$amberPainWarning="";
-$amberBreathWarning="";
-$amberPerformanceWarning="";
-$redWarning="";
-$redPainWarning="";
-$redBreathWarning="";
-$redPerformanceWarning="";
-$pain = $_POST['Pain'];
-$breathlessness = $_POST['Breathlessness'];
-$performance = $_POST['Performance'];
+
+
 $additional = $_POST['Additional'];
 $symptom = $_POST['Symptom'];
-$id = "";
+$resInfo = $_POST['resInfo'];
+$resSymp = $_POST['resSymp'];
 $username = $_SESSION["userName"];
-$sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
-$resultID=$conn->query($sql1);
-if($resultID->num_rows>0) {
-    while ($rowname = $resultID->fetch_assoc()) {
-        $id = $rowname["id"];
 
-    }
-}
 
 if($additional!=""){
     $seenInfo='false';
@@ -86,9 +71,17 @@ else{
     $seenSymp = '';
 }
 
-$sql  = "INSERT INTO `scale` (`id`, `username`, `pain`, `breathlessness`, `performance`, `additionalInfo`,`symptom` ,`timeStamp`, `seenInfo`,`seenSymp`, `resInfo`, `resSymp`) VALUES ('$id', '$username', '$pain', '$breathlessness', '$performance', '$additional','$symptom', CURRENT_TIMESTAMP, '$seenInfo', '$seenSymp','','')";
+$sqlUser = "SELECT `survivor` FROM `supportAcc` WHERE `username` = '$username'";
+$resultUser=$conn->query($sqlUser);
+if($resultUser->num_rows>0) {
+    while ($rowname = $resultUser->fetch_assoc()) {
+        $survivor = $rowname["survivor"];
 
+    }
+}
+$sql  = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`, `seenInfo`, `seenSymp`, `resInfo`, `resSymp`) VALUES ('$username','$survivor', '$symptom', '$additional','$seenInfo','$seenSymp','','')";
 $conn->query($sql);
+
 
 
 

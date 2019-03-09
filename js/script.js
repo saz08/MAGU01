@@ -101,3 +101,51 @@ function markAndDelete(response){
     });
 }
 
+
+function openNavWeight() {
+    if(screen.width<500){
+        document.getElementById("x").style.width = "80%";
+        document.getElementById("x").style.left = "20%";
+        document.getElementById("stone").style.width = "80%";
+        document.getElementById("stone").style.left = "20%";
+        document.getElementById("mySidebar").style.width = "100%";
+
+    }
+    if(screen.width>500){
+        document.getElementById("mySidebar").style.width = "20%";
+
+    }
+}
+
+function closeNavWeight() {
+    if(screen.width<500){
+        document.getElementById("x").style.left = "0";
+        document.getElementById("x").style.width = "100%";
+        document.getElementById("stone").style.width = "100%";
+        document.getElementById("stone").style.left = "0";
+    }
+    if(screen.width>500) {
+        document.getElementById("x").style.left = "20%";
+        document.getElementById("x").style.width = "50%";
+        document.getElementById("stone").style.width = "50%";
+        document.getElementById("stone").style.left = "20%";
+    }
+    document.getElementById("mySidebar").style.width = "0";
+}
+
+function openNavWChart() {
+    if(screen.width<500){
+
+        document.getElementById("mySidebar").style.width = "100%";
+
+    }
+    if(screen.width>500){
+        document.getElementById("mySidebar").style.width = "50%";
+
+    }
+}
+
+function closeNavWChart() {
+    document.getElementById("mySidebar").style.width = "0";
+}
+

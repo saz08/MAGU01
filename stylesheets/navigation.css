@@ -12,14 +12,10 @@
 
 }
 
-
 .sidenav .closebtn {
     position: absolute;
-    /*top: 0;*/
-    /*right: 25px;*/
     padding: 6px 8px 6px 16px;
     font-size: 2rem;
-    /*margin-left: 50px;*/
 }
 
 .openbtn {
@@ -42,7 +38,6 @@
     color: white;
     display: block;
     transition: 0.3s;
-
 }
 
 
@@ -93,9 +88,78 @@
     color: #064579;
 }
 
-
-
 @media screen and (max-height: 450px) {
     .sideBar {padding-top: 15px;}
     .sideBar a {font-size: 18px;}
 }
+
+.weightNav {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    height: 90%;
+    top: 0;
+    bottom:0;
+    background-color: #DDA8FF;
+    overflow-x: scroll;
+    overflow-y: visible;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.weightNav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 2rem;
+    display: block;
+    color: white;
+    transition: 0.3s;
+}
+
+.weightNav a:hover {
+    color: #f1f1f1;
+}
+
+
+.weightNav .closebtn {
+    position: absolute;
+    /*top: 0;*/
+    /*right: 25px;*/
+    padding: 6px 8px 6px 16px;
+    font-size: 2rem;
+    /*margin-left: 50px;*/
+}
+
+/*.openbtn {*/
+    /*font-size: 20px;*/
+    /*cursor: pointer;*/
+    /*background-color: purple;*/
+    /*color: white;*/
+    /*padding: 10px 15px;*/
+    /*border: none;*/
+/*}*/
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+.closebtn{
+    background-color: purple;
+    color:white;
+}
+
+.closebtn:hover{
+    background-color: mediumpurple;
+}
+
+
+@media screen and (max-height: 450px) {
+    .weightNav {
+        padding-top: 15px;
+        width:10%;
+    }
+    .weightNav a {
+        font-size: 1rem;}
+}
+

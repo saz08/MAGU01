@@ -106,22 +106,35 @@ $loginOK = false; //TODO make this work with database values
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
                     while ($rowname = $supportInfo->fetch_assoc()) {
-                        $seen = $rowname["seen"];
-                        $responseDoc = $rowname["response"];
-                        $important="false";
-                        if ($seen === "true" && $responseDoc != "") {
-                            $important = "true";
+                        $seenInfo = $rowname["seenInfo"];
+                        $resInfo = $rowname["resInfo"];
+                        $seenSymp = $rowname["seenSymp"];
+                        $resSymp = $rowname["resSymp"];
+                        $importantInfo="false";
+                        $importantSymp="false";
+
+                        if ($seenInfo === "true" && $resInfo != "") {
+                            $importantInfo = "true";
                         }
                         else {
-                            $important = "false";
+                            $importantInfo = "false";
                         }
+                        if ($seenSymp === "true" && $resSymp != "") {
+                            $importantSymp = "true";
+                        }
+                        else {
+                            $importantSymp = "false";
+                        }
+
                     }
                 }
                 else{
-                    $important="false";
+                    $importantInfo="false";
+                    $importantSymp = "false";
+
                 }
 
-                if($important==="true"){
+                if($importantInfo==="true"||$importantSymp==="true"){
                     echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
                 else{
@@ -196,29 +209,59 @@ if($resultNew->num_rows<1) {
 
 
 <?php
-$sqlInfo  = "SELECT * FROM `scale` WHERE `username` = '$username' AND `seen` = 'true'";
+$sqlInfo  = "SELECT * FROM `scale` WHERE `username` = '$username' AND `seenInfo` = 'true' OR `seenSymp` = 'true'";
 $resultInfo = $conn->query($sqlInfo);
 if($resultInfo->num_rows>0) {
     while ($rowname = $resultInfo->fetch_assoc()) {
         $info = $rowname["additionalInfo"];
         $symptom = $rowname["symptom"];
-        $seen = $rowname["seen"];
-        $response = $rowname["response"];
+        $seenInfo = $rowname["seenInfo"];
+        $seenSymp = $rowname["seenSymp"];
+        $resInfo = $rowname["resInfo"];
+        $resSymp = $rowname["resSymp"];
 
-?>
-<br>
-        <div class="box">
-            <p>
-                <b>The doctor has responded to your query:</b> <?php if($info!=""){echo $info;} if($symptom!=""){echo $symptom;} ?> <br>
-                <b>Response:</b> <?php echo $response ?>
-                <button class="btn" id="button" onclick="markAndDelete('<?php echo $response?>')">Mark as Read and Delete</button>
-            </p>
-        </div>
-<?php
+        if($info!="") {
+            if ($seenInfo != "") {
+                ?>
+                <br>
+                <div class="box">
+                    <p>
+                        <b>The doctor has responded to your additional info:</b> <?php echo $info; ?> <br>
+                        <b>Response:</b> <?php
+                        echo $resInfo; ?>
+                        <button class="btn" id="button" onclick="markAndDelete('<?php echo $resInfo ?>')">Mark as Read
+                            and
+                            Delete
+                        </button>
+                    </p>
+                </div>
+
+
+                <?php
+            }
+        }
+        if($symptom!="") {
+            if($seenSymp!="") {
+                ?>
+                <br>
+                <div class="box">
+                    <p>
+                        <b>The doctor has responded to your symptom:</b> <?php echo $symptom; ?> <br>
+                        <b>Response:</b> <?php
+                        echo $resSymp; ?>
+                        <button class="btn" id="button" onclick="markAndDelete('<?php echo $resSymp ?>')">Mark as Read
+                            and
+                            Delete
+                        </button>
+                    </p>
+                </div>
+
+
+                <?php
+            }
+        }
     }
 }
-
-
 
 
 

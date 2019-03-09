@@ -315,6 +315,7 @@ if($entriesM!=0) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
 
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
@@ -553,6 +554,27 @@ if($entriesM!=0) {
 
 
     </script>
+    <script>
+        function openNav() {
+            if(screen.width<500){
+                document.getElementById("mySidebar").style.width = "90%";
+            }
+            if(screen.width>500){
+                document.getElementById("mySidebar").style.width = "30%";
+
+            }
+        }
+
+        function closeNav() {
+            if(screen.width<500){
+                document.getElementById("mySidebar").style.width = "0";
+
+            }
+            if(screen.width>500) {
+                document.getElementById("mySidebar").style.width = "0";
+            }
+        }
+    </script>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -574,22 +596,34 @@ if($entriesM!=0) {
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
                     while ($rowname = $supportInfo->fetch_assoc()) {
-                        $seen = $rowname["seen"];
-                        $responseDoc = $rowname["response"];
-                        $important="false";
-                        if ($seen === "true" && $responseDoc != "") {
-                            $important = "true";
+                        $seenInfo = $rowname["seenInfo"];
+                        $resInfo = $rowname["resInfo"];
+                        $seenSymp = $rowname["seenSymp"];
+                        $resSymp = $rowname["resSymp"];
+                        $importantInfo="false";
+                        $importantSymp="false";
+
+                        if ($seenInfo === "true" && $resInfo != "") {
+                            $importantInfo = "true";
                         }
                         else {
-                            $important = "false";
+                            $importantInfo = "false";
+                        }
+                        if ($seenSymp === "true" && $resSymp != "") {
+                            $importantSymp = "true";
+                        }
+                        else {
+                            $importantSymp = "false";
                         }
                     }
                 }
                 else{
-                    $important="false";
+                    $importantInfo="false";
+                    $importantSymp = "false";
+
                 }
 
-                if($important==="true"){
+                if($importantInfo==="true"||$importantSymp==="true"){
                     echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
                 else{
@@ -620,6 +654,17 @@ if($entriesM!=0) {
     <h1><?php echo  $survivor?>'s Records from the Beginning</h1>
 </div>
 <br>
+
+<div class="sideBar" id="mySidebar">
+    <a class="closebtn" onclick="closeNav()" >  <</a>
+    <div class="circleKey" style="background-color:#008D00 ;"></div>
+    <p >Pain below 4. Breathlessness and Performance below 2</p>
+    <div class="circleKey" style="background-color:#E8AE00;"></div>
+    <p >Pain between 4 and 7. Breathlessness between 2 and 4 and Performance of 2</p>
+    <div class="circleKey" style="background-color:#FF0000 ;"></div>
+    <p >Pain greater than 7. Breathlessness greater than 4 and Performance greater than 3</p>
+
+</div>
 <div class="box">
     <form method="get" class="radiostyle">
         <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
@@ -634,6 +679,8 @@ if($entriesM!=0) {
         </label>
     </form>
 </div>
+<button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
+
 <?php
 if($entries!=0) {
 

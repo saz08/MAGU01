@@ -69,6 +69,9 @@ $loginOK = false; //TODO make this work with database values
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+
+
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
@@ -116,8 +119,6 @@ $loginOK = false; //TODO make this work with database values
             chart.render();
         }
     </script>
-
-
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -136,22 +137,35 @@ $loginOK = false; //TODO make this work with database values
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
                         while ($rowname = $supportInfo->fetch_assoc()) {
-                            $seen = $rowname["seen"];
-                            $responseDoc = $rowname["response"];
-                            $important="false";
-                            if ($seen === "true" && $responseDoc != "") {
-                                $important = "true";
+                            $seenInfo = $rowname["seenInfo"];
+                            $resInfo = $rowname["resInfo"];
+                            $seenSymp = $rowname["seenSymp"];
+                            $resSymp = $rowname["resSymp"];
+                            $importantInfo="false";
+                            $importantSymp="false";
+
+                            if ($seenInfo === "true" && $resInfo != "") {
+                                $importantInfo = "true";
                             }
                             else {
-                                $important = "false";
+                                $importantInfo = "false";
                             }
+                            if ($seenSymp === "true" && $resSymp != "") {
+                                $importantSymp = "true";
+                            }
+                            else {
+                                $importantSymp = "false";
+                            }
+
                         }
                     }
                     else{
-                        $important="false";
+                        $importantInfo="false";
+                        $importantSymp = "false";
+
                     }
 
-                    if($important==="true"){
+                    if($importantInfo==="true"||$importantSymp==="true"){
                         echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                     }
                     else{
@@ -198,6 +212,8 @@ $loginOK = false; //TODO make this work with database values
 <div class="jumbotron text-center">
     <h1>My Weight Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+<button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
+
 <button class="btn" id="button" onclick="window.location.href='weight.php'">Make an entry</button>
 
 <?php
@@ -211,47 +227,55 @@ else{
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <?php }?>
 
-<div>
-<?php
-$sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
-$result= $conn->query($sql);
-if($result->num_rows>0) {
-    echo"<table id='table-weight'>
+
+<div class="weightNav" id="mySidebar">
+    <br>
+    <a class="closebtn" onclick="closeNavWChart()"  > <b>< CLOSE</b> </a>
+    <br>
+    <br>
+    <br>
+    <?php
+    $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
+    $result= $conn->query($sql);
+    if($result->num_rows>0) {
+        echo"<table id='table-weight'>
         <tr>
         <th>Date Entered</th>
         <th>Weight (lbs)</th>
         <th>Approximate Stones</th>
 
 </tr>";
-    while ($rowname = $result->fetch_assoc()) {
-        $y = $rowname["lbs"];
-        $timestamp = $rowname["timeStamp"];
-        $date2 = (new DateTime($timestamp))->format('d m Y');
-        $stones = round($y*0.071429,1,PHP_ROUND_HALF_UP);
-       echo"<tr>
+        while ($rowname = $result->fetch_assoc()) {
+            $y = $rowname["lbs"];
+            $timestamp = $rowname["timeStamp"];
+            $date2 = (new DateTime($timestamp))->format('d m Y');
+            $stones = round($y*0.071429,1,PHP_ROUND_HALF_UP);
+            echo"<tr>
         <td>".$date2."</td>
         <td>".$y."</td>
         <td>".$stones."</td>";
 
 
+        }
+        echo"</table>";
     }
-}
 
-?>
+    ?>
+    <br>
 </div>
+<div class="clear"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
     function next(){
         window.location.href="physicalChart.php";
     }
-
-
 </script>
 <br>
 </body>
-
+<footer>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
+</footer>
 </html>

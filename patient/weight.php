@@ -77,104 +77,10 @@ if($loginOK) {
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
-
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
-
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
-    <style>
-        .weightNav {
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            height: 90%;
-            top: 0;
-            bottom:0;
-            background-color: #DDA8FF;
-            overflow-x: scroll;
-            overflow-y: visible;
-            padding-top: 60px;
-            transition: 0.5s;
-        }
-
-        .weightNav a {
-            padding: 6px 8px 6px 16px;
-            text-decoration: none;
-            font-size: 2rem;
-            display: block;
-            color: white;
-            transition: 0.3s;
-        }
-
-        .weightNav a:hover {
-            color: #f1f1f1;
-        }
-
-
-        .weightNav .closebtn {
-            position: absolute;
-            /*top: 0;*/
-            /*right: 25px;*/
-            padding: 6px 8px 6px 16px;
-            font-size: 2rem;
-            /*margin-left: 50px;*/
-        }
-
-        .openbtn {
-            font-size: 20px;
-            cursor: pointer;
-            background-color: purple;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-        }
-
-        .openbtn:hover {
-            background-color: #444;
-        }
-
-
-        @media screen and (max-height: 450px) {
-            .weightNav {
-                padding-top: 15px;
-                width:10%;
-            }
-            .weightNav a {
-                font-size: 1rem;}
-        }
-    </style>
-<script>
-    function openNav() {
-        if(screen.width<500){
-            document.getElementById("x").style.width = "80%";
-            document.getElementById("x").style.left = "20%";
-            document.getElementById("stone").style.width = "80%";
-            document.getElementById("stone").style.left = "20%";
-            document.getElementById("mySidebar").style.width = "100%";
-
-        }
-        if(screen.width>500){
-            document.getElementById("mySidebar").style.width = "20%";
-
-        }
-    }
-
-    function closeNav() {
-        if(screen.width<500){
-            document.getElementById("x").style.left = "0";
-            document.getElementById("x").style.width = "100%";
-            document.getElementById("stone").style.width = "100%";
-            document.getElementById("stone").style.left = "0";
-        }
-        if(screen.width>500) {
-            document.getElementById("x").style.left = "20%";
-            document.getElementById("x").style.width = "50%";
-            document.getElementById("stone").style.width = "50%";
-            document.getElementById("stone").style.left = "20%";
-        }
-        document.getElementById("mySidebar").style.width = "0";
-    }</script>
     <meta charset="UTF-8">
     <title>Monitor Weight</title>
 
@@ -196,22 +102,35 @@ if($loginOK) {
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
                         while ($rowname = $supportInfo->fetch_assoc()) {
-                            $seen = $rowname["seen"];
-                            $responseDoc = $rowname["response"];
-                            $important="false";
-                            if ($seen === "true" && $responseDoc != "") {
-                                $important = "true";
+                            $seenInfo = $rowname["seenInfo"];
+                            $resInfo = $rowname["resInfo"];
+                            $seenSymp = $rowname["seenSymp"];
+                            $resSymp = $rowname["resSymp"];
+                            $importantInfo="false";
+                            $importantSymp="false";
+
+                            if ($seenInfo === "true" && $resInfo != "") {
+                                $importantInfo = "true";
                             }
                             else {
-                                $important = "false";
+                                $importantInfo = "false";
                             }
+                            if ($seenSymp === "true" && $resSymp != "") {
+                                $importantSymp = "true";
+                            }
+                            else {
+                                $importantSymp = "false";
+                            }
+
                         }
                     }
                     else{
-                        $important="false";
+                        $importantInfo="false";
+                        $importantSymp = "false";
+
                     }
 
-                    if($important==="true"){
+                    if($importantInfo==="true"||$importantSymp==="true"){
                         echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                     }
                     else{
@@ -256,7 +175,7 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1 style="left:10%;width:80%;text-align: center">Monitor your weight <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<button class="openbtn" onclick="openNav()">Stones->Lbs</button>
+<button class="openbtn" onclick="openNavWeight()">Stones->Lbs</button>
 
 
 <div class="box" id="x"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
@@ -279,7 +198,7 @@ if($loginOK) {
 
 <div class="weightNav" id="mySidebar">
     <br>
-    <a class="closebtn" onclick="closeNav()" style="color: white;background-color: mediumpurple" >  <</a>
+    <a class="closebtn" onclick="closeNavWeight()" style="color: white;background-color: mediumpurple" >  <</a>
     <br>
         <table id="table">
             <tr>
@@ -351,38 +270,6 @@ if($action === "filled") {
 
 
 <script>
-
-
-
-
-
-
-//    function submitKG(){
-//        var y = document.getElementById("kilogram");
-//        if (y.style.display === "none") {
-//            y.style.display = "block";
-//            x.style.display="none";
-//        } else {
-//            y.style.display = "block";
-//        }
-//
-//    }
-
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
-    }
-
     function next(){
         window.location.href="physical.php";
     }
