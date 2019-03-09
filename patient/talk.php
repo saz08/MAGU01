@@ -176,7 +176,7 @@ $loginOK = false; //TODO make this work with database values
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Submit" class="btn" id="button">
 </form><br>
-<input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchForum()" placeholder="Search for a post" title="Start typing">
+<input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchForum()" placeholder="Search for a post or comment" title="Start typing">
 <br>
 
 <?php
@@ -189,7 +189,9 @@ if($result->num_rows>0){
         $usernameDB= $rowname["username"];
         $post = $rowname["post"];
 
-        echo"<br><div class='forum' id='forumPost'><br><br><p>".$usernameDB." :".$post." </p></div>";
+        echo "<div id='$posDB'>";
+
+        echo"<br><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post." </p></div>";
 
         $sql2  = "SELECT * FROM `comments`";
         $result2 = $conn->query($sql2);
@@ -199,7 +201,7 @@ if($result->num_rows>0){
                 $usernameC = $rowname["username"];
                 $comment = $rowname["patientComment"];
                 if($posID==$posDB) {
-                    echo "<div class='comment'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div><br>";
+                    echo "<div class='comment' id='comment_".$posID."'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div><br>";
                     if($username===$usernameC){
                         $comment = $rowname["patientComment"]; ?>
                         <button class="btn" id="buttonDelComment" style="float:right" onclick="deleteComment('<?php echo $comment ?>')">Delete Your Comment</button><br>
@@ -230,6 +232,7 @@ if($result->num_rows>0){
 
         $divID++;
 
+        echo "</div>";
     }
 }
 ?>
@@ -276,39 +279,27 @@ if($action2==="filled"){
         var input = document.getElementById("myInput");
         var filter = input.value.toLowerCase();
         var forumPost = document.getElementsByClassName('forum');
-        var btn = document.getElementsByClassName('btn');
         var comments = document.getElementsByClassName("comment");
-        var buttonDelPost = document.getElementById("buttonDelPost");
-        var addBtn = document.getElementById("buttonAdd");
-        var buttonDelComment = document.getElementById("buttonDelComment");
-        buttonDelPost.style.display="none";
-        addBtn.style.display="none";
-        buttonDelComment.style.display="none";
 
+        for (var x = 0; x < forumPost.length; x++) {
+            var allPosts = forumPost[x].id.substr(10);
+            document.getElementById(allPosts).style.display = "none";
+        }
 
-            for (var i = 0; i < forumPost.length; i++) {
-                for(var x=0;x<comments.length; x++){
-                if (forumPost[i].innerText.toLowerCase().includes(filter)) {
-                    forumPost[i].style.display = "block";
-
-                }
-                else {
-                    forumPost[i].style.display = "none";
-                    btn[i].style.display = "none";
-//                    comments[i].style.display="none";
-                    buttonDelComment[i].style.display = "none";
-                    addBtn[i].style.display = "none";
-                    buttonDelPost.style.display = "none";
-                }
-                    if(comments[x].innerText.toLowerCase().includes(filter)){
-                        comments[i].style.display="block";
-                        buttonDelPost.style.display="block";
-                        addBtn.style.display="block";
-                        buttonDelComment.style.display="block";
-                    }
-                }
+        for (var y = 0; y < forumPost.length; y++) {
+            var showPost = forumPost[y].id.substr(10);
+            if (forumPost[y].innerText.toLowerCase().includes(filter)) {
+                document.getElementById(showPost).style.display = "block";
             }
+        }
+        for(var z = 0; z < comments.length; z++) {
+            var showComment = comments[z].id.substr(8);
+            if(comments[z].innerText.toLowerCase().includes(filter)){
+                document.getElementById(showComment).style.display = "block";
+            }
+        }
     }
+
 </script>
 <br>
 <div class="footer">
