@@ -176,7 +176,9 @@ $loginOK = false; //TODO make this work with database values
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Submit" class="btn" id="button">
 </form><br>
-<input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchForum()" placeholder="Search for a post or comment" title="Start typing">
+<div id="keyword" style="text-align:center">
+<input type="text"   id="myInput" onkeyup="searchForum()" placeholder="Search for a post or comment" title="Start typing">
+</div>
 <br>
 
 <?php
