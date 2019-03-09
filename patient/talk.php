@@ -201,17 +201,13 @@ if($result->num_rows>0){
                 if($posID==$posDB) {
                     echo "<div class='comment'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div><br>";
                     if($username===$usernameC){
-                        $comment = $rowname["patientComment"];
-?><button class="btn" id="buttonDelComment" style="float:right" onclick="deleteComment('<?php echo $comment ?>')">Delete Your Comment</button><br>
+                        $comment = $rowname["patientComment"]; ?>
+                        <button class="btn" id="buttonDelComment" style="float:right" onclick="deleteComment('<?php echo $comment ?>')">Delete Your Comment</button><br>
                         <?php
-
                     }
                 }
-
             }
         }
-
-
         ?>
 
         <button class="btn" id="buttonAdd" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show" style="float:right">Add a comment</button>
@@ -277,10 +273,10 @@ if($action2==="filled"){
 <script>
 
     function searchForum() {
-            var input = document.getElementById("myInput");
-            var filter = input.value.toLowerCase();
-            var nodes = document.getElementsByClassName('forum');
-             var btn = document.getElementsByClassName('btn');
+        var input = document.getElementById("myInput");
+        var filter = input.value.toLowerCase();
+        var forumPost = document.getElementsByClassName('forum');
+        var btn = document.getElementsByClassName('btn');
         var comments = document.getElementsByClassName("comment");
         var buttonDelPost = document.getElementById("buttonDelPost");
         var addBtn = document.getElementById("buttonAdd");
@@ -290,34 +286,28 @@ if($action2==="filled"){
         buttonDelComment.style.display="none";
 
 
+            for (var i = 0; i < forumPost.length; i++) {
+                for(var x=0;x<comments.length; x++){
+                if (forumPost[i].innerText.toLowerCase().includes(filter)) {
+                    forumPost[i].style.display = "block";
 
-
-            for (i = 0; i < nodes.length; i++) {
-                for(x=0;x<comments.length; x++){
-                if (nodes[i].innerText.toLowerCase().includes(filter)) {
-                    nodes[i].style.display = "block";
+                }
+                else {
+                    forumPost[i].style.display = "none";
+                    btn[i].style.display = "none";
+//                    comments[i].style.display="none";
+                    buttonDelComment[i].style.display = "none";
+                    addBtn[i].style.display = "none";
+                    buttonDelPost.style.display = "none";
+                }
                     if(comments[x].innerText.toLowerCase().includes(filter)){
                         comments[i].style.display="block";
                         buttonDelPost.style.display="block";
                         addBtn.style.display="block";
                         buttonDelComment.style.display="block";
                     }
-
-                } else {
-                    nodes[i].style.display = "none";
-                    btn[i].style.display = "none";
-//                    comments[i].style.display="none";
-                    buttonDelComment[i].style.display = "none";
-                    addBtn[i].style.display = "none";
-                    buttonDelPost.style.display = "none";
-
-                }
                 }
             }
-
-
-
-
     }
 </script>
 <br>

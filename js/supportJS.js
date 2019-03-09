@@ -1,5 +1,6 @@
 if(localStorage.getItem("loginOKSupport")===null){
     localStorage.setItem("loginOKSupport", "no");
+    window.location.href="supportSignUp.php";
 }
 
 if(localStorage.getItem("loginOKSupport")==="no"){
@@ -23,5 +24,15 @@ function markAndDelete(response){
     {
         alert("something broke in submitting your records");
     });
+}
+
+function openHelp(){
+    var help =document.getElementById("help");
+    if(help.style.display==="none"){
+        help.style.display="block";
+    }
+    else{
+        help.style.display="none";
+    }
 }
 

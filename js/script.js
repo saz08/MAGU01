@@ -1,5 +1,6 @@
 if(localStorage.getItem("loginOK")===null){
     localStorage.setItem("loginOK", "no");
+    window.location.href="signUp.php";
 }
 
 if(localStorage.getItem("loginOK")==="no"){

@@ -24,8 +24,6 @@ $pass = "fadooCha4buh";
 $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
-$action2 = safePOST($conn, "action2");
-
 
 $month = date("m");
 $year = date("Y");
@@ -45,7 +43,11 @@ if($_SESSION['userName']==null){
     $_SESSION['userName'] = "unknownUser";
     ?> <script>
         localStorage.setItem('username', "unknownUser");
+        localStorage.setItem('loginOKSupport', "no");
+
+        window.location.href="supportSignUp.php"
     </script><?php
+
 }
 
 $username = $_SESSION["userName"];
@@ -58,23 +60,21 @@ $username = $_SESSION["userName"];
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-
+    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-    <script src="../js/forAll.js"></script>
-    <script src="../js/supportJS.js"></script>
-
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
 
+    <script src="../js/forAll.js"></script>
+    <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Information</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -130,8 +130,14 @@ $username = $_SESSION["userName"];
                     echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
                 }
                 ?>
-                <li><a href="supportHelp.php">HELP</a></li>
-
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="help">
+                        <li><a href="healthInfo.php">INFO</a></li>
+                        <li><a href="financialInfo.php">FINANCIAL</a></li>
+                        <li><a href="emotionalInfo.php">EMOTIONAL</a></li>
+                        <li><a href="physicalInfo.php">PHYSICAL</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>
@@ -141,83 +147,52 @@ $username = $_SESSION["userName"];
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>PHYSICAL INFORMATION <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
-<button class="collapsible">What Happens After Surgery?</button>
+<button class="collapsible">What can I do?</button>
 <div class="content">
-    <div id="problems"></div>
+    <div id="physical"></div>
 </div>
-<button class="collapsible">Recovering After Surgery</button>
+<button class="collapsible">Suggested Activities</button>
 <div class="content">
-    <div id="recovery"></div>
+    <div id="activity"></div>
 </div>
-<button class="collapsible" onclick="window.location.href='supportGlossary.php'">Complicated Terms</button>
-
-<button class="collapsible">Helping your Survivor</button>
+<button class="collapsible">Classes</button>
 <div class="content">
-    <div id="caring"></div>
-</div>
-<button class="collapsible">Support for You</button>
-<div class="content">
-    <div id="support"></div>
-    <div id="groups"></div>
+    <div id="classes"></div>
 </div>
 
-
-
-<br>
 
 
 
 <script>
-    var xhr= new XMLHttpRequest();
-    xhr.open('GET', '../html/problemsCR.html', true);
-    xhr.onreadystatechange= function() {
+    var cls= new XMLHttpRequest();
+    cls.open('GET', '../html/classes.html', true);
+    cls.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('problems').innerHTML= this.responseText;
+        document.getElementById('classes').innerHTML= this.responseText;
     };
-    xhr.send();
+    cls.send();
 
-
-
-    var spt= new XMLHttpRequest();
-    spt.open('GET', '../html/forYou.html', true);
-    spt.onreadystatechange= function() {
+    var phy= new XMLHttpRequest();
+    phy.open('GET', '../html/physical.html', true);
+    phy.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('support').innerHTML= this.responseText;
+        document.getElementById('physical').innerHTML= this.responseText;
     };
-    spt.send();
+    phy.send();
 
-    var grp= new XMLHttpRequest();
-    grp.open('GET', '../html/support.html', true);
-    grp.onreadystatechange= function() {
+    var act= new XMLHttpRequest();
+    act.open('GET', '../html/activities.html', true);
+    act.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('groups').innerHTML= this.responseText;
+        document.getElementById('activity').innerHTML= this.responseText;
     };
-    grp.send();
-
-    var car= new XMLHttpRequest();
-    car.open('GET', '../html/caring.html', true);
-    car.onreadystatechange= function() {
-        if (this.readyState!==4) return;
-        if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('caring').innerHTML= this.responseText;
-    };
-    car.send();
-
-
-    var rec= new XMLHttpRequest();
-    rec.open('GET', '../html/recovery.html', true);
-    rec.onreadystatechange= function() {
-        if (this.readyState!==4) return;
-        if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('recovery').innerHTML= this.responseText;
-    };
-    rec.send();
+    act.send();
 
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -233,13 +208,17 @@ $username = $_SESSION["userName"];
             }
         });
     }
+
+    function next(){
+        window.location.href="helpFinancial.php";
+    }
 </script>
+<div class="footer">
+    <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
+    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+</div>
 </body>
 <div class="clear"></div>
 
-<footer>
-    <div class="footer">
-        <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
-    </div>
-  </footer>
+
 </html>

@@ -1,5 +1,6 @@
 if(localStorage.getItem("loginOKDoc")===null){
     localStorage.setItem("loginOKDoc", "no");
+    window.location.href="docSignUp.php";
 }
 
 if(localStorage.getItem("loginOKDoc")==="no"){
@@ -10,4 +11,19 @@ if(localStorage.getItem("loginOKDoc")==="no"){
 if(localStorage.getItem("username")==="unknownUser"){
     alert("You must be logged in to continue");
     window.location.href="docSignUp.php"
+}
+function openNavWChart() {
+    if(screen.width<500){
+
+        document.getElementById("mySidebar").style.width = "100%";
+
+    }
+    if(screen.width>500){
+        document.getElementById("mySidebar").style.width = "50%";
+
+    }
+}
+
+function closeNavWChart() {
+    document.getElementById("mySidebar").style.width = "0";
 }

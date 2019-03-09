@@ -342,7 +342,7 @@ if($entriesM!=0) {
                     text: "Pain",
                     fontFamily: "Montserrat, sans-serif",
 
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -378,7 +378,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Breathlessness",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -415,7 +415,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Performance",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -453,7 +453,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Pain",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -491,7 +491,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Breathlessness",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -527,7 +527,7 @@ if($entriesM!=0) {
                     fontFamily: "Montserrat, sans-serif",
 
                     text: "Performance",
-                    horizontalAlign: "left"
+                    horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
@@ -630,8 +630,14 @@ if($entriesM!=0) {
                     echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
                 }
                 ?>
-                <li><a href="supportHelp.php">HELP</a></li>
-
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="help">
+                        <li><a href="healthInfo.php">INFO</a></li>
+                        <li><a href="helpFinancial.php">FINANCIAL</a></li>
+                        <li><a href="helpEmotional.php">EMOTIONAL</a></li>
+                        <li><a href="helpPhysical.php">PHYSICAL</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>

@@ -196,8 +196,6 @@ if($loginOK) {
 <button class="collapsible">Getting Back to Work</button>
 <div class="content">
     <div id="return"></div>
-
-
 </div>
 <div class="clear"></div>
 
