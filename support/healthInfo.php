@@ -74,7 +74,7 @@ $username = $_SESSION["userName"];
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
-    <title>Information</title>
+    <title>Health Information</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -237,7 +237,7 @@ $username = $_SESSION["userName"];
     }
 
     function next(){
-        window.location.href="helpFinancial.php";
+        window.location.href="financialInfo.php";
     }
 </script>
 <div class="footer">

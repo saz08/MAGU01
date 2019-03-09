@@ -69,7 +69,7 @@ $username = $_SESSION["userName"];
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
-    <title>Supporter</title>
+    <title>Record Info</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -124,8 +124,14 @@ $username = $_SESSION["userName"];
                     echo"<li><a href='supportDocFeedback.php'>FEEDBACK</a></li>";
                 }
                 ?>
-                <li><a href="supportHelp.php">HELP</a></li>
-
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="help">
+                        <li><a href="healthInfo.php">INFO</a></li>
+                        <li><a href="financialInfo.php">FINANCIAL</a></li>
+                        <li><a href="emotionalInfo.php">EMOTIONAL</a></li>
+                        <li><a href="physicalInfo.php">PHYSICAL</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>

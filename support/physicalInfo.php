@@ -74,7 +74,7 @@ $username = $_SESSION["userName"];
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
-    <title>Information</title>
+    <title>Physical Info</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -209,13 +209,10 @@ $username = $_SESSION["userName"];
         });
     }
 
-    function next(){
-        window.location.href="helpFinancial.php";
-    }
+
 </script>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
-    <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
 </body>
 <div class="clear"></div>

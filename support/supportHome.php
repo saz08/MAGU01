@@ -321,7 +321,7 @@ if($entriesM!=0) {
     <script src="../js/supportJS.js"></script>
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Home</title>
     <script>
 
         window.onload = function() {
@@ -633,9 +633,9 @@ if($entriesM!=0) {
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                     <ul class="dropdown-menu" id="help">
                         <li><a href="healthInfo.php">INFO</a></li>
-                        <li><a href="helpFinancial.php">FINANCIAL</a></li>
-                        <li><a href="helpEmotional.php">EMOTIONAL</a></li>
-                        <li><a href="helpPhysical.php">PHYSICAL</a></li>
+                        <li><a href="financialInfo.php">FINANCIAL</a></li>
+                        <li><a href="emotionalInfo.php">EMOTIONAL</a></li>
+                        <li><a href="physicalInfo.php">PHYSICAL</a></li>
                     </ul>
                 </li>
             </ul>
@@ -648,16 +648,11 @@ if($entriesM!=0) {
 
 
 
-
-
-
-
-
 <div class="jumbotron text-center" id="jumbo1">
-    <h1><?php echo  $survivor?>'s Records Over the Past Month</h1>
+    <h1><?php echo  $survivor?>'s Records Over the Past Month<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
-    <h1><?php echo  $survivor?>'s Records from the Beginning</h1>
+    <h1><?php echo  $survivor?>'s Records from the Beginning<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
 
