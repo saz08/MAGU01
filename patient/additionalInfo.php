@@ -87,6 +87,48 @@ if($loginOK) {
 
     <meta charset="UTF-8">
     <title>Add Info</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -206,6 +248,8 @@ if($loginOK) {
     </form>
 
 
+
+
 <?php
 if($action==="filled"){
     $info = (safePost($conn,"additional"));
@@ -219,16 +263,52 @@ if($action2==="filled"){
 
 
 ?>
+<div id="savedModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('savedModal').style.display='none'; window.location.href='index.php';">&times;</span>
+        <p>Records have been successfully saved</p>
+    </div>
+</div>
 
+<div id="notSavedModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotSave" onclick="document.getElementById('notSavedModal').style.display='none';">&times;</span>
+        <p>Your records were not submitted successfully. Please check your internet connection and try again.</p>
+    </div>
+</div>
+
+<div id="docNotify" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('docNotify').style.display='none';">&times;</span>
+        <p>Your doctor has been notified</p>
+    </div>
+</div>
+
+<div id="notNotify" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotNotify" onclick="document.getElementById('notNotify').style.display='none';">&times;</span>
+        <p>Survivors was unsuccessfully in notifying your doctor. Please check your internet connection and try again. If you feel your symptoms are serious please contact your doctor immediately.</p>
+    </div>
+</div>
+
+<div id="submitCheck" class="modal">
+    <div class="modal-content">
+        <p>Survivors will now save your records and send to your doctor. Are you sure you want to submit?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="submitRecord();document.getElementById('submitCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('submitCheck').style.display='none';">No</button>
+
+    </div>
+</div>
 
 <script>
 
-    function submit(){
-        var info = document.getElementById('additional').value;
+    // Get the modal
+    var savedModal = document.getElementById('savedModal');
+    var notSavedModal = document.getElementById('notSavedModal');
+    var docNotify = document.getElementById('docNotify');
+    var notNotify = document.getElementById('notNotify');
 
-       // localStorage.setItem("Additional", info);
-        submitRecord();
-    }
+
     function submitRecord(){
         var pain = localStorage.getItem("Pain");
         var breathlessness= localStorage.getItem("Breathlessness");
@@ -237,31 +317,51 @@ if($action2==="filled"){
         var symptom = document.getElementById('select').value;
        // var additionalInfo = localStorage.getItem("Additional");
         jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance,"Additional": additionalInfo,"Symptom": symptom}, function(data){
-            alert("Records successfully saved");
+            savedModal.style.display="block";
+
         }).fail(function()
         {
-            alert("Your records were not submitted successfully. Please check your internet connection and try again.");
+            notSavedModal.style.display="block";
         });
         var painTxt = localStorage.getItem("Pain");
         var breathlessnessTxt= localStorage.getItem("Breathlessness");
         var performanceTxt = localStorage.getItem("Performance");
         jQuery.post("textMsg.php", {"Pain": painTxt, "Breathlessness": breathlessnessTxt, "Performance": performanceTxt}, function(data){
-            alert("Doctor notified of how you feel");
-            window.location.href="index.php";
+            docNotify.style.display="block";
+
         }).fail(function()
         {
-            alert("something broke in emailing your doctor");
+            notNotify.style.display="block";
+
         });
 
     }
 
-    function outputUpdate(num) {
-        document.querySelector('#output').value = num;
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === savedModal) {
+            savedModal.style.display = "none";
+        }
+        if (event.target === notSavedModal) {
+            notSavedModal.style.display = "none";
+        }
+        if (event.target === docNotify) {
+            docNotify.style.display = "none";
+        }
+        if (event.target === notNotify) {
+            notNotify.style.display = "none";
+        }
+    }
+
+    function submitCheck(){
+        var check = document.getElementById("submitCheck");
+        check.style.display="block";
     }
 </script>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
-    <button class="btn" style="float:right" onclick="submitRecord()"> Next <b> > </b></button>
+        <button class="btn" style="float:right" onclick="submitCheck()"> Submit <b> > </b></button>
 </div>
 </body>
 
