@@ -39,15 +39,8 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
 
-$username = $_SESSION["userName"];
+
 $loginOK = false; //TODO make this work with database values
 
 if($loginOK) {
@@ -99,6 +92,8 @@ if($loginOK) {
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    $username = $_SESSION["userName"];
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {

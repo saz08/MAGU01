@@ -38,15 +38,8 @@ $user = safePOSTNonMySQL("username");
 $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-$_SESSION['userName'] = "unknownUser";
-?> <script>
-    localStorage.setItem('username', "unknownUser");
-    localStorage.setItem('loginOK', "no");
-</script><?php
-}
 
-$username = $_SESSION["userName"];
+
 ?>
 
 <!DOCTYPE html>
@@ -69,9 +62,12 @@ $username = $_SESSION["userName"];
     <script src="../js/forAll.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <meta charset="UTF-8">
     <title>Support Circle</title>
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -86,6 +82,8 @@ $username = $_SESSION["userName"];
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    $username = $_SESSION["userName"];
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -179,7 +177,12 @@ $username = $_SESSION["userName"];
 
 </div>
 
-
+<div id="sendInvite" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanInvite" onclick="document.getElementById('sendInvite').style.display='none';">&times;</span>
+        <p>Email invitation has been sent!</p>
+    </div>
+</div>
 
 <?php
 if($action === "filled") {
@@ -191,7 +194,10 @@ if($action === "filled") {
     $subject="Join ".$username."'s Support Circle";
     mail($email,$subject,$message,$headers);
     ?>
-    <script>alert("Email invitation has been sent!");</script>
+    <script>
+        var invite= document.getElementById("sendInvite");
+        invite.style.display="block";
+    </script>
 <?php
 }
 
@@ -229,6 +235,7 @@ if($support->num_rows>0){
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
 </div>
+
 </body>
 <div class="clear"></div>
 

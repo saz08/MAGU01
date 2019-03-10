@@ -39,15 +39,8 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
 
-$username = $_SESSION["userName"];
+
 //$username= "<script>localStorage.getItem('username')</script>";
 
 
@@ -62,19 +55,6 @@ if($loginOK) {
     }
 }
 ?>
-<script>
-    if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }
-
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
-    }
-</script>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,6 +94,8 @@ if($loginOK) {
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    $username = $_SESSION["userName"];
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {

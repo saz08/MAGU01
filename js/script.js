@@ -4,15 +4,14 @@ if(localStorage.getItem("loginOK")===null){
 }
 
 if(localStorage.getItem("loginOK")==="no"){
+    localStorage.setItem("username","unknownUser");
     window.location.href="signUp.php";
 }
 
 
 if(localStorage.getItem("username")==="unknownUser"){
-    alert("You must be logged in to continue");
-    window.location.href="signUp.php"
+   window.location.href="signUp.php";
 }
-
 
 
 
@@ -20,12 +19,8 @@ if(localStorage.getItem("username")==="unknownUser"){
 function weightConverter(valNum) {
     document.getElementById("outputStones").innerHTML="<h2>Approximately "+(valNum*0.071429).toFixed(2)+" Stone</h2>";
 }
-// function weightConverter(valNum) {
-//     document.getElementById("outputStones").innerHTML="<h2>Value in Stone: "+(valNum*0.1574).toFixed(2)+" Stone</h2>";
-// }
-// function weightConverterKG(valNum) {
-//     document.getElementById("outputKilograms").innerHTML="<h2>Value in Kilogram: "+(valNum/0.15747).toFixed(2)+"Kilogram</h2>";
-// }
+
+
 
 //TALK
 function deletePost(posDB){

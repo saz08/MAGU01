@@ -39,14 +39,7 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
-$loginOK = false; //TODO make this work with database values
+
 
 
 

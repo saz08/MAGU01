@@ -39,15 +39,8 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
 
-$username = $_SESSION["userName"];
+
 //$username= "<script>localStorage.getItem('username')</script>";
 
 
@@ -84,50 +77,12 @@ if($loginOK) {
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <meta charset="UTF-8">
     <title>Questions</title>
-<!--    <style>-->
-<!--        input {-->
-<!--            display: table-cell;-->
-<!--            vertical-align: middle-->
-<!--        }-->
-<!---->
-<!--        .caroBox{-->
-<!--            display:inline-block;-->
-<!--            width: 100%;-->
-<!--            height: 50%;-->
-<!--        }-->
-<!---->
-<!--        .box{-->
-<!--            display:inline-block;-->
-<!--            margin: 0 10px;-->
-<!--            width: 100%;-->
-<!--            height:20%;-->
-<!--            border: 1px solid #B132E8;-->
-<!--            background:#DDA8FF ;-->
-<!---->
-<!--        }-->
-<!--        @media screen and (max-width:800px){-->
-<!--            display: block;-->
-<!--        }-->
-<!---->
-<!--        label{-->
-<!--            display:block;-->
-<!--            padding-left:15px;-->
-<!--            text-indent: -15px;-->
-<!--        }-->
-<!--        .choices{-->
-<!--            width:13px;-->
-<!--            height:13px;-->
-<!--            padding:0;-->
-<!--            margin:0;-->
-<!--            vertical-align:bottom;-->
-<!--            position:relative;-->
-<!--            top:-1px;-->
-<!--            *overflow:hidden;-->
-<!--        }-->
-<!--    </style>-->
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -142,6 +97,8 @@ if($loginOK) {
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    $username = $_SESSION["userName"];
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -280,18 +237,30 @@ if($resultJournal->num_rows>0) {
             ?>
         </table>
     </div>
-
+<div id="deleteQ" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanDelete" onclick="document.getElementById('deleteQ').style.display='none';window.location.href='questions.php'">&times;</span>
+        <p>Question was deleted successfully!</p>
+    </div>
+</div>
+<div id="nodeleteQ" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanDelete" onclick="document.getElementById('nodeleteQ').style.display='none';window.location.href='questions.php'">&times;</span>
+        <p>Sorry, Survivors was unable to delete your question. Please check your internet connection then try again</p>
+    </div>
+</div>
 
 <script>
     function deleteQ(questionNo){
         var qNo = questionNo;
+        var del = document.getElementById("deleteQ");
+        var noDel = document.getElementById("nodeleteQ");
         jQuery.post("deleteQ.php", {"questionNo": qNo}, function(data){
-            alert("Question was deleted successfully");
-            window.location.href="questions.php";
+            del.style.display="block";
         }).fail(function()
         {
-            alert("Couldn't delete question. Please check internet connection then try again");
-        });
+            noDel.style.display="block";
+            });
 
     }
 

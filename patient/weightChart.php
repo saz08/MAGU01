@@ -39,15 +39,7 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
-$username = $_SESSION["userName"];
-$loginOK = false; //TODO make this work with database values
+
 
 
 ?>
@@ -80,6 +72,9 @@ $loginOK = false; //TODO make this work with database values
 
     <meta charset="UTF-8">
     <title>Weight Chart</title>
+    <?php
+    $username = $_SESSION["userName"];
+    ?>
     <script>
        window.onload = function () {
 
@@ -100,7 +95,8 @@ $loginOK = false; //TODO make this work with database values
                     type: "line",
                    dataPoints: [
                       <?php
-                        $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
+
+                       $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
             $result= $conn->query($sql);
             if($result->num_rows>0) {
                 while ($rowname = $result->fetch_assoc()) {

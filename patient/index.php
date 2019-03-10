@@ -39,16 +39,8 @@ $user = safePOSTNonMySQL("username");
 $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-$_SESSION['userName'] = "unknownUser";
-?> <script>
-    localStorage.setItem('username', "unknownUser");
-    localStorage.setItem('loginOK', "no");
-</script><?php
-}
 
-$username = $_SESSION["userName"];
-$loginOK = false; //TODO make this work with database values
+
 
 
 
@@ -78,6 +70,7 @@ $loginOK = false; //TODO make this work with database values
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
 
     <script src="../js/script.js"></script>
+
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
@@ -102,6 +95,8 @@ $loginOK = false; //TODO make this work with database values
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                $username = $_SESSION["userName"];
+
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -177,7 +172,12 @@ $loginOK = false; //TODO make this work with database values
     </div>
 </nav>
 
-
+<div id="logIn" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanLogIn" onclick="document.getElementById('logIn').style.display='none';">&times;</span>
+        <p>You must be logged in to continue.</p>
+    </div>
+</div>
 
 <div class="jumbotron text-center">
     <h1>Homepage <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>

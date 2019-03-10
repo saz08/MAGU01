@@ -41,24 +41,22 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
-
-$username = $_SESSION["userName"];
-$loginOK = false; //TODO make this work with database values
+//if($_SESSION['userName']==null){
+//    $_SESSION['userName'] = "unknownUser";
+//    ?><!-- <script>-->
+<!--        localStorage.setItem('username', "unknownUser");-->
+<!--        localStorage.setItem('loginOK', "no");-->
+<!--    </script>--><?php
+//}
 
 
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
+
+//if($loginOK) {
+//    if (!isset($_SESSION["sessionuser"])) {
+//        session_regenerate_id();
+//        $_SESSION["sessionuser"] = $user;
+//    }
+//}
 ?>
 
 <!DOCTYPE html>
@@ -84,51 +82,12 @@ if($loginOK) {
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <meta charset="UTF-8">
     <title>Add Info</title>
-    <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
 
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        /* The Close Button */
-        .close {
-            color: #aaaaaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -143,6 +102,8 @@ if($loginOK) {
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    $username = $_SESSION["userName"];
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {

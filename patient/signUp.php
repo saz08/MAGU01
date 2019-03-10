@@ -44,20 +44,10 @@ $loginOK = false; //TODO make this work with database values
 
 
 ?>
-<!doctype html>
-<script>if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-    }</script>
+<!DOCTYPE html>
 <script>
-    function checkAlreadyLoggedIn(){
-        if(localStorage.getItem("loginOK")==="yes"){
-            if(localStorage.getItem("username")==="unknownUser"){
-                alert("You must log in to continue");
-                window.location.href="signUp.php"
-            }
-            alert("You are already logged in!");
-            window.location.href = "index.php";
-        }
+    if(localStorage.getItem("loginOK")===null){
+        localStorage.setItem("loginOK", "no")
     }
 </script>
 
@@ -93,6 +83,8 @@ if($loginOK) {
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
     <meta charset="UTF-8">
     <title>Survivors</title>
 
@@ -335,8 +327,35 @@ if($loginOK) {
 
 
 </div>
+
+<div id="checkLog" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanDelete" onclick="document.getElementById('checkLog').style.display='none';window.location.href='signUp.php'">&times;</span>
+        <p>You must log in to continue</p>
+    </div>
+</div>
+<div id="loggedIn" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'">&times;</span>
+        <p>You are already logged in!</p>
+    </div>
+</div>
 <br>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script>
+    function checkAlreadyLoggedIn(){
+        var checkLog=document.getElementById("checkLog");
+        var loggedIn = document.getElementById("loggedIn");
+        if(localStorage.getItem("loginOK")==="yes"){
+            if(localStorage.getItem("username")==="unknownUser"){
+               checkLog.style.display="block";
+            }
+            else{
+                loggedIn.style.display="block";
+            }
+        }
+    }
+</script>
 </body>
 <div class="clear"></div>
 

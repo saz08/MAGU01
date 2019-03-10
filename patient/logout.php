@@ -21,7 +21,7 @@ session_destroy();
     localStorage.setItem("loginOK", "no");
     localStorage.setItem("loginOKSupport", "no");
     localStorage.setItem("loginOKDoc","no");
-    localStorage.setItem("username", "");
+    localStorage.setItem("username", "unknownUser");
     localStorage.setItem("Breathlessness","");
     localStorage.setItem("Pain","");
     localStorage.setItem("Performance","");

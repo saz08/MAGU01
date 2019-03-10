@@ -39,16 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
-
-$username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
 
 
 
@@ -101,6 +91,8 @@ if($loginOK) {
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    $username = $_SESSION["userName"];
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -179,7 +171,7 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Emotional Help <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<div class="clear"></div>
 <button class="collapsible">Survivor's Guilt</button>
 <div class="content">
     <div id="survivor"></div>

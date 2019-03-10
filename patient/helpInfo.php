@@ -47,7 +47,6 @@ if($_SESSION['userName']==null){
     </script><?php
 }
 
-$username = $_SESSION["userName"];
 //$username= "<script>localStorage.getItem('username')</script>";
 
 
@@ -102,6 +101,8 @@ if($loginOK) {
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    $username = $_SESSION["userName"];
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -178,9 +179,9 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>HEALTH INFORMATION <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1>Health Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<div class="clear"></div>
 <button class="collapsible" onclick="window.location.href='glossary.php'">Complicated Terms</button>
 
 <button class="collapsible">What Happens After Surgery?</button>

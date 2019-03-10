@@ -39,15 +39,39 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOK', "no");
-    </script><?php
-}
-$username = $_SESSION["userName"];
+
 $loginOK = false; //TODO make this work with database values
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <script src="../js/script.js"></script>
+    <script src="../js/forAll.js"></script>
+    <meta charset="UTF-8">
+    <title>Physical Activity Chart</title>
+
+
+<?php
+$username = $_SESSION["userName"];
+
 
 $sumVig  = "SELECT SUM(`vigorous`) FROM `physical` WHERE `username` = '$username'";
 $vigResult= $conn->query($sumVig);
@@ -152,31 +176,7 @@ else{
 
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-    <meta name="mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-    <script src="../js/script.js"></script>
-    <script src="../js/forAll.js"></script>
-    <meta charset="UTF-8">
-    <title>Physical Activity Chart</title>
     <script type="text/javascript">
         window.onload = function() {
             CanvasJS.addColorSet("greenShades",
