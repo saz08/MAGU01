@@ -27,3 +27,13 @@ function openNavWChart() {
 function closeNavWChart() {
     document.getElementById("mySidebar").style.width = "0";
 }
+
+function openInfo(){
+    var info =document.getElementById("info");
+    if(info.style.display==="none"){
+        info.style.display="block";
+    }
+    else{
+        info.style.display="none";
+    }
+}

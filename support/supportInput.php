@@ -66,6 +66,8 @@ $username = $_SESSION["userName"];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
@@ -173,7 +175,7 @@ $username = $_SESSION["userName"];
 
     </p>
 </form>
-<button class="btn" id="button" onclick="submitSupport()">Submit!</button>
+
 <?php
 $username = $_SESSION["userName"];
 $sql1 = "SELECT * FROM `supportAcc` WHERE username = '$username'";
@@ -196,22 +198,50 @@ if($action==="filled"){
 
 
 ?>
+<div id="save" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='supportInput.php'">&times;</span>
+        <p>Your records were successfully saved.</p>
+    </div>
+</div>
+<div id="notSave" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';">&times;</span>
+        <p>Sorry, Survivors was unable to save your records. Please check your internet connection and try again</p>
+    </div>
+</div>
+
+<div id="submitCheck" class="modal">
+    <div class="modal-content">
+        <p>Survivors will now save your records and send to the assigned health professional. Are you sure you want to submit?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="submitSupport();document.getElementById('submitCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('submitCheck').style.display='none';">No</button>
+
+    </div>
+</div>
 <div class="clear"></div>
 <script>
+    var save = document.getElementById("save");
+    var notSave = document.getElementById("notSave");
+
+    var check = document.getElementById("submitCheck");
     function next(){
         window.location.href="supportDocFeedback.php";
     }
 
+    function checkSubmit(){
+        check.style.display="block";
+    }
     function submitSupport(){
+
         var additionalInfo = document.getElementById('additional').value;
         var symptom = document.getElementById('select').value;
         // var additionalInfo = localStorage.getItem("Additional");
         jQuery.post("infoSubmit.php", {"Additional": additionalInfo,"Symptom": symptom}, function(data){
-            alert("Records successfully saved");
-            window.location.href="supportInput.php";
+            save.style.display="block";
         }).fail(function()
         {
-            alert("Your records were not submitted successfully. Please check your internet connection and try again.");
+            notSave.style.display="block";
         });
     }
 </script>
@@ -220,7 +250,7 @@ if($action==="filled"){
 <footer>
     <div class="footer">
         <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
-        <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
+        <button class="btn" style="float:right" onclick="checkSubmit()"> Submit <b> > </b></button>
     </div>
 
 </footer>

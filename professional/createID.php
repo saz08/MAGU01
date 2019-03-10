@@ -39,6 +39,8 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
+
+
 $loginOK = false; //TODO make this work with database values
 ?>
 
@@ -63,6 +65,8 @@ $loginOK = false; //TODO make this work with database values
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <meta charset="UTF-8">
     <title>Create Patient ID</title>
@@ -81,6 +85,7 @@ $loginOK = false; //TODO make this work with database values
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD PATIENT</a></li>
+                <li><a href="../patient/talk.php">FORUM</a></li>
 
             </ul>
             <ul class = "nav navbar-nav navbar-right">
@@ -105,7 +110,6 @@ $loginOK = false; //TODO make this work with database values
         <p>Patient's Email Address:<br><input type="email" name="patientEmail"  id="patientEmail"/></p>
         <p>Address:<br><input type="text" name="address"  id="address"/></p>
         <p>Contact No:<br><input type="text" name="contact"  id="contact"/></p>
-        <p>Doctor's Email Address:<br><input type="email" name="docEmail"  id="docEmail"/></p>
         <input type="hidden" name="action2" value="filled">
         <p><input type="submit" name="submitReg" id="signUpButton" class="btn" id="button" value="Register Patient"></p>
         </p>
@@ -114,7 +118,18 @@ $loginOK = false; //TODO make this work with database values
     </form>
 
 </div>
-
+<div id="save" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='dashboard.php'">&times;</span>
+        <p>Patient created!</p>
+    </div>
+</div>
+<div id="notSave" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';">&times;</span>
+        <p>Survivors was unable to create a new patient. Please check your internet connection and try again. </p>
+    </div>
+</div>
 <script>
     function checkForm(){
         var forename = document.getElementById("forename");
@@ -125,7 +140,6 @@ $loginOK = false; //TODO make this work with database values
         var email = document.getElementById("patientEmail");
         var address = document.getElementById("address");
         var contact = document.getElementById("contact");
-        var docEmail = document.getElementById("docEmail");
 
         var errs = "";
 
@@ -136,7 +150,6 @@ $loginOK = false; //TODO make this work with database values
         female.style.background = "white";
         address.style.background = "white";
         contact.style.background = "white";
-        docEmail.style.background = "white";
         email.style.background="white";
 
         if(forename.value === null || forename.value === ""){
@@ -171,10 +184,7 @@ $loginOK = false; //TODO make this work with database values
             errs+= "Please enter a contact number for the patient\n";
             contact.style.background="pink";
         }
-        if(docEmail.value===null||docEmail.value===""){
-            errs+= "Please enter the doctor's email for this patient\n";
-            docEmail.style.background="pink";
-        }
+
 
 
         if(errs !== ""){
@@ -192,7 +202,6 @@ if($action2 === "filled") {
     $patientEmail = (safePost($conn,"patientEmail"));
     $address = (safePost($conn,"address"));
     $contactNo = (safePost($conn,"contact"));
-    $docEmail = (safePost($conn,"docEmail"));
 
     $genderFinal = "";
     if($gender=="male"){
@@ -210,11 +219,24 @@ if($action2 === "filled") {
         $id=rand();
     }
 
-    $from = "Remote Monitoring";
+    $username = $_SESSION["userName"];
+
+    $docSql = "SELECT `email` FROM `docAcc` WHERE `username` = '$username'";
+    $resultDoc = $conn->query($docSql);
+    if($resultDoc->num_rows>0){
+        while ($rowname = $resultDoc->fetch_assoc()) {
+            $docEmail = $rowname["email"];
+        }
+    }
+
+
+
+    $from = "Survivors";
     $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/signUp.php \n You will need to enter this ID to sign up: ".$id."\n Thanks!";
     $headers="From: $from\n";
     $subject="Welcome to Survivors ".$forename."!";
     mail($patientEmail,$subject,$message,$headers);
+
 
 $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `gender`,`patientEmail`, `address`, `contactNo`, `docEmail`) VALUES ('$forename', '$surname', '$id', '$dob', '$genderFinal','$patientEmail', '$address', '$contactNo', '$docEmail')";
 
@@ -222,10 +244,18 @@ $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `
         echo "<p class='center'>Registration was successful!</p>";
 ?>
     <script>
-        alert("Patient created");
-        window.location.href = "createID.php";
+        var save=document.getElementById("save") ;
+        save.style.display="block";
     </script>
     <?php
+    }
+    else{
+        ?>
+        <script>
+            var notSave=document.getElementById("notSave") ;
+            notSave.style.display="block";
+        </script>
+<?php
     }
 }
 ?>

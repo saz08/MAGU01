@@ -64,7 +64,7 @@ else{
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-    <script src="../js/script.js"></script>
+    <script src="../js/forum.js"></script>
     <script src="../js/forAll.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
@@ -73,6 +73,33 @@ else{
     <title>Forum Room</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<div id="docNav" style="display: none">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#myPage">    </a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class = "nav navbar-nav navbar-left">
+                <li><a href="../professional/dashboard.php">DASHBOARD</a></li>
+                <li><a href="../professional/createID.php">ADD A PATIENT</a></li>
+                <li><a href="../patient/talk.php">FORUM</a></li>
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li><a href="../patient/logout.php">LOGOUT</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</div>
+
+
+<div id="patientNav" style="display: none;">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -161,6 +188,20 @@ else{
         </div>
     </div>
 </nav>
+</div>
+<script>
+    var docNav= document.getElementById("docNav");
+    var patientNav = document.getElementById("patientNav");
+
+    if(localStorage.getItem("loginOKDoc")==="yes"){
+        docNav.style.display="block";
+        patientNav.style.display="none";
+    }
+    if(localStorage.getItem("loginOK")==="yes"){
+        patientNav.style.display="block";
+        docNav.style.display="none";
+    }
+</script>
 <div class="jumbotron text-center">
     <h1>Patient Forum Room <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>

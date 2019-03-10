@@ -89,7 +89,7 @@ $username = $_SESSION["userName"];
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD A PATIENT</a></li>
-
+                <li><a href="../patient/talk.php">FORUM</a></li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a href="../patient/logout.php">LOGOUT</a></li>
@@ -100,7 +100,7 @@ $username = $_SESSION["userName"];
 <div class="jumbotron text-center">
     <h1>Dashboard<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<h3>Click on a patient's ID to open their profile</h3>
+<h3>Click on a row to open that patient's profile</h3>
 
 <div style="overflow-x: scroll">
 <table class="table table-hover row-clickable" id="doctorTable" >
@@ -122,8 +122,9 @@ $username = $_SESSION["userName"];
         $sql = "SELECT * FROM `chi` WHERE `docEmail` = '$docEmail'";
         $resultPatient = $conn->query($sql);
         if($resultPatient->num_rows>0) {
-            while ($rowname = $resultPatient->fetch_assoc()) {
-                echo "<tr>";
+            while ($rowname = $resultPatient->fetch_assoc()) { ?>
+                <tr onclick="window.location.href='patient.php?id=+<?php echo $rowname['id']?>'">
+            <?php
                 echo "<td>" . $rowname["forename"] . "</a></td>";
                 echo "<td>" . $rowname["surname"] . "</td>";
                 echo "<td><a href='patient.php?id=+".$rowname["id"]."'>" . $rowname["id"] . "</a></td>";

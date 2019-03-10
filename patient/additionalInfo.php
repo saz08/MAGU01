@@ -248,7 +248,7 @@ if($action2==="filled"){
 <div id="notNotify" class="modal">
     <div class="modal-content">
         <span class="close" id="spanNotNotify" onclick="document.getElementById('notNotify').style.display='none';">&times;</span>
-        <p>Survivors was unsuccessfully in notifying your doctor. Please check your internet connection and try again. If you feel your symptoms are serious please contact your doctor immediately.</p>
+        <p>Survivors was unable to notify your doctor. Please check your internet connection and try again. If you feel your symptoms are serious please contact your doctor immediately.</p>
     </div>
 </div>
 

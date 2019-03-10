@@ -106,10 +106,49 @@ if($patient->num_rows>0){
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD PATIENT</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PATIENT INFORMATION <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                <li><a href="../patient/talk.php">FORUM</a></li>
+
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openInfo()">PATIENT INFORMATION <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="info">
                         <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
-                        <li><a href="patientInfo.php?id=<?php echo +$id ?>">RECORDS</a></li>
+                        <?php
+                                $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
+                                $resultRecords = $conn->query($sqlRecords);
+                                if ($resultRecords->num_rows > 0) {
+                                    while ($rowname = $resultRecords->fetch_assoc()) {
+                                        $symptom = $rowname["symptom"];
+                                        $additional = $rowname["additionalInfo"];
+                                        $seenInfo = $rowname["seenInfo"];
+                                        $resInfo = $rowname["resInfo"];
+                                        $seenSymp = $rowname["seenSymp"];
+                                        $resSymp = $rowname["resSymp"];
+                                        $importantInfo = "false";
+                                        $importantSymp = "false";
+                                        if ($seenInfo === "false") {
+                                            if ($additional != "") {
+                                                $importantInfo = "true";
+                                            }
+                                        } else {
+                                            $importantInfo = "false";
+                                        }
+                                        if ($seenSymp === "false") {
+                                            if ($symptom != "") {
+                                                $importantSymp = "true";
+                                            }
+                                        } else {
+                                            $importantSymp = "false";
+                                        }
+                                    }
+                                }
+                        else{
+                            $importantInfo="false";
+                            $importantSymp="false";}
+                        if($importantInfo==="true"||$importantSymp==="true"){
+                            echo "<li><a href='patientInfo.php?id=+$id'>RECORDS <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
+                        else{
+                            echo"<li><a href='patientInfo.php?id=+$id'>RECORDS</a></li>";}
+                        ?>
+
                         <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
@@ -132,41 +171,25 @@ if($patient->num_rows>0){
                                         $importantSymp="false";
                                         if ($seenInfo === "false") {
                                             if ($additional != "") {
-                                                $importantInfo="true";
-                                            }
-                                        }
+                                                $importantInfo="true";}}
                                         else{
                                             $importantInfo="false";
                                         }
                                         if ($seenSymp === "false") {
                                             if ($symptom != "") {
-                                                $importantSymp="true";
-                                            }
-                                        }
+                                                $importantSymp="true";}}
                                         else{
-                                            $importantSymp="false";
-                                        }
-                                    }
-                                }
+                                            $importantSymp="false";}}}
                                 else {
                                     $importantInfo="false";
-                                    $importantSymp="false";
-
-                                }
-                            }
-                        }
+                                    $importantSymp="false";}}}
                         else{
                             $importantInfo="false";
-                            $importantSymp="false";
-                        }
+                            $importantSymp="false";}
                         if($importantInfo==="true"||$importantSymp==="true"){
-                            echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
-
-                        }
+                            echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
                         else{
-                            echo"<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE</a></li>";
-
-                        }
+                            echo"<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE</a></li>";}
                         ?>
                     </ul>
                 </li>

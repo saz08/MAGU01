@@ -104,11 +104,48 @@ if($patient->num_rows>0){
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="createID.php">ADD PATIENT</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PATIENT INFORMATION <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                <li><a href="../patient/talk.php">FORUM</a></li>
+
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openInfo()">PATIENT INFORMATION <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="info">
                         <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
-                        <li><a href="patientInfo.php?id=<?php echo +$id ?>">RECORDS</a></li>
-                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
+                        <?php
+                        $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
+                        $resultRecords = $conn->query($sqlRecords);
+                        if ($resultRecords->num_rows > 0) {
+                            while ($rowname = $resultRecords->fetch_assoc()) {
+                                $symptom = $rowname["symptom"];
+                                $additional = $rowname["additionalInfo"];
+                                $seenInfo = $rowname["seenInfo"];
+                                $resInfo = $rowname["resInfo"];
+                                $seenSymp = $rowname["seenSymp"];
+                                $resSymp = $rowname["resSymp"];
+                                $importantInfo = "false";
+                                $importantSymp = "false";
+                                if ($seenInfo === "false") {
+                                    if ($additional != "") {
+                                        $importantInfo = "true";
+                                    }
+                                } else {
+                                    $importantInfo = "false";
+                                }
+                                if ($seenSymp === "false") {
+                                    if ($symptom != "") {
+                                        $importantSymp = "true";
+                                    }
+                                } else {
+                                    $importantSymp = "false";
+                                }
+                            }
+                        }
+                        else{
+                            $importantInfo="false";
+                            $importantSymp="false";}
+                        if($importantInfo==="true"||$importantSymp==="true"){
+                            echo "<li><a href='patientInfo.php?id=+$id'>RECORDS <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
+                        else{
+                            echo"<li><a href='patientInfo.php?id=+$id'>RECORDS</a></li>";}
+                        ?>                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
@@ -176,7 +213,6 @@ if($patient->num_rows>0){
 </nav>
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?><img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
-    <button class="btn" style="float:right" onclick="delPatient()">Delete Patient</button>
 </div>
 <br>
 
