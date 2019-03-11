@@ -48,6 +48,8 @@ $loginOK = false; //TODO make this work with database values
 <script>
     if(localStorage.getItem("loginOK")===null){
         localStorage.setItem("loginOK", "no")
+        localStorage.setItem("username", "unknownUser")
+
     }
 </script>
 
@@ -116,6 +118,39 @@ if($loginOK) {
     <h1>HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
+<div id="errs" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanErrs" onclick="document.getElementById('errs').style.display='none';">&times;</span>
+        <p>Please correct any boxes highlighted pink</p>
+    </div>
+</div>
+
+<div id="username" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanUser" onclick="document.getElementById('username').style.display='none';">&times;</span>
+        <p>Username is already registered</p>
+    </div>
+</div>
+<div id="id" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanId" onclick="document.getElementById('id').style.display='none';">&times;</span>
+        <p>Incorrect ID: ID is not registered</p>
+    </div>
+</div>
+
+<div id="notUsername" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotUser" onclick="document.getElementById('notUsername').style.display='none';">&times;</span>
+        <p>Username not recognised</p>
+    </div>
+</div>
+<div id="notPassword" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotPass" onclick="document.getElementById('notPassword').style.display='none';">&times;</span>
+        <p>Password not recognised</p>
+    </div>
+</div>
+
 <!-- 3 columns under Welcome Jumbotron -->
 <div class="container-fluid" id="mainCont">
     <div class="row" id="mainContRow">
@@ -141,11 +176,7 @@ if($loginOK) {
                 }
             }
             if($action === "filled") {
-                ?>
-                <script>
-                    console.log("action is filled");
-                </script>
-            <?php
+
             $username= (safePost($conn,"username"));
             $password = (safePost($conn,"password"));
             $_SESSION['userName'] = $username;
@@ -163,23 +194,26 @@ if($loginOK) {
             if(mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
             $loginOK=true;
-            ?> <script>localStorage.setItem("loginOK", "yes")</script>
-                <script type="text/javascript">
+            ?> <script>localStorage.setItem("loginOK", "yes");
                     var user = "<?php echo $username; ?>";
-                </script>
-                <script>localStorage.setItem("username", user);
-                    window.location.href = "index.php";
+                localStorage.setItem("username", user);
+                window.location.href = "index.php";
                 </script>
             <?php
             }
             }
             else{
-                ?><script>alert("Password not recognised")</script><?php
+                ?><script>  var notPassword= document.getElementById("notPassword");
+                    notPassword.style.display="block";</script><?php
                 }
 
             }
             else{
-                ?><script>alert("Username not recognised")</script><?php
+
+                ?><script>
+                    var notUsername= document.getElementById("notUsername");
+                    notUsername.style.display="block";
+                </script><?php
             }
  }
             ?>
@@ -208,12 +242,9 @@ if($loginOK) {
                 </p>
                 <br>
             </form>
-
         </div>
 
-        <?php
 
-        ?>
         <script>
             function checkForm(){
                 var username = document.getElementById("username");
@@ -224,6 +255,7 @@ if($loginOK) {
                 var other = document.getElementById("other");
                 var smoker = document.getElementById("smoker");
                 var nonsmoker = document.getElementById("nonsmoker");
+                var errorModal = document.getElementById("errs");
 
 
                 var errs = "";
@@ -256,7 +288,7 @@ if($loginOK) {
 
 
                 if(errs !== ""){
-                    alert("The following need to be corrected: \n" + errs);
+                    errorModal.style.display="block";
                 }
                 return (errs === "");
             }
@@ -283,50 +315,39 @@ if($loginOK) {
 
 
             $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
-            $result = mysqli_query($conn,$query);
-        if(mysqli_num_rows($result)) {
-            ?><script>alert("Username Already in Use");</script> <?php
-        echo "<p> * Username is already registered * ";
-        }
-
-            $query2 = "SELECT `username` FROM `supportAcc` WHERE `username` = '$username'";
-            $result2 = $conn->query($query2);
-            if($result2->num_rows>=1){
-                ?><script>alert("Username Already in Use");</script> <?php
-                echo "<p> * Username is already registered * ";
+            $result = $conn->query($query);
+            if($result->num_rows<1){
+                    $checkID = "SELECT `id` FROM `chi` WHERE `id` = '$id'";
+                    $resultID = $conn->query($checkID);
+                    if($resultID->num_rows>0) {
+                        $passwordNew = password_hash("$password",PASSWORD_DEFAULT);
+                        $sql = "INSERT INTO `account` (`id`,`username`, `password`, `smokingStatus`) VALUES ('$id','$username', '$passwordNew', '$smoker1')";
+                        if ($conn->query($sql) === TRUE) {
+                            echo "<p class='center'>Registration was successful!</p>";
+                            $loginOK = true;
+                            ?>
+                            <script>localStorage.setItem("loginOK", "yes");
+                                var user = "<?php echo $username; ?>";
+                                localStorage.setItem("username", user);
+                                window.location.href = "index.php";
+                            </script>
+                            <?php
+                        }
+                    }
+                    else if($resultID->num_rows<1){
+                        ?><script>var id = document.getElementById("id");
+                            id.style.display="block";</script><?php
+                    }
+                }
+            else{
+                ?><script>var username = document.getElementById("username");
+                    username.style.display="block";</script> <?php
             }
-
-
-
-            $checkID = "SELECT `id` FROM `chi` WHERE `id` = '$id'";
-            $resultID = $conn->query($checkID);
-
-        if($resultID->num_rows<1) {
-        ?><script>alert("ID does not exist");</script><?php
-            echo "<p> * ID is not registered * ";
-
-            }
-
-            $passwordNew = password_hash("$password",PASSWORD_DEFAULT);
-         $sql = "INSERT INTO `account` (`id`,`username`, `password`, `smokingStatus`) VALUES ('$id','$username', '$passwordNew', '$smoker1')";
-        if ($conn->query($sql) === TRUE) {
-        echo "<p class='center'>Registration was successful!</p>";
-        $loginOK = true;
-        ?>
-            <script>localStorage.setItem("loginOK", "yes");
-                var user = "<?php echo $username; ?>";
-                localStorage.setItem("username", user)
-                window.location.href = "index.php";
-            </script>
-            <?php
-        }
         }
         ?>
-
     </div>
-
-
 </div>
+
 
 <div id="checkLog" class="modal">
     <div class="modal-content">

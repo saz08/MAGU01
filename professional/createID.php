@@ -94,6 +94,7 @@ $loginOK = false; //TODO make this work with database values
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Generate ID<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
@@ -130,6 +131,12 @@ $loginOK = false; //TODO make this work with database values
         <p>Survivors was unable to create a new patient. Please check your internet connection and try again. </p>
     </div>
 </div>
+<div id="errs" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanErrs" onclick="document.getElementById('errs').style.display='none';">&times;</span>
+        <p>Please correct any boxes highlighted pink</p>
+    </div>
+</div>
 <script>
     function checkForm(){
         var forename = document.getElementById("forename");
@@ -140,6 +147,7 @@ $loginOK = false; //TODO make this work with database values
         var email = document.getElementById("patientEmail");
         var address = document.getElementById("address");
         var contact = document.getElementById("contact");
+        var errorModal = document.getElementById("errs");
 
         var errs = "";
 
@@ -188,7 +196,7 @@ $loginOK = false; //TODO make this work with database values
 
 
         if(errs !== ""){
-            alert("The following need to be corrected: \n" + errs);
+            errorModal.style.display="block";
         }
         return (errs === "");
     }

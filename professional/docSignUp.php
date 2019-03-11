@@ -70,6 +70,8 @@ if($loginOK) {
     <script src="../js/forAll.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <meta charset="UTF-8">
     <title>Survivors</title>
@@ -111,6 +113,44 @@ if($loginOK) {
 
 <div class="jumbotron text-center">
     <h1>PROFESSIONAL HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+</div>
+
+
+<div id="notUsername" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('notUsername').style.display='none'">&times;</span>
+        <p>Username is not recognised</p>
+    </div>
+</div>
+<div id="notPass" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('notPass').style.display='none'">&times;</span>
+        <p>Password is not recognised</p>
+    </div>
+</div>
+<div id="errs" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('errs').style.display='none'">&times;</span>
+        <p>Please fix any boxes highlighted pink</p>
+    </div>
+</div>
+<div id="email" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('email').style.display='none'">&times;</span>
+        <p>Must be a valid NHS email </p>
+    </div>
+</div>
+<div id="user" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('user').style.display='none'">&times;</span>
+        <p>Username is already registered</p>
+    </div>
+</div>
+<div id="emailAlready" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('emailAlready').style.display='none'">&times;</span>
+        <p>Email is already registered</p>
+    </div>
 </div>
 
 <!-- 3 columns under Welcome Jumbotron -->
@@ -172,13 +212,19 @@ if($loginOK) {
             }
             else {
             ?>
-                <script>alert("Password not recognised")</script><?php
+                <script>
+                    console.log("password not here");
+                    var notPass = document.getElementById("notPass");
+                    notPass.style.display="block";
+                   </script><?php
             }
 
             }
             else {
-            ?>
-                <script>alert("Username not recognised")</script><?php
+            ?><script>
+                    console.log("user not here");
+                    var notUser = document.getElementById("notUsername");
+                    notUser.style.display="block";</script><?php
             }
             }
             ?>
@@ -206,16 +252,11 @@ if($loginOK) {
                 var email = document.getElementById("email");
                 var username = document.getElementById("username");
                 var password = document.getElementById("password");
-
-
-
                 var errs = "";
 
                 username.style.background = "white";
                 password.style.background = "white";
                 email.style.background="white";
-
-
 
                 if(username.value === null || username.value === ""){
                     errs += " Please enter your email address\n";
@@ -232,14 +273,12 @@ if($loginOK) {
                     email.style.background="pink";
                 }
 
-                if(email.valueOf().search("nhs")=== -1){
-                    errs+="Nhs email required";
-                    alert("Use an NHS email pls");
-                }
+
 
 
                 if(errs !== ""){
-                    alert("The following need to be corrected: \n" + errs);
+                    var error = document.getElementById("errs");
+                    error.style.display="block";
                 }
                 return (errs === "");
             }
@@ -256,7 +295,10 @@ if($loginOK) {
             if(strpos($email,"nhs")==false){
                 $reject="true";
                 ?>
-                <script>alert("Email must be an NHS email");</script>
+                <script>
+                    var email = document.getElementById("email");
+                    email.style.display="block";
+                    </script>
                 <?php
             }
 
@@ -265,7 +307,8 @@ if($loginOK) {
             $result = $conn->query($query);
             if($result->num_rows>=1){
                 $reject = "true";
-                ?><script>alert("Email Already Registered");</script> <?php
+                ?><script>var emailAlready = document.getElementById("emailAlready");
+                    emailAlready.style.display="block";</script> <?php
                 echo "<p> * Email is already registered * ";
             }
 
@@ -273,7 +316,8 @@ if($loginOK) {
             $result2 = $conn->query($query2);
             if($result2->num_rows>=1){
                 $reject="true";
-                ?><script>alert("Username Already in Use");</script> <?php
+                ?><script>var user = document.getElementById("user");
+                user.style.display="block";</script> <?php
                 echo "<p> * Username is already registered * ";
             }
 

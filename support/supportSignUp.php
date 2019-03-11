@@ -69,6 +69,8 @@ if($loginOK) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/forAll.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <meta charset="UTF-8">
     <title>Survivors</title>
@@ -112,6 +114,37 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>SUPPORT CIRCLE HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
+<div id="notUser" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanUser" onclick="document.getElementById('notUser').style.display='none'">&times;</span>
+        <p>Username not recognised</p>
+    </div>
+</div>
+<div id="notPass" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanPass" onclick="document.getElementById('notPass').style.display='none'">&times;</span>
+        <p>Password not recognised</p>
+    </div>
+</div>
+<div id="errs" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanPass" onclick="document.getElementById('errs').style.display='none'">&times;</span>
+        <p>Please correct any boxes highlighted pink</p>
+    </div>
+</div>
+<div id="username" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanUserok" onclick="document.getElementById('username').style.display='none'">&times;</span>
+        <p>Username is already registered</p>
+    </div>
+</div>
+
+<div id="id" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanID" onclick="document.getElementById('id').style.display='none'">&times;</span>
+        <p>Survivor username is not registered</p>
+    </div>
+</div>
 
 <!-- 3 columns under Welcome Jumbotron -->
 <div class="container-fluid" id="mainCont">
@@ -132,16 +165,11 @@ if($loginOK) {
                 if(trim($_POST["username"])== ""){
                     echo "<p><font color='red'>Please enter a valid username***</font><br></p>";
                 }
-                if(trim($_POST["password"]) == "") { //TODO add in or for wrong password
+                if(trim($_POST["password"]) == "") {
                     echo"<p> * Please enter a valid password * ";
                 }
             }
             if($action === "filled") {
-                ?>
-                <script>
-                    console.log("action is filled");
-                </script>
-            <?php
             $username = (safePost($conn, "username"));
             $password = (safePost($conn, "password"));
             $_SESSION['userName'] = $username;
@@ -172,13 +200,17 @@ if($loginOK) {
             }
             else {
                 ?>
-                <script>alert("Password not recognised")</script><?php
+                <script>
+                    var notPass = document.getElementById("notPass");
+                    notPass.style.display="block";
+                </script><?php
             }
 
             }
             else {
                 ?>
-                <script>alert("Username not recognised")</script><?php
+                <script>var notUser = document.getElementById("notUser");
+                    notUser.style.display="block";</script><?php
             }
             }
             ?>
@@ -215,6 +247,7 @@ if($loginOK) {
                 var password = document.getElementById("password");
                 var survivor = document.getElementById("survivor");
                 var relation = document.getElementById("relation");
+                var errorModal = document.getElementById("errs");
 
 
                 var errs = "";
@@ -248,7 +281,7 @@ if($loginOK) {
 
 
                 if(errs !== ""){
-                    alert("The following need to be corrected: \n" + errs);
+                    errorModal.style.display="block";
                 }
                 return (errs === "");
             }
@@ -267,14 +300,18 @@ if($loginOK) {
             $query = "SELECT `username` FROM `supportAcc` WHERE `username` = '$usernameSupport'";
             $result = $conn->query($query);
             if($result->num_rows>=1){
-                ?><script>alert("Username Already in Use");</script> <?php
+                ?><script>
+                    var username=document.getElementById("username");
+                    username.style.display="block";
+                    </script> <?php
                 echo "<p> * Username is already registered * ";
                 $reject = "true";
             }
             $query2 = "SELECT `username` FROM `account` WHERE `username` = '$usernameSupport'";
             $result2 = $conn->query($query2);
             if($result2->num_rows>=1){
-                ?><script>alert("Username Already in Use");</script> <?php
+                ?><script>var username=document.getElementById("username");
+                    username.style.display="block";</script> <?php
                 echo "<p> * Username is already registered * ";
                 $reject = "true";
 
@@ -286,7 +323,8 @@ if($loginOK) {
 
 //            $resultID = mysqli_query($conn,$checkID);
         if($resultID->num_rows<1) {
-            ?><script>alert("ID does not exist");</script><?php
+            ?><script>var id=document.getElementById("id");
+                id.style.display="block";</script><?php
             echo "<p> * Survivor username is not registered * ";
         $reject = "true";
 
@@ -315,15 +353,9 @@ if($loginOK) {
 
     </div>
     <hr>
-<!--    <input type="hidden" name="action" value="index.html">-->
 
-</div> <!-- / main container -->
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+</div>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 <div class="clear"></div>
 
