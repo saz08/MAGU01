@@ -77,6 +77,7 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
     <script>
         function openNav() {
@@ -110,6 +111,12 @@ if($loginOK) {
     <title>Glossary</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
+    </div>
+</div>
 <div id="page-wrap">
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -124,7 +131,16 @@ if($loginOK) {
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
-                    $username = $_SESSION["userName"];
+                    if($_SESSION["userName"]!=null) {
+                        $username = $_SESSION["userName"];
+                    }
+                    else{
+                        ?><script>
+                            localStorage.setItem("username","unknownUser");
+                            localStorage.setItem("loginOK","no");
+                            document.getElementById("session").style.display="block";
+                        </script><?php
+                    }
 
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);

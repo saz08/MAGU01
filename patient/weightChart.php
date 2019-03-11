@@ -62,6 +62,7 @@ else{
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
 
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
@@ -72,8 +73,23 @@ else{
 
     <meta charset="UTF-8">
     <title>Weight Chart</title>
+    <div id="session" class="modal">
+        <div class="modal-content">
+            <span class="close" id="spanSession" onclick="document.getElementById('session').style.display='none'">&times;</span>
+            <p>Login has expired. Please login again to continue.</p>
+        </div>
+    </div>
     <?php
-    $username = $_SESSION["userName"];
+    if($_SESSION["userName"]!=null) {
+        $username = $_SESSION["userName"];
+    }
+    else{
+        ?><script>
+            localStorage.setItem("username","unknownUser");
+            localStorage.setItem("loginOK","no");
+            document.getElementById("session").style.display="block";
+        </script><?php
+    }
     ?>
     <script>
        window.onload = function () {

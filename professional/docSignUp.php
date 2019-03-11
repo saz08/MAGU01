@@ -112,7 +112,7 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>PROFESSIONAL HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+    <h1>PROFESSIONAL <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
 

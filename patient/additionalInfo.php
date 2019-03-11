@@ -90,6 +90,12 @@ else{
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
+    </div>
+</div>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -102,7 +108,16 @@ else{
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
-                    $username = $_SESSION["userName"];
+                    if($_SESSION["userName"]!=null) {
+                        $username = $_SESSION["userName"];
+                    }
+                    else{
+                        ?><script>
+                            localStorage.setItem("username","unknownUser");
+                            localStorage.setItem("loginOK","no");
+                            document.getElementById("session").style.display="block";
+                        </script><?php
+                    }
 
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
@@ -313,7 +328,7 @@ if($action2==="filled"){
         if (event.target === notNotify) {
             notNotify.style.display = "none";
         }
-    }
+    };
 
     function submitCheck(){
         var check = document.getElementById("submitCheck");

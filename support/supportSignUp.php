@@ -112,7 +112,7 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>SUPPORT CIRCLE HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+    <h1>SUPPORTERS <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 <div id="notUser" class="modal">
     <div class="modal-content">

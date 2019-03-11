@@ -67,11 +67,19 @@ else{
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
     <meta charset="UTF-8">
     <title>Monitor Weight</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" >
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSession" onclick="document.getElementById('session').style.display='none'">&times;</span>
+        <p>Login has expired. Please login again to continue.</p>
+    </div>
+</div>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -84,8 +92,16 @@ else{
             <ul class = "nav navbar-nav navbar-left">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
-                    $username = $_SESSION["userName"];
-
+                    if($_SESSION["userName"]!=null) {
+                        $username = $_SESSION["userName"];
+                    }
+                    else{
+                        ?><script>
+                            localStorage.setItem("username","unknownUser");
+                            localStorage.setItem("loginOK","no");
+                            document.getElementById("session").style.display="block";
+                        </script><?php
+                    }
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {

@@ -39,14 +39,6 @@ $user = safePOSTNonMySQL("username");
 $pass = safePOSTNonMySQL("password");
 }
 
-
-
-
-
-
-
-
-
     ?>
 
 <!DOCTYPE html>
@@ -68,6 +60,8 @@ $pass = safePOSTNonMySQL("password");
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <script src="../js/script.js"></script>
 
@@ -84,6 +78,12 @@ $pass = safePOSTNonMySQL("password");
 </head>
 
 <body>
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
+    </div>
+</div>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -95,7 +95,16 @@ $pass = safePOSTNonMySQL("password");
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
-                $username = $_SESSION["userName"];
+                if($_SESSION["userName"]!=null) {
+                    $username = $_SESSION["userName"];
+                }
+                else{
+                    ?><script>
+                        localStorage.setItem("username","unknownUser");
+                        localStorage.setItem("loginOK","no");
+                        document.getElementById("session").style.display="block";
+                    </script><?php
+                }
 
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
@@ -185,6 +194,7 @@ $pass = safePOSTNonMySQL("password");
 <h2 style="float:right">Today is <?php echo date('jS F Y')?></h2>
 <br>
 <br>
+
 <?php
 $sqlNew  = "SELECT * FROM `scale` WHERE `username` = '$username'";
 $resultNew = $conn->query($sqlNew);

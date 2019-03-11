@@ -61,6 +61,7 @@ $loginOK = false; //TODO make this work with database values
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
 
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
@@ -71,12 +72,25 @@ $loginOK = false; //TODO make this work with database values
 
     <meta charset="UTF-8">
     <title>Record Chart</title>
-
+    <div id="session" class="modal">
+        <div class="modal-content">
+            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
+            <p>Session has expired, please log in again!</p>
+        </div>
+    </div>
 
 <?php
 
-$username = $_SESSION["userName"];
-
+if($_SESSION["userName"]!=null) {
+    $username = $_SESSION["userName"];
+}
+else{
+    ?><script>
+        localStorage.setItem("username","unknownUser");
+        localStorage.setItem("loginOK","no");
+        document.getElementById("session").style.display="block";
+    </script><?php
+}
 
     $sql  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `username` = '$username'";
     $result= $conn->query($sql);

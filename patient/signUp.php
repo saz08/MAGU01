@@ -115,7 +115,7 @@ if($loginOK) {
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>HOMEPAGE <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
+    <h1>SURVIVORS <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
 <div id="errs" class="modal">
@@ -179,7 +179,6 @@ if($loginOK) {
 
             $username= (safePost($conn,"username"));
             $password = (safePost($conn,"password"));
-            $_SESSION['userName'] = $username;
             $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
             $result = mysqli_query($conn,$query);
             if(mysqli_num_rows($result)){
@@ -194,7 +193,9 @@ if($loginOK) {
             if(mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
             $loginOK=true;
-            ?> <script>localStorage.setItem("loginOK", "yes");
+            $_SESSION['userName'] = $username;
+
+                ?> <script>localStorage.setItem("loginOK", "yes");
                     var user = "<?php echo $username; ?>";
                 localStorage.setItem("username", user);
                 window.location.href = "index.php";
@@ -349,12 +350,7 @@ if($loginOK) {
 </div>
 
 
-<div id="checkLog" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanDelete" onclick="document.getElementById('checkLog').style.display='none';window.location.href='signUp.php'">&times;</span>
-        <p>You must log in to continue</p>
-    </div>
-</div>
+
 <div id="loggedIn" class="modal">
     <div class="modal-content">
         <span class="close" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'">&times;</span>
@@ -365,15 +361,10 @@ if($loginOK) {
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script>
     function checkAlreadyLoggedIn(){
-        var checkLog=document.getElementById("checkLog");
         var loggedIn = document.getElementById("loggedIn");
         if(localStorage.getItem("loginOK")==="yes"){
-            if(localStorage.getItem("username")==="unknownUser"){
-               checkLog.style.display="block";
-            }
-            else{
                 loggedIn.style.display="block";
-            }
+
         }
     }
 </script>
