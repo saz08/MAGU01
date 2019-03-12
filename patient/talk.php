@@ -236,7 +236,12 @@ else{
 <input type="text"   id="myInput" onkeyup="searchForum()" placeholder="Search for a post or comment" title="Start typing">
 </div>
 <br>
-
+<div id="delete" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('delete').style.display='none';">&times;</span>
+        <p>Survivors was unable to successfully delete. Please check your internet connection and try again.</p>
+    </div>
+</div>
 <?php
 $sql  = "SELECT * FROM `forum`";
 $result = $conn->query($sql);
@@ -249,7 +254,21 @@ if($result->num_rows>0){
 
         echo "<div id='$posDB'>";
 
-        echo"<br><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post." </p></div>";
+        echo"<br><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
+        if($usernameDB===$username){
+            echo"<button class='btn' id='buttonDelPost' onclick='checkPost()' value='hide/show' style='float:right'>Delete Post</button><br>";
+            ?>
+            <div id="checkPost" class="modal">
+                <div class="modal-content">
+                    <p>Are you sure you want to delete your post?</p>
+                    <button id="spanSubmitCheck" class="btn" onclick="deletePost(<?php echo $posDB ?>);document.getElementById('checkPost').style.display='none';">Yes</button>
+                    <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('checkPost').style.display='none';">No</button>
+
+                </div>
+            </div>
+            <?php
+        }
+        echo"</p></div>";
 
         $sql2  = "SELECT * FROM `comments`";
         $result2 = $conn->query($sql2);
@@ -259,18 +278,28 @@ if($result->num_rows>0){
                 $usernameC = $rowname["username"];
                 $comment = $rowname["patientComment"];
                 if($posID==$posDB) {
-                    echo "<div class='comment' id='comment_".$posID."'><p>Comment from " . $usernameC . ": " . $comment  . "</p></div><br>";
-                    if($username===$usernameC){
-                        $comment = $rowname["patientComment"]; ?>
-                        <button class="btn" id="buttonDelComment" style="float:right" onclick="deleteComment('<?php echo $comment ?>')">Delete Your Comment</button><br>
-                        <?php
-                    }
+                    echo "<div class='comment' id='comment_".$posID."'><p>Comment from " . $usernameC . ": " . $comment;
+                                        if($username===$usernameC){
+                                            $comment = $rowname["patientComment"]; ?>
+                                            <button class="btn" id="buttonDelComment"  onclick="checkComment()" style="float:right">Delete Comment</button><br>
+                                            <div id="checkComment" class="modal">
+                                                <div class="modal-content">
+                                                    <p>Are you sure you want to delete your comment?</p>
+                                                    <button id="spanSubmitCheck" class="btn" onclick="deleteComment('<?php echo $comment ?>');document.getElementById('checkComment').style.display='none';">Yes</button>
+                                                    <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('checkComment').style.display='none';">No</button>
+
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        echo"</p></div><br>";
+
                 }
             }
         }
         ?>
 
-        <button class="btn" id="buttonAdd" onclick="showCommentOption(<?php echo $posDB ?>)" value="hide/show" style="float:right">Add a comment</button>
+        <button class="btn" id="buttonAdd" onclick="showCommentOption(<?php echo $posDB ?>)" style="float:right" value="hide/show" >Add a comment</button>
         <br>
             <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
@@ -282,20 +311,14 @@ if($result->num_rows>0){
 <br>
 
 
+
         <?php
 
-        if($usernameDB===$username){
-            echo"<button class='btn' id='buttonDelPost' onclick='deletePost($posDB)' value='hide/show' style='float:right;font-size: 2rem'>Delete Your Post</button><br>";
-        }
-
         $divID++;
-
         echo "</div>";
     }
 }
-?>
 
-<?php
 
 if($action==="filled"){
 
@@ -357,6 +380,16 @@ if($action2==="filled"){
             }
         }
     }
+
+    function checkPost() {
+        var post = document.getElementById("checkPost");
+        post.style.display = "block";
+    }
+    function checkComment(){
+        var comment = document.getElementById("checkComment");
+        comment.style.display="block";
+    }
+
 
 </script>
 <br>

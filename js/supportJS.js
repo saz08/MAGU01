@@ -8,14 +8,6 @@ if(localStorage.getItem("loginOKSupport")==="no"){
 }
 
 
-if(localStorage.getItem("username")==="unknownUser"){
-    alert("You must be logged in to continue");
-    window.location.href="supportSignUp.php"
-}
-
-
-
-
 function markAndDelete(response){
     jQuery.post("supportMarkAsSeen.php", {"Response": response}, function(data){
         alert("Read and Deleted");

@@ -21,25 +21,22 @@ function deletePost(posDB){
     // var user = username;
     var pos = posDB;
     jQuery.post("deleteForumPost.php", {"Position": pos}, function(data){
-        alert("Forum post deleted successfully");
         window.location.href="talk.php";
     }).fail(function()
     {
-        alert("something broke in deleting your post");
+        document.getElementById("delete").style.display="block";
     });
 }
 
 
 function deleteComment(comment){
-    // var posComment = pos;
     var com = comment;
 
     jQuery.post("deleteComment.php", {"Comment":com}, function(data){
-        alert("Comment deleted successfully");
         window.location.href="talk.php";
     }).fail(function()
     {
-        alert("something broke in deleting your comment");
+        document.getElementById("delete").style.display="block";
     });
 }
 

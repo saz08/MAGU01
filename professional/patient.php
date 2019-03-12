@@ -266,15 +266,7 @@ if($patient->num_rows>0){
         window.location.href="patientInfo.php?id=+<?php echo $id?>";
     }
 
-    function delPatient(){
-        var id = localStorage.getItem("id");
-        jQuery.post("delPatient.php", {"id": id}, function(data){
-            alert("Patient Details Successfully Deleted");
-        }).fail(function()
-        {
-            alert("Failed to successfully delete patient records. Please check your internet connection and try again.");
-        });
-    }
+
 </script>
 </body>
 <div class="clear"></div>

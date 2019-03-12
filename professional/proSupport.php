@@ -260,7 +260,7 @@ if($patient->num_rows>0){
                             echo "<p><b>".$supporter.":</b>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection2'>
-                       <input type='text' name='comment2' id='resSymp' placeholder='Respond to patient...'><br>
+                       <input type='text' name='comment2' id='resSymp'  placeholder='Respond to patient...'><br>
                        <input type='hidden' name='action2' value='filled'>
                        <input type='hidden' name='divID2' id='symptom' value='$symptom'>
                        <input type='submit' value='Respond' class='btn' onclick='submitSymptomResponse()'></form><br></div>";
