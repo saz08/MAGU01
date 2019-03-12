@@ -347,7 +347,16 @@ if($action==="filled"){
         }
     }
 
-    $sql  = "UPDATE `scale` SET `seenInfo`='true',`resInfo`='$comment' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
+
+    $getTime = "SELECT * FROM `scale` WHERE `id`='$id' AND `additionalInfo`='$info' ORDER BY `timeStamp` DESC LIMIT 1";
+    $getTimeResult= $conn->query($getTime);
+    if($getTimeResult->num_rows>0){
+        while($rowname=$getTimeResult->fetch_assoc()){
+            $lastTime= $rowname["timeStamp"];
+        }
+    }
+
+    $sql  = "UPDATE `scale` SET `seenInfo`='true',`resInfo`='$comment',`timeStamp`='$lastTime' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Response has been sent!</p>";
         ?>
@@ -369,7 +378,16 @@ if($action2==="filled"){
             $usernamePatient= $rowname["username"];
         }
     }
-    $sql  = "UPDATE `scale` SET `seenSymp`='true',`resSymp`='$comment' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
+    $getTime = "SELECT * FROM `scale` WHERE `id`='$id' AND `symptom`='$symptom' ORDER BY `timeStamp` DESC LIMIT 1";
+    $getTimeResult= $conn->query($getTime);
+    if($getTimeResult->num_rows>0){
+        while($rowname=$getTimeResult->fetch_assoc()){
+            $lastTime= $rowname["timeStamp"];
+        }
+    }
+
+
+    $sql  = "UPDATE `scale` SET `seenSymp`='true',`resSymp`='$comment',`timeStamp`='$lastTime' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
     if ($conn->query($sql) === TRUE) {
         echo "<p class='center'>Response has been sent!</p>";
         ?>

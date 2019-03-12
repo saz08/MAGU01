@@ -85,13 +85,13 @@ else{
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbarDoc">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#myPage">    </a>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="collapse navbar-collapse" id="myNavbarDoc">
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="../professional/dashboard.php">DASHBOARD</a></li>
                 <li><a href="../professional/createID.php">ADD A PATIENT</a></li>
@@ -111,7 +111,7 @@ else{
     </div>
 </div>
 
-<div id="patientNav" style="display: none;">
+<div id="patientNav">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
