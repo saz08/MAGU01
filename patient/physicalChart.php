@@ -402,7 +402,6 @@ if($result->num_rows<1) {
 <div id="prevWeek" style="height: 40rem; width: 100%;"></div>
 </div>
 <?php } ?>
-<br>
 
 
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>

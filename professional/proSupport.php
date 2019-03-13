@@ -51,6 +51,7 @@ $id = $_GET['id'];
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
@@ -242,14 +243,14 @@ if($patient->num_rows>0){
                             echo "<p><b>".$supporter.":</b> ". $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
-                       <input type='text' name='comment' id='resInfo' placeholder='Respond to patient...'><br>
+                       <input type='text' name='comment' id='resInfo' placeholder='Respond to Supporter...'><br>
                        <input type='hidden' name='action' value='filled'>
-                       <input type='hidden' name='divID' id='info' value='$info'>
-                       <input type='submit' value='Respond' class='btn' onclick='submitInfoResponse()'>
+                       <input type='hidden' name='divID' id='info' value='$info'>"?>
+    <input type="submit" value="Respond to supporter " class="btn" onclick="submitInfoResponse('<?php echo $info ?>')"
 </form>
 
 <br>
-</div>";
+</div><?php
                         } else {
                             echo "<p><b>".$supporter.":</b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
                         }
@@ -260,10 +261,10 @@ if($patient->num_rows>0){
                             echo "<p><b>".$supporter.":</b>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection2'>
-                       <input type='text' name='comment2' id='resSymp'  placeholder='Respond to patient...'><br>
+                       <input type='text' name='comment2' id='resSymp'  placeholder='Respond to Supporter...'><br>
                        <input type='hidden' name='action2' value='filled'>
                        <input type='hidden' name='divID2' id='symptom' value='$symptom'>
-                       <input type='submit' value='Respond' class='btn' onclick='submitSymptomResponse()'></form><br></div>";
+                       <input type='submit' value='Respond to Supporter' class='btn' onclick='submitSymptomResponse()'></form><br></div>";
 
                         } else {
                             echo "<p><b>".$supporter.":</b>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
@@ -288,25 +289,34 @@ if($action2==="filled"){
     $response = (safePost($conn,"comment2"));
 }
 
-
-
-
-
 ?>
 <br>
+<div id="sent" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('sent').style.display='none';window.location.href='proSupport.php'">&times;</span>
+        <p>Response successfully sent</p>
+    </div>
+</div>
+<div id="notSent" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('notSent').style.display='none';window.location.href='proSupport.php'">&times;</span>
+        <p>Survivors was unable to send your response successfully. Please check your internet connection and try again</p>
+    </div>
+</div>
+
 <script>
 
-    function submitInfoResponse(){
-        var additionalInfo = document.getElementById('info').value;
+    function submitInfoResponse(info){
+        var additionalInfo = info;
         var resInfo = document.getElementById('resInfo').value;
         console.log("additional info "+ additionalInfo);
         console.log("additional info response "+ resInfo);
 
         jQuery.post("submitResponse.php", {"Additional": additionalInfo,"resInfo":resInfo}, function(data){
-            alert("Records successfully saved");
+            document.getElementById("sent").style.display="block";
         }).fail(function()
         {
-            alert("Your records were not submitted successfully. Please check your internet connection and try again.");
+            document.getElementById("notSent").style.display="block";
         });
     }
 
@@ -316,11 +326,11 @@ if($action2==="filled"){
         console.log("symptom info "+ symptom);
         console.log("symptom info response "+ resSymp);
 
-        jQuery.post("submitResponse.php", {"Symptom": symptom,"resSymp":resSymp}, function(data){
-            alert("Records successfully saved");
+        jQuery.post("submitSympResponse.php", {"Symptom": symptom,"resSymp":resSymp}, function(data){
+            document.getElementById("sent").style.display="block";
         }).fail(function()
         {
-            alert("Your records were not submitted successfully. Please check your internet connection and try again.");
+            document.getElementById("notSent").style.display="block";
         });
     }
 

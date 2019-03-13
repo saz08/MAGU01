@@ -226,6 +226,7 @@ while ($rowname = $result->fetch_assoc()) {
     <h1><?php echo $patientname ?>'s Weight Chart<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
+<div class="divSpace"></div>
 
 <?php
 $sql = "SELECT * FROM `weight` WHERE `id` = '$id'";

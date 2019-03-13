@@ -29,18 +29,18 @@
     left: 0;
     height: 3rem;
     width: 3rem;
-    background-color: lightsteelblue;
+    background-color: #DDA8FF;
     border-radius: 50%;
 }
 
  /*On mouse-over, add a grey background color */
 .radioContainer:hover input ~ .checkmark {
-    background-color: dodgerblue;
+    background-color: #F61067;
 }
 
 /* When the radio button is checked, add a blue background */
 .radioContainer input:checked ~ .checkmark {
-    background-color: purple;
+    background-color: #8B178B;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -67,17 +67,17 @@
 
 .radiostyle{
     width:50%;
+    padding: 2rem 2rem;
     position: relative;
     left: 20%;
     height:inherit;
     box-sizing: border-box;
-    border: mediumpurple;
+    border: #B132E8;
     border-radius: 5rem;
     background-color: floralwhite;
     font-size: 2rem;
     color: black;
     resize: none;
-    padding-left: 20px;
 
 }
 
@@ -87,13 +87,14 @@
     left: 20%;
     height:inherit;
     box-sizing: border-box;
-    border: mediumpurple;
+    border: #B132E8;
     border-radius: 5rem;
     background-color: floralwhite;
     font-size: 2rem;
     color: black;
     resize: none;
-    padding-left: 20px;
+    padding: 2rem 2rem;
+    text-align: left;
 }
 
  .weightStyle{
@@ -102,7 +103,7 @@
      left: 20%;
      height:inherit;
      box-sizing: border-box;
-     border: mediumpurple;
+     border: #B132E8;
      border-radius: 5rem;
      font-size: 2rem;
      color: black;
@@ -132,14 +133,10 @@
         left: 0;
         height:inherit;
         box-sizing: border-box;
-        border: mediumpurple;
+        border: #B132E8;
         border-radius: 5rem;
         font-size: 2rem;
         color: black;
         resize: none;
     }
 }
-
-
-
-

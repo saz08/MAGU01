@@ -5,7 +5,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: purple;
+    background-color: #8B178B;
     overflow-x: hidden;
     padding-top: 60px;
     transition: 0.5s;
@@ -21,7 +21,7 @@
 .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: purple;
+    background-color: #8B178B;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -68,7 +68,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background: #eee;
+    background: #DDA8FF;
     overflow-x: hidden;
     height: 100%;
     width: 0;
@@ -80,12 +80,14 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #2196F3;
+    color: black;
     display: block;
+    background-color: #DDA8FF;
 }
 
 .sideBar a:hover {
-    color: #064579;
+    color: black;
+    background-color:#9593D9 ;
 }
 
 @media screen and (max-height: 450px) {
@@ -102,8 +104,8 @@
     top: 0;
     bottom:0;
     background-color: #DDA8FF;
-    overflow-x: scroll;
-    overflow-y: visible;
+    overflow-x: auto;
+    overflow-y: auto;
     padding-top: 60px;
     transition: 0.5s;
 }
@@ -124,33 +126,34 @@
 
 .weightNav .closebtn {
     position: absolute;
-    /*top: 0;*/
-    /*right: 25px;*/
     padding: 6px 8px 6px 16px;
     font-size: 2rem;
-    /*margin-left: 50px;*/
 }
 
-/*.openbtn {*/
-    /*font-size: 20px;*/
-    /*cursor: pointer;*/
-    /*background-color: purple;*/
-    /*color: white;*/
-    /*padding: 10px 15px;*/
-    /*border: none;*/
-/*}*/
+.openbtn {
+    box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.24), 0 0.5rem 0.5rem 0 rgba(0,0,0,0.19);    border-radius:1rem;
+    cursor: pointer;
+    background-color: #B132E8;
+    color: black;
+
+    padding: 10px 15px;
+    border: none;
+}
 
 .openbtn:hover {
-    background-color: #444;
-}
-
-.closebtn{
-    background-color: purple;
+    background-color: #F61067;
     color:white;
 }
 
+.closebtn{
+    box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.24), 0 0.5rem 0.5rem 0 rgba(0,0,0,0.19);    border-radius:1rem;
+    background-color: #B132E8;
+    color:black;
+}
+
 .closebtn:hover{
-    background-color: mediumpurple;
+    background-color: #F61067;
+    color: white;
 }
 
 

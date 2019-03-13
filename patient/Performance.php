@@ -189,7 +189,7 @@ if($loginOK) {
 <br>
 
 
-<div class="box">The following is the ECOG/WHO (Eastern Cooperative Oncology Group/ World Health Organization) Performance Status scale.<p> Please tick the box that you feel you apply to</p>
+<div class="box">The following is a modified version of the ECOG/WHO (Eastern Cooperative Oncology Group/ World Health Organization) Performance Status scale.<p> Please tick the box that you feel you apply to</p>
 <p>
    <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
 </p></div>
@@ -214,10 +214,7 @@ if($loginOK) {
         <input type="radio" name="radio" value="4" id="four">
         <span class="checkmark"></span>
     </label>
-    <label class="radioContainer">5: Death
-        <input type="radio" name="radio" value="5" id="five">
-        <span class="checkmark"></span>
-    </label>
+
 </form>
 
 
@@ -243,9 +240,7 @@ if($loginOK) {
         if(document.getElementById('four').checked){
             localStorage.setItem("Performance", "4");
         }
-        if(document.getElementById('five').checked){
-            localStorage.setItem("Performance", "5");
-        }
+
 
         window.location.href="additionalInfo.php";
 

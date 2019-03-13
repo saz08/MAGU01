@@ -228,7 +228,7 @@ if($patient->num_rows>0){
                 echo"<tr>";
                 echo "<th>Forename</th>";
             echo "<th>Surname</th>";
-           echo "<th>Birthday</th>";
+           echo "<th>Date of Birth</th>";
            echo "<th>Gender</th>";
            echo "<th>Smoking Status</th>";
            echo "<th>Address</th>";

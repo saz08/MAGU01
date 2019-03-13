@@ -193,8 +193,8 @@ if($loginOK) {
 <br>
 <div class="box">
 <form method="post" class="WHOstyle">
-    <label class="container">1: During the last 7 days, how much time did you spend sitting on a week day?
-        <select name="sitting">
+    <label class="container" style="text-align: left;">1: During the last 7 days, how much time did you spend sitting on a week day?
+        <select name="sitting" style="float:right">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -202,9 +202,38 @@ if($loginOK) {
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
+        <div class="divSpace"></div>
     </label>
-    <label class="container">2: During the last 7 days, on how many days did you walk for at least 10 minutes at a time?
-        <select name="walk">
+    <label class="container" style="text-align: left;">2: During the last 7 days, on how many days did you walk for at least 10 minutes at a time?
+        <select name="walk" style="float:right">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+        <div class="divSpace"></div>
+
+    </label>
+    <label class="container" style="text-align: left;"><details><summary>3: During the last 7 days, on how many days did you do moderate physical activities?</summary>Such as: carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.</details>
+        <select name="moderate" style="float:right">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+        <div class="divSpace"></div>
+
+    </label>
+    <label class="container" style="text-align: left;"><details><summary>4: During the last 7 days, on how many days did you do vigorous physical activities?</summary>Such as: heavy lifting, digging, aerobics or fast bicycling</details>
+        <select name="vigorous" style="float:right">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -215,38 +244,11 @@ if($loginOK) {
             <option value="7">7</option>
         </select>
     </label>
-    <label class="container"><details><summary>3: During the last 7 days, on how many days did you do moderate physical activities?</summary>Such as: carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.</details>
-        <select name="moderate">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-    </label>
-    <label class="container"><details><summary>4: During the last 7 days, on how many days did you do vigorous physical activities?</summary>Such as: heavy lifting, digging, aerobics or fast bicycling</details>
-        <select name="vigorous">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-    </label>
-
-
-
-
 
 
     <input type="hidden" name="action" value="filled">
     <input type="submit" class="btn" id="button" name="submit" value="Submit"/>
+    <div class="divSpace"></div>
 </form>
 
 </div>
@@ -279,10 +281,14 @@ if($action === "filled") {
 
 ?>
 <div>
-    <button class="btn" onclick="goBack()"><b><</b> Back </button>
 </div>
+<footer>
+    <div class="footer">
+        <button class="btn" style=float:left; onclick="goBack()"><b><</b> Back </button>
+
+    </div>
+</footer>
 </body>
-<div class="clear"></div>
 
 
 </html>

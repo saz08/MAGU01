@@ -690,7 +690,9 @@ if($entriesM!=0) {
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
     <h1><?php echo  $patientname?>'s Records from the Beginning<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<br>
+<button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
+
+
 <?php
 if($entries!=0&&$entriesM!=0) {
     ?>
@@ -710,7 +712,6 @@ if($entries!=0&&$entriesM!=0) {
             </label>
         </form>
     </div>
-    <button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
 
 
     <div class="sideBar" id="mySidebar">

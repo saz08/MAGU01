@@ -47,9 +47,8 @@ $loginOK = false; //TODO make this work with database values
 <!DOCTYPE html>
 <script>
     if(localStorage.getItem("loginOK")===null){
-        localStorage.setItem("loginOK", "no")
-        localStorage.setItem("username", "unknownUser")
-
+        localStorage.setItem("loginOK", "no");
+        localStorage.setItem("username", "unknownUser");
     }
 </script>
 
@@ -363,8 +362,9 @@ if($loginOK) {
     function checkAlreadyLoggedIn(){
         var loggedIn = document.getElementById("loggedIn");
         if(localStorage.getItem("loginOK")==="yes"){
+            if(localStorage.getItem("username")!=="unknownUser" || localStorage.getItem("username")!==""){
                 loggedIn.style.display="block";
-
+            }
         }
     }
 </script>

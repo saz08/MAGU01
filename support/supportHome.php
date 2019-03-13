@@ -657,7 +657,7 @@ if($entriesM!=0) {
 <br>
 
 <div class="sideBar" id="mySidebar">
-    <a class="closebtn" onclick="closeNav()" >  <</a>
+    <a class="closebtn" onclick="closeNav()" > <b>< CLOSE</b></a>
     <div class="circleKey" style="background-color:#008D00 ;"></div>
     <p >Pain below 4. Breathlessness and Performance below 2</p>
     <div class="circleKey" style="background-color:#E8AE00;"></div>

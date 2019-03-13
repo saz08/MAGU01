@@ -268,8 +268,7 @@ $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `
 }
 ?>
 <div class="clear"></div>
-<br>
-<br>
+
 </body>
 
 <footer>

@@ -252,14 +252,14 @@ if($resultScale->num_rows>0) {
             echo "<td style='background-color: limegreen;color: black'>" . $breath . "/5</a></td>";
         }
         if($rowname["performance"]>=3){
-            echo "<td style='background-color: red;color: black'>" . $performance . "/5</a></td>";
+            echo "<td style='background-color: red;color: black'>" . $performance . "/4</a></td>";
         }
 
         else if($rowname["performance"]==2){
-            echo "<td style='background-color: orange;color: black'>" .$performance . "/5</a></td>";
+            echo "<td style='background-color: orange;color: black'>" .$performance . "/4</a></td>";
         }
         else{
-            echo "<td style='background-color: limegreen;color: black'>" . $performance. "/5</a></td>";
+            echo "<td style='background-color: limegreen;color: black'>" . $performance. "/4</a></td>";
         }
 
         echo "</tr>";
@@ -296,7 +296,7 @@ echo "</div>";
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
                        <input type='hidden' name='action' value='filled'>
                        <input type='hidden' name='divID' value='$info'>
-                       <input type='submit' value='Respond' class='btn'>
+                       <input type='submit' value='Respond to Patient' class='btn'>
 </form>
 <br>
 </div>";
@@ -316,7 +316,7 @@ echo "</div>";
                        <input type='text' name='comment' placeholder='Respond to patient...'><br>
                        <input type='hidden' name='action2' value='filled'>
                        <input type='hidden' name='divID2' value='$symptom'>
-                       <input type='submit' value='Respond' class='btn'>
+                       <input type='submit' value='Respond to Patient' class='btn'>
                     </form>
                     <br>
                     </div>";

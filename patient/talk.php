@@ -64,8 +64,10 @@ else{
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
     <script src="../js/forum.js"></script>
     <script src="../js/forAll.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
@@ -228,11 +230,12 @@ else{
 </div>
 
 <form method="post" name="createForumPost" >
-    Create a post: <input type="text" name="createPost" placeholder="Type in here!"><br>
+    <h2>Create a post:</h2> <input type="text" name="createPost" placeholder="Type in here!"><br>
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Submit" class="btn" id="button">
 </form><br>
 <div id="keyword" style="text-align:center">
+    <h3>Filter through posts and comments</h3>
 <input type="text"   id="myInput" onkeyup="searchForum()" placeholder="Search for a post or comment" title="Start typing">
 </div>
 <br>
@@ -254,15 +257,15 @@ if($result->num_rows>0){
 
         echo "<div id='$posDB'>";
 
-        echo"<br><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
+        echo"<div class='divSpace'></div><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
         if($usernameDB===$username){
-            echo"<button class='btn' id='buttonDelPost' onclick='checkPost()' value='hide/show' style='float:right'>Delete Post</button><br>";
+            echo"<button class='btn' id='buttonDelPost' onclick='checkPost()' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
             ?>
             <div id="checkPost" class="modal">
                 <div class="modal-content">
                     <p>Are you sure you want to delete your post?</p>
-                    <button id="spanSubmitCheck" class="btn" onclick="deletePost(<?php echo $posDB ?>);document.getElementById('checkPost').style.display='none';">Yes</button>
-                    <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('checkPost').style.display='none';">No</button>
+                    <button id="spanSubmitCheck" class="btn" style="font-size:1.5rem" onclick="deletePost(<?php echo $posDB ?>);document.getElementById('checkPost').style.display='none';">Yes</button>
+                    <button id="spanSubmitCheck" class="btn" style="font-size:1.5rem" onclick="document.getElementById('checkPost').style.display='none';">No</button>
 
                 </div>
             </div>
@@ -281,12 +284,12 @@ if($result->num_rows>0){
                     echo "<div class='comment' id='comment_".$posID."'><p>Comment from " . $usernameC . ": " . $comment;
                                         if($username===$usernameC){
                                             $comment = $rowname["patientComment"]; ?>
-                                            <button class="btn" id="buttonDelComment"  onclick="checkComment()" style="float:right">Delete Comment</button><br>
+                                            <button class="btn" style="font-size:1.5rem;float:right" id="buttonDelComment"  onclick="checkComment()" >Delete Comment <i class='far fa-trash-alt'></i></button><br>
                                             <div id="checkComment" class="modal">
                                                 <div class="modal-content">
                                                     <p>Are you sure you want to delete your comment?</p>
-                                                    <button id="spanSubmitCheck" class="btn" onclick="deleteComment('<?php echo $comment ?>');document.getElementById('checkComment').style.display='none';">Yes</button>
-                                                    <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('checkComment').style.display='none';">No</button>
+                                                    <button id="spanSubmitCheck" class="btn" style="font-size:1.5rem" onclick="deleteComment('<?php echo $comment ?>');document.getElementById('checkComment').style.display='none';">Yes</button>
+                                                    <button id="spanSubmitCheck" class="btn"style="font-size:1.5rem"  onclick="document.getElementById('checkComment').style.display='none';">No</button>
 
                                                 </div>
                                             </div>
@@ -299,14 +302,14 @@ if($result->num_rows>0){
         }
         ?>
 
-        <button class="btn" id="buttonAdd" onclick="showCommentOption(<?php echo $posDB ?>)" style="float:right" value="hide/show" >Add a comment</button>
+        <button class="btn"   id="buttonAdd" onclick="showCommentOption(<?php echo $posDB ?>)" style="float:right;font-size:1.5rem" value="hide/show" >Add a comment <i class='fas fa-plus'></i></button>
         <br>
             <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
                 <form method="post" name="commentsSection">
                     <input type="text" name="comment" placeholder="Leave a comment here..."><br>
                     <input type="hidden" name="action2" value="filled">
                     <input type="hidden" name="divID" value="<?php echo $posDB?>">
-                    <input type="submit" value="Comment" class="btn" id="button">
+                    <input type="submit" value="Comment" class="btn" style="font-size:1.5rem" id="button">
                 </form></div>
 <br>
 
@@ -398,7 +401,5 @@ if($action2==="filled"){
 </div>
 </body>
 
-<div class="clear"></div>
-<br>
 
 </html>
