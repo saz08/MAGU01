@@ -308,9 +308,9 @@ if($entriesM!=0) {
         window.onload = function() {
             CanvasJS.addColorSet("greenShades",
                 [
-                    "#008D00",
-                    "#E8AE00",
-                    "#FF0000"
+                    "#006700",
+                    "#FE6C01",
+                    "#B30000"
                 ]);
             var painAllTime = new CanvasJS.Chart("painAllTime", {
 
@@ -716,11 +716,11 @@ if($entries!=0&&$entriesM!=0) {
 
     <div class="sideBar" id="mySidebar">
         <a class="closebtn" onclick="closeNav()" > <b>< CLOSE</b> </a>
-        <div class="circleKey" style="background-color:#008D00 ;"></div>
+        <div class="circleKey" style="background-color:#006700 ;"></div>
         <p >Pain below 4. Breathlessness and Performance below 2</p>
-        <div class="circleKey" style="background-color:#E8AE00;"></div>
+        <div class="circleKey" style="background-color:#FE6C01;"></div>
         <p >Pain between 4 and 7. Breathlessness between 2 and 4 and Performance of 2</p>
-        <div class="circleKey" style="background-color:#FF0000 ;"></div>
+        <div class="circleKey" style="background-color:#B30000 ;"></div>
         <p >Pain greater than 7. Breathlessness greater than 4 and Performance greater than 3</p>
 
     </div>

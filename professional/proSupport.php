@@ -293,13 +293,13 @@ if($action2==="filled"){
 <br>
 <div id="sent" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('sent').style.display='none';window.location.href='proSupport.php'">&times;</span>
+        <span class="close" id="spanNotify" onclick="document.getElementById('sent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'">&times;</span>
         <p>Response successfully sent</p>
     </div>
 </div>
 <div id="notSent" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('notSent').style.display='none';window.location.href='proSupport.php'">&times;</span>
+        <span class="close" id="spanNotify" onclick="document.getElementById('notSent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'">&times;</span>
         <p>Survivors was unable to send your response successfully. Please check your internet connection and try again</p>
     </div>
 </div>

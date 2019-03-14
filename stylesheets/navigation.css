@@ -133,26 +133,26 @@
 .openbtn {
     box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.24), 0 0.5rem 0.5rem 0 rgba(0,0,0,0.19);    border-radius:1rem;
     cursor: pointer;
-    background-color: #B132E8;
-    color: black;
+    background-color: #8B178B;
+    color: white;
 
     padding: 10px 15px;
     border: none;
 }
 
 .openbtn:hover {
-    background-color: #F61067;
+    background-color: #AC0646;
     color:white;
 }
 
 .closebtn{
     box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.24), 0 0.5rem 0.5rem 0 rgba(0,0,0,0.19);    border-radius:1rem;
-    background-color: #B132E8;
-    color:black;
+    background-color: #8B178B;
+    color:white;
 }
 
 .closebtn:hover{
-    background-color: #F61067;
+    background-color: #AC0646;
     color: white;
 }
 

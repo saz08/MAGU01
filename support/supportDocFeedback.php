@@ -172,7 +172,7 @@ if($result->num_rows>0){
                 <p>
                     The doctor has responded to your query: <?php echo $additional ?> <br>
                     Response: <?php echo $resInfo ?>
-                    <button class="btn" id="button" onclick="markAndDelete('<?php echo $resInfo ?>')">Mark as Read and
+                    <button class="btn" id="button" onclick="markAndDeleteInfo('<?php echo $resInfo ?>')">Mark as Read and
                         Delete
                     </button>
                 </p>
@@ -186,7 +186,7 @@ if($result->num_rows>0){
                 <p>
                     The doctor has responded to your query: <?php echo $symptom ?> <br>
                     Response: <?php echo $resSymp ?>
-                    <button class="btn" id="button" onclick="markAndDelete('<?php echo $resSymp ?>')">Mark as Read and
+                    <button class="btn" id="button" onclick="markAndDeleteSymp('<?php echo $resSymp ?>')">Mark as Read and
                         Delete
                     </button>
                 </p>

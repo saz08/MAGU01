@@ -39,11 +39,13 @@ body {
 }
 
 .btn{
-    box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.24), 0 0.5rem 0.5rem 0 rgba(0,0,0,0.19);    background-color: #B132E8;
+    box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.24), 0 0.5rem 0.5rem 0 rgba(0,0,0,0.19);
+    background-color: #8B178B;
     font-size: 2rem;
+    color:white;
 }
 .btn:hover{
-    background-color: #F61067 ;
+    background-color: #AC0646 ;
     color:white;
 }
 
@@ -198,7 +200,7 @@ p{
 /*}*/
 .navbar {
     margin-bottom: 0;
-    background-color: purple;
+    background-color: #8B178B;
     z-index: 9999;
     border: 0;
     font-size: 2rem;
@@ -403,7 +405,7 @@ div.inputRight{
     width: 75%;
     height: 1.5rem;
     border-radius: 1rem;
-    background: darkorchid;
+    background: #3F1452;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
@@ -417,10 +419,11 @@ div.inputRight{
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
-    background: black;
+    background: #F9AECB;
+    border: 0.5rem solid #3F1452;
     cursor: pointer;
 }
 
@@ -428,7 +431,7 @@ div.inputRight{
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #576490;
+    background: #F9AECB;
     cursor: pointer;
 }
 
@@ -610,6 +613,7 @@ output {
     border-collapse: collapse;
     width: 100%;
     font-size: 2rem;
+    overflow-x: auto;
 }
 
 #doctorTable td, #doctorTable th {

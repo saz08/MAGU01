@@ -258,9 +258,9 @@ if($result->num_rows>0){
         echo "<div id='$posDB'>";
 
         echo"<div class='divSpace'></div><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
-        if($usernameDB===$username){
-            echo"<button class='btn' id='buttonDelPost' onclick='checkPost()' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
-            ?>
+        if($usernameDB===$username) {
+            echo "<button class='btn' id='buttonDelPost' onclick='checkPost()' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
+        } ?>
             <div id="checkPost" class="modal">
                 <div class="modal-content">
                     <p>Are you sure you want to delete your post?</p>
@@ -270,7 +270,7 @@ if($result->num_rows>0){
                 </div>
             </div>
             <?php
-        }
+
         echo"</p></div>";
 
         $sql2  = "SELECT * FROM `comments`";

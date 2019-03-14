@@ -8,8 +8,18 @@ if(localStorage.getItem("loginOKSupport")==="no"){
 }
 
 
-function markAndDelete(response){
+function markAndDeleteInfo(response){
     jQuery.post("supportMarkAsSeen.php", {"Response": response}, function(data){
+        alert("Read and Deleted");
+        window.location.href="supportDocFeedback.php";
+    }).fail(function()
+    {
+        alert("something broke in submitting your records");
+    });
+}
+
+function markAndDeleteSymp(response){
+    jQuery.post("supportMarkSymp.php", {"Response": response}, function(data){
         alert("Read and Deleted");
         window.location.href="supportDocFeedback.php";
     }).fail(function()

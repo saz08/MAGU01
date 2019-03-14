@@ -232,7 +232,7 @@ if($resultScale->num_rows>0) {
         echo "<td style='background-color: white;color: black'>" . $date2 . "</a></td>";
 
         if($rowname["pain"]>=7){
-            echo "<td style='background-color: red;color: black'>" . $pain . "/10</a></td>";
+            echo "<td style='background-color: #FF7070;color: black'>" . $pain . "/10</a></td>";
         }
 
         else if($rowname["pain"]>=4&&$rowname["pain"]<7){
@@ -242,7 +242,7 @@ if($resultScale->num_rows>0) {
             echo "<td style='background-color: limegreen;color: black'>" . $pain . "/10</a></td>";
         }
         if($rowname["breathlessness"]>=4){
-            echo "<td style='background-color: red;color: black'>" . $breath . "/5</a></td>";
+            echo "<td style='background-color: #FF7070;color: black'>" . $breath . "/5</a></td>";
         }
 
         else if($rowname["breathlessness"]>=2&&$rowname["breathlessness"]<4){
@@ -252,7 +252,7 @@ if($resultScale->num_rows>0) {
             echo "<td style='background-color: limegreen;color: black'>" . $breath . "/5</a></td>";
         }
         if($rowname["performance"]>=3){
-            echo "<td style='background-color: red;color: black'>" . $performance . "/4</a></td>";
+            echo "<td style='background-color: #FF7070;color: black'>" . $performance . "/4</a></td>";
         }
 
         else if($rowname["performance"]==2){
@@ -302,7 +302,7 @@ echo "</div>";
 </div>";
 
                 } else {
-                    echo "<p><b>".$date2.": </b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                    echo "<p><b>".$date2.": </b>" . $info . " <button class='btn' style='background-color: #644F62!important;color:white!important;'>Seen</button></p>";
 
                 }
 
@@ -323,7 +323,7 @@ echo "</div>";
 
                 }
                 else {
-                    echo "<p><b>".$date2.": </b>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                    echo "<p><b>".$date2.": </b>" . $symptom . " <button class='btn' style='background-color: #644F62!important;color:white!important;'>Seen</button></p>";
 
                 }
 

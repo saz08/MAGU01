@@ -2,9 +2,10 @@
 /**
  * Created by IntelliJ IDEA.
  * User: User
- * Date: 18/02/2019
- * Time: 10:41 AM
+ * Date: 14/03/2019
+ * Time: 11:41 AM
  */
+
 session_start();
 
 //connect to the database now that we know we have enough to submit
@@ -34,17 +35,10 @@ function safePOSTNonMySQL($name){
 
 $response = $_POST['Response'];
 
-$sqlInfo  = "SELECT  `resInfo` FROM `supportSubmit` WHERE `resInfo` = '$response'";
-$resultInfo = $conn->query($sqlInfo);
-if($resultInfo->num_rows>0) {
-    $sql1  = "UPDATE `supportSubmit` SET `seenInfo`='' WHERE `resInfo` = '$response'";
-    $conn->query($sql1);
+
+$sqlSymp = "SELECT  `resSymp` FROM `supportSubmit` WHERE `resSymp` = '$response'";
+$resultSymp = $conn->query($sqlSymp);
+if($resultSymp->num_rows>0) {
+    $sql2  = "UPDATE `supportSubmit` SET `seenSymp`='' WHERE `resSymp` = '$response'";
+    $conn->query($sql2);
 }
-
-
-
-
-
-
-
-
