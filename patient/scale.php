@@ -106,6 +106,7 @@ if($loginOK) {
                     }
                     else{
                         ?><script>
+                            console.log("session ended");
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
                             document.getElementById("session").style.display="block";
@@ -217,7 +218,6 @@ if($loginOK) {
     }
 </script>
 <div class="clear"></div>
-<br>
 <br>
 <br>
 <div>

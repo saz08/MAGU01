@@ -170,7 +170,7 @@ $username = $_SESSION["userName"];
 <div class="box">You can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank</div>
 
 <form name="additional" method="post" class="box-transparent" >
-    <input type="text" name="additional"  id="additional"/>
+    <input type="text" name="additional"  id="additional" placeholder="Additional Information..."/>
     <input type="hidden" name="action2" value="filled">
 
     </p>

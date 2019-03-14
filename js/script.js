@@ -25,6 +25,7 @@ function weightConverter(valNum) {
 window.onclick = function(event) {
     if (event.target === session) {
         session.style.display = "none";
+        window.location.href="signUp.php";
     }
 
 };

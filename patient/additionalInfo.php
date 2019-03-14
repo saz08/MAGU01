@@ -291,7 +291,6 @@ if($action2==="filled"){
         var performance = localStorage.getItem("Performance");
         var additionalInfo = document.getElementById('additional').value;
         var symptom = document.getElementById('select').value;
-       // var additionalInfo = localStorage.getItem("Additional");
         jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance,"Additional": additionalInfo,"Symptom": symptom}, function(data){
             savedModal.style.display="block";
 
@@ -335,6 +334,7 @@ if($action2==="filled"){
         check.style.display="block";
     }
 </script>
+<div class="divSpace"></div>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
         <button class="btn" style="float:right" onclick="submitCheck()"> Submit <b> > </b></button>
