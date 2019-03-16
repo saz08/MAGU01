@@ -196,7 +196,7 @@ else{
         <option value="Bleeding">Bleeding</option>
         <option value="Constipation">Constipation</option>
         <option value="Depressed">Depressed</option>
-        <option value="Diarrhea">Diarrhea</option>
+        <option value="Diarrhoea">Diarrhoea</option>
         <option value="Fatigue">Fatigue</option>
         <option value="Insomnia">Insomnia</option>
         <option value="Sickness">Sickness</option>
@@ -214,28 +214,28 @@ else{
 
 <div id="savedModal" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('savedModal').style.display='none'; window.location.href='index.php';">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('savedModal').style.display='none'; window.location.href='index.php';" style="float:right" >&times;</button>
         <p>Records have been successfully saved</p>
     </div>
 </div>
 
 <div id="notSavedModal" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotSave" onclick="document.getElementById('notSavedModal').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotSave" onclick="document.getElementById('notSavedModal').style.display='none';"style="float:right" >&times;</button>
         <p>Your records were not submitted successfully. Please check your internet connection and try again.</p>
     </div>
 </div>
 
 <div id="docNotify" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('docNotify').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotify" onclick="document.getElementById('docNotify').style.display='none'"style="float:right" >&times;</button>
         <p>Your doctor has been notified</p>
     </div>
 </div>
 
 <div id="notNotify" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotNotify" onclick="document.getElementById('notNotify').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotNotify" onclick="document.getElementById('notNotify').style.display='none';" style="float:right">&times;</button>
         <p>Survivors was unable to notify your doctor. Please check your internet connection and try again. If you feel your symptoms are serious please contact your doctor immediately.</p>
     </div>
 </div>
@@ -250,21 +250,21 @@ else{
 
 <div id="painFill" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotNotify" onclick="document.getElementById('painFill').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotNotify" onclick="document.getElementById('painFill').style.display='none';" style="float:right">&times;</button>
         <p>Sorry! You have not entered your pain rating. Please go back and enter before submitting</p>
     </div>
 </div>
 
 <div id="breathFill" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotNotify" onclick="document.getElementById('breathFill').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotNotify" onclick="document.getElementById('breathFill').style.display='none';" style="float:right">&times;</button>
         <p>Sorry! You have not entered your breathlessness rating. Please go back and enter before submitting</p>
     </div>
 </div>
 
 <div id="performanceFill" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotNotify" onclick="document.getElementById('performanceFill').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotNotify" onclick="document.getElementById('performanceFill').style.display='none';" style="float:right">&times;</button>
         <p>Sorry! You have not entered your performance rating. Please go back and enter before submitting</p>
     </div>
 </div>
