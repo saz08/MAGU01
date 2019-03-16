@@ -59,7 +59,7 @@ else{
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Dashboard</title>
     <script>
         localStorage.setItem("id", "");
     </script>
@@ -104,6 +104,8 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
+        alert("Session has expired, please log in again");
+
         window.location.href="docSignUp.php";
     </script><?php
 }

@@ -105,6 +105,8 @@ if($_SESSION['userName']==null){
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
+                            alert("Session has expired, please log in again");
+
                             window.location.href="signUp.php";
                         </script><?php
                     }

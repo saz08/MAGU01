@@ -61,6 +61,7 @@ else{
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
@@ -105,6 +106,8 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
+        alert("Session has expired, please log in again");
+
         window.location.href="docSignUp.php";
     </script><?php
 }

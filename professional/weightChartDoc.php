@@ -53,7 +53,7 @@ $year = date("Y");
 
 
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Weight Chart</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <div id="session" class="modal">
@@ -70,6 +70,8 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
+        alert("Session has expired, please log in again");
+
         window.location.href="docSignUp.php";
     </script><?php
 }

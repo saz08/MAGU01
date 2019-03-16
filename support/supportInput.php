@@ -56,7 +56,9 @@ else{
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
-
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
@@ -82,6 +84,8 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKSupport","no");
+        alert("Session has expired, please log in again");
+
         window.location.href="supportSignUp.php";
     </script><?php
 }

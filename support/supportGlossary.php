@@ -115,6 +115,8 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKSupport","no");
+        alert("Session has expired, please log in again");
+
         window.location.href="supportSignUp.php";
     </script><?php
 }
