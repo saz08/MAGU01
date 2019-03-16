@@ -39,16 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +58,7 @@ if($loginOK) {
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -80,12 +71,14 @@ if($loginOK) {
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -105,7 +98,7 @@ if($loginOK) {
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
@@ -156,7 +149,6 @@ if($loginOK) {
                         </ul>
                     </li>
 
-
                     <li><a href="talk.php">TALK</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="help">
@@ -182,19 +174,25 @@ if($loginOK) {
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Monitor your physical activity <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <br>
+
 <div class="box">The following questions have been adapted from the YOUTHREX International Physical Acitivity Questionnaire.
     <p>
         <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
     </p></div>
+
 <br>
+
 <div class="box">
 <form method="post" class="WHOstyle">
     <label class="container" style="text-align: left;">1: During the last 7 days, how much time did you spend sitting on a week day?
         <select name="sitting" style="float:right">
+            <option value=""></option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -204,8 +202,10 @@ if($loginOK) {
         </select>
         <div class="divSpace"></div>
     </label>
+
     <label class="container" style="text-align: left;">2: During the last 7 days, on how many days did you walk for at least 10 minutes at a time?
         <select name="walk" style="float:right">
+            <option value=""></option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -220,6 +220,7 @@ if($loginOK) {
     </label>
     <label class="container" style="text-align: left;"><details><summary>3: During the last 7 days, on how many days did you do moderate physical activities?</summary>Such as: carrying light loads, bicyling at a regular pace, or doubles tennis? Do not include walking.</details>
         <select name="moderate" style="float:right">
+            <option value=""></option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -234,6 +235,7 @@ if($loginOK) {
     </label>
     <label class="container" style="text-align: left;"><details><summary>4: During the last 7 days, on how many days did you do vigorous physical activities?</summary>Such as: heavy lifting, digging, aerobics or fast bicycling</details>
         <select name="vigorous" style="float:right">
+            <option value=""></option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -245,13 +247,12 @@ if($loginOK) {
         </select>
     </label>
 
-
     <input type="hidden" name="action" value="filled">
     <input type="submit" class="btn" id="button" name="submit" value="Submit"/>
     <div class="divSpace"></div>
 </form>
-
 </div>
+
 <div class="clear"></div>
 <?php
 if($action === "filled") {
@@ -264,10 +265,8 @@ if($action === "filled") {
     if($resultID->num_rows>0) {
         while ($rowname = $resultID->fetch_assoc()) {
             $id = $rowname["id"];
-
         }
     }
-
 
     $sql  = "INSERT INTO `physical` (`id`,`username`,`vigorous`, `moderate`, `walking`, `sitting`) VALUES ('$id','$username','$vig', '$mod', '$walk', '$sit')";
     if ($conn->query($sql) === TRUE) {
@@ -285,10 +284,7 @@ if($action === "filled") {
 <footer>
     <div class="footer">
         <button class="btn" style=float:left; onclick="goBack()"><b><</b> Back </button>
-
     </div>
 </footer>
 </body>
-
-
 </html>

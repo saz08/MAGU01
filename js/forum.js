@@ -20,6 +20,7 @@ if(localStorage.getItem("username")==="unknownUser"){
 function deletePost(posDB){
     // var user = username;
     var pos = posDB;
+    console.log("going to delete" + pos);
     jQuery.post("deleteForumPost.php", {"Position": pos}, function(data){
         window.location.href="talk.php";
     }).fail(function()

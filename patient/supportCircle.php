@@ -58,24 +58,26 @@ $pass = safePOSTNonMySQL("password");
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
-
     <meta charset="UTF-8">
     <title>Support Circle</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -95,7 +97,7 @@ $pass = safePOSTNonMySQL("password");
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
@@ -172,6 +174,7 @@ $pass = safePOSTNonMySQL("password");
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Add to your Support Circle <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
@@ -179,14 +182,15 @@ $pass = safePOSTNonMySQL("password");
 <br>
 <div class="container-fluid bg-1 text-center">
     <div class="box">
-
-<h4>Please enter the email address of the person you would like to be in your support circle.</h4>
+    <h4>Please enter the email address of the person you would like to be in your support circle.</h4>
     <h4>We will send them a link for them to sign up and join you.</h4>
-        <p>Any supporters will appear below!</p></div>
+        <p>Any supporters will appear below!</p>
+    </div>
+
     <form method="post" class="box-transparent">
-    <input type="email" name="email"/>
-<input type="hidden" name="action" value="filled">
-<input type="submit" name="submit" class="btn" id="button" value="Add Supporter">
+        <input type="email" name="email"/>
+        <input type="hidden" name="action" value="filled">
+        <input type="submit" name="submit" class="btn" id="button" value="Add Supporter">
     </form>
 
 </div>
@@ -214,17 +218,13 @@ if($action === "filled") {
     </script>
 <?php
 }
+echo"<br>";
 
-
-?>
-<br>
-
-
-<?php
 $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$username'";
 $support=$conn->query($sqlSupport);
 if($support->num_rows>0){
     echo "<div class='container-fluid bg-1 text-center'><h2>Your Supporters</h2></div>";
+    echo"<div class='box-transparent'>";
     echo "<table class='table table-hover row-clickable' id='doctorTable' >";
     echo" <tr>";
     echo"<th>Support Circle</th>";
@@ -232,26 +232,20 @@ if($support->num_rows>0){
     echo "</tr>";
     echo "<tr>";
     while($rowname=$support->fetch_assoc()){
-
-
         $supportUser= $rowname["username"];
         $relation = $rowname["relation"];
         echo "<td>" . $supportUser . "</td>";
         echo "<td>" . $relation . "</td>";
-
         echo "</tr>";
-
-
     }
 }
+echo"</div>";
 ?>
 </table>
+
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
 </div>
-
 </body>
 <div class="clear"></div>
-
-
 </html>

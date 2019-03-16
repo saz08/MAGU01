@@ -61,12 +61,14 @@ else{
 
     <meta charset="UTF-8">
     <title>Home</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
     </div>
+</div>
 <?php
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
@@ -75,7 +77,7 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKSupport","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="supportSignUp.php";
     </script><?php
 }
 
@@ -334,9 +336,9 @@ if($entriesM!=0) {
         window.onload = function() {
             CanvasJS.addColorSet("greenShades",
                 [
-                    "#008D00",
-                    "#E8AE00",
-                    "#FF0000"
+                    "#006700",
+                    "#FE6C01",
+                    "#B30000"
                 ]);
             var painAllTime = new CanvasJS.Chart("painAllTime", {
 
@@ -583,8 +585,7 @@ if($entriesM!=0) {
         }
     </script>
 
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -665,11 +666,11 @@ if($entriesM!=0) {
 <br>
 <div class="sideBar" id="mySidebar">
     <a class="closebtn" onclick="closeNav()" > <b>< CLOSE</b></a>
-    <div class="circleKey" style="background-color:#008D00 ;"></div>
+    <div class="circleKey" style="background-color:#006700 ;"></div>
     <p >Pain below 4. Breathlessness and Performance below 2</p>
-    <div class="circleKey" style="background-color:#E8AE00;"></div>
+    <div class="circleKey" style="background-color:#FE6C01;"></div>
     <p >Pain between 4 and 7. Breathlessness between 2 and 4 and Performance of 2</p>
-    <div class="circleKey" style="background-color:#FF0000 ;"></div>
+    <div class="circleKey" style="background-color:#B30000 ;"></div>
     <p >Pain greater than 7. Breathlessness greater than 4 and Performance greater than 3</p>
 
 </div>

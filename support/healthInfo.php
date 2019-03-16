@@ -63,28 +63,16 @@ else{
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
     <title>Health Information</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
-    </div>
-<?php
-if($_SESSION["userName"]!=null) {
-    $username = $_SESSION["userName"];
-}
-else{
-    ?><script>
-        localStorage.setItem("username","unknownUser");
-        localStorage.setItem("loginOKSupport","no");
-        document.getElementById("session").style.display="block";
-    </script><?php
-}
-?>
+
+
 
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<?php
+
+?>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -95,10 +83,27 @@ else{
             <a class="navbar-brand" href="#myPage">    </a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
+            <div id="session" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
+                    <p>Session has expired, please log in again!</p>
+                </div>
+            </div>
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
                 <?php
+                if($_SESSION["userName"]!=null) {
+                    $username = $_SESSION["userName"];
+                }
+                else{
+                    ?><script>
+                        localStorage.setItem("username","unknownUser");
+                        localStorage.setItem("loginOKSupport","no");
+                        window.location.href="supportSignUp.php";
+                    </script><?php
+                }
+
                 $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {

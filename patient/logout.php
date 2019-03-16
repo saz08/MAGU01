@@ -46,20 +46,6 @@ session_destroy();
     <meta charset="UTF-8">
     <title>Logging Out...</title>
     <script>
-
-        if(localStorage.getItem("loginOK")===null){
-            localStorage.setItem("loginOK", "no");
-        }
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes" && localStorage.getItem('username')!=='unknownUser';
-
-        }
-
-    </script>
-    <script>
-        var localUser = localStorage.getItem("username");
-        // window.location.href = window.location.href+'?localUser='+localUser;
-
         if(localStorage.getItem("loginOK")===null){
             localStorage.setItem("loginOK", "no");
         }
@@ -67,18 +53,6 @@ session_destroy();
         if(localStorage.getItem("loginOK")==="no"){
             window.location.href="signUp.php";
         }
-
-
-        function checkLogIn(){
-            return localStorage.getItem("loginOK")==="yes";
-        }
-
-        function checkUser(){
-            localUser = localStorage.getItem("username");
-            console.log("username in local storage" + localStorage.getItem("username"));
-            return localStorage.getItem("username");
-        }
-
     </script>
 </head>
 <title>Log Out </title>

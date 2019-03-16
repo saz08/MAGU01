@@ -54,12 +54,14 @@ $year = date("Y");
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
     </div>
+</div>
 <?php
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
@@ -68,7 +70,7 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="docSignUp.php";
     </script><?php
 }
 $id = $_GET["id"];
@@ -120,8 +122,7 @@ while ($rowname = $result->fetch_assoc()) {
             chart.render();
         }
     </script>
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">

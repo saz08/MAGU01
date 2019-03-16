@@ -79,9 +79,10 @@ if($resultUser->num_rows>0) {
 
     }
 }
-$sql  = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`, `seenInfo`, `seenSymp`, `resInfo`, `resSymp`) VALUES ('$username','$survivor', '$symptom', '$additional','$seenInfo','$seenSymp','','')";
-$conn->query($sql);
-
+if($additional!=""||$symptom!="") {
+    $sql = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`, `seenInfo`, `seenSymp`, `resInfo`, `resSymp`) VALUES ('$username','$survivor', '$symptom', '$additional','$seenInfo','$seenSymp','','')";
+    $conn->query($sql);
+}
 
 
 

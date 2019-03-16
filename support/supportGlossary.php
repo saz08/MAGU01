@@ -96,12 +96,17 @@ else{
     </script>
     <meta charset="UTF-8">
     <title>Glossary</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
+
+
+
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
     </div>
+</div>
 <?php
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
@@ -110,13 +115,10 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKSupport","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="supportSignUp.php";
     </script><?php
 }
 ?>
-
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">

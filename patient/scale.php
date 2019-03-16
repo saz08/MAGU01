@@ -39,21 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +58,7 @@ if($loginOK) {
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -83,12 +69,14 @@ if($loginOK) {
     <title>Monitor Pain</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -106,10 +94,9 @@ if($loginOK) {
                     }
                     else{
                         ?><script>
-                            console.log("session ended");
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
@@ -186,15 +173,16 @@ if($loginOK) {
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Monitor your pain levels <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <br>
 
 <div class="box">On a scale of 0 - 10, 0 meaning no pain and 10 meaning extremely painful. Please rate your pain using the slider below.</div>
 
 <div id="painscale" class="slidecontainer">
-
     <form>
         <input type="range"  step="1" min="0" max="10" class="slider" id="myRange" oninput="outputUpdate(value)">
         <div style="float:left"><p style="font-size: 2em">0</p></div>
@@ -202,8 +190,6 @@ if($loginOK) {
         <output for=value id="output" style="color: black;font-size: 1.5em">5</output>
     </form>
 </div>
-
-
 
 <script>
     var slider = document.getElementById("myRange");
@@ -217,6 +203,7 @@ if($loginOK) {
         window.location.href="Breathlessness.php";
     }
 </script>
+
 <div class="clear"></div>
 <br>
 <br>
@@ -224,7 +211,5 @@ if($loginOK) {
     <button class="btn" onclick="goBack()"><b><</b> Back </button>
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
-
 </body>
-
 </html>

@@ -119,15 +119,10 @@ if($loginOK) {
 <div id="notUsername" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('notUsername').style.display='none'">&times;</span>
-        <p>Username is not recognised</p>
+        <p>Username or Password is not recognised</p>
     </div>
 </div>
-<div id="notPass" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('notPass').style.display='none'">&times;</span>
-        <p>Password is not recognised</p>
-    </div>
-</div>
+
 <div id="errs" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('errs').style.display='none'">&times;</span>
@@ -213,8 +208,7 @@ if($loginOK) {
             else {
             ?>
                 <script>
-                    console.log("password not here");
-                    var notPass = document.getElementById("notPass");
+                    var notPass = document.getElementById("notUsername");
                     notPass.style.display="block";
                    </script><?php
             }
@@ -222,7 +216,6 @@ if($loginOK) {
             }
             else {
             ?><script>
-                    console.log("user not here");
                     var notUser = document.getElementById("notUsername");
                     notUser.style.display="block";</script><?php
             }

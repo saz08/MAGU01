@@ -39,8 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-$loginOK = false; //TODO make this work with database values
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,27 +56,29 @@ $loginOK = false; //TODO make this work with database values
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
-
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
     <title>Record Chart</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
     </div>
-
+</div>
 <?php
 
 if($_SESSION["userName"]!=null) {
@@ -88,7 +88,7 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOK","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="signUp.php";
     </script><?php
 }
 
@@ -324,12 +324,7 @@ if($entriesM!=0) {
 }
 
     ?>
-
-
-
-
     <script>
-
         window.onload = function() {
             CanvasJS.addColorSet("greenShades",
                 [
@@ -342,7 +337,6 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
                 title:{
                     text: "Pain",
@@ -353,7 +347,6 @@ if($entriesM!=0) {
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
-                    //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontSize: 20,
@@ -378,9 +371,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
-
                 title:{
                     fontFamily: "Montserrat, sans-serif",
 
@@ -390,7 +381,6 @@ if($entriesM!=0) {
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
-                    //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
@@ -416,9 +406,7 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
-
                 title:{
                     fontFamily: "Montserrat, sans-serif",
 
@@ -428,11 +416,9 @@ if($entriesM!=0) {
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
-                    //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
-
                     indexLabelFontSize: 20,
                     indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
@@ -455,19 +441,15 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
-
                 title:{
                     fontFamily: "Montserrat, sans-serif",
-
                     text: "Pain",
                     horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
-                    //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
@@ -493,23 +475,18 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
-
                 title:{
                     fontFamily: "Montserrat, sans-serif",
-
                     text: "Breathlessness",
                     horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
-                    //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
-
                     indexLabelFontSize: 20,
                     indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
@@ -530,23 +507,18 @@ if($entriesM!=0) {
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
-
                 title:{
                     fontFamily: "Montserrat, sans-serif",
-
                     text: "Performance",
                     horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
-                    //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
-
                     indexLabelFontSize: 20,
                     indexLabelFontColor: "black",
                     indexLabel: "{label} - #percent%",
@@ -562,8 +534,6 @@ if($entriesM!=0) {
             });
             performanceMonth.render();
         }
-
-
 
     </script>
     <script>
@@ -587,8 +557,7 @@ if($entriesM!=0) {
             }
         }
     </script>
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -680,21 +649,23 @@ if($entriesM!=0) {
 <div class="jumbotron text-center" id="jumbo1">
     <h1>My Records Over the Past Month <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
     <h1>My Records from the Beginning <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <br>
+
 <div class="sideBar" id="mySidebar">
-    <a class="closebtn" onclick="closeNav()" > <b>< CLOSE</b> </a>
+    <button class="closebtn" onclick="closeNav()" > <b>< CLOSE</b> </button>
     <div class="circleKey" style="background-color:#006700 ;"></div>
     <p >Pain below 4. Breathlessness and Performance below 2</p>
     <div class="circleKey" style="background-color:#FE6C01;"></div>
     <p >Pain between 4 and 7. Breathlessness between 2 and 4 and Performance of 2</p>
     <div class="circleKey" style="background-color:#B30000 ;"></div>
     <p >Pain greater than 7. Breathlessness greater than 4 and Performance greater than 3</p>
-
 </div>
+
 <?php if($entries!=0&&$entriesM!=0) { ?>
     <div class="box">
         <form method="get" class="radiostyle">
@@ -702,15 +673,18 @@ if($entriesM!=0) {
                 <input type="radio" class="choices" name="radio" value="1" id="1" onclick="submitAll()">
                 <span class="checkmark"></span>
             </label>
+
             <br>
+
             <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on the records from
                 this month
                 <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()" checked>
                 <span class="checkmark"></span>
-
             </label>
+
         </form>
     </div>
+
     <button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
 <br>
 
@@ -819,6 +793,5 @@ if($entriesM=0&&$entries=0){
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
 </body>
-
 </html>
 

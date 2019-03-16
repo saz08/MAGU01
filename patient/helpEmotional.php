@@ -39,18 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-
-
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,6 +57,7 @@ if($loginOK) {
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -79,13 +68,16 @@ if($loginOK) {
     <meta charset="UTF-8">
     <title>Emotional Help</title>
 </head>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -105,7 +97,7 @@ if($loginOK) {
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
 
@@ -132,13 +124,11 @@ if($loginOK) {
                             else {
                                 $importantSymp = "false";
                             }
-
                         }
                     }
                     else{
                         $importantInfo="false";
                         $importantSymp = "false";
-
                     }
 
                     if($importantInfo==="true"||$importantSymp==="true"){
@@ -157,7 +147,6 @@ if($loginOK) {
                         </ul>
                     </li>
 
-
                     <li><a href="talk.php">TALK</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="help">
@@ -167,6 +156,7 @@ if($loginOK) {
                             <li><a href="helpPhysical.php">PHYSICAL</a></li>
                         </ul>
                     </li>
+
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openProfile()">PROFILE <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="profile">
                             <li><a href="statusChart.php">STATUS CHARTS</a></li>
@@ -187,7 +177,9 @@ if($loginOK) {
 <div class="jumbotron text-center">
     <h1>Emotional Help <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <div class="clear"></div>
+
 <button class="collapsible">Survivor's Guilt</button>
 <div class="content">
     <div id="survivor"></div>
@@ -202,12 +194,8 @@ if($loginOK) {
 <button class="collapsible">Anxiety</button>
 <div class="content">
     <div id="anxiety"></div>
-
 </div>
 <div class="clear"></div>
-
-
-
 
 <script>
     var xhr= new XMLHttpRequest();
@@ -261,6 +249,4 @@ if($loginOK) {
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
 </body>
-
-
 </html>

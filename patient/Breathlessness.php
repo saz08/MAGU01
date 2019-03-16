@@ -99,7 +99,7 @@ else{
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
 

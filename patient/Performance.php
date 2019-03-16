@@ -39,16 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +59,7 @@ if($loginOK) {
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -81,12 +72,14 @@ if($loginOK) {
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -106,7 +99,7 @@ if($loginOK) {
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
@@ -157,7 +150,6 @@ if($loginOK) {
                         </ul>
                     </li>
 
-
                     <li><a href="talk.php">TALK</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="help">
@@ -188,42 +180,40 @@ if($loginOK) {
 </div>
 <br>
 
-
 <div class="box">The following is a modified version of the ECOG/WHO (Eastern Cooperative Oncology Group/ World Health Organization) Performance Status scale.<p> Please tick the box that you feel you apply to</p>
-<p>
+
+    <p>
    <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
-</p></div>
+    </p></div>
+
 <form method="get" class="WHOstyle">
     <label class="radioContainer"><details><summary>0: Fully active, no restrictions on activities.</summary> A performance status of 0 means no restrictions in the sense that someone is able to do everything they were able to do prior to their diagnosis.</details>
         <input type="radio" name="radio" value="0" id="zero">
         <span class="checkmark"></span>
     </label>
+
     <label class="radioContainer"><details><summary>1: Unable to do strenuous activities, but able to carry out light housework and sedentary activities.</summary> This status basically means you can't do heavy work but can do anything else.</details>
         <input type="radio" name="radio" value="1" id="one">
         <span class="checkmark"></span>
     </label>
+
     <label class="radioContainer"><details><summary>2: Able to walk and manage self-care, but unable to work. Out of bed more than 50% of waking hours.</summary> In this category, people are usually unable to carry on any work activities, including light office work</details>
         <input type="radio" name="radio" value="2" id="two">
         <span class="checkmark"></span>
     </label>
+
     <label class="radioContainer">3: Confined to bed or a chair more than 50 percent of waking hours.Capable of limited self-care.
         <input type="radio" name="radio" value="3" id="three">
         <span class="checkmark"></span>
     </label>
+
     <label class="radioContainer">4: Completely disabled.Totally confined to a bed or chair. Unable to do any self-care.
         <input type="radio" name="radio" value="4" id="four">
         <span class="checkmark"></span>
     </label>
-
 </form>
 
-
-
-
-
 <script>
-
-
     function submit(){
         if(document.getElementById('zero').checked){
             localStorage.setItem("Performance", "0");
@@ -241,21 +231,13 @@ if($loginOK) {
             localStorage.setItem("Performance", "4");
         }
 
-
         window.location.href="additionalInfo.php";
-
     }
-
-
-
-
-
 </script>
+
 <div>
     <button class="btn" onclick="goBack()"><b><</b> Back </button>
     <button class="btn" style="float:right" onclick="submit()"> Next <b> > </b></button>
 </div>
 </body>
-
-
 </html>

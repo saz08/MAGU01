@@ -49,10 +49,13 @@ $action2 = safePOST($conn, "action2");
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
     <meta charset="UTF-8">
     <title>Project</title>
 </head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
@@ -67,7 +70,8 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
-        document.getElementById("session").style.display="block";
+        alert("Session has expired, please log in again")
+        window.location.href="docSignUp.php";
     </script><?php
 }
 
@@ -110,7 +114,6 @@ if($patient->num_rows>0){
     localStorage.setItem("id", <?php echo $id?>);
 </script>
 
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -219,6 +222,7 @@ if($patient->num_rows>0){
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?><img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
@@ -354,65 +358,68 @@ echo "</div>";
 
 
 <?php
-if($action==="filled"){
+if($action==="filled") {
     $info = safePOST($conn, "divID");
-    $comment = (safePost($conn,"comment"));
-    $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
-    $patient=$conn->query($sqlPatient);
-    if($patient->num_rows>0){
-        while($rowname=$patient->fetch_assoc()){
-            $usernamePatient= $rowname["username"];
+    $comment = (safePost($conn, "comment"));
+    $sqlPatient = "SELECT * FROM `account` WHERE id='$id'";
+    $patient = $conn->query($sqlPatient);
+    if ($patient->num_rows > 0) {
+        while ($rowname = $patient->fetch_assoc()) {
+            $usernamePatient = $rowname["username"];
         }
     }
 
 
     $getTime = "SELECT * FROM `scale` WHERE `id`='$id' AND `additionalInfo`='$info' ORDER BY `timeStamp` DESC LIMIT 1";
-    $getTimeResult= $conn->query($getTime);
-    if($getTimeResult->num_rows>0){
-        while($rowname=$getTimeResult->fetch_assoc()){
-            $lastTime= $rowname["timeStamp"];
+    $getTimeResult = $conn->query($getTime);
+    if ($getTimeResult->num_rows > 0) {
+        while ($rowname = $getTimeResult->fetch_assoc()) {
+            $lastTime = $rowname["timeStamp"];
         }
     }
 
-    $sql  = "UPDATE `scale` SET `seenInfo`='true',`resInfo`='$comment',`timeStamp`='$lastTime' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
-    if ($conn->query($sql) === TRUE) {
-        echo "<p class='center'>Response has been sent!</p>";
-        ?>
-        <script>
-            window.location.href = "patientInfo.php?id=+<?php echo $id ?>";
-        </script>
-        <?php
+    if($comment != "") {
+        $sql = "UPDATE `scale` SET `seenInfo`='true',`resInfo`='$comment',`timeStamp`='$lastTime' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
+        if ($conn->query($sql) === TRUE) {
+            echo "<p class='center'>Response has been sent!</p>";
+            ?>
+            <script>
+                window.location.href = "patientInfo.php?id=+<?php echo $id ?>";
+            </script>
+            <?php
+        }
     }
 }
 ?>
 <?php
-if($action2==="filled"){
+if($action2==="filled") {
     $symptom = safePOST($conn, "divID2");
-    $comment = (safePost($conn,"comment"));
-    $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
-    $patient=$conn->query($sqlPatient);
-    if($patient->num_rows>0){
-        while($rowname=$patient->fetch_assoc()){
-            $usernamePatient= $rowname["username"];
+    $comment = (safePost($conn, "comment"));
+    $sqlPatient = "SELECT * FROM `account` WHERE id='$id'";
+    $patient = $conn->query($sqlPatient);
+    if ($patient->num_rows > 0) {
+        while ($rowname = $patient->fetch_assoc()) {
+            $usernamePatient = $rowname["username"];
         }
     }
     $getTime = "SELECT * FROM `scale` WHERE `id`='$id' AND `symptom`='$symptom' ORDER BY `timeStamp` DESC LIMIT 1";
-    $getTimeResult= $conn->query($getTime);
-    if($getTimeResult->num_rows>0){
-        while($rowname=$getTimeResult->fetch_assoc()){
-            $lastTime= $rowname["timeStamp"];
+    $getTimeResult = $conn->query($getTime);
+    if ($getTimeResult->num_rows > 0) {
+        while ($rowname = $getTimeResult->fetch_assoc()) {
+            $lastTime = $rowname["timeStamp"];
         }
     }
 
-
-    $sql  = "UPDATE `scale` SET `seenSymp`='true',`resSymp`='$comment',`timeStamp`='$lastTime' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
-    if ($conn->query($sql) === TRUE) {
-        echo "<p class='center'>Response has been sent!</p>";
-        ?>
-        <script>
-            window.location.href = "patientInfo.php?id=+<?php echo $id ?>";
-        </script>
-        <?php
+    if ($comment != "") {
+        $sql = "UPDATE `scale` SET `seenSymp`='true',`resSymp`='$comment',`timeStamp`='$lastTime' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
+        if ($conn->query($sql) === TRUE) {
+            echo "<p class='center'>Response has been sent!</p>";
+            ?>
+            <script>
+                window.location.href = "patientInfo.php?id=+<?php echo $id ?>";
+            </script>
+            <?php
+        }
     }
 }
 ?>

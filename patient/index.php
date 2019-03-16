@@ -39,7 +39,7 @@ $user = safePOSTNonMySQL("username");
 $pass = safePOSTNonMySQL("password");
 }
 
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +59,7 @@ $pass = safePOSTNonMySQL("password");
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
@@ -72,16 +73,17 @@ $pass = safePOSTNonMySQL("password");
     localStorage.setItem("Pain","");
     localStorage.setItem("Performance","");
 </script>
-
 </head>
 
 <body>
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -100,7 +102,7 @@ $pass = safePOSTNonMySQL("password");
                     ?><script>
                         localStorage.setItem("username","unknownUser");
                         localStorage.setItem("loginOK","no");
-                        document.getElementById("session").style.display="block";
+                        window.location.href="signUp.php";
                     </script><?php
                 }
 
@@ -152,7 +154,6 @@ $pass = safePOSTNonMySQL("password");
                     </ul>
                 </li>
 
-
                 <li><a href="talk.php">TALK</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                     <ul class="dropdown-menu" id="help">
@@ -189,7 +190,9 @@ $pass = safePOSTNonMySQL("password");
 <div class="jumbotron text-center">
     <h1>Homepage <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <h2 style="float:right">Today is <?php echo date('jS F Y')?></h2>
+
 <br>
 <br>
 
@@ -221,12 +224,14 @@ if($resultNew->num_rows<1) {
 </div>";
 }
 ?>
+
 <div id="deleted" class="modal">
     <div class="modal-content">
         <span class="close" id="spanNotify" onclick="document.getElementById('deleted').style.display='none';window.location.href='index.php'">&times;</span>
         <p>Response successfully deleted</p>
     </div>
 </div>
+
 <div id="notDelete" class="modal">
     <div class="modal-content">
         <span class="close" id="spanNotify" onclick="document.getElementById('notDelete').style.display='none';window.location.href='index.php'">&times;</span>
@@ -312,9 +317,8 @@ while ($rowname = $resultScale->fetch_assoc()) {
            echo "     <button class='btn' onclick='goRecord()'>Record Now!</button>";
        }
        echo"</p></div>";
-
-}
-}
+        }
+    }
 
 
     $sqlScale  = "SELECT * FROM `scale`WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
@@ -345,13 +349,8 @@ while ($rowname = $resultScale->fetch_assoc()) {
             }
         }
     }
-
-
-
-
-
-
 ?>
+
 <script>
     function goToScale(){
         window.location.href="scale.php";
@@ -374,7 +373,6 @@ while ($rowname = $resultScale->fetch_assoc()) {
 </script>
 </body>
 <div class="clear"></div>
-
 <footer>
     <div class="footer">
     </div></footer>

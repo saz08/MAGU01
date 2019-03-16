@@ -123,7 +123,7 @@ else{
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
 
@@ -278,17 +278,10 @@ else{
     }
 
 </script>
-
-
-
-
-
 <div class="footer">
     <button class="btn" onclick="goBack()" style="left:10%"><b><</b> Back </button>
 </div>
 </div>
 </body>
 <div class="clear"></div>
-
-
 </html>

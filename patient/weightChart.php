@@ -73,6 +73,8 @@ else{
 
     <meta charset="UTF-8">
     <title>Weight Chart</title>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
     <div id="session" class="modal">
         <div class="modal-content">
             <span class="close" id="spanSession" onclick="document.getElementById('session').style.display='none'">&times;</span>
@@ -87,7 +89,7 @@ else{
         ?><script>
             localStorage.setItem("username","unknownUser");
             localStorage.setItem("loginOK","no");
-            document.getElementById("session").style.display="block";
+            window.location.href="signUp.php";
         </script><?php
     }
     ?>
@@ -131,8 +133,7 @@ else{
             chart.render();
         }
     </script>
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">

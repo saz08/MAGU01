@@ -40,10 +40,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-
-
 ?>
 
 
@@ -65,9 +61,9 @@ else{
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
     <script src="../js/forum.js"></script>
     <script src="../js/forAll.js"></script>
-
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
@@ -76,6 +72,7 @@ else{
     <title>Forum Room</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
@@ -106,6 +103,7 @@ else{
     </div>
 </nav>
 </div>
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSession" onclick="document.getElementById('session').style.display='none'">&times;</span>
@@ -133,7 +131,8 @@ else{
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            localStorage.setItem("loginOKDoc","no");
+                            window.location.href="signUp.php";
                         </script><?php
                     }
 
@@ -211,6 +210,7 @@ else{
         </div>
     </div>
 </nav>
+
 </div>
 <script>
     var docNav= document.getElementById("docNav");
@@ -234,10 +234,12 @@ else{
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Submit" class="btn" id="button">
 </form><br>
+
 <div id="keyword" style="text-align:center">
     <h3>Filter through posts and comments</h3>
 <input type="text"   id="myInput" onkeyup="searchForum()" placeholder="Search for a post or comment" title="Start typing">
 </div>
+
 <br>
 <div id="delete" class="modal">
     <div class="modal-content">
@@ -259,16 +261,11 @@ if($result->num_rows>0){
 
         echo"<div class='divSpace'></div><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
         if($usernameDB===$username) {
-            echo "<button class='btn' id='buttonDelPost' onclick='checkPost()' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
-        } ?>
-            <div id="checkPost" class="modal">
-                <div class="modal-content">
-                    <p>Are you sure you want to delete your post?</p>
-                    <button id="spanSubmitCheck" class="btn" style="font-size:1.5rem" onclick="deletePost(<?php echo $posDB ?>);document.getElementById('checkPost').style.display='none';">Yes</button>
-                    <button id="spanSubmitCheck" class="btn" style="font-size:1.5rem" onclick="document.getElementById('checkPost').style.display='none';">No</button>
+            echo "<button class='btn' id='buttonDelPost' onclick='deletePost($posDB)' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
 
-                </div>
-            </div>
+        } ?>
+
+
             <?php
 
         echo"</p></div>";
@@ -296,7 +293,6 @@ if($result->num_rows>0){
                                             <?php
                                         }
                                         echo"</p></div><br>";
-
                 }
             }
         }
@@ -324,36 +320,37 @@ if($result->num_rows>0){
 }
 
 
-if($action==="filled"){
-
-    $post = (safePost($conn,"createPost"));
+if($action==="filled") {
+    $post = (safePost($conn, "createPost"));
     $username = $_SESSION["userName"];
-
-
-    $sql  = "INSERT INTO `forum` (`pos`,`username`, `post`) VALUES (NULL ,'$username', '$post')";
-    if ($conn->query($sql) === TRUE) {
-        echo "<p class='center'>Forum Post was successful!</p>";
-        ?>
-        <script>
-            window.location.href = "talk.php";
-        </script>
-        <?php
+    if ($post != "") {
+        $sql = "INSERT INTO `forum` (`pos`,`username`, `post`) VALUES (NULL ,'$username', '$post')";
+        if ($conn->query($sql) === TRUE) {
+            echo "<p class='center'>Forum Post was successful!</p>";
+            ?>
+            <script>
+                window.location.href = "talk.php";
+            </script>
+            <?php
+        }
     }
 }
 
-if($action2==="filled"){
+if($action2==="filled") {
     $pos = safePOST($conn, "divID");
 
-    $comment = (safePost($conn,"comment"));
+    $comment = (safePost($conn, "comment"));
     $username = $_SESSION["userName"];
-    $sql2  = "INSERT INTO `comments` (`pos`, `username`, `patientComment`) VALUES ('$pos', '$username', '$comment')";
-    if ($conn->query($sql2) === TRUE) {
-        echo "<p class='center'>Comment Post was successful!</p>";
-        ?>
-        <script>
-            window.location.href = "talk.php";
-        </script>
-        <?php
+    if ($comment != "") {
+        $sql2 = "INSERT INTO `comments` (`pos`, `username`, `patientComment`) VALUES ('$pos', '$username', '$comment')";
+        if ($conn->query($sql2) === TRUE) {
+            echo "<p class='center'>Comment Post was successful!</p>";
+            ?>
+            <script>
+                window.location.href = "talk.php";
+            </script>
+            <?php
+        }
     }
 }
 
@@ -394,13 +391,10 @@ if($action2==="filled"){
         comment.style.display="block";
     }
 
-
 </script>
 <br>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
 </div>
 </body>
-
-
 </html>

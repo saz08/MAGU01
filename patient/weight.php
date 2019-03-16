@@ -74,12 +74,14 @@ else{
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" >
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSession" onclick="document.getElementById('session').style.display='none'">&times;</span>
         <p>Login has expired. Please login again to continue.</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -99,7 +101,7 @@ else{
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
@@ -176,18 +178,18 @@ else{
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1 style="left:10%;width:80%;text-align: center">Monitor your weight <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-<button class="openbtn" onclick="openNavWeight()">Stones->Lbs</button>
 
+<button class="openbtn" onclick="openNavWeight()">Stones->Lbs</button>
 
 <div class="box" id="x"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
     <p>Please weigh yourself once a week and input the results to keep track of your weight.</p>
 </div>
+
 <br>
-
-
 
 <div id="stone" class="weightStyle">
 <form method="post" >
@@ -243,11 +245,6 @@ else{
 </div>
 <div class="clear"></div>
 
-
-
-
-
-
 <?php
 if($action === "filled") {
     $lbs = (safePost($conn,"lbs"));
@@ -272,7 +269,6 @@ if($action === "filled") {
 
 ?>
 
-
 <script>
     function next(){
         window.location.href="physical.php";
@@ -283,5 +279,4 @@ if($action === "filled") {
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
 </body>
-
 </html>

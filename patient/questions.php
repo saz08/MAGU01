@@ -39,19 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +59,7 @@ if($loginOK) {
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -79,18 +67,19 @@ if($loginOK) {
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
-
     <meta charset="UTF-8">
     <title>Questions</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -110,7 +99,7 @@ if($loginOK) {
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            document.getElementById("session").style.display="block";
+                            window.location.href="signUp.php";
                         </script><?php
                     }
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
@@ -142,7 +131,6 @@ if($loginOK) {
                     else{
                         $importantInfo="false";
                         $importantSymp = "false";
-
                     }
 
                     if($importantInfo==="true"||$importantSymp==="true"){
@@ -160,7 +148,6 @@ if($loginOK) {
                             <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
                         </ul>
                     </li>
-
 
                     <li><a href="talk.php">TALK</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
@@ -187,6 +174,7 @@ if($loginOK) {
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Questions <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
@@ -195,6 +183,7 @@ if($loginOK) {
     <p>This page can be used to store questions for any upcoming appointments or as a diary. Anything entered will NOT be sent to your doctor so you will not recieve a response for anything entered here.</p>
     <p>If you want a response, please use the additional info page when recording your weekly scales</p>
 </div>
+
 <br>
     <div class="box-transparent">
         <p>Note down any questions you have</p>
@@ -251,12 +240,14 @@ if($resultJournal->num_rows>0) {
             ?>
         </table>
     </div>
+
 <div id="deleteQ" class="modal">
     <div class="modal-content">
         <span class="close" id="spanDelete" onclick="document.getElementById('deleteQ').style.display='none';window.location.href='questions.php'">&times;</span>
         <p>Question was deleted successfully!</p>
     </div>
 </div>
+
 <div id="nodeleteQ" class="modal">
     <div class="modal-content">
         <span class="close" id="spanDelete" onclick="document.getElementById('nodeleteQ').style.display='none';window.location.href='questions.php'">&times;</span>
@@ -275,18 +266,18 @@ if($resultJournal->num_rows>0) {
         {
             noDel.style.display="block";
             });
-
     }
 
     function next(){
         window.location.href="supportCircle.php";
     }
 </script>
+
 <div class="clear"></div>
+
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
 </body>
-
 </html>

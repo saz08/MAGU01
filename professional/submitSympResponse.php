@@ -58,8 +58,10 @@ $sql2 = "SELECT `symptom` FROM `supportSubmit` WHERE `seenSymp`!='true'";
 $result=$conn->query($sql2);
 if($result->num_rows>0) {
     while ($rowname = $result->fetch_assoc()) {
-        $sql = "UPDATE `supportSubmit` SET `seenSymp`='true',`resSymp`='$resSymp' WHERE `symptom`='$symptom' AND `seenSymp`='false'";
-        $conn->query($sql);
+        if($resSymp!="") {
+            $sql = "UPDATE `supportSubmit` SET `seenSymp`='true',`resSymp`='$resSymp' WHERE `symptom`='$symptom' AND `seenSymp`='false'";
+            $conn->query($sql);
+        }
     }
 }
 

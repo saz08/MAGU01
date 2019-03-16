@@ -39,8 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-$loginOK = false; //TODO make this work with database values
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +56,7 @@ $loginOK = false; //TODO make this work with database values
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
@@ -69,12 +68,15 @@ $loginOK = false; //TODO make this work with database values
     <script src="../js/forAll.js"></script>
     <meta charset="UTF-8">
     <title>Physical Activity Chart</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
     </div>
+</div>
 
 <?php
 if($_SESSION["userName"]!=null) {
@@ -84,7 +86,7 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOK","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="signUp.php";
     </script><?php
 }
 
@@ -191,7 +193,6 @@ else{
 
 
 ?>
-
     <script type="text/javascript">
         window.onload = function() {
             CanvasJS.addColorSet("greenShades",
@@ -264,11 +265,8 @@ else{
         };
 
     </script>
-</head>
 
 
-
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -329,7 +327,6 @@ else{
                         </ul>
                     </li>
 
-
                     <li><a href="talk.php">TALK</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="help">
@@ -357,9 +354,11 @@ else{
 </nav>
 
 
+
 <div class="jumbotron text-center">
     <h1>My Physical Activity Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <?php
 $sql = "SELECT * FROM `physical` WHERE `username` = '$username'";
 $result= $conn->query($sql);
@@ -371,6 +370,7 @@ if($result->num_rows<1) {
 <button class="btn" id="button" onclick="window.location.href='physical.php'">Make an entry</button>
 <br>
 <?php if(($entries&&$entriesW)!=0){ ?>
+
 <div class="box">
     <form method="get" class="radiostyle">
         <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
@@ -381,9 +381,7 @@ if($result->num_rows<1) {
         <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on most recent record
             <input type="radio" class="choices" name="radio" value="2" id="2" onclick="submitMonth()" checked>
             <span class="checkmark"></span>
-
         </label>
-
     </form>
 </div>
 <?php }?>
@@ -413,14 +411,10 @@ if($result->num_rows<1) {
     var alltime = document.getElementById("allTime");
     var week = document.getElementById("week");
 
-
-
     x.style.display="none";
     alltime.style.display="none";
     y.style.display="block";
     week.style.display="block";
-
-
 
     function submitAll(){
         if (x.style.display === "none") {
@@ -451,7 +445,6 @@ if($result->num_rows<1) {
         }
 
     }
-
 
     function next(){
         window.location.href="questions.php";

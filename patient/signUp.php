@@ -39,9 +39,6 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK = false; //TODO make this work with database values
-
-
 
 ?>
 <!DOCTYPE html>
@@ -52,19 +49,6 @@ $loginOK = false; //TODO make this work with database values
     }
 </script>
 
-
-
-<?php
-
-
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -88,7 +72,6 @@ if($loginOK) {
 
     <meta charset="UTF-8">
     <title>Survivors</title>
-
 </head>
 <title>Survivors</title>
 <body onload="checkAlreadyLoggedIn()" id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -140,17 +123,11 @@ if($loginOK) {
 <div id="notUsername" class="modal">
     <div class="modal-content">
         <span class="close" id="spanNotUser" onclick="document.getElementById('notUsername').style.display='none';">&times;</span>
-        <p>Username not recognised</p>
-    </div>
-</div>
-<div id="notPassword" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanNotPass" onclick="document.getElementById('notPassword').style.display='none';">&times;</span>
-        <p>Password not recognised</p>
+        <p>Username or Password not recognised</p>
     </div>
 </div>
 
-<!-- 3 columns under Welcome Jumbotron -->
+
 <div class="container-fluid" id="mainCont">
     <div class="row" id="mainContRow">
         <div class="col-md-6" id="logincol" >
@@ -203,13 +180,12 @@ if($loginOK) {
             }
             }
             else{
-                ?><script>  var notPassword= document.getElementById("notPassword");
+                ?><script>  var notPassword= document.getElementById("notUsername");
                     notPassword.style.display="block";</script><?php
                 }
 
             }
             else{
-
                 ?><script>
                     var notUsername= document.getElementById("notUsername");
                     notUsername.style.display="block";
@@ -257,7 +233,6 @@ if($loginOK) {
                 var nonsmoker = document.getElementById("nonsmoker");
                 var errorModal = document.getElementById("errs");
 
-
                 var errs = "";
 
                 username.style.background = "white";
@@ -268,8 +243,6 @@ if($loginOK) {
                 smoker.style.background = "white";
                 nonsmoker.style.background="white";
                 other.style.background="white";
-
-
 
                 if(username.value === null || username.value === ""){
                     errs += " Please enter your email address\n";
@@ -312,8 +285,6 @@ if($loginOK) {
                 $smoker1="Never";
             }
 
-
-
             $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
             $result = $conn->query($query);
             if($result->num_rows<1){
@@ -348,16 +319,17 @@ if($loginOK) {
     </div>
 </div>
 
-
-
 <div id="loggedIn" class="modal">
     <div class="modal-content">
         <span class="close" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'">&times;</span>
         <p>You are already logged in!</p>
     </div>
 </div>
+
 <br>
+
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+
 <script>
     function checkAlreadyLoggedIn(){
         var loggedIn = document.getElementById("loggedIn");
@@ -370,13 +342,12 @@ if($loginOK) {
 </script>
 </body>
 <div class="clear"></div>
-
 <footer>
     <div class="footer">
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
-    </div></footer>
+    </div>
+</footer>
 </html>
-
 <?php
 $conn->close();?>
 

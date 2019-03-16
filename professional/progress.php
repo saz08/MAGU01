@@ -51,16 +51,18 @@ $year = date("Y");
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
     <meta charset="UTF-8">
     <title>Project</title>
-
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
     </div>
+</div>
 
 
 <?php
@@ -71,7 +73,7 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="docSignUp.php";
     </script><?php
 }
 
@@ -79,11 +81,12 @@ else{
 $id = $_GET['id'];
 
 
-$sql = "SELECT `forename` FROM `chi` WHERE `id` = '$id'";
+$sql = "SELECT * FROM `chi` WHERE `id` = '$id'";
 $result = $conn->query($sql);
 if($result->num_rows>0) {
     while ($rowname = $result->fetch_assoc()) {
         $patientname = $rowname["forename"];
+        $surname = $rowname["surname"];
     }
 }
 
@@ -581,8 +584,7 @@ if($entriesM!=0) {
             }
         }
     </script>
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -708,11 +710,11 @@ if($entriesM!=0) {
 
 
 <div class="jumbotron text-center" id="jumbo1">
-    <h1><?php echo  $patientname?>'s Records Over the Past Month<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1><?php echo  $patientname." ".$surname?>'s Records Over the Past Month<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
     <br>
 </div>
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
-    <h1><?php echo  $patientname?>'s Records from the Beginning<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1><?php echo  $patientname." ".$surname?>'s Records from the Beginning<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
 

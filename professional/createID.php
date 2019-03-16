@@ -40,8 +40,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-$loginOK = false; //TODO make this work with database values
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +64,6 @@ $loginOK = false; //TODO make this work with database values
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
-
 
     <meta charset="UTF-8">
     <title>Create Patient ID</title>
@@ -108,7 +105,7 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="docSignUp.php";
     </script><?php
 }
 ?>

@@ -50,13 +50,16 @@ $action2 = safePOST($conn, "action2");
 
     <meta charset="UTF-8">
     <title>Project</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
-    </div>
 
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
+    </div>
+</div>
 
 <?php
 if($_SESSION["userName"]!=null) {
@@ -66,7 +69,7 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKDoc","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="docSignUp.php";
     </script><?php
 }
 
@@ -76,8 +79,7 @@ $id = $_GET['id'];
 
 
 
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -196,6 +198,7 @@ $id = $_GET['id'];
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Support Circle<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>

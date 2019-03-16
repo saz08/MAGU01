@@ -61,12 +61,19 @@ else{
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
     <title>Record Info</title>
-    <div id="session" class="modal">
-        <div class="modal-content">
-            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
-            <p>Session has expired, please log in again!</p>
-        </div>
+
+
+
+
+
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
     </div>
+</div>
 <?php
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
@@ -75,15 +82,10 @@ else{
     ?><script>
         localStorage.setItem("username","unknownUser");
         localStorage.setItem("loginOKSupport","no");
-        document.getElementById("session").style.display="block";
+        window.location.href="supportSignUp.php";
     </script><?php
 }
 ?>
-
-
-
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -220,6 +222,12 @@ if($action==="filled"){
         <p>Sorry, Survivors was unable to save your records. Please check your internet connection and try again</p>
     </div>
 </div>
+<div id="empty" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotSave" onclick="document.getElementById('empty').style.display='none';">&times;</span>
+        <p>You have not entered any symptom or information to submit</p>
+    </div>
+</div>
 
 <div id="submitCheck" class="modal">
     <div class="modal-content">
@@ -235,12 +243,20 @@ if($action==="filled"){
     var notSave = document.getElementById("notSave");
 
     var check = document.getElementById("submitCheck");
+    var empty = document.getElementById("empty");
     function next(){
         window.location.href="supportDocFeedback.php";
     }
 
     function checkSubmit(){
-        check.style.display="block";
+        var additionalInfo = document.getElementById('additional').value;
+        var symptom = document.getElementById('select').value;
+        if(additionalInfo!==""||symptom!=="") {
+            check.style.display = "block";
+        }
+        else{
+            empty.style.display="block";
+        }
     }
     function submitSupport(){
 
