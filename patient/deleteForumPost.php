@@ -40,15 +40,7 @@ else{
 }
 
 
-
 $username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
-
-//$username = $_POST['Username'];
 $position = $_POST['Position'];
 
 $sql  = "DELETE FROM `forum` WHERE `pos`='$position'";

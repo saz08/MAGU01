@@ -320,6 +320,7 @@ if($result->num_rows>0){
         $divID++;
         echo "</div>";
     }
+    echo"<div class='divSpace'></div>";
 }
 
 

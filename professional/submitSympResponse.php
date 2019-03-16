@@ -54,11 +54,16 @@ $symptom = $_POST['Symptom'];
 $resSymp = $_POST['resSymp'];
 $username = $_SESSION["userName"];
 
-
-if($resSymp!=""){
-    $sql = "UPDATE `supportSubmit` SET `seenSymp`='true',`resSymp`='$resSymp' WHERE `symptom`='$symptom'";
-    $conn->query($sql);
+$sql2 = "SELECT `symptom` FROM `supportSubmit` WHERE `seenSymp`!='true'";
+$result=$conn->query($sql2);
+if($result->num_rows>0) {
+    while ($rowname = $result->fetch_assoc()) {
+        $sql = "UPDATE `supportSubmit` SET `seenSymp`='true',`resSymp`='$resSymp' WHERE `symptom`='$symptom' AND `seenSymp`='false'";
+        $conn->query($sql);
+    }
 }
+
+
 
 
 

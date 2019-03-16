@@ -43,10 +43,7 @@ $loginOK= false; //TODO make this work with database values
 
 
 
-?>
-<!doctype html>
 
-<?php
 if($loginOK) {
     if (!isset($_SESSION["sessionuser"])) {
         session_regenerate_id();

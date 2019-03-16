@@ -39,22 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-//if($_SESSION['userName']==null){
-//    $_SESSION['userName'] = "unknownUser";
-//    ?><!-- <script>-->
-<!--        localStorage.setItem('username', "unknownUser");-->
-<!--        localStorage.setItem('loginOK', "no");-->
-<!--    </script>--><?php
-//}
-
-//$loginOK = false; //TODO make this work with database values
-
-//if($loginOK) {
-//    if (!isset($_SESSION["sessionuser"])) {
-//        session_regenerate_id();
-//        $_SESSION["sessionuser"] = $user;
-//    }
-//}
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +59,7 @@ else{
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -85,13 +70,16 @@ else{
     <meta charset="UTF-8">
     <title>Monitor Breathlessness</title>
 </head>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -189,14 +177,15 @@ else{
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Monitor breathlessness <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
 <br>
 <div class="box">The following is the MRC (Medical Research Council) Breathlessness scale. Please tick the box that you feel you apply to.</div>
 
 <form method="get" class="radiostyle">
-
 <label class="radioContainer">1: Not troubled by breathlessness except on strenuous exercise
     <input type="radio" name="radio" value="1" id="1">
     <span class="checkmark"></span>
@@ -217,15 +206,10 @@ else{
     <input type="radio" name="radio" value="5" id="5">
     <span class="checkmark"></span>
 </label>
-    
 </form>
 
 
-
-
 <script>
-
-
     function submit(){
        if(document.getElementById('1').checked){
            localStorage.setItem("Breathlessness", 1);
@@ -242,20 +226,12 @@ else{
         if(document.getElementById('5').checked){
             localStorage.setItem("Breathlessness", 5);
         }
-
         window.location.href="Performance.php";
-
-
     }
-
-
-
 </script>
 <div>
     <button class="btn" onclick="goBack()"><b><</b> Back </button>
     <button class="btn" style="float:right" onclick="submit()"> Next <b> > </b></button>
 </div>
 </body>
-
-
 </html>

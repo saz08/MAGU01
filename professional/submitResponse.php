@@ -56,7 +56,7 @@ $username = $_SESSION["userName"];
 
 
 if($resInfo!=""){
-    $sql = "UPDATE `supportSubmit` SET `seenInfo`='true',`resInfo`='$resInfo' WHERE `additional`='$additional'";
+    $sql = "UPDATE `supportSubmit` SET `seenInfo`='true',`resInfo`='$resInfo' WHERE `additional`='$additional' AND `seenInfo`='false'";
     $conn->query($sql);
 }
 

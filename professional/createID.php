@@ -94,7 +94,24 @@ $loginOK = false; //TODO make this work with database values
         </div>
     </div>
 </nav>
-
+<div id="session" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
+        <p>Session has expired, please log in again!</p>
+    </div>
+</div>
+<?php
+if($_SESSION["userName"]!=null) {
+    $username = $_SESSION["userName"];
+}
+else{
+    ?><script>
+        localStorage.setItem("username","unknownUser");
+        localStorage.setItem("loginOKDoc","no");
+        document.getElementById("session").style.display="block";
+    </script><?php
+}
+?>
 <div class="jumbotron text-center">
     <h1>Generate ID<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>

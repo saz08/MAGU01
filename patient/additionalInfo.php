@@ -41,22 +41,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-//if($_SESSION['userName']==null){
-//    $_SESSION['userName'] = "unknownUser";
-//    ?><!-- <script>-->
-<!--        localStorage.setItem('username', "unknownUser");-->
-<!--        localStorage.setItem('loginOK', "no");-->
-<!--    </script>--><?php
-//}
-
-
-
-//if($loginOK) {
-//    if (!isset($_SESSION["sessionuser"])) {
-//        session_regenerate_id();
-//        $_SESSION["sessionuser"] = $user;
-//    }
-//}
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +61,7 @@ else{
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
 
@@ -84,18 +69,19 @@ else{
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
-
     <meta charset="UTF-8">
     <title>Add Info</title>
-
 </head>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
 <div id="session" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
         <p>Session has expired, please log in again!</p>
     </div>
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -193,11 +179,13 @@ else{
         </div>
     </div>
 </nav>
+
 <div class="jumbotron text-center">
     <h1>Additional Info <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
 <div class="box">Here is a small list of common symptoms. If you feel you apply to one, please choose one then press <b>submit</b></div>
+
 <form name="symptom" method="post" class="box-transparent" >
     Symptoms:
     <select id="select" name="select">
@@ -214,31 +202,15 @@ else{
     </select>
     <input type="hidden" name="action2" value="filled">
 </form>
+
 <div class="box">You can also enter anything you have noticed about yourself or any worries. If you don't have anything you'd like to add, please leave blank and press <b>submit</b>.</div>
 
     <form name="additional" method="post" class="box-transparent" >
         <input type="text" name="additional"  id="additional"/>
         <input type="hidden" name="action" value="filled">
-
-        </p>
     </form>
 
 
-
-
-<?php
-if($action==="filled"){
-    $info = (safePost($conn,"additional"));
-}
-
-
-if($action2==="filled"){
-    $symptom = (safePost($conn,"select"));
-}
-
-
-
-?>
 <div id="savedModal" class="modal">
     <div class="modal-content">
         <span class="close" id="spanSave" onclick="document.getElementById('savedModal').style.display='none'; window.location.href='index.php';">&times;</span>
@@ -272,18 +244,38 @@ if($action2==="filled"){
         <p>Survivors will now save your records and send to your doctor. Are you sure you want to submit?</p>
         <button id="spanSubmitCheck" class="btn" onclick="submitRecord();document.getElementById('submitCheck').style.display='none';">Yes</button>
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('submitCheck').style.display='none';">No</button>
-
     </div>
 </div>
 
-<script>
+<div id="painFill" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotNotify" onclick="document.getElementById('painFill').style.display='none';">&times;</span>
+        <p>Sorry! You have not entered your pain rating. Please go back and enter before submitting</p>
+    </div>
+</div>
 
+<div id="breathFill" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotNotify" onclick="document.getElementById('breathFill').style.display='none';">&times;</span>
+        <p>Sorry! You have not entered your breathlessness rating. Please go back and enter before submitting</p>
+    </div>
+</div>
+
+<div id="performanceFill" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotNotify" onclick="document.getElementById('performanceFill').style.display='none';">&times;</span>
+        <p>Sorry! You have not entered your performance rating. Please go back and enter before submitting</p>
+    </div>
+</div>
+
+<div class="divSpace"></div>
+
+<script>
     // Get the modal
     var savedModal = document.getElementById('savedModal');
     var notSavedModal = document.getElementById('notSavedModal');
     var docNotify = document.getElementById('docNotify');
     var notNotify = document.getElementById('notNotify');
-
 
     function submitRecord(){
         var pain = localStorage.getItem("Pain");
@@ -293,23 +285,21 @@ if($action2==="filled"){
         var symptom = document.getElementById('select').value;
         jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance,"Additional": additionalInfo,"Symptom": symptom}, function(data){
             savedModal.style.display="block";
-
         }).fail(function()
         {
             notSavedModal.style.display="block";
         });
+
         var painTxt = localStorage.getItem("Pain");
         var breathlessnessTxt= localStorage.getItem("Breathlessness");
         var performanceTxt = localStorage.getItem("Performance");
         jQuery.post("textMsg.php", {"Pain": painTxt, "Breathlessness": breathlessnessTxt, "Performance": performanceTxt}, function(data){
             docNotify.style.display="block";
-
         }).fail(function()
         {
             notNotify.style.display="block";
 
         });
-
     }
 
 
@@ -330,8 +320,24 @@ if($action2==="filled"){
     };
 
     function submitCheck(){
-        var check = document.getElementById("submitCheck");
-        check.style.display="block";
+        var pain = localStorage.getItem("Pain");
+        var breathlessness= localStorage.getItem("Breathlessness");
+        var performance = localStorage.getItem("Performance");
+        if(pain===""||breathlessness===""||performance==="") {
+            if (pain === "") {
+                document.getElementById("painFill").style.display = "block";
+            }
+            if (breathlessness === "") {
+                document.getElementById("breathFill").style.display = "block";
+            }
+            if (performance === "") {
+                document.getElementById("performanceFill").style.display = "block";
+            }
+        }
+        else {
+            var check = document.getElementById("submitCheck");
+            check.style.display = "block";
+        }
     }
 </script>
 <div class="divSpace"></div>
@@ -340,6 +346,4 @@ if($action2==="filled"){
         <button class="btn" style="float:right" onclick="submitCheck()"> Submit <b> > </b></button>
 </div>
 </body>
-
-
 </html>

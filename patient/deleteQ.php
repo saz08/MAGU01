@@ -39,14 +39,8 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-
-
 $questionNo = $_POST['questionNo'];
 $username = $_SESSION["userName"];
-
-
 
 $sql  = "DELETE FROM `questions` WHERE `pos` = '$questionNo' AND `username` = '$username'";
 $conn->query($sql);

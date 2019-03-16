@@ -62,9 +62,7 @@ $pass = safePOSTNonMySQL("password");
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
-
     <script src="../js/script.js"></script>
-
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
@@ -203,20 +201,38 @@ if($resultNew->num_rows<1) {
 <h2>Welcome to Survivors!</h2>
 <p>This is where you can 
 <ul>
-  <li>Record your pain, breathlessness, performance and any other queries you're unsure of! <button class='btn' onclick='goToScale()'>Start now!</button></li>
-  <li>Monitor your weight, it is important that we don't see a sudden increase or decrease in your weight</li>
-  <li>Monitor how much physical activity you do, we want you to improve!</li>
-  <li>Get involved in our patient forum room</li>
-  <li>Find helpful links regarding general info, financial, emotional and physical help</li>
-  <li>View helpful charts showing your status</li>
-  <li>Log questions you'd like to remember for your next appointment</li>
-  <li>Add friends or family members to a support circle, where they can view your progress and enter symptoms on your behalf</li>
-
+  <li>Record your pain, breathlessness, performance and any other queries you're unsure of! <button class='btn' onclick='goToScale()' style='font-size: 1.5rem'>Start now!</button></li>
+ <br>
+  <li>Monitor your weight, it is important that we don't see a sudden increase or decrease in your weight <button class='btn' onclick='goToWeight()' style='font-size: 1.5rem'>Enter Weight!</button></li>
+ <br> 
+  <li>Monitor how much physical activity you do, we want you to improve! <button class='btn' onclick='goToPhysical()' style='font-size: 1.5rem'>Record your activity!</button></li>
+  <br>
+  <li>Get involved in our patient forum room<button class='btn' onclick='goToForum()' style='font-size: 1.5rem'>Talk!</button></li>
+  <br>
+  <li>Find helpful links regarding general info, financial, emotional and physical help in <b>HELP</b></li>
+  <br>
+  <li>View helpful charts showing your status in <b>PROFILE</b></li>
+  <br>
+  <li>Log questions you'd like to remember for your next appointment<button class='btn' onclick='goToQuestion()' style='font-size: 1.5rem'>Add a question!</button></li>
+  <br>
+  <li>Add friends or family members to a support circle, where they can view your progress and enter symptoms on your behalf<button class='btn' onclick='goToSupport()' style='font-size: 1.5rem'>Support Circle</button></li>
+<br>
 </ul> </p>
 </div>";
 }
 ?>
-
+<div id="deleted" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('deleted').style.display='none';window.location.href='index.php'">&times;</span>
+        <p>Response successfully deleted</p>
+    </div>
+</div>
+<div id="notDelete" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('notDelete').style.display='none';window.location.href='index.php'">&times;</span>
+        <p>Survivors was unable to delete the response successfully. Please check your internet connection and try again</p>
+    </div>
+</div>
 
 <?php
 $sqlInfo  = "SELECT * FROM `scale` WHERE `username` = '$username' AND `seenInfo` = 'true' OR `seenSymp` = 'true'";
@@ -231,43 +247,49 @@ if($resultInfo->num_rows>0) {
         $resSymp = $rowname["resSymp"];
 
         if($info!="") {
-            if ($seenInfo != "") {
-                ?>
-                <br>
-                <div class="box">
-                    <p>
-                        <b>The doctor has responded to your additional info:</b> <?php echo $info; ?> <br>
-                        <b>Response:</b> <?php
-                        echo $resInfo; ?>
-                        <button class="btn" id="button" onclick="markAndDelete('<?php echo $resInfo ?>')">Mark as Read
-                            and
-                            Delete
-                        </button>
-                    </p>
-                </div>
+            if ($seenInfo != "false") {
+                if($seenInfo!="") {
+                    ?>
+                    <br>
+                    <div class="box">
+                        <p>
+                            <b>The doctor has responded to your additional info:</b> <?php echo $info; ?> <br>
+                            <b>Response:</b> <?php
+                            echo $resInfo; ?>
+                            <button class="btn" id="button" onclick="markAndDelete('<?php echo $resInfo ?>')">Mark as
+                                Read
+                                and
+                                Delete
+                            </button>
+                        </p>
+                    </div>
 
 
-                <?php
+                    <?php
+                }
             }
         }
         if($symptom!="") {
-            if($seenSymp!="") {
-                ?>
-                <br>
-                <div class="box">
-                    <p>
-                        <b>The doctor has responded to your symptom:</b> <?php echo $symptom; ?> <br>
-                        <b>Response:</b> <?php
-                        echo $resSymp; ?>
-                        <button class="btn" id="button" onclick="markAndDelete('<?php echo $resSymp ?>')">Mark as Read
-                            and
-                            Delete
-                        </button>
-                    </p>
-                </div>
+            if($seenSymp!="false") {
+                if($seenSymp!="") {
+                    ?>
+                    <br>
+                    <div class="box">
+                        <p>
+                            <b>The doctor has responded to your symptom:</b> <?php echo $symptom; ?> <br>
+                            <b>Response:</b> <?php
+                            echo $resSymp; ?>
+                            <button class="btn" id="button" onclick="markAndDelete('<?php echo $resSymp ?>')">Mark as
+                                Read
+                                and
+                                Delete
+                            </button>
+                        </p>
+                    </div>
 
 
-                <?php
+                    <?php
+                }
             }
         }
     }
@@ -330,7 +352,26 @@ while ($rowname = $resultScale->fetch_assoc()) {
 
 
 ?>
-
+<script>
+    function goToScale(){
+        window.location.href="scale.php";
+    }
+    function goToWeight(){
+        window.location.href="weight.php";
+    }
+    function goToPhysical(){
+        window.location.href="physical.php";
+    }
+    function goToForum(){
+        window.location.href="talk.php";
+    }
+    function goToQuestion(){
+        window.location.href="questions.php";
+    }
+    function goToSupport(){
+        window.location.href="supportCircle.php";
+    }
+</script>
 </body>
 <div class="clear"></div>
 

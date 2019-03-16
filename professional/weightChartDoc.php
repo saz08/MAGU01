@@ -27,17 +27,6 @@ $action = safePOST($conn, "action");
 
 $month = date("m");
 $year = date("Y");
-
-$id = $_GET["id"];
-
-$sql = "SELECT `forename` FROM `chi` WHERE `id` = '$id'";
-$result = $conn->query($sql);
-if($result->num_rows>0) {
-while ($rowname = $result->fetch_assoc()) {
-    $patientname = $rowname["forename"];
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +54,35 @@ while ($rowname = $result->fetch_assoc()) {
 
     <meta charset="UTF-8">
     <title>Project</title>
+    <div id="session" class="modal">
+        <div class="modal-content">
+            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
+            <p>Session has expired, please log in again!</p>
+        </div>
+    </div>
+<?php
+if($_SESSION["userName"]!=null) {
+    $username = $_SESSION["userName"];
+}
+else{
+    ?><script>
+        localStorage.setItem("username","unknownUser");
+        localStorage.setItem("loginOKDoc","no");
+        document.getElementById("session").style.display="block";
+    </script><?php
+}
+$id = $_GET["id"];
+
+$sql = "SELECT `forename` FROM `chi` WHERE `id` = '$id'";
+$result = $conn->query($sql);
+if($result->num_rows>0) {
+while ($rowname = $result->fetch_assoc()) {
+    $patientname = $rowname["forename"];
+    }
+}
+
+?>
+
     <script>
         window.onload = function () {
 
@@ -75,7 +93,10 @@ while ($rowname = $result->fetch_assoc()) {
                     text: "Weight Monitoring"
                 },
                 axisY:{
-                    includeZero: false
+                    title: "Weight (LBS)"
+                },
+                axisX:{
+                    title:"Entries"
                 },
                 data: [{
                     type: "line",

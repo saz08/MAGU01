@@ -27,6 +27,54 @@ $action = safePOST($conn, "action");
 
 $month = date("m");
 $year = date("Y");
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/forAll.js"></script>
+    <script src="../js/docJS.js"></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+
+    <meta charset="UTF-8">
+    <title>Project</title>
+
+    <div id="session" class="modal">
+        <div class="modal-content">
+            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
+            <p>Session has expired, please log in again!</p>
+        </div>
+    </div>
+
+
+<?php
+if($_SESSION["userName"]!=null) {
+    $username = $_SESSION["userName"];
+}
+else{
+    ?><script>
+        localStorage.setItem("username","unknownUser");
+        localStorage.setItem("loginOKDoc","no");
+        document.getElementById("session").style.display="block";
+    </script><?php
+}
+
 
 $id = $_GET['id'];
 
@@ -278,31 +326,7 @@ if($entriesM!=0) {
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-    <meta name="mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../js/forAll.js"></script>
-    <script src="../js/docJS.js"></script>
-
-    <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
-
-    <meta charset="UTF-8">
-    <title>Project</title>
     <script>
 
         window.onload = function() {
@@ -715,7 +739,7 @@ if($entries!=0&&$entriesM!=0) {
 
 
     <div class="sideBar" id="mySidebar">
-        <a class="closebtn" onclick="closeNav()" > <b>< CLOSE</b> </a>
+        <button class="closebtn" onclick="closeNav()" > <b>< CLOSE</b> </button>
         <div class="circleKey" style="background-color:#006700 ;"></div>
         <p >Pain below 4. Breathlessness and Performance below 2</p>
         <div class="circleKey" style="background-color:#FE6C01;"></div>

@@ -38,19 +38,47 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
 
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-        localStorage.setItem('loginOKSupport', "no");
+    <script src="../js/forAll.js"></script>
+    <script src="../js/supportJS.js"></script>
 
-        window.location.href="supportSignUp.php"
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <div id="session" class="modal">
+        <div class="modal-content">
+            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
+            <p>Session has expired, please log in again!</p>
+        </div>
+    </div>
+<?php
+if($_SESSION["userName"]!=null) {
+    $username = $_SESSION["userName"];
+}
+else{
+    ?><script>
+        localStorage.setItem("username","unknownUser");
+        localStorage.setItem("loginOKSupport","no");
+        document.getElementById("session").style.display="block";
     </script><?php
-
 }
 
-$username = $_SESSION["userName"];
 
 
 $getSurvivor = "SELECT `survivor` FROM `supportAcc` WHERE `username` = '$username'";
@@ -300,28 +328,7 @@ if($entriesM!=0) {
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-    <meta name="mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
 
-    <script src="../js/forAll.js"></script>
-    <script src="../js/supportJS.js"></script>
-
-    <meta charset="UTF-8">
-    <title>Home</title>
     <script>
 
         window.onload = function() {
@@ -655,7 +662,7 @@ if($entriesM!=0) {
     <h1><?php echo  $survivor?>'s Records from the Beginning<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 <br>
-
+<br>
 <div class="sideBar" id="mySidebar">
     <a class="closebtn" onclick="closeNav()" > <b>< CLOSE</b></a>
     <div class="circleKey" style="background-color:#008D00 ;"></div>

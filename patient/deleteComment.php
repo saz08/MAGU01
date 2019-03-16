@@ -40,15 +40,8 @@ else{
 }
 $username = $_SESSION["userName"];
 
-
-
-
-//$pos = $_POST['Position'];
 $com = $_POST['Comment'];
-//$pos = $_POST['Position'];
 
 $sql2 = "DELETE FROM `comments` WHERE `patientComment` = '$com' AND `username`='$username'";
-//$sql2 = "DELETE FROM `comments` WHERE `patientComment` = '$com' AND `username`='$username' AND `pos`='$pos'";
-
 $conn->query($sql2);
 

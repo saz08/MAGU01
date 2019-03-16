@@ -60,11 +60,10 @@ function openProfile(){
 
 function markAndDelete(response){
     jQuery.post("markAsSeen.php", {"Response": response}, function(data){
-        alert("Read and Deleted");
-        window.location.href="index.php";
+    document.getElementById("deleted").style.display="block";
     }).fail(function()
     {
-        alert("something broke in submitting your records");
+        document.getElementById("notDelete").style.display="block";
     });
 }
 
@@ -115,4 +114,6 @@ function openNavWChart() {
 function closeNavWChart() {
     document.getElementById("mySidebar").style.width = "0";
 }
+
+
 

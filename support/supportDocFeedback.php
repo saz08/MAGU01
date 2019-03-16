@@ -38,24 +38,7 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-
-if($_SESSION['userName']==null){
-    $_SESSION['userName'] = "unknownUser";
-    ?> <script>
-        localStorage.setItem('username', "unknownUser");
-    </script><?php
-}
-
-$username = $_SESSION["userName"];
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,11 +54,35 @@ $username = $_SESSION["userName"];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
 
     <meta charset="UTF-8">
     <title>Feedback</title>
+
+    <div id="session" class="modal">
+        <div class="modal-content">
+            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
+            <p>Session has expired, please log in again!</p>
+        </div>
+    </div>
+<?php
+if($_SESSION["userName"]!=null) {
+    $username = $_SESSION["userName"];
+}
+else{
+    ?><script>
+        localStorage.setItem("username","unknownUser");
+        localStorage.setItem("loginOKSupport","no");
+        document.getElementById("session").style.display="block";
+    </script><?php
+}
+?>
+
+
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -199,7 +206,18 @@ if($result->num_rows>0){
 ?>
 
 <br>
-
+<div id="deleted" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('deleted').style.display='none';window.location.href='supportDocFeedback.php'">&times;</span>
+        <p>Response successfully deleted</p>
+    </div>
+</div>
+<div id="notDelete" class="modal">
+    <div class="modal-content">
+        <span class="close" id="spanNotify" onclick="document.getElementById('notDelete').style.display='none';window.location.href='supportDocFeedback.php'">&times;</span>
+        <p>Survivors was unable to delete the response successfully. Please check your internet connection and try again</p>
+    </div>
+</div>
 <div class="clear"></div>
 
 </body>

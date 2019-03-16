@@ -25,12 +25,7 @@ $dbname = "szb15123";
 $conn = new mysqli($host, $user, $pass , $dbname);
 $action = safePOST($conn, "action");
 $action2 = safePOST($conn, "action2");
-
-
-$id = $_GET['id'];
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,6 +50,31 @@ $id = $_GET['id'];
 
     <meta charset="UTF-8">
     <title>Project</title>
+    <div id="session" class="modal">
+        <div class="modal-content">
+            <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
+            <p>Session has expired, please log in again!</p>
+        </div>
+    </div>
+
+
+<?php
+if($_SESSION["userName"]!=null) {
+    $username = $_SESSION["userName"];
+}
+else{
+    ?><script>
+        localStorage.setItem("username","unknownUser");
+        localStorage.setItem("loginOKDoc","no");
+        document.getElementById("session").style.display="block";
+    </script><?php
+}
+
+$id = $_GET['id'];
+
+?>
+
+
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -219,8 +239,8 @@ if($patient->num_rows>0){
 </table>
 <!--//</div>-->
 
-<h2>Patient's friends or family may add symptoms they are noticing or any other additional notes they'd like to log. They will appear here if there are any.</h2>
-<div class="box" style="height: inherit">
+<div class="box"><h3>Patient's friends or family may add symptoms they are noticing or any other additional notes they'd like to log. They will appear here if there are any.</h3></div>
+
     <?php
     $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
     $patient=$conn->query($sqlPatient);
@@ -231,6 +251,7 @@ if($patient->num_rows>0){
             $result1 = $conn->query($sql1);
             $counter = 0;
             if ($result1->num_rows > 0) {
+                echo"<div class='box' style='height:inherit'>";
                 while ($rowname = $result1->fetch_assoc()) {
                     $counter++;
                     $supporter=$rowname["username"];
@@ -238,9 +259,11 @@ if($patient->num_rows>0){
                     $info = $rowname["additional"];
                     $seenInfo = $rowname["seenInfo"];
                     $seenSymp = $rowname["seenSymp"];
+                     $date = $rowname["timeStamp"];
+                    $date2 = (new DateTime($date))->format('d/m/Y');
                     if ($info != "") {
                         if ($seenInfo == "false") {
-                            echo "<p><b>".$supporter.":</b> ". $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                            echo "<p><b>".$date2." ".$supporter.":</b> ". $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection'>
                        <input type='text' name='comment' id='resInfo' placeholder='Respond to Supporter...'><br>
@@ -252,13 +275,13 @@ if($patient->num_rows>0){
 <br>
 </div><?php
                         } else {
-                            echo "<p><b>".$supporter.":</b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                            echo "<p><b>".$date2." ".$supporter.":</b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
                         }
                     }
                     if ($symptom != "") {
                         $counter++;
                         if ($seenSymp == "false") {
-                            echo "<p><b>".$supporter.":</b>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
+                            echo "<p><b>".$date2." ".$supporter.":</b>" . $symptom . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
                        <div id='content_$counter' class='comments' style='display:none'>
                        <form method='post' name='commentsSection2'>
                        <input type='text' name='comment2' id='resSymp'  placeholder='Respond to Supporter...'><br>
@@ -267,7 +290,7 @@ if($patient->num_rows>0){
                        <input type='submit' value='Respond to Supporter' class='btn' onclick='submitSymptomResponse()'></form><br></div>";
 
                         } else {
-                            echo "<p><b>".$supporter.":</b>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
+                            echo "<p><b>".$date2." ".$supporter.":</b>" . $symptom . " <button class='btn' style='background-color: grey'>Seen</button></p>";
 
                         }
                     }
@@ -313,7 +336,8 @@ if($action2==="filled"){
         console.log("additional info response "+ resInfo);
 
         jQuery.post("submitResponse.php", {"Additional": additionalInfo,"resInfo":resInfo}, function(data){
-            document.getElementById("sent").style.display="block";
+            window.location.href="proSupport.php?id=<?php echo $id ?>";
+
         }).fail(function()
         {
             document.getElementById("notSent").style.display="block";
@@ -327,7 +351,7 @@ if($action2==="filled"){
         console.log("symptom info response "+ resSymp);
 
         jQuery.post("submitSympResponse.php", {"Symptom": symptom,"resSymp":resSymp}, function(data){
-            document.getElementById("sent").style.display="block";
+            window.location.href="proSupport.php?id=<?php echo $id ?>";
         }).fail(function()
         {
             document.getElementById("notSent").style.display="block";

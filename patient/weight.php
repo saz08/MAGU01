@@ -202,7 +202,8 @@ else{
 
 <div class="weightNav" id="mySidebar">
     <br>
-    <a class="closebtn" onclick="closeNavWeight()" style="color: white;background-color: mediumpurple" >  <</a>
+    <a class="closebtn" onclick="closeNavWeight()"  >  <</a>
+    <br>
     <br>
         <table id="table">
             <tr>
@@ -242,7 +243,6 @@ else{
 </div>
 <div class="clear"></div>
 
-<div class="clear"></div>
 
 
 
@@ -283,6 +283,5 @@ if($action === "filled") {
     <button class="btn" style="float:right" onclick="next()"> Next <b> > </b></button>
 </div>
 </body>
-
 
 </html>

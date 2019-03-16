@@ -39,21 +39,6 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-
-//$username= "<script>localStorage.getItem('username')</script>";
-
-
-
-
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -220,9 +205,10 @@ if($loginOK) {
 
     <div class="jumbotron text-center">
     <h1 style="left:10%;width:80%;text-align: center" >Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
-</div>
+    </div>
 <br>
 <input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchGlossary()" placeholder="Search a keyword.." title="Start typing">
+
     <button class="openbtn" onclick="openNav()">☰ A-Z</button>
 
     <div class="sidenav" id="mySidebar">

@@ -10,21 +10,19 @@ if(localStorage.getItem("loginOKSupport")==="no"){
 
 function markAndDeleteInfo(response){
     jQuery.post("supportMarkAsSeen.php", {"Response": response}, function(data){
-        alert("Read and Deleted");
-        window.location.href="supportDocFeedback.php";
+        document.getElementById("deleted").style.display="block";
     }).fail(function()
     {
-        alert("something broke in submitting your records");
+        document.getElementById("notDelete").style.display="block";
     });
 }
 
 function markAndDeleteSymp(response){
     jQuery.post("supportMarkSymp.php", {"Response": response}, function(data){
-        alert("Read and Deleted");
-        window.location.href="supportDocFeedback.php";
+        document.getElementById("deleted").style.display="block";
     }).fail(function()
     {
-        alert("something broke in submitting your records");
+        document.getElementById("notDelete").style.display="block";
     });
 }
 
