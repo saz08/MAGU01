@@ -104,12 +104,7 @@ else{
 </nav>
 </div>
 
-<div id="session" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSession" onclick="document.getElementById('session').style.display='none'">&times;</span>
-        <p>Login has expired. Please login again to continue.</p>
-    </div>
-</div>
+
 
 <div id="patientNav">
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -244,7 +239,7 @@ else{
 <br>
 <div id="delete" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('delete').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotify" onclick="document.getElementById('delete').style.display='none';" style="float:right">&times;</button>
         <p>Survivors was unable to successfully delete. Please check your internet connection and try again.</p>
     </div>
 </div>
@@ -319,6 +314,9 @@ if($result->num_rows>0){
     }
     echo"<div class='divSpace'></div>";
 }
+echo"<div class='box' id='noResults' style='display:none'><p>Sorry, no posts or comments were found containing that word</p></div>";
+echo"<div class='divSpace'></div>";
+
 
 
 if($action==="filled") {
@@ -363,22 +361,28 @@ if($action2==="filled") {
         var filter = input.value.toLowerCase();
         var forumPost = document.getElementsByClassName('forum');
         var comments = document.getElementsByClassName("comment");
+        var noResults = document.getElementById("noResults");
 
         for (var x = 0; x < forumPost.length; x++) {
             var allPosts = forumPost[x].id.substr(10);
             document.getElementById(allPosts).style.display = "none";
+            noResults.style.display="block";
+
         }
 
         for (var y = 0; y < forumPost.length; y++) {
             var showPost = forumPost[y].id.substr(10);
             if (forumPost[y].innerText.toLowerCase().includes(filter)) {
                 document.getElementById(showPost).style.display = "block";
+                noResults.style.display="none";
             }
         }
         for(var z = 0; z < comments.length; z++) {
             var showComment = comments[z].id.substr(8);
             if(comments[z].innerText.toLowerCase().includes(filter)){
                 document.getElementById(showComment).style.display = "block";
+                noResults.style.display="none";
+
             }
         }
     }

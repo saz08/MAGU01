@@ -102,27 +102,27 @@ else{
 
 <div id="errs" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanErrs" onclick="document.getElementById('errs').style.display='none';">&times;</span>
+        <button class="btn" id="spanErrs" onclick="document.getElementById('errs').style.display='none';" style="float:right">&times;</button>
         <p>Please correct any boxes highlighted pink</p>
     </div>
 </div>
 
 <div id="username" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanUser" onclick="document.getElementById('username').style.display='none';">&times;</span>
+        <button class="btn" id="spanUser" onclick="document.getElementById('username').style.display='none';" style="float:right">&times;</button>
         <p>Username is already registered</p>
     </div>
 </div>
 <div id="id" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanId" onclick="document.getElementById('id').style.display='none';">&times;</span>
+        <button class="btn" id="spanId" onclick="document.getElementById('id').style.display='none';" style="float:right">&times;</button>
         <p>Incorrect ID: ID is not registered</p>
     </div>
 </div>
 
 <div id="notUsername" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotUser" onclick="document.getElementById('notUsername').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotUser" onclick="document.getElementById('notUsername').style.display='none';" style="float:right">&times;</button>
         <p>Username or Password not recognised</p>
     </div>
 </div>
@@ -321,7 +321,7 @@ else{
 
 <div id="loggedIn" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'">&times;</span>
+        <button class="btn" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'">&times;</button>
         <p>You are already logged in!</p>
     </div>
 </div>

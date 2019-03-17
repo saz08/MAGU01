@@ -96,12 +96,7 @@ else{
     <title>Glossary</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-<div id="session" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
-        <p>Session has expired, please log in again!</p>
-    </div>
-</div>
+
 <div id="page-wrap">
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -260,20 +255,24 @@ else{
 
 
         function searchGlossary() {
-        var input, filter, ul, li, a, i, txtValue;
+        var input, filter, ul, li, a, i, txtValue,p;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
         console.log("input si + "+ filter);
         ul=document.getElementById("myUL");
         li = ul.getElementsByTagName("li");
+        p = document.getElementById("noResults");
+        p.style.display="none";
         for (i = 0; i < li.length; i++) {
             a = li[i];
         txtValue = a.textContent || a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
         li[i].style.display = "";
+        p.style.display="none";
     }
         else {
         li[i].style.display = "none";
+        p.style.display="block";
     }
     }
     }

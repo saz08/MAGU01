@@ -114,32 +114,32 @@ if($loginOK) {
 </div>
 <div id="notUser" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanUser" onclick="document.getElementById('notUser').style.display='none'">&times;</span>
+        <button class="btn" id="spanUser" onclick="document.getElementById('notUser').style.display='none'" style="float:right">&times;</button>
         <p>Username not recognised</p>
     </div>
 </div>
 <div id="notPass" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanPass" onclick="document.getElementById('notPass').style.display='none'">&times;</span>
+        <button class="btn" id="spanPass" onclick="document.getElementById('notPass').style.display='none'" style="float:right">&times;</button>
         <p>Password not recognised</p>
     </div>
 </div>
 <div id="errs" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanPass" onclick="document.getElementById('errs').style.display='none'">&times;</span>
+        <button class="btn" id="spanPass" onclick="document.getElementById('errs').style.display='none'" style="float:right">&times;</button>
         <p>Please correct any boxes highlighted pink</p>
     </div>
 </div>
 <div id="username" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanUserok" onclick="document.getElementById('username').style.display='none'">&times;</span>
+        <button class="btn" id="spanUserok" onclick="document.getElementById('username').style.display='none'" style="float:right">&times;</button>
         <p>Username is already registered</p>
     </div>
 </div>
 
 <div id="id" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanID" onclick="document.getElementById('id').style.display='none'">&times;</span>
+        <button class="btn" id="spanID" onclick="document.getElementById('id').style.display='none'" style="float:right">&times;</button>
         <p>Survivor username is not registered</p>
     </div>
 </div>

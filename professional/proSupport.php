@@ -54,12 +54,7 @@ $action2 = safePOST($conn, "action2");
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<div id="session" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
-        <p>Session has expired, please log in again!</p>
-    </div>
-</div>
+
 
 <?php
 if($_SESSION["userName"]!=null) {
@@ -321,13 +316,13 @@ if($action2==="filled"){
 <br>
 <div id="sent" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('sent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'">&times;</span>
+        <button class="btn" id="spanNotify" onclick="document.getElementById('sent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'" style="float:right">&times;</button>
         <p>Response successfully sent</p>
     </div>
 </div>
 <div id="notSent" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('notSent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'">&times;</span>
+        <button class="btn" id="spanNotify" onclick="document.getElementById('notSent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'" style="float:right">&times;</button>
         <p>Survivors was unable to send your response successfully. Please check your internet connection and try again</p>
     </div>
 </div>

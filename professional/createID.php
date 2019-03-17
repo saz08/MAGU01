@@ -92,12 +92,7 @@ else{
         </div>
     </div>
 </nav>
-<div id="session" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='docSignUp.php';">&times;</span>
-        <p>Session has expired, please log in again!</p>
-    </div>
-</div>
+
 <?php
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
@@ -138,19 +133,19 @@ else{
 </div>
 <div id="save" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='dashboard.php'">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='dashboard.php'" style="float:right">&times;</button>
         <p>Patient created!</p>
     </div>
 </div>
 <div id="notSave" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';" style="float:right">&times;</button>
         <p>Survivors was unable to create a new patient. Please check your internet connection and try again. </p>
     </div>
 </div>
 <div id="errs" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanErrs" onclick="document.getElementById('errs').style.display='none';">&times;</span>
+        <button class="btn" id="spanErrs" onclick="document.getElementById('errs').style.display='none';" style="float:right">&times;</button>
         <p>Please correct any boxes highlighted pink</p>
     </div>
 </div>

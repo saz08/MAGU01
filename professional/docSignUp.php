@@ -120,32 +120,32 @@ if($loginOK) {
 
 <div id="notUsername" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('notUsername').style.display='none'">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('notUsername').style.display='none'" style="float:right">&times;</button>
         <p>Username or Password is not recognised</p>
     </div>
 </div>
 
 <div id="errs" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('errs').style.display='none'">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('errs').style.display='none'" style="float:right">&times;</button>
         <p>Please fix any boxes highlighted pink</p>
     </div>
 </div>
 <div id="email" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('email').style.display='none'">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('email').style.display='none'" style="float:right">&times;</button>
         <p>Must be a valid NHS email </p>
     </div>
 </div>
 <div id="user" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('user').style.display='none'">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('user').style.display='none'" style="float:right">&times;</button>
         <p>Username is already registered</p>
     </div>
 </div>
 <div id="emailAlready" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('emailAlready').style.display='none'">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('emailAlready').style.display='none'" style="float:right">&times;</button>
         <p>Email is already registered</p>
     </div>
 </div>

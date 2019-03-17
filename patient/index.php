@@ -77,12 +77,7 @@ $pass = safePOSTNonMySQL("password");
 
 <body>
 
-<div id="session" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
-        <p>Session has expired, please log in again!</p>
-    </div>
-</div>
+
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -184,7 +179,7 @@ $pass = safePOSTNonMySQL("password");
 
 <div id="logIn" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanLogIn" onclick="document.getElementById('logIn').style.display='none';">&times;</span>
+        <button class="btn" id="spanLogIn" onclick="document.getElementById('logIn').style.display='none';" style="float:right">&times;</button>
         <p>You must be logged in to continue.</p>
     </div>
 </div>

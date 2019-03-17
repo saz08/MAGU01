@@ -70,12 +70,7 @@ else{
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-<div id="session" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
-        <p>Session has expired, please log in again!</p>
-    </div>
-</div>
+
 <?php
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
@@ -216,19 +211,19 @@ if($action==="filled"){
 ?>
 <div id="save" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='supportInput.php'">&times;</span>
+        <button class="btn" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='supportInput.php'" style="float:right">&times;</button>
         <p>Your records were successfully saved.</p>
     </div>
 </div>
 <div id="notSave" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';" style="float:right">&times;</button>
         <p>Sorry, Survivors was unable to save your records. Please check your internet connection and try again</p>
     </div>
 </div>
 <div id="empty" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotSave" onclick="document.getElementById('empty').style.display='none';">&times;</span>
+        <button class="btn" id="spanNotSave" onclick="document.getElementById('empty').style.display='none';" style="float:right">&times;</button>
         <p>You have not entered any symptom or information to submit</p>
     </div>
 </div>

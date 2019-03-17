@@ -73,12 +73,7 @@ else{
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<div id="session" class="modal">
-    <div class="modal-content">
-        <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='signUp.php';">&times;</span>
-        <p>Session has expired, please log in again!</p>
-    </div>
-</div>
+
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -244,14 +239,14 @@ if($resultJournal->num_rows>0) {
 
 <div id="deleteQ" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanDelete" onclick="document.getElementById('deleteQ').style.display='none';window.location.href='questions.php'">&times;</span>
+        <button class="btn" id="spanDelete" onclick="document.getElementById('deleteQ').style.display='none';window.location.href='questions.php'" style="float:right">&times;</button>
         <p>Question was deleted successfully!</p>
     </div>
 </div>
 
 <div id="nodeleteQ" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanDelete" onclick="document.getElementById('nodeleteQ').style.display='none';window.location.href='questions.php'">&times;</span>
+        <button class="btn" id="spanDelete" onclick="document.getElementById('nodeleteQ').style.display='none';window.location.href='questions.php'" style="float:right">&times;</button>
         <p>Sorry, Survivors was unable to delete your question. Please check your internet connection then try again</p>
     </div>
 </div>

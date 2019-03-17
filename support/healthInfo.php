@@ -85,12 +85,7 @@ else{
             <a class="navbar-brand" href="#myPage">    </a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <div id="session" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="spanSave" onclick="document.getElementById('session').style.display='none'; window.location.href='supportSignUp.php';">&times;</span>
-                    <p>Session has expired, please log in again!</p>
-                </div>
-            </div>
+
             <ul class = "nav navbar-nav navbar-left">
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
