@@ -160,9 +160,9 @@ if($patient->num_rows>0){
                             $importantInfo="false";
                             $importantSymp="false";}
                         if($importantInfo==="true"||$importantSymp==="true"){
-                            echo "<li><a href='patientInfo.php?id=+$id'>RECORDS <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
+                            echo "<li><a href='patientInfo.php?id=+$id'>PROFILE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
                         else{
-                            echo"<li><a href='patientInfo.php?id=+$id'>RECORDS</a></li>";}
+                            echo"<li><a href='patientInfo.php?id=+$id'>PROFILE</a></li>";}
                         ?>
 
                         <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
@@ -212,7 +212,7 @@ if($patient->num_rows>0){
 
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="../patient/logout.php">LOGOUT</a></li>
+                <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
@@ -221,7 +221,13 @@ if($patient->num_rows>0){
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?><img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='../patient/logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
+</div>
 <br>
 
 <?php

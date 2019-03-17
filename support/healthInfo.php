@@ -56,6 +56,8 @@ else{
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/radio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
@@ -150,7 +152,7 @@ else{
                 </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="../patient/logout.php">LOGOUT</a></li>
+                <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
@@ -158,6 +160,13 @@ else{
 
 <div class="jumbotron text-center">
     <h1>Health Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+</div>
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='../patient/logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
 </div>
 <div class="clear"></div>
 <button class="collapsible" onclick="window.location.href='supportGlossary.php'">Complicated Terms</button>

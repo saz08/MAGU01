@@ -87,7 +87,7 @@ else{
 
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="../patient/logout.php">LOGOUT</a></li>
+                <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
@@ -110,19 +110,32 @@ else{
 <div class="jumbotron text-center">
     <h1>Generate ID<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
-<div class="center-div" id="newPatient">
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='../patient/logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
+</div>
+<div class="radiostyle" id="newPatient" style="background-color: #E47C88">
     <form name="register" method="post" onsubmit="return checkForm()" >
         <h2 style="color:black">Create New Patient Details</h2>
         <p class="lead" style="color:#f7f7f7;">
-        <p>Enter Full Name:<br> <input type="text" name="forename"  id="forename"/><input type="text" name="surname"  id="surname"/></p>
+        <p>Enter Full Name:<br> <input type="text" name="forename"  id="forename" placeholder="Forename"/>
+            <input type="text" name="surname"  id="surname" placeholder="Surname"/></p>
         <p>Date of Birth: <br><input type="date" name="DoB" id="DoB"></p>
         <p>Gender</p>
-        <input type="radio" name="gender" value="male" id="male"> Male
-        <input type="radio" name="gender" value="female" id="female">Female
-        <p>Patient's Email Address:<br><input type="email" name="patientEmail"  id="patientEmail"/></p>
+        <label class="radioContainer" style="left:40%">Male
+            <input type="radio" name="gender" value="male" id="male">
+            <span class="checkmark" ></span>
+        </label>
+        <label class="radioContainer" style="left:40%">Female
+            <input type="radio" name="gender" value="female" id="female">
+            <span class="checkmark" ></span>
+        </label>
+        <p>Patient's Email Address:<br><input type="email" name="patientEmail"  id="patientEmail" placeholder="eg. johnsmith@gmail.com"/></p>
         <p>Address:<br><input type="text" name="address"  id="address"/></p>
-        <p>Contact No:<br><input type="text" name="contact"  id="contact"/></p>
+        <p>Contact No:<br><input type="text" name="contact"  id="contact" /></p>
         <input type="hidden" name="action2" value="filled">
         <p><input type="submit" name="submitReg" id="signUpButton" class="btn" id="button" value="Register Patient"></p>
         </p>
@@ -134,13 +147,13 @@ else{
 <div id="save" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='dashboard.php'" style="float:right">&times;</button>
-        <p>Patient created!</p>
+        <p>Patient added!</p>
     </div>
 </div>
 <div id="notSave" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';" style="float:right">&times;</button>
-        <p>Survivors was unable to create a new patient. Please check your internet connection and try again. </p>
+        <p>Survivors was unable to add a new patient. Please check your internet connection and try again. </p>
     </div>
 </div>
 <div id="errs" class="modal">

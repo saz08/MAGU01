@@ -21,14 +21,7 @@ function weightConverter(valNum) {
 }
 
 
-//Alerts
-window.onclick = function(event) {
-    if (event.target === session) {
-        session.style.display = "none";
-        window.location.href="signUp.php";
-    }
 
-};
 
 function openRecord(){
     var record =document.getElementById("record");

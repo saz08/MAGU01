@@ -99,12 +99,17 @@ else{
                 title:{
                     text: "Weight Monitoring"
                 },
-                axisY:{
-                   title: "Weight (LBS)"
-                },
                 axisX:{
-                    title:"Entries"
+                    title:"Entry Date",
+                    interval:2,
+                    intervalType: "day",
+                    valueFormatString: "DD MMM YY"
                 },
+                axisY:{
+                   title: "Weight (lbs)",
+                    interval:20
+                },
+
                 data: [{
                     type: "line",
                    dataPoints: [
@@ -116,8 +121,8 @@ else{
                 while ($rowname = $result->fetch_assoc()) {
                     $y = $rowname["lbs"];
                     $timestamp = $rowname["timeStamp"];
-                    $date2 = (new DateTime($timestamp))->format('d m Y');
-                    echo "{y: $y},";
+                    $date2 = (new DateTime($timestamp))->format('D d M Y');
+                    echo"{x: new Date('$date2'), y:$y},";
                 }
             }
             ?>
@@ -130,18 +135,30 @@ else{
         }
     </script>
 
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class = "nav navbar-nav navbar-left">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    if($_SESSION["userName"]!=null) {
+                        $username = $_SESSION["userName"];
+                    }
+                    else{
+                        ?><script>
+                            localStorage.setItem("username","unknownUser");
+                            localStorage.setItem("loginOK","no");
+                            alert("Session has expired, please log in again");
+
+                            window.location.href="signUp.php";
+                        </script><?php
+                    }
+
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -190,7 +207,6 @@ else{
                         </ul>
                     </li>
 
-
                     <li><a href="talk.php">TALK</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="help">
@@ -210,20 +226,29 @@ else{
                         </ul>
                     </li>
                 </ul>
-            <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
-            </ul>
+                <ul class = "nav navbar-nav navbar-right">
+                    <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
 
 <div class="jumbotron text-center">
     <h1>My Weight Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+    <div id="logOutCheck" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to log out?</p>
+            <button id="spanSubmitCheck" class="btn" onclick="window.location.href='logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+            <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+        </div>
+    </div>
 <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
 
 <button class="btn" id="button" onclick="window.location.href='weight.php'">Make an entry</button>
+    <div class="divSpace"></div>
+    <div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
+    <div class="divSpace"></div>
 
 <?php
 $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";

@@ -49,6 +49,10 @@ body {
     color:white;
 }
 
+#checkLogOut:hover{
+    background-color: #69DDFF ;!important
+}
+
 
 .forum{
     width: 100%;
@@ -339,6 +343,7 @@ div.inputRight{
     overflow-x: auto;
     display: block;
     font-family: Montserrat, sans-serif;
+    color: black;
     border-collapse: collapse;
     font-size: 2rem;
     position: relative;
@@ -361,6 +366,7 @@ div.inputRight{
     border: 1px solid #ddd;
     padding: 8px;
     font-size: 2rem;
+    color: black;
 
 }
 

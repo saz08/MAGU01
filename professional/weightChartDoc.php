@@ -50,6 +50,8 @@ $year = date("Y");
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+
 
 
     <meta charset="UTF-8">
@@ -72,11 +74,12 @@ else{
 }
 $id = $_GET["id"];
 
-$sql = "SELECT `forename` FROM `chi` WHERE `id` = '$id'";
+$sql = "SELECT * FROM `chi` WHERE `id` = '$id'";
 $result = $conn->query($sql);
 if($result->num_rows>0) {
 while ($rowname = $result->fetch_assoc()) {
     $patientname = $rowname["forename"];
+    $surname = $rowname["surname"];
     }
 }
 
@@ -91,12 +94,17 @@ while ($rowname = $result->fetch_assoc()) {
                 title:{
                     text: "Weight Monitoring"
                 },
-                axisY:{
-                    title: "Weight (LBS)"
-                },
                 axisX:{
-                    title:"Entries"
+                    title:"Entry Date",
+                    interval:2,
+                    intervalType: "day",
+                    valueFormatString: "DD MMM YY"
                 },
+                axisY:{
+                    title: "Weight (lbs)",
+                    interval:20
+                },
+
                 data: [{
                     type: "line",
                     dataPoints: [
@@ -107,8 +115,8 @@ while ($rowname = $result->fetch_assoc()) {
                             while ($rowname = $result->fetch_assoc()) {
                                 $y = $rowname["lbs"];
                                 $timestamp = $rowname["timeStamp"];
-                                $date2 = (new DateTime($timestamp))->format('d m Y');
-                                echo "{y: $y},";
+                                $date2 = (new DateTime($timestamp))->format('D d M Y');
+                                echo"{x: new Date('$date2'), y:$y},";
                             }
                         }
                         ?>
@@ -170,9 +178,9 @@ while ($rowname = $result->fetch_assoc()) {
                             $importantInfo="false";
                             $importantSymp="false";}
                         if($importantInfo==="true"||$importantSymp==="true"){
-                            echo "<li><a href='patientInfo.php?id=+$id'>RECORDS <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
+                            echo "<li><a href='patientInfo.php?id=+$id'>PROFILE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
                         else{
-                            echo"<li><a href='patientInfo.php?id=+$id'>RECORDS</a></li>";}
+                            echo"<li><a href='patientInfo.php?id=+$id'>PROFILE</a></li>";}
                         ?>                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
@@ -234,7 +242,7 @@ while ($rowname = $result->fetch_assoc()) {
 
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="../patient/logout.php">LOGOUT</a></li>
+                <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
@@ -242,10 +250,22 @@ while ($rowname = $result->fetch_assoc()) {
 
 
 <div class="jumbotron text-center">
-    <h1><?php echo $patientname ?>'s Weight Chart<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1><?php echo $patientname ." ". $surname ?>'s Weight Chart<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='../patient/logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
+</div>
+
 <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
 <div class="divSpace"></div>
+<div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
+<div class="divSpace"></div>
+
 
 <?php
 $sql = "SELECT * FROM `weight` WHERE `id` = '$id'";
@@ -259,7 +279,7 @@ else{
 <?php }?>
 <br>
 
-<div class="weightNav" id="mySidebar">
+<div class="weightNav" id="mySidebar" style="width: 0;">
     <br>
     <a class="closebtn" onclick="closeNavWChart()"  > <b>< CLOSE</b> </a>
     <br>
@@ -274,6 +294,8 @@ else{
         <th>Date Entered</th>
         <th>Weight (lbs)</th>
         <th>Approximate Stones</th>
+        <th>Approximate KG</th>
+
 
 </tr>";
         while ($rowname = $result->fetch_assoc()) {
@@ -281,10 +303,13 @@ else{
             $timestamp = $rowname["timeStamp"];
             $date2 = (new DateTime($timestamp))->format('d m Y');
             $stones = round($y*0.071429,1,PHP_ROUND_HALF_UP);
+            $kg = round($y/2.2046,1,PHP_ROUND_HALF_UP);
             echo"<tr>
         <td>".$date2."</td>
         <td>".$y."</td>
-        <td>".$stones."</td>";
+        <td>".$stones."</td>
+            <td>".$kg."</td>";
+
 
 
         }

@@ -53,7 +53,6 @@ $pass = safePOSTNonMySQL("password");
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
@@ -145,7 +144,7 @@ $pass = safePOSTNonMySQL("password");
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openRecord()">RECORD <span class="caret"></span></a>
                     <ul class="dropdown-menu" id="record">
-                            <li><a href="scale.php">HEALTH MONITORING</a></li>
+                        <li><a href="scale.php">HEALTH MONITORING</a></li>
                         <li><a href="weight.php">WEIGHT MONITORING</a></li>
                         <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
                     </ul>
@@ -171,7 +170,7 @@ $pass = safePOSTNonMySQL("password");
                 </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
+               <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
@@ -187,7 +186,13 @@ $pass = safePOSTNonMySQL("password");
 <div class="jumbotron text-center">
     <h1>Homepage <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
+</div>
 <h2 style="float:right">Today is <?php echo date('jS F Y')?></h2>
 
 <br>

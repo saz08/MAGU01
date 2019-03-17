@@ -321,7 +321,7 @@ else{
 
 <div id="loggedIn" class="modal">
     <div class="modal-content">
-        <button class="btn" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'">&times;</button>
+        <button class="btn" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'" style="float:right">&times;</button>
         <p>You are already logged in!</p>
     </div>
 </div>

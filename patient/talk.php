@@ -97,7 +97,7 @@ else{
                 <li><a href="../patient/talk.php">FORUM</a></li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="../patient/logout.php">LOGOUT</a></li>
+                <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
@@ -107,16 +107,15 @@ else{
 
 
 <div id="patientNav">
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class = "nav navbar-nav navbar-left">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
                     if($_SESSION["userName"]!=null) {
@@ -126,8 +125,8 @@ else{
                         ?><script>
                             localStorage.setItem("username","unknownUser");
                             localStorage.setItem("loginOK","no");
-                            localStorage.setItem("loginOKDoc","no");
                             alert("Session has expired, please log in again");
+
                             window.location.href="signUp.php";
                         </script><?php
                     }
@@ -180,7 +179,6 @@ else{
                         </ul>
                     </li>
 
-
                     <li><a href="talk.php">TALK</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="help">
@@ -200,12 +198,12 @@ else{
                         </ul>
                     </li>
                 </ul>
-            <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
-            </ul>
+                <ul class = "nav navbar-nav navbar-right">
+                    <li><button class="btn" onclick="logOutCheck()" style="background-color: #E9969F;color:black" >LOGOUT</button></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 </div>
 <script>
@@ -224,7 +222,13 @@ else{
 <div class="jumbotron text-center">
     <h1>Patient Forum Room <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
+</div>
 <form method="post" name="createForumPost" >
     <h2>Create a post:</h2> <input type="text" name="createPost" placeholder="Type in here!"><br>
     <input type="hidden" name="action" value="filled">

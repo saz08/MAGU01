@@ -14,7 +14,6 @@ if(localStorage.getItem("username")==="unknownUser"){
 }
 function openNavWChart() {
     if(screen.width<500){
-
         document.getElementById("mySidebar").style.width = "100%";
 
     }

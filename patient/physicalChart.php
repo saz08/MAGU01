@@ -273,77 +273,89 @@ else{
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
-                <ul class = "nav navbar-nav navbar-left">
-                    <?php
-                    $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
-                    $supportInfo = $conn->query($sqlInfo);
-                    if ($supportInfo->num_rows > 0) {
-                        while ($rowname = $supportInfo->fetch_assoc()) {
-                            $seenInfo = $rowname["seenInfo"];
-                            $resInfo = $rowname["resInfo"];
-                            $seenSymp = $rowname["seenSymp"];
-                            $resSymp = $rowname["resSymp"];
-                            $importantInfo="false";
-                            $importantSymp="false";
+                <?php
+                if($_SESSION["userName"]!=null) {
+                    $username = $_SESSION["userName"];
+                }
+                else{
+                    ?><script>
+                        localStorage.setItem("username","unknownUser");
+                        localStorage.setItem("loginOK","no");
+                        alert("Session has expired, please log in again");
 
-                            if ($seenInfo === "true" && $resInfo != "") {
-                                $importantInfo = "true";
-                            }
-                            else {
-                                $importantInfo = "false";
-                            }
-                            if ($seenSymp === "true" && $resSymp != "") {
-                                $importantSymp = "true";
-                            }
-                            else {
-                                $importantSymp = "false";
-                            }
+                        window.location.href="signUp.php";
+                    </script><?php
+                }
 
-                        }
-                    }
-                    else{
+                $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
+                $supportInfo = $conn->query($sqlInfo);
+                if ($supportInfo->num_rows > 0) {
+                    while ($rowname = $supportInfo->fetch_assoc()) {
+                        $seenInfo = $rowname["seenInfo"];
+                        $resInfo = $rowname["resInfo"];
+                        $seenSymp = $rowname["seenSymp"];
+                        $resSymp = $rowname["resSymp"];
                         $importantInfo="false";
-                        $importantSymp = "false";
+                        $importantSymp="false";
+
+                        if ($seenInfo === "true" && $resInfo != "") {
+                            $importantInfo = "true";
+                        }
+                        else {
+                            $importantInfo = "false";
+                        }
+                        if ($seenSymp === "true" && $resSymp != "") {
+                            $importantSymp = "true";
+                        }
+                        else {
+                            $importantSymp = "false";
+                        }
 
                     }
+                }
+                else{
+                    $importantInfo="false";
+                    $importantSymp = "false";
 
-                    if($importantInfo==="true"||$importantSymp==="true"){
-                        echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
-                    }
-                    else{
-                        echo"<li><a href='index.php'>HOME</a></li>";
-                    }
-                    ?>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openRecord()">RECORD <span class="caret"></span></a>
-                        <ul class="dropdown-menu" id="record">
-                            <li><a href="scale.php">HEALTH MONITORING</a></li>
-                            <li><a href="weight.php">WEIGHT MONITORING</a></li>
-                            <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
-                        </ul>
-                    </li>
+                }
 
-                    <li><a href="talk.php">TALK</a></li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
-                        <ul class="dropdown-menu" id="help">
-                            <li><a href="helpInfo.php">INFO</a></li>
-                            <li><a href="helpFinancial.php">FINANCIAL</a></li>
-                            <li><a href="helpEmotional.php">EMOTIONAL</a></li>
-                            <li><a href="helpPhysical.php">PHYSICAL</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openProfile()">PROFILE <span class="caret"></span></a>
-                        <ul class="dropdown-menu" id="profile">
-                            <li><a href="statusChart.php">STATUS CHARTS</a></li>
-                            <li><a href="weightChart.php">WEIGHT CHART</a></li>
-                            <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
-                            <li><a href="questions.php">QUESTIONS</a></li>
-                            <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                if($importantInfo==="true"||$importantSymp==="true"){
+                    echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
+                }
+                else{
+                    echo"<li><a href='index.php'>HOME</a></li>";
+                }
+                ?>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openRecord()">RECORD <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="record">
+                        <li><a href="scale.php">HEALTH MONITORING</a></li>
+                        <li><a href="weight.php">WEIGHT MONITORING</a></li>
+                        <li><a href="physical.php">PHYSICAL ACTIVITY MONITORING</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="talk.php">TALK</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openHelp()">HELP <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="help">
+                        <li><a href="helpInfo.php">INFO</a></li>
+                        <li><a href="helpFinancial.php">FINANCIAL</a></li>
+                        <li><a href="helpEmotional.php">EMOTIONAL</a></li>
+                        <li><a href="helpPhysical.php">PHYSICAL</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="openProfile()">PROFILE <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="profile">
+                        <li><a href="statusChart.php">STATUS CHARTS</a></li>
+                        <li><a href="weightChart.php">WEIGHT CHART</a></li>
+                        <li><a href="physicalChart.php">PHYSICAL ACTIVITY CHART</a></li>
+                        <li><a href="questions.php">QUESTIONS</a></li>
+                        <li><a href="supportCircle.php">SUPPORT CIRCLE</a></li>
+                    </ul>
+                </li>
+            </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="logout.php">LOGOUT</a></li>
+                <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
@@ -354,7 +366,13 @@ else{
 <div class="jumbotron text-center">
     <h1>My Physical Activity Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
+</div>
 <?php
 $sql = "SELECT * FROM `physical` WHERE `username` = '$username'";
 $result= $conn->query($sql);

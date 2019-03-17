@@ -72,6 +72,15 @@ else{
 
 $id = $_GET['id'];
 
+$sql = "SELECT * FROM `chi` WHERE `id` = '$id'";
+$result = $conn->query($sql);
+if($result->num_rows>0) {
+    while ($rowname = $result->fetch_assoc()) {
+        $patientname = $rowname["forename"];
+        $surname = $rowname["surname"];
+    }
+}
+
 ?>
 
 
@@ -127,9 +136,9 @@ $id = $_GET['id'];
                             $importantInfo="false";
                             $importantSymp="false";}
                         if($importantInfo==="true"||$importantSymp==="true"){
-                            echo "<li><a href='patientInfo.php?id=+$id'>RECORDS <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
+                            echo "<li><a href='patientInfo.php?id=+$id'>PROFILE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
                         else{
-                            echo"<li><a href='patientInfo.php?id=+$id'>RECORDS</a></li>";}
+                            echo"<li><a href='patientInfo.php?id=+$id'>PROFILE</a></li>";}
                         ?>                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
@@ -190,16 +199,22 @@ $id = $_GET['id'];
                 </li>
             </ul>
             <ul class = "nav navbar-nav navbar-right">
-                <li><a href="../patient/logout.php">LOGOUT</a></li>
+                <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>Support Circle<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
+    <h1><?php echo $patientname ." ".$surname ?>'s Support Circle<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
-
+<div id="logOutCheck" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to log out?</p>
+        <button id="spanSubmitCheck" class="btn" onclick="window.location.href='../patient/logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
+        <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
+    </div>
+</div>
 <?php
 $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
 $patient=$conn->query($sqlPatient);
