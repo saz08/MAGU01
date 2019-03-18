@@ -265,7 +265,7 @@ if($action2 === "filled") {
 
 
     $from = "Survivors";
-    $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/signUp.php \n You will need to enter this ID to sign up: ".$id."\n Thanks!";
+    $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2018.cis.strath.ac.uk/~szb15123/Survivors/patient/signUp.php \n You will need to enter this ID to sign up: ".$id."\n Thanks!";
     $headers="From: $from\n";
     $subject="Welcome to Survivors ".$forename."!";
     mail($patientEmail,$subject,$message,$headers);

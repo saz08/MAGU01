@@ -259,7 +259,9 @@ if($result->num_rows>0){
 
         echo "<div id='$posDB'>";
 
-        echo"<div class='divSpace'></div><div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
+        echo"<div class='divSpace'></div>
+
+<div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
         if($usernameDB===$username) {
             echo "<button class='btn' id='buttonDelPost' onclick='deletePost($posDB)' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
 
@@ -280,19 +282,13 @@ if($result->num_rows>0){
                 if($posID==$posDB) {
                     echo "<div class='comment' id='comment_".$posID."'><p>Comment from " . $usernameC . ": " . $comment;
                                         if($username===$usernameC){
-                                            $comment = $rowname["patientComment"]; ?>
-                                            <button class="btn" style="font-size:1.5rem;float:right" id="buttonDelComment"  onclick="checkComment()" >Delete Comment <i class='far fa-trash-alt'></i></button><br>
-                                            <div id="checkComment" class="modal">
-                                                <div class="modal-content">
-                                                    <p>Are you sure you want to delete your comment?</p>
-                                                    <button id="spanSubmitCheck" class="btn" style="font-size:1.5rem" onclick="deleteComment('<?php echo $comment ?>');document.getElementById('checkComment').style.display='none';">Yes</button>
-                                                    <button id="spanSubmitCheck" class="btn"style="font-size:1.5rem"  onclick="document.getElementById('checkComment').style.display='none';">No</button>
 
-                                                </div>
-                                            </div>
+                                            ?>
+                                            <button class="btn" style="font-size:1.5rem;float:right" id="buttonDelComment"  onclick="deleteComment('<?php echo $comment ?>'); console.log('on click comment<?php echo $comment ?>')" >Delete Comment <i class='far fa-trash-alt'></i></button><br>
+
                                             <?php
                                         }
-                                        echo"</p></div><br>";
+                    echo"</p></div><br>";
                 }
             }
         }
@@ -350,7 +346,8 @@ if($action2==="filled") {
             echo "<p class='center'>Comment Post was successful!</p>";
             ?>
             <script>
-                window.location.href = "talk.php";
+
+                window.location.href="talk.php";
             </script>
             <?php
         }

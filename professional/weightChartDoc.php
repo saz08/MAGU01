@@ -263,8 +263,7 @@ while ($rowname = $result->fetch_assoc()) {
 
 <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
 <div class="divSpace"></div>
-<div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
-<div class="divSpace"></div>
+
 
 
 <?php
@@ -275,8 +274,10 @@ if($result->num_rows<1) {
 }
 else{
     ?>
+    <div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
+    <div class="divSpace"></div>
     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-<?php }?>
+
 <br>
 
 <div class="weightNav" id="mySidebar" style="width: 0;">
@@ -317,6 +318,7 @@ else{
     }
 
     ?>
+    <?php }?>
     <br>
 </div>
 

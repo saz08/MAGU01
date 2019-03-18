@@ -202,7 +202,7 @@ else{
 
 <div class="sidenav" id="mySidebar">
     <br>
-    <a class="closebtn" onclick="closeNav()" >  <</a>
+    <a class="closebtn" onclick="closeNav()" style="background-color: #E9969F;color:black " >  <</a>
     <br>
     <a href="#a">A</a>
     <a href="#b">B</a>

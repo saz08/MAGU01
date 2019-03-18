@@ -580,6 +580,26 @@ if($entriesM!=0) {
                 document.getElementById("mySidebar").style.width = "0";
             }
         }
+
+        function openNav2() {
+            if(screen.width<500){
+                document.getElementById("mySidebar2").style.width = "90%";
+            }
+            if(screen.width>500){
+                document.getElementById("mySidebar2").style.width = "30%";
+
+            }
+        }
+
+        function closeNav2() {
+            if(screen.width<500){
+                document.getElementById("mySidebar2").style.width = "0";
+
+            }
+            if(screen.width>500) {
+                document.getElementById("mySidebar2").style.width = "0";
+            }
+        }
     </script>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -721,6 +741,8 @@ if($entriesM!=0) {
     </div>
 </div>
 <button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
+<button class="openbtn" onclick="openNav2()">☰ Show Number Key</button>
+
 
 
 <?php
@@ -762,6 +784,15 @@ if($entries!=0&&$entriesM!=0) {
         <p>Performance greater than 3</p>
 
     </div>
+
+    <div class="sideBar" id="mySidebar2">
+        <br>
+        <button class="closebtn" onclick="closeNav2()" > <b>< CLOSE</b> </button>
+        <p><b>Pain</b> is scored between 0 to 10.</p><p> 0 meaning no pain and 10 meaning extremely painful</p>
+        <p><b>Breathlessness</b> is scored between 1 to 5. </p><p>1 meaning not troubled by breathlessness, and 5 meaning too breathless to leave the house</p>
+        <p><b>Performance</b> is scored between 0 to 4.</p><p> 0 meaning fully active and 4 meaning completely disabled.</p>
+
+    </div>
     <?php
 }
 ?>
@@ -781,7 +812,7 @@ if($entries!=0) {
     <br>
     <?php }
     else{
-        echo "<p>No records yet</p>";
+        echo "<div class='box'><p>No records yet</p></div>";
     }
     ?>
 </div>
@@ -800,7 +831,7 @@ if($entriesM!=0){?>
     <br>
     <?php }
     else{
-        echo "<p>No records over the past month</p>";
+        echo "<div class='box'><p>No records over the past month</p></div>";
     }
     ?>
 </div>

@@ -296,12 +296,12 @@ echo "</div>";
 ?>
 
 <h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2>
-<div class="box" style="height: inherit">
     <?php
     $sql  = "SELECT * FROM `scale` WHERE `id`= '$id'";
     $result=$conn->query($sql);
     $counter=0;
     if($result->num_rows>0) {
+        echo"<div class='box' style='height:inherit'>";
         while ($rowname = $result->fetch_assoc()) {
             $counter++;
             $info = $rowname["additionalInfo"];
