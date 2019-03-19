@@ -282,7 +282,7 @@ else{
         var pain = localStorage.getItem("Pain");
         var breathlessness= localStorage.getItem("Breathlessness");
         var performance = localStorage.getItem("Performance");
-        var additionalInfo = document.getElementById('additional').value;
+        var additionalInfo = document.getElementById('additional').value.replace(/'/g,'');
         var symptom = document.getElementById('select').value;
         jQuery.post("scaleInput.php", {"Pain": pain, "Breathlessness": breathlessness, "Performance": performance,"Additional": additionalInfo,"Symptom": symptom}, function(data){
             savedModal.style.display="block";

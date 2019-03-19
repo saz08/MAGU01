@@ -61,6 +61,7 @@ $pass = safePOSTNonMySQL("password");
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 
     <script src="../js/script.js"></script>
     <script src="../js/forAll.js"></script>
@@ -229,14 +230,14 @@ if($resultNew->num_rows<1) {
 
 <div id="deleted" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('deleted').style.display='none';window.location.href='index.php'">&times;</span>
+        <button class="btn" id="spanNotify" onclick="document.getElementById('deleted').style.display='none';window.location.href='index.php'" style="float:right">&times;</button>
         <p>Response successfully deleted</p>
     </div>
 </div>
 
 <div id="notDelete" class="modal">
     <div class="modal-content">
-        <span class="close" id="spanNotify" onclick="document.getElementById('notDelete').style.display='none';window.location.href='index.php'">&times;</span>
+        <button class="btn" id="spanNotify" onclick="document.getElementById('notDelete').style.display='none';window.location.href='index.php'" style="float: right;">&times;</button>
         <p>Survivors was unable to delete the response successfully. Please check your internet connection and try again</p>
     </div>
 </div>
@@ -263,10 +264,8 @@ if($resultInfo->num_rows>0) {
                             <b>The doctor has responded to your additional info:</b> <?php echo $info; ?> <br>
                             <b>Response:</b> <?php
                             echo $resInfo; ?>
-                            <button class="btn" id="button" onclick="markAndDelete('<?php echo $resInfo ?>')">Mark as
-                                Read
-                                and
-                                Delete
+                            <br>
+                            <button class="btn" id="button" onclick="markAndDelete('<?php echo $resInfo ?>')">Delete <i class='far fa-trash-alt'></i>
                             </button>
                         </p>
                     </div>
@@ -286,10 +285,8 @@ if($resultInfo->num_rows>0) {
                             <b>The doctor has responded to your symptom:</b> <?php echo $symptom; ?> <br>
                             <b>Response:</b> <?php
                             echo $resSymp; ?>
-                            <button class="btn" id="button" onclick="markAndDelete('<?php echo $resSymp ?>')">Mark as
-                                Read
-                                and
-                                Delete
+                            <br>
+                            <button class="btn" id="button" onclick="markAndDelete('<?php echo $resSymp ?>')">Delete <i class='far fa-trash-alt'></i>
                             </button>
                         </p>
                     </div>

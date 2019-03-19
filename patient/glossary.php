@@ -278,8 +278,10 @@ else{
     }
         else {
         li[i].style.display = "none";
-        p.style.display="block";
-    }
+            p.style.display="block";
+
+        }
+
     }
     }
 

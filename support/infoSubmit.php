@@ -39,14 +39,6 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 
 
 
@@ -62,6 +54,7 @@ if($additional!=""){
 }
 else{
     $seenInfo = '';
+    $additional='';
 }
 
 if($symptom!=""){
@@ -69,6 +62,7 @@ if($symptom!=""){
 }
 else{
     $seenSymp = '';
+    $symptom='';
 }
 
 $sqlUser = "SELECT `survivor` FROM `supportAcc` WHERE `username` = '$username'";
@@ -79,11 +73,9 @@ if($resultUser->num_rows>0) {
 
     }
 }
-if($additional!=""||$symptom!="") {
-    $sql = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`, `seenInfo`, `seenSymp`, `resInfo`, `resSymp`) VALUES ('$username','$survivor', '$symptom', '$additional','$seenInfo','$seenSymp','','')";
-    $conn->query($sql);
-}
 
+    $sql = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`, `seenInfo`, `seenSymp`, `resInfo`, `resSymp`,`timeStamp`) VALUES ('$username','$survivor', '$symptom', '$additional','$seenInfo','$seenSymp','','', CURRENT_TIMESTAMP )";
+    $conn->query($sql);
 
 
 

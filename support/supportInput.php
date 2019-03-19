@@ -177,7 +177,7 @@ else{
         <option value="Bleeding">Bleeding</option>
         <option value="Constipation">Constipation</option>
         <option value="Depressed">Depressed</option>
-        <option value="Diarrhea">Diarrhea</option>
+        <option value="Diarrhoea">Diarrhoea</option>
         <option value="Fatigue">Fatigue</option>
         <option value="Insomnia">Insomnia</option>
         <option value="Sickness">Sickness</option>
@@ -190,31 +190,9 @@ else{
     <input type="text" name="additional"  id="additional" placeholder="Additional Information..."/>
     <input type="hidden" name="action2" value="filled">
 
-    </p>
 </form>
 
-<?php
-$username = $_SESSION["userName"];
-$sql1 = "SELECT * FROM `supportAcc` WHERE username = '$username'";
-$result=$conn->query($sql1);
-if($result->num_rows>0) {
-    while ($rowname = $result->fetch_assoc()) {
-        $survivor = $rowname["survivor"];
-    }
-}
 
-if($action2==="filled"){
-    $info = (safePost($conn,"additional"));
-
-}
-
-if($action==="filled"){
-    $symptoms= (safePost($conn,"select"));
-}
-
-
-
-?>
 <div id="save" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='supportInput.php'" style="float:right">&times;</button>
@@ -249,9 +227,7 @@ if($action==="filled"){
 
     var check = document.getElementById("submitCheck");
     var empty = document.getElementById("empty");
-    function next(){
-        window.location.href="supportDocFeedback.php";
-    }
+
 
     function checkSubmit(){
         var additionalInfo = document.getElementById('additional').value;
@@ -265,8 +241,10 @@ if($action==="filled"){
     }
     function submitSupport(){
 
-        var additionalInfo = document.getElementById('additional').value;
-        var symptom = document.getElementById('select').value;
+        var additionalInfo = document.getElementById('additional').value.replace(/'/g,'');
+        console.log("additional "+ additionalInfo);
+        var symptom = document.getElementById('select');
+        console.log("symptom "+ symptom);
         // var additionalInfo = localStorage.getItem("Additional");
         jQuery.post("infoSubmit.php", {"Additional": additionalInfo,"Symptom": symptom}, function(data){
             save.style.display="block";

@@ -58,6 +58,8 @@ else{
     <link rel="apple-touch-icon" sizes="180x180" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../clipart2199929.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../clipart2199929.png">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
     <script src="../js/forAll.js"></script>
     <script src="../js/supportJS.js"></script>
 
@@ -183,8 +185,8 @@ if($result->num_rows>0){
                 <p>
                     The doctor has responded to your query: <?php echo $additional ?> <br>
                     Response: <?php echo $resInfo ?>
-                    <button class="btn" id="button" onclick="markAndDeleteInfo('<?php echo $resInfo ?>')">Mark as Read and
-                        Delete
+                    <br>
+                    <button class="btn" id="button" onclick="markAndDeleteInfo('<?php echo $resInfo ?>')">Delete <i class='far fa-trash-alt'></i>
                     </button>
                 </p>
             </div>
@@ -197,8 +199,8 @@ if($result->num_rows>0){
                 <p>
                     The doctor has responded to your query: <?php echo $symptom ?> <br>
                     Response: <?php echo $resSymp ?>
-                    <button class="btn" id="button" onclick="markAndDeleteSymp('<?php echo $resSymp ?>')">Mark as Read and
-                        Delete
+                    <br>
+                    <button class="btn" id="button" onclick="markAndDeleteSymp('<?php echo $resSymp ?>')">Delete <i class='far fa-trash-alt'></i>
                     </button>
                 </p>
             </div>
