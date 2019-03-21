@@ -207,7 +207,7 @@ else{
                 <h2 style="color:black">Register</h2>
                 <p class="lead" style="color:#f7f7f7;">
                 <p>Create Username:<br> <input type="text" name="username"  id="username"/></p>
-                <p>Create Password: <br><input type="password" name="password"  id="password"/></p>
+                <p>Create Password: <br><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                 <p>Enter Username of Survivor: <br><input type="text" name="survivor"  id="survivor"/></p>
                 <p>Relation to You:<br>
                  <select id="relation" name="relation">

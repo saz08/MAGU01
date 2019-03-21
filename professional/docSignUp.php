@@ -216,7 +216,7 @@ else{
                 <p class="lead" style="color:#f7f7f7;">
                 <p>Enter Valid NHS Email: <br><input type="email" name="email"  id="email"/></p>
                 <p>Create Username:<br> <input type="text" name="username"  id="username"/></p>
-                <p>Create Password: <br><input type="password" name="password"  id="password"/></p>
+                <p>Create Password: <br><input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                 <input type="hidden" name="action2" value="filled">
                 <p><input type="submit" name="submitReg" id="signUpButton" class="btn" style="font-size: 2rem;" value="Register"></p>
                 </p>
