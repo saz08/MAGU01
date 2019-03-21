@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -217,31 +217,10 @@ else{
     </label>
 </form>
 
-<script>
-    function submit(){
-        if(document.getElementById('zero').checked){
-            localStorage.setItem("Performance", "0");
-        }
-        if(document.getElementById('one').checked){
-            localStorage.setItem("Performance", "1");
-        }
-        if(document.getElementById('two').checked){
-            localStorage.setItem("Performance", "2");
-        }
-        if(document.getElementById('three').checked){
-            localStorage.setItem("Performance", "3");
-        }
-        if(document.getElementById('four').checked){
-            localStorage.setItem("Performance", "4");
-        }
-
-        window.location.href="additionalInfo.php";
-    }
-</script>
 
 <div>
     <button class="btn" onclick="goBack()"><b><</b> Back </button>
-    <button class="btn" style="float:right" onclick="submit()"> Next <b> > </b></button>
+    <button class="btn" style="float:right" onclick="submitPerformance()"> Next <b> > </b></button>
 </div>
 </body>
 </html>

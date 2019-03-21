@@ -4,7 +4,7 @@ session_start();
 <?php
 
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -262,14 +262,11 @@ if($action2 === "filled") {
         }
     }
 
-
-
     $from = "Survivors";
     $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2018.cis.strath.ac.uk/~szb15123/Survivors/patient/signUp.php \n You will need to enter this ID to sign up: ".$id."\n Thanks!";
     $headers="From: $from\n";
     $subject="Welcome to Survivors ".$forename."!";
     mail($patientEmail,$subject,$message,$headers);
-
 
 $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `gender`,`patientEmail`, `address`, `contactNo`, `docEmail`) VALUES ('$forename', '$surname', '$id', '$dob', '$genderFinal','$patientEmail', '$address', '$contactNo', '$docEmail')";
 
@@ -293,9 +290,7 @@ $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `
 }
 ?>
 <div class="clear"></div>
-
 </body>
-
 <footer>
     <div class="footer">
         <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>

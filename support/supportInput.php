@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -63,11 +63,6 @@ else{
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
     <title>Record Info</title>
-
-
-
-
-
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
@@ -189,9 +184,7 @@ else{
 <form name="additional" method="post" class="box-transparent" >
     <input type="text" name="additional"  id="additional" placeholder="Additional Information..."/>
     <input type="hidden" name="action2" value="filled">
-
 </form>
-
 
 <div id="save" class="modal">
     <div class="modal-content">
@@ -240,7 +233,6 @@ else{
         }
     }
     function submitSupport(){
-
         var additionalInfo = document.getElementById('additional').value.replace(/'/g,'');
         console.log("additional "+ additionalInfo);
         var symptom = document.getElementById('select');

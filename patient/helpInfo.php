@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -78,8 +78,6 @@ if($_SESSION['userName']==null){
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-
-
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">

@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -85,6 +85,8 @@ else{
         window.location.href="signUp.php";
     </script><?php
 }
+
+//PERFORM CALCULATIONS FOR STATUS CHARTS: ALL TIME AND PREVIOUS WEEK
 
 $sumVig  = "SELECT SUM(`vigorous`) FROM `physical` WHERE `username` = '$username'";
 $vigResult= $conn->query($sumVig);
@@ -360,8 +362,6 @@ else{
         </div>
     </div>
 </nav>
-
-
 
 <div class="jumbotron text-center">
     <h1>My Physical Activity Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>

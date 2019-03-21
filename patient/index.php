@@ -17,7 +17,7 @@ return "";
 }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -269,8 +269,6 @@ if($resultInfo->num_rows>0) {
                             </button>
                         </p>
                     </div>
-
-
                     <?php
                 }
             }
@@ -290,16 +288,12 @@ if($resultInfo->num_rows>0) {
                             </button>
                         </p>
                     </div>
-
-
                     <?php
                 }
             }
         }
     }
 }
-
-
 
 
 $sqlScale  = "SELECT * FROM `scale` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
@@ -350,26 +344,6 @@ while ($rowname = $resultScale->fetch_assoc()) {
     }
 ?>
 
-<script>
-    function goToScale(){
-        window.location.href="scale.php";
-    }
-    function goToWeight(){
-        window.location.href="weight.php";
-    }
-    function goToPhysical(){
-        window.location.href="physical.php";
-    }
-    function goToForum(){
-        window.location.href="talk.php";
-    }
-    function goToQuestion(){
-        window.location.href="questions.php";
-    }
-    function goToSupport(){
-        window.location.href="supportCircle.php";
-    }
-</script>
 </body>
 <div class="clear"></div>
 <footer>

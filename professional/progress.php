@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -86,9 +86,6 @@ if($result->num_rows>0) {
         $surname = $rowname["surname"];
     }
 }
-
-
-
 
 $sql  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `id` = '$id'";
 $result= $conn->query($sql);
@@ -183,8 +180,6 @@ if($resultEntries->num_rows>0){
 else{
     $entries=0;
 }
-
-
 
 $performanceTotal = $greenPerformance+$amberPerformance+$redPerformance;
 
@@ -300,8 +295,6 @@ else{
     $entriesM=0;
 }
 
-
-
 $performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
 
 if($entriesM!=0) {
@@ -321,12 +314,7 @@ if($entriesM!=0) {
     $redPBarM = $redPerformanceM / ($entriesM) * 210;
 }
 
-
-
 ?>
-
-
-
     <script>
 
         window.onload = function() {
@@ -557,49 +545,6 @@ if($entriesM!=0) {
             performanceMonth.render();
         }
 
-
-
-    </script>
-    <script>
-        function openNav() {
-            if(screen.width<500){
-                document.getElementById("mySidebar").style.width = "90%";
-            }
-            if(screen.width>500){
-                document.getElementById("mySidebar").style.width = "30%";
-
-            }
-        }
-
-        function closeNav() {
-            if(screen.width<500){
-                document.getElementById("mySidebar").style.width = "0";
-
-            }
-            if(screen.width>500) {
-                document.getElementById("mySidebar").style.width = "0";
-            }
-        }
-
-        function openNav2() {
-            if(screen.width<500){
-                document.getElementById("mySidebar2").style.width = "90%";
-            }
-            if(screen.width>500){
-                document.getElementById("mySidebar2").style.width = "30%";
-
-            }
-        }
-
-        function closeNav2() {
-            if(screen.width<500){
-                document.getElementById("mySidebar2").style.width = "0";
-
-            }
-            if(screen.width>500) {
-                document.getElementById("mySidebar2").style.width = "0";
-            }
-        }
     </script>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -740,8 +685,8 @@ if($entriesM!=0) {
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
-<button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
-<button class="openbtn" onclick="openNav2()">☰ Show Number Key</button>
+<button class="openbtn" onclick="openProgressNav()">☰ Show Colour Key</button>
+<button class="openbtn" onclick="openNumberNav()">☰ Show Number Key</button>
 
 
 
@@ -768,7 +713,7 @@ if($entries!=0&&$entriesM!=0) {
 
     <div class="sideBar" id="mySidebar">
         <br>
-        <button class="closebtn" onclick="closeNav()" > <b>< CLOSE</b> </button>
+        <button class="closebtn" onclick="closeProgressNav()" > <b>< CLOSE</b> </button>
         <div class="circleKey" style="background-color:#006700 ;"></div>
         <p >Pain below 4</p>
         <p>Breathlessness below 2</p>
@@ -787,7 +732,7 @@ if($entries!=0&&$entriesM!=0) {
 
     <div class="sideBar" id="mySidebar2">
         <br>
-        <button class="closebtn" onclick="closeNav2()" > <b>< CLOSE</b> </button>
+        <button class="closebtn" onclick="closeNumberNav()" > <b>< CLOSE</b> </button>
         <p><b>Pain</b> is scored between 0 to 10.</p><p> 0 meaning no pain and 10 meaning extremely painful</p>
         <p><b>Breathlessness</b> is scored between 1 to 5. </p><p>1 meaning not troubled by breathlessness, and 5 meaning too breathless to leave the house</p>
         <p><b>Performance</b> is scored between 0 to 4.</p><p> 0 meaning fully active and 4 meaning completely disabled.</p>
@@ -879,10 +824,7 @@ function next(){
 }
 </script>
 
-
-
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
 
 <div class="clear"></div>
 </body>

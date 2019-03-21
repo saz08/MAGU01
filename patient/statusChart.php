@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -88,6 +88,7 @@ else{
     </script><?php
 }
 
+//CALCULATIONS FOR STATUS CHARTS: ALL TIME AND PREVIOUS MONTH
     $sql  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `username` = '$username'";
     $result= $conn->query($sql);
     if($result->num_rows>0){
@@ -181,8 +182,6 @@ else{
     else{
         $entries=0;
     }
-
-
 
     $performanceTotal = $greenPerformance+$amberPerformance+$redPerformance;
 
@@ -297,8 +296,6 @@ if($resultEntriesM->num_rows>0){
 else{
     $entriesM=0;
 }
-
-
 
 $performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
 
@@ -532,27 +529,6 @@ if($entriesM!=0) {
         }
 
     </script>
-    <script>
-        function openNav() {
-            if(screen.width<500){
-                document.getElementById("mySidebar").style.width = "90%";
-            }
-            if(screen.width>500){
-                document.getElementById("mySidebar").style.width = "30%";
-
-            }
-        }
-
-        function closeNav() {
-            if(screen.width<500){
-                document.getElementById("mySidebar").style.width = "0";
-
-            }
-            if(screen.width>500) {
-                document.getElementById("mySidebar").style.width = "0";
-            }
-        }
-    </script>
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -670,7 +646,7 @@ if($entriesM!=0) {
 
 <div class="sideBar" id="mySidebar">
     <br>
-    <button class="closebtn" onclick="closeNav()" > <b>< CLOSE</b> </button>
+    <button class="closebtn" onclick="closeStatusNav()" > <b>< CLOSE</b> </button>
     <div class="circleKey" style="background-color:#006700 ;"></div>
     <p >Pain below 4</p>
     <p>Breathlessness below 2</p>
@@ -705,10 +681,9 @@ if($entriesM!=0) {
         </form>
     </div>
 
-    <button class="openbtn" onclick="openNav()">☰ Show Colour Key</button>
+    <button class="openbtn" onclick="openStatusNav()">☰ Show Colour Key</button>
 <br>
-
-    <?php
+<?php
 }
 if($entries!=0) {
 
@@ -723,11 +698,11 @@ if($entries!=0) {
 <div id="performanceAllTime" style="height: 40rem; width:100%;"></div>
     <br>
     <br>
-    <?php }
+<?php }
     else{
         echo "<div class='box'><p>No records yet</p></div>";
     }
-    ?>
+?>
 </div>
 
 

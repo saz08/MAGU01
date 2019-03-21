@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -40,9 +40,6 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -74,8 +71,6 @@ else{
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" >
-
-
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -124,13 +119,11 @@ else{
                         else {
                             $importantSymp = "false";
                         }
-
                     }
                 }
                 else{
                     $importantInfo="false";
                     $importantSymp = "false";
-
                 }
 
                 if($importantInfo==="true"||$importantSymp==="true"){
@@ -190,7 +183,6 @@ else{
 <div class="box" id="x"><p>Monitoring your weight is very important after an operation. A sudden increase or decrease in weight can help detect if you need further treatment. </p>
     <p>Please weigh yourself once a week and input the results to keep track of your weight.</p>
 </div>
-
 <br>
 
 <div id="stone" class="weightStyle">

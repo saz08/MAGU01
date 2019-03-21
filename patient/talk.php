@@ -4,7 +4,7 @@ session_start();
 <?php
 
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -98,8 +98,6 @@ else{
     </div>
 </nav>
 </div>
-
-
 
 <div id="patientNav" style="display: none">
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -260,10 +258,7 @@ if($result->num_rows>0){
         if($usernameDB===$username) {
             echo "<button class='btn' id='buttonDelPost' onclick='deletePost($posDB)' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
 
-        } ?>
-
-
-            <?php
+        }
 
         echo"</p></div>";
 
@@ -299,11 +294,7 @@ if($result->num_rows>0){
                     <input type="submit" value="Comment" class="btn" style="font-size:1.5rem" id="button">
                 </form></div>
 <br>
-
-
-
-        <?php
-
+<?php
         $divID++;
         echo "</div>";
     }
@@ -311,7 +302,6 @@ if($result->num_rows>0){
 }
 echo"<div class='box' id='noResults' style='display:none'><p>Sorry, no posts or comments were found containing that word</p></div>";
 echo"<div class='divSpace'></div>";
-
 
 
 if($action==="filled") {
@@ -348,51 +338,7 @@ if($action2==="filled") {
         }
     }
 }
-
 ?>
-<script>
-
-    function searchForum() {
-        var input = document.getElementById("myInput");
-        var filter = input.value.toLowerCase();
-        var forumPost = document.getElementsByClassName('forum');
-        var comments = document.getElementsByClassName("comment");
-        var noResults = document.getElementById("noResults");
-
-        for (var x = 0; x < forumPost.length; x++) {
-            var allPosts = forumPost[x].id.substr(10);
-            document.getElementById(allPosts).style.display = "none";
-            noResults.style.display="block";
-
-        }
-
-        for (var y = 0; y < forumPost.length; y++) {
-            var showPost = forumPost[y].id.substr(10);
-            if (forumPost[y].innerText.toLowerCase().includes(filter)) {
-                document.getElementById(showPost).style.display = "block";
-                noResults.style.display="none";
-            }
-        }
-        for(var z = 0; z < comments.length; z++) {
-            var showComment = comments[z].id.substr(8);
-            if(comments[z].innerText.toLowerCase().includes(filter)){
-                document.getElementById(showComment).style.display = "block";
-                noResults.style.display="none";
-
-            }
-        }
-    }
-
-    function checkPost() {
-        var post = document.getElementById("checkPost");
-        post.style.display = "block";
-    }
-    function checkComment(){
-        var comment = document.getElementById("checkComment");
-        comment.style.display="block";
-    }
-
-</script>
 <br>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>

@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -63,11 +63,8 @@ else{
     <script>
         localStorage.setItem("id", "");
     </script>
-
-
-
-
 </head>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -125,9 +122,6 @@ else{
         <th>Surname</th>
         <th>DOB</th>
         <th>Address</th>
-
-
-
     </tr>
     <?php
 
@@ -148,9 +142,6 @@ else{
             echo "<td>" . $rowname["surname"] . "</td>";
             echo "<td>" . $rowname["birthday"] . "</td>";
             echo "<td>" . $rowname["address"] . "</td>";
-
-
-
             echo "</tr>";
             }
         }
@@ -159,18 +150,8 @@ else{
         }
         }
     }
-
-
-
     ?>
 </table>
-
-
-
 </body>
 <div class="clear"></div>
-
-<footer>
-
-</footer>
 </html>

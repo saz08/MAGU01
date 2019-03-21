@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -175,9 +175,6 @@ else{
         <div id="survivor"></div>
     </div>
 
-
-
-
 <script>
     var xhr= new XMLHttpRequest();
     xhr.open('GET', '../html/survivorGuilt.html', true);
@@ -222,6 +219,4 @@ else{
 </div>
 </body>
 <div class="clear"></div>
-
-
 </html>

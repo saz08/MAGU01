@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -162,9 +162,7 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
-
 <br>
-
 <div class="box">Doctors may respond to any information or symptoms you have logged. They will appear on this page!</div>
 
 <?php
@@ -225,7 +223,6 @@ if($result->num_rows>0){
     </div>
 </div>
 <div class="clear"></div>
-
 </body>
 <footer>
     <div class="footer">

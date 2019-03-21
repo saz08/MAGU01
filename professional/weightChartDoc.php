@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -51,8 +51,6 @@ $year = date("Y");
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
-
-
 
     <meta charset="UTF-8">
     <title>Weight Chart</title>
@@ -239,7 +237,6 @@ while ($rowname = $result->fetch_assoc()) {
                         ?>
                     </ul>
                 </li>
-
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
@@ -247,7 +244,6 @@ while ($rowname = $result->fetch_assoc()) {
         </div>
     </div>
 </nav>
-
 
 <div class="jumbotron text-center">
     <h1><?php echo $patientname ." ". $surname ?>'s Weight Chart<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
@@ -264,8 +260,6 @@ while ($rowname = $result->fetch_assoc()) {
 <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
 <div class="divSpace"></div>
 
-
-
 <?php
 $sql = "SELECT * FROM `weight` WHERE `id` = '$id'";
 $result= $conn->query($sql);
@@ -277,7 +271,6 @@ else{
     <div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
     <div class="divSpace"></div>
     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-
 <br>
 
 <div class="weightNav" id="mySidebar" style="width: 0;">
@@ -296,8 +289,6 @@ else{
         <th>Weight (lbs)</th>
         <th>Approximate Stones</th>
         <th>Approximate KG</th>
-
-
 </tr>";
         while ($rowname = $result->fetch_assoc()) {
             $y = $rowname["lbs"];
@@ -309,10 +300,7 @@ else{
         <td>".$date2."</td>
         <td>".$y."</td>
         <td>".$stones."</td>
-            <td>".$kg."</td>";
-
-
-
+        <td>".$kg."</td>";
         }
         echo"</table>";
     }
@@ -330,7 +318,6 @@ else{
 </script>
 </body>
 <div class="clear"> </div>
-
 <footer>
     <div class="footer">
         <div class="footer">

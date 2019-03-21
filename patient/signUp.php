@@ -4,7 +4,7 @@ session_start();
 <?php
 
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -183,7 +183,6 @@ else{
                 ?><script>  var notPassword= document.getElementById("notUsername");
                     notPassword.style.display="block";</script><?php
                 }
-
             }
             else{
                 ?><script>
@@ -219,7 +218,6 @@ else{
                 <br>
             </form>
         </div>
-
 
         <script>
             function checkForm(){
@@ -258,7 +256,6 @@ else{
                     errs+= "Please enter a valid ID\n";
                     id.style.background="pink";
                 }
-
 
                 if(errs !== ""){
                     errorModal.style.display="block";
@@ -350,5 +347,3 @@ else{
 </html>
 <?php
 $conn->close();?>
-
-

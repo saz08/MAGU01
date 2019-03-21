@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -126,7 +126,6 @@ else{
                 else{
                     $importantInfo="false";
                     $importantSymp = "false";
-
                 }
 
                 if($importantInfo==="true"||$importantSymp==="true"){
@@ -180,9 +179,6 @@ else{
 <div class="content">
     <div id="work"></div>
 </div>
-
-
-
 
 <script>
 

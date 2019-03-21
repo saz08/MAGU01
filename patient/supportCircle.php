@@ -16,7 +16,7 @@ return "";
 }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -67,11 +67,9 @@ $pass = safePOSTNonMySQL("password");
 
     <meta charset="UTF-8">
     <title>Support Circle</title>
-
 </head>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-
-
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -126,7 +124,6 @@ $pass = safePOSTNonMySQL("password");
                 else{
                     $importantInfo="false";
                     $importantSymp = "false";
-
                 }
 
                 if($importantInfo==="true"||$importantSymp==="true"){

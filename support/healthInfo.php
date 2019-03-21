@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -68,15 +68,9 @@ else{
     <meta charset="UTF-8">
     <title>Health Information</title>
 
-
-
-
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<?php
-
-?>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -188,9 +182,6 @@ else{
     <div id="groups"></div>
 </div>
 
-
-
-
 <script>
 
     var rec= new XMLHttpRequest();
@@ -237,7 +228,6 @@ else{
         document.getElementById('caring').innerHTML= this.responseText;
     };
     car.send();
-
 
 
     var coll = document.getElementsByClassName("collapsible");

@@ -4,7 +4,7 @@ session_start();
 <?php
 
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -76,8 +76,4 @@ if($resultUser->num_rows>0) {
 
     $sql = "INSERT INTO `supportSubmit` (`username`,`survivor`, `symptom`, `additional`, `seenInfo`, `seenSymp`, `resInfo`, `resSymp`,`timeStamp`) VALUES ('$username','$survivor', '$symptom', '$additional','$seenInfo','$seenSymp','','', CURRENT_TIMESTAMP )";
     $conn->query($sql);
-
-
-
-
 ?>

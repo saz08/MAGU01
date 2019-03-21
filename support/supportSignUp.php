@@ -4,7 +4,7 @@ session_start();
 <?php
 
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -39,17 +39,7 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK= false; //TODO make this work with database values
 
-
-
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -82,7 +72,6 @@ if($loginOK) {
             alert("You are already logged in!");
             window.location.href="supportHome.php";
         }
-
     }
 </script>
 </head>
@@ -144,7 +133,6 @@ if($loginOK) {
     </div>
 </div>
 
-<!-- 3 columns under Welcome Jumbotron -->
 <div class="container-fluid" id="mainCont">
     <div class="row" id="mainContRow">
         <div class="col-md-6" id="logincol" >
@@ -236,9 +224,6 @@ if($loginOK) {
 
         </div>
 
-        <?php
-
-        ?>
         <script>
             function checkForm(){
                 var username = document.getElementById("username");
@@ -254,8 +239,6 @@ if($loginOK) {
                 password.style.background = "white";
                 survivor.style.background="white";
                 relation.style.background = "white";
-
-
 
                 if(username.value === null || username.value === ""){
                     errs += " Please enter your email address\n";
@@ -277,7 +260,6 @@ if($loginOK) {
                     relation.style.background="pink";
                 }
 
-
                 if(errs !== ""){
                     errorModal.style.display="block";
                 }
@@ -292,8 +274,6 @@ if($loginOK) {
             $survivor = (safePost($conn,"survivor"));
             $relation = (safePost($conn,"relation"));
             $reject = "false";
-
-
 
             $query = "SELECT `username` FROM `supportAcc` WHERE `username` = '$usernameSupport'";
             $result = $conn->query($query);
@@ -315,11 +295,9 @@ if($loginOK) {
 
             }
 
-
             $checkID = "SELECT `username` FROM `account` WHERE `username` = '$survivor'";
             $resultID = $conn->query($checkID);
 
-//            $resultID = mysqli_query($conn,$checkID);
         if($resultID->num_rows<1) {
             ?><script>var id=document.getElementById("id");
                 id.style.display="block";</script><?php
@@ -344,7 +322,6 @@ if($loginOK) {
             </script>
             <?php
         }
-
         }
         }
         ?>

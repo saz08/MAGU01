@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -124,7 +124,6 @@ else{
                         else {
                             $importantSymp = "false";
                         }
-
                     }
                 }
                 else{
@@ -320,6 +319,7 @@ else{
         }
     };
 
+    //Check all scales are filled
     function submitCheck(){
         var pain = localStorage.getItem("Pain");
         var breathlessness= localStorage.getItem("Breathlessness");

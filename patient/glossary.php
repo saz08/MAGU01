@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -63,34 +63,6 @@ else{
     <link rel="stylesheet" type="text/css" href="../stylesheets/collapsible.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/navigation.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
-
-    <script>
-        function openNav() {
-            if(screen.width<500){
-                document.getElementById("x").style.width = "80%";
-                document.getElementById("x").style.left = "20%";
-                document.getElementById("mySidebar").style.width = "5.5rem";
-
-            }
-            if(screen.width>500){
-                document.getElementById("mySidebar").style.width = "7rem";
-
-            }
-        }
-
-        function closeNav() {
-            if(screen.width<500){
-                document.getElementById("x").style.left = "0";
-                document.getElementById("x").style.width = "100%";
-            }
-            if(screen.width>500) {
-                document.getElementById("x").style.left = "20%";
-                document.getElementById("x").style.width = "50%";
-            }
-            document.getElementById("mySidebar").style.width = "0";
-        }
-    </script>
-
 
     <meta charset="UTF-8">
     <title>Glossary</title>
@@ -211,11 +183,11 @@ else{
 <br>
 <input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchGlossary()" placeholder="Search a keyword.." title="Start typing">
 
-    <button class="openbtn" onclick="openNav()">☰ A-Z</button>
+    <button class="openbtn" onclick="openGlossaryNav()">☰ A-Z</button>
 
     <div class="sidenav" id="mySidebar">
     <br>
-    <a class="closebtn" onclick="closeNav()" >  <</a>
+    <a class="closebtn" onclick="closeGlossaryNav()" >  <</a>
 <br>
     <a href="#a">A</a>
     <a href="#b">B</a>
@@ -279,9 +251,7 @@ else{
         else {
         li[i].style.display = "none";
             p.style.display="block";
-
         }
-
     }
     }
 

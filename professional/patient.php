@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -99,8 +99,6 @@ if($patient->num_rows>0){
         $usernamePatient= $rowname["username"];
     }
 }
-
-
 ?>
 <script>
     localStorage.setItem("id", <?php echo $id?>);
@@ -218,7 +216,6 @@ if($patient->num_rows>0){
                         ?>
                     </ul>
                 </li>
-
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
@@ -238,8 +235,6 @@ if($patient->num_rows>0){
     </div>
 </div>
 <br>
-
-
         <?php
 
         $sql  = "SELECT * FROM `account` WHERE `id` = '$id'";
@@ -250,14 +245,14 @@ if($patient->num_rows>0){
     echo"<table class='table table-hover row-clickable' id='doctorTable' >";
                 echo"<tr>";
                 echo "<th>Forename</th>";
-            echo "<th>Surname</th>";
-           echo "<th>Date of Birth</th>";
-           echo "<th>Gender</th>";
-           echo "<th>Smoking Status</th>";
-           echo "<th>Address</th>";
-           echo "<th>Contact No.</th>";
+                echo "<th>Surname</th>";
+                echo "<th>Date of Birth</th>";
+                echo "<th>Gender</th>";
+                echo "<th>Smoking Status</th>";
+                echo "<th>Address</th>";
+                echo "<th>Contact No.</th>";
+                echo"</tr>";
 
-        echo"</tr>";
                 echo "<tr>";
                 echo "<td>" . $forename. "</a></td>";
                 echo "<td>" . $surname . "</td>";
@@ -266,30 +261,21 @@ if($patient->num_rows>0){
                 echo "<td>" . $rowname["smokingStatus"] . "</td>";
                 echo "<td>" . $address . "</td>";
                 echo "<td>" . $contact . "</td>";
-
                 echo "</tr>";
             }
         }
         else{
             echo"<h2>Patient has not registered yet.</h2>";
         }
-
         ?>
     </table>
 </div>
-
-
-
-
-
 <br>
 
 <script>
     function next(){
         window.location.href="patientInfo.php?id=+<?php echo $id?>";
     }
-
-
 </script>
 </body>
 <div class="clear"></div>

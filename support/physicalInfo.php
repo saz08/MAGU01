@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -66,11 +66,6 @@ else{
     <script src="../js/supportJS.js"></script>
     <meta charset="UTF-8">
     <title>Physical Info</title>
-
-
-
-
-
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
@@ -179,9 +174,6 @@ else{
     <div id="classes"></div>
 </div>
 
-
-
-
 <script>
     var cls= new XMLHttpRequest();
     cls.open('GET', '../html/classes.html', true);
@@ -225,13 +217,10 @@ else{
         });
     }
 
-
 </script>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
 </div>
 </body>
 <div class="clear"></div>
-
-
 </html>

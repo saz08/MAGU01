@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -260,18 +260,6 @@ if($resultJournal->num_rows>0) {
 </div>
 
 <script>
-    function deleteQ(questionNo){
-        var qNo = questionNo;
-        var del = document.getElementById("deleteQ");
-        var noDel = document.getElementById("nodeleteQ");
-        jQuery.post("deleteQ.php", {"questionNo": qNo}, function(data){
-            del.style.display="block";
-        }).fail(function()
-        {
-            noDel.style.display="block";
-            });
-    }
-
     function next(){
         window.location.href="supportCircle.php";
     }

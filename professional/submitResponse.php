@@ -1,10 +1,7 @@
 <?php
 session_start();
-?>
-<?php
 
-
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -39,29 +36,14 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
-
-
 
 $additional = $_POST['Additional'];
 $resInfo = $_POST['resInfo'];
 $username = $_SESSION["userName"];
 
-
 if($resInfo!=""){
     $sql = "UPDATE `supportSubmit` SET `seenInfo`='true',`resInfo`='$resInfo' WHERE `additional`='$additional' AND `seenInfo`='false'";
     $conn->query($sql);
 }
-
-
-
-
 
 ?>

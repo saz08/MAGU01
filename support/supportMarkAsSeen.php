@@ -7,7 +7,7 @@
  */
 session_start();
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -40,11 +40,4 @@ if($resultInfo->num_rows>0) {
     $sql1  = "UPDATE `supportSubmit` SET `seenInfo`='' WHERE `resInfo` = '$response'";
     $conn->query($sql1);
 }
-
-
-
-
-
-
-
 

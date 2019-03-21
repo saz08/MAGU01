@@ -61,7 +61,6 @@ session_destroy();
     <div class="container" id="welcomeHeader">
         <h1 class="display-3" style="color:#f7f7f7;">Logout!</h1>
         <h3 style="margin-top: 20%">You are now logged out.</h3>
-        <p><a href = "index.php" class="btn btn-primary btn-lg" id="signUpButton" role="button" >Back to Home Page</a></p>
     </div>
 </div>
 </div> <!-- / main container -->

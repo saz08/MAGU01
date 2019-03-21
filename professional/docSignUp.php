@@ -4,7 +4,7 @@ session_start();
 <?php
 
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -39,20 +39,7 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK= false; //TODO make this work with database values
 
-
-
-?>
-<!doctype html>
-
-<?php
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -87,7 +74,6 @@ if($loginOK) {
                 alert("You are already logged in!");
                 window.location.href="dashboard.php";
             }
-
         }
     </script>
 </head>
@@ -150,7 +136,6 @@ if($loginOK) {
     </div>
 </div>
 
-<!-- 3 columns under Welcome Jumbotron -->
 <div class="container-fluid" id="mainCont">
     <div class="row" id="mainContRow">
         <div class="col-md-6" id="logincol" >
@@ -236,12 +221,8 @@ if($loginOK) {
                 <p><input type="submit" name="submitReg" id="signUpButton" class="btn" style="font-size: 2rem;" value="Register"></p>
                 </p>
             </form>
-
         </div>
 
-        <?php
-
-        ?>
         <script>
             function checkForm(){
                 var email = document.getElementById("email");
@@ -268,9 +249,6 @@ if($loginOK) {
                     email.style.background="pink";
                 }
 
-
-
-
                 if(errs !== ""){
                     var error = document.getElementById("errs");
                     error.style.display="block";
@@ -296,7 +274,6 @@ if($loginOK) {
                     </script>
                 <?php
             }
-
 
             $query = "SELECT `email` FROM `docAcc` WHERE `email` = '$email'";
             $result = $conn->query($query);
@@ -332,27 +309,21 @@ if($loginOK) {
             </script>
             <?php
         }
-
         }
         }
         ?>
 
     </div>
-    <hr>
-
 </div>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 </body>
 <div class="clear"></div>
-
 <footer>
-
     <div class="footer">
         <p style="text-align: center;">&copy; Sara Reid Final Year Project 2019</p>
     </div>
 </footer>
 </html>
-
 <?php
 $conn->close();?>
 

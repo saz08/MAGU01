@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -38,10 +38,6 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -126,9 +122,7 @@ else{
                 }
             }
             ?>
-
-
-                    ]
+                   ]
                 }]
             });
             chart.render();
@@ -188,7 +182,6 @@ else{
                     else{
                         $importantInfo="false";
                         $importantSymp = "false";
-
                     }
 
                     if($importantInfo==="true"||$importantSymp==="true"){
@@ -288,12 +281,9 @@ else{
         <td>".$date2."</td>
         <td>".$y."</td>
         <td>".$stones."</td>";
-
-
         }
         echo"</table>";
     }
-
     ?>
     <br>
 </div>

@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -51,7 +51,6 @@ $action2 = safePOST($conn, "action2");
     <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
-
     <meta charset="UTF-8">
     <title>Records</title>
 </head>
@@ -69,7 +68,6 @@ else{
         window.location.href="docSignUp.php";
     </script><?php
 }
-
 
 $id = $_GET['id'];
 
@@ -102,8 +100,6 @@ if($patient->num_rows>0){
         $usernamePatient= $rowname["username"];
     }
 }
-
-
 ?>
 <script>
     localStorage.setItem("id", <?php echo $id?>);
@@ -164,7 +160,6 @@ if($patient->num_rows>0){
                         else{
                             echo"<li><a href='patientInfo.php?id=+$id'>PROFILE</a></li>";}
                         ?>
-
                         <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
@@ -209,7 +204,6 @@ if($patient->num_rows>0){
                         ?>
                     </ul>
                 </li>
-
             </ul>
             <ul class = "nav navbar-nav navbar-right">
                 <li><a> <button class="btn" id="checkLogOut" onclick="logOutCheck()"  style="background-color: #E9969F;color:black;top:0 " >LOGOUT</button></a></li>
@@ -347,11 +341,8 @@ echo "</div>";
                 }
                 else {
                     echo "<p><b>".$date2.": </b>" . $symptom . " <button class='btn' style='background-color: #644F62!important;color:white!important;'>Seen</button></p>";
-
                 }
-
             }
-
         }
     }
     ?>
@@ -425,31 +416,8 @@ if($action2==="filled") {
 }
 ?>
 
-
-
-
 <br>
 <script>
-
-    function markAsSeen(counter){
-        jQuery.post("markAsSeen.php", {"Counter": counter}, function(data){
-            alert("Marked as Seen");
-        }).fail(function()
-        {
-            alert("something broke in submitting your records");
-        });
-    }
-
-    function showCommentOption(counter) {
-        var x = document.getElementById("content_"+counter);
-        console.log("div id " + counter );
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-
     function next(){
         window.location.href="progress.php?id=+<?php echo $id ?>";
     }

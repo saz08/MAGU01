@@ -17,7 +17,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -54,8 +54,6 @@ $action2 = safePOST($conn, "action2");
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-
-
 <?php
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
@@ -82,9 +80,6 @@ if($result->num_rows>0) {
 }
 
 ?>
-
-
-
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -222,8 +217,6 @@ if($patient->num_rows>0){
     while($rowname=$patient->fetch_assoc()){
         $usernamePatient= $rowname["username"];
 
-
-
         $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$usernamePatient'";
         $support=$conn->query($sqlSupport);
         if($support->num_rows>0){
@@ -234,17 +227,11 @@ if($patient->num_rows>0){
             echo "</tr>";
             echo "<tr>";
             while($rowname=$support->fetch_assoc()){
-               // echo "<div style='overflow-x: scroll'>";
-
-
                 $supportUser= $rowname["username"];
                 $relation = $rowname["relation"];
                 echo "<td>" . $supportUser . "</td>";
                 echo "<td>" . $relation . "</td>";
-
                 echo "</tr>";
-
-
             }
         }
     }
@@ -252,7 +239,6 @@ if($patient->num_rows>0){
 
 ?>
 </table>
-<!--//</div>-->
 
 <div class="box"><h3>Patient's friends or family may add symptoms they are noticing or any other additional notes they'd like to log. They will appear here if there are any.</h3></div>
 
@@ -288,7 +274,8 @@ if($patient->num_rows>0){
 </form>
 
 <br>
-</div><?php
+</div>
+                            <?php
                         } else {
                             echo "<p><b>".$date2." ".$supporter.":</b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
                         }
@@ -382,8 +369,6 @@ if($action2==="filled"){
             x.style.display = "none";
         }
     }
-
-
 </script>
 
 </body>

@@ -4,7 +4,7 @@ session_start();
 <?php
 
 
-//connect to the database now that we know we have enough to submit
+//Connect to Database
 $host = "devweb2018.cis.strath.ac.uk";
 $user = "szb15123";
 $pass = "fadooCha4buh";
@@ -39,16 +39,6 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
-$loginOK = false; //TODO make this work with database values
-
-if($loginOK) {
-    if (!isset($_SESSION["sessionuser"])) {
-        session_regenerate_id();
-        $_SESSION["sessionuser"] = $user;
-    }
-}
-
-
 
 $symptom = $_POST['Symptom'];
 $resSymp = $_POST['resSymp'];
@@ -64,11 +54,5 @@ if($result->num_rows>0) {
         }
     }
 }
-
-
-
-
-
-
 
 ?>
