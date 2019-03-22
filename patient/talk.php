@@ -123,40 +123,28 @@ else{
                             window.location.href="signUp.php";
                         </script><?php
                     }
-
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
+                        $importantInfo=0;
+                        $importantSymp=0;
                         while ($rowname = $supportInfo->fetch_assoc()) {
                             $seenInfo = $rowname["seenInfo"];
                             $resInfo = $rowname["resInfo"];
                             $seenSymp = $rowname["seenSymp"];
                             $resSymp = $rowname["resSymp"];
-                            $importantInfo="false";
-                            $importantSymp="false";
 
                             if ($seenInfo === "true" && $resInfo != "") {
-                                $importantInfo = "true";
-                            }
-                            else {
-                                $importantInfo = "false";
-                            }
-                            if ($seenSymp === "true" && $resSymp != "") {
-                                $importantSymp = "true";
-                            }
-                            else {
-                                $importantSymp = "false";
+                                $importantInfo++;
                             }
 
+                            if ($seenSymp === "true" && $resSymp != "") {
+                                $importantSymp++;
+                            }
                         }
                     }
-                    else{
-                        $importantInfo="false";
-                        $importantSymp = "false";
 
-                    }
-
-                    if($importantInfo==="true"||$importantSymp==="true"){
+                    if($importantInfo>0||$importantSymp>0){
                         echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                     }
                     else{
@@ -339,6 +327,38 @@ if($action2==="filled") {
     }
 }
 ?>
+<script>
+    function searchForum() {
+        var input = document.getElementById("myInput");
+        var filter = input.value.toLowerCase();
+        var forumPost = document.getElementsByClassName('forum');
+        var comments = document.getElementsByClassName("comment");
+        var noResults = document.getElementById("noResults");
+
+        for (var x = 0; x < forumPost.length; x++) {
+            var allPosts = forumPost[x].id.substr(10);
+            document.getElementById(allPosts).style.display = "none";
+            noResults.style.display="block";
+
+        }
+
+        for (var y = 0; y < forumPost.length; y++) {
+            var showPost = forumPost[y].id.substr(10);
+            if (forumPost[y].innerText.toLowerCase().includes(filter)) {
+                document.getElementById(showPost).style.display = "block";
+                noResults.style.display="none";
+            }
+        }
+        for(var z = 0; z < comments.length; z++) {
+            var showComment = comments[z].id.substr(8);
+            if(comments[z].innerText.toLowerCase().includes(filter)){
+                document.getElementById(showComment).style.display = "block";
+                noResults.style.display="none";
+
+            }
+        }
+    }
+</script>
 <br>
 <div class="footer">
     <button class="btn" onclick="goBack()" style="float:left"><b><</b> Back </button>
