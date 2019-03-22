@@ -211,36 +211,7 @@ function closeStatusNav() {
 }
 
 //FORUM
-function searchForum() {
-    var input = document.getElementById("myInput");
-    var filter = input.value.toLowerCase();
-    var forumPost = document.getElementsByClassName('forum');
-    var comments = document.getElementsByClassName("comment");
-    var noResults = document.getElementById("noResults");
 
-    for (var x = 0; x < forumPost.length; x++) {
-        var allPosts = forumPost[x].id.substr(10);
-        document.getElementById(allPosts).style.display = "none";
-        noResults.style.display="block";
-
-    }
-
-    for (var y = 0; y < forumPost.length; y++) {
-        var showPost = forumPost[y].id.substr(10);
-        if (forumPost[y].innerText.toLowerCase().includes(filter)) {
-            document.getElementById(showPost).style.display = "block";
-            noResults.style.display="none";
-        }
-    }
-    for(var z = 0; z < comments.length; z++) {
-        var showComment = comments[z].id.substr(8);
-        if(comments[z].innerText.toLowerCase().includes(filter)){
-            document.getElementById(showComment).style.display = "block";
-            noResults.style.display="none";
-
-        }
-    }
-}
 
 // function checkPost() {
 //     var post = document.getElementById("checkPost");
