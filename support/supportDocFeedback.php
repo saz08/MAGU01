@@ -100,36 +100,32 @@ else{
                 <?php
                         $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
                         $supportInfo = $conn->query($sqlInfo);
-                        if ($supportInfo->num_rows > 0) {
-                            while ($rowname = $supportInfo->fetch_assoc()) {
-                                $seenInfo = $rowname["seenInfo"];
-                                $resInfo = $rowname["resInfo"];
-                                $seenSymp = $rowname["seenSymp"];
-                                $resSymp = $rowname["resSymp"];
-                                $importantInfo="false";
-                                $importantSymp="false";
+                if ($supportInfo->num_rows > 0) {
+                    $importantInfo=0;
+                    $importantSymp=0;
+                    while ($rowname = $supportInfo->fetch_assoc()) {
+                        $seenInfo = $rowname["seenInfo"];
+                        $resInfo = $rowname["resInfo"];
+                        $seenSymp = $rowname["seenSymp"];
+                        $resSymp = $rowname["resSymp"];
 
-                                if ($seenInfo === "true" && $resInfo != "") {
-                                    $importantInfo = "true";
-                                }
-                                else {
-                                    $importantInfo = "false";
-                                }
-                                if ($seenSymp === "true" && $resSymp != "") {
-                                    $importantSymp = "true";
-                                }
-                                else {
-                                    $importantSymp = "false";
-                                }
-                            }
-                        }
-                        else{
-                            $importantInfo="false";
-                            $importantSymp = "false";
 
+                        if ($seenInfo === "true" && $resInfo != "") {
+                            $importantInfo++;
                         }
 
-                if($importantInfo==="true"||$importantSymp==="true"){
+                        if ($seenSymp === "true" && $resSymp != "") {
+                            $importantSymp++;
+                        }
+
+                    }
+                }
+                else{
+                    $importantInfo=0;
+                    $importantSymp=0;
+                }
+
+                if($importantInfo>0||$importantSymp>0){
                     echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
                 else{

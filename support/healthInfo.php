@@ -101,35 +101,31 @@ else{
                 $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
+                    $importantInfo=0;
+                    $importantSymp=0;
                     while ($rowname = $supportInfo->fetch_assoc()) {
                         $seenInfo = $rowname["seenInfo"];
                         $resInfo = $rowname["resInfo"];
                         $seenSymp = $rowname["seenSymp"];
                         $resSymp = $rowname["resSymp"];
-                        $importantInfo="false";
-                        $importantSymp="false";
+
 
                         if ($seenInfo === "true" && $resInfo != "") {
-                            $importantInfo = "true";
+                            $importantInfo++;
                         }
-                        else {
-                            $importantInfo = "false";
-                        }
+
                         if ($seenSymp === "true" && $resSymp != "") {
-                            $importantSymp = "true";
+                            $importantSymp++;
                         }
-                        else {
-                            $importantSymp = "false";
-                        }
+
                     }
                 }
                 else{
-                    $importantInfo="false";
-                    $importantSymp = "false";
-
+                    $importantInfo=0;
+                    $importantSymp=0;
                 }
 
-                if($importantInfo==="true"||$importantSymp==="true"){
+                if($importantInfo>0||$importantSymp>0){
                     echo "<li><a href='supportDocFeedback.php'>FEEDBACK <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
                 else{
