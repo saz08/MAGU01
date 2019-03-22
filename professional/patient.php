@@ -126,6 +126,8 @@ if($patient->num_rows>0){
                         $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
                         $resultRecords = $conn->query($sqlRecords);
                         if ($resultRecords->num_rows > 0) {
+                            $counterInfo1=0;
+                            $counterSymp1=0;
                             while ($rowname = $resultRecords->fetch_assoc()) {
                                 $symptom = $rowname["symptom"];
                                 $additional = $rowname["additionalInfo"];
@@ -133,28 +135,22 @@ if($patient->num_rows>0){
                                 $resInfo = $rowname["resInfo"];
                                 $seenSymp = $rowname["seenSymp"];
                                 $resSymp = $rowname["resSymp"];
-                                $importantInfo = "false";
-                                $importantSymp = "false";
                                 if ($seenInfo === "false") {
                                     if ($additional != "") {
-                                        $importantInfo = "true";
+                                        $counterInfo1++;
                                     }
-                                } else {
-                                    $importantInfo = "false";
                                 }
                                 if ($seenSymp === "false") {
                                     if ($symptom != "") {
-                                        $importantSymp = "true";
+                                        $counterSymp1++;
                                     }
-                                } else {
-                                    $importantSymp = "false";
                                 }
                             }
                         }
                         else{
-                            $importantInfo="false";
-                            $importantSymp="false";}
-                        if($importantInfo==="true"||$importantSymp==="true"){
+                            $counterInfo1=0;
+                            $counterSymp1=0;}
+                        if($counterInfo1>0||$counterSymp1>0){
                             echo "<li><a href='patientInfo.php?id=+$id'>PROFILE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";}
                         else{
                             echo"<li><a href='patientInfo.php?id=+$id'>PROFILE</a></li>";}
@@ -169,43 +165,38 @@ if($patient->num_rows>0){
                                 $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `survivor` = '$usernameSurvivor'";
                                 $supportInfo = $conn->query($sqlInfo);
                                 if ($supportInfo->num_rows > 0) {
+                                    $counterInfo=0;
+                                    $counterSymp = 0;
                                     while ($rowname = $supportInfo->fetch_assoc()) {
                                         $symptom = $rowname["symptom"];
                                         $additional = $rowname["additional"];
                                         $seenInfo = $rowname["seenInfo"];
                                         $seenSymp = $rowname["seenSymp"];
-                                        $importantInfo="false";
-                                        $importantSymp="false";
 
                                         if ($seenInfo === "false") {
                                             if ($additional != "") {
-                                                $importantInfo="true";
+                                                $counterInfo++;
                                             }
                                         }
-                                        else{
-                                            $importantInfo="false";
-                                        }
+
                                         if ($seenSymp === "false") {
                                             if ($symptom != "") {
-                                                $importantSymp="true";
+                                                $counterSymp++;
                                             }
-                                        }
-                                        else{
-                                            $importantSymp="false";
                                         }
                                     }
                                 }
                                 else {
-                                    $importantInfo="false";
-                                    $importantSymp="false";
+                                    $counterInfo=0;
+                                    $counterSymp = 0;
                                 }
                             }
                         }
                         else{
-                            $importantInfo="false";
-                            $importantSymp="false";
+                            $counterInfo=0;
+                            $counterSymp = 0;
                         }
-                        if($importantInfo==="true"||$importantSymp==="true"){
+                        if($counterInfo>0||$counterSymp>0){
                             echo "<li><a href='proSupport.php?id=+$id'>SUPPORT CIRCLE <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
 
                         }
