@@ -1,0 +1,6 @@
+To run on a browser, the project must be deployed onto a web server.
+The web server used for this project was DEVWEB2018 using this link:
+https://devweb2018.cis.strath.ac.uk/~szb15123/Survivors/patient/signUp.php
+
+To deploy onto your own web server, use "Tools" then "Deployment" in IntelliJ and configure for the web server you wish to upload to.
+Once all files are uploaded, you can open the project from IntelliJ and will be directed to your browser.

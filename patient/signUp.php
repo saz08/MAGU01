@@ -172,6 +172,8 @@ else{
             $_SESSION['userName'] = $username;
 
                 ?> <script>localStorage.setItem("loginOK", "yes");
+                    localStorage.setItem("loginOKDoc", "no");
+                    localStorage.setItem("loginOKSupport", "no");
                     var user = "<?php echo $username; ?>";
                 localStorage.setItem("username", user);
                 window.location.href = "index.php";

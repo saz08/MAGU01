@@ -182,7 +182,9 @@ else{
             echo "<p class='center'>Log in was successful!</p>";
             $loginOK = true;
             ?>
-                <script>localStorage.setItem("loginOKDoc", "yes")</script>
+                <script>localStorage.setItem("loginOKDoc", "yes");
+                    localStorage.setItem("loginOK", "no");
+                    localStorage.setItem("loginOKSupport", "no");</script>
                 <script type="text/javascript">
                     var user = "<?php echo $username; ?>";
                 </script>
