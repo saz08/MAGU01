@@ -74,6 +74,7 @@ else{
 
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -88,6 +89,7 @@ else{
 
 //PERFORM CALCULATIONS FOR STATUS CHARTS: ALL TIME AND PREVIOUS WEEK
 
+//All Time Vigorous
 $sumVig  = "SELECT SUM(`vigorous`) FROM `physical` WHERE `username` = '$username'";
 $vigResult= $conn->query($sumVig);
 if($vigResult->num_rows>0) {
@@ -99,6 +101,7 @@ else{
     $vigorous=0;
 }
 
+//All Time Moderate
 $sumMod  = "SELECT SUM(`moderate`) FROM `physical` WHERE `username` = '$username'";
 $modResult= $conn->query($sumMod);
 if($modResult->num_rows>0) {
@@ -110,6 +113,7 @@ else{
     $moderate=0;
 }
 
+//All Time Walking
 $sumWalk  = "SELECT SUM(`walking`) FROM `physical` WHERE `username` = '$username'";
 $walkResult= $conn->query($sumWalk);
 if($walkResult->num_rows>0) {
@@ -121,6 +125,7 @@ else{
     $walking=0;
 }
 
+//All Time Sitting
 $sumSit  = "SELECT SUM(`sitting`) FROM `physical` WHERE `username` = '$username'";
 $sitResult= $conn->query($sumSit);
 if($sitResult->num_rows>0) {
@@ -132,6 +137,7 @@ else{
     $sitting=0;
 }
 
+//Most recent Vigorous
 $weekVig  = "SELECT `vigorous` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
 $weekVigResult= $conn->query($weekVig);
 if($weekVigResult->num_rows>0) {
@@ -143,6 +149,7 @@ else{
     $vigWeek=0;
 }
 
+//Most recent moderate
 $weekMod  = "SELECT `moderate` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
 $weekModResult= $conn->query($weekMod);
 if($weekModResult->num_rows>0) {
@@ -153,6 +160,8 @@ if($weekModResult->num_rows>0) {
 else{
     $modWeek=0;
 }
+
+//Most recent walking
 $weekWalk  = "SELECT `walking` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
 $weekWalkResult= $conn->query($weekWalk);
 if($weekWalkResult->num_rows>0) {
@@ -163,6 +172,8 @@ if($weekWalkResult->num_rows>0) {
 else{
     $walkWeek=0;
 }
+
+//Most recent sitting
 $weekSitting  = "SELECT `sitting` FROM `physical` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
 $weekSittingResult= $conn->query($weekSitting);
 if($weekSittingResult->num_rows>0) {
@@ -174,6 +185,7 @@ else{
     $sittingWeek=0;
 }
 
+//Calculate if there is an "all time" value
 if(($vigorous+$moderate+$walking+$sitting)==0){
     $entries = 0;
 }
@@ -181,14 +193,13 @@ else{
     $entries=1;
 }
 
+//Calculate if there is a "previous week" value
 if(($vigWeek+$modWeek+$walkWeek+$sittingWeek)==0){
     $entriesW = 0;
 }
 else{
     $entriesW=1;
 }
-
-
 
 ?>
     <script type="text/javascript">
@@ -202,6 +213,7 @@ else{
                     "#00BDE8"
                 ]);
             var options = {
+                //Chart for all time
                 width: window.innerWidth,
                 height: 400,
 
@@ -230,6 +242,7 @@ else{
                 }]
             };
             var week = {
+                //Chart for previous week
                 width: window.innerWidth,
                 height: 400,
                 backgroundColor: "#DDA8FF",
@@ -276,6 +289,7 @@ else{
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -289,6 +303,7 @@ else{
                     </script><?php
                 }
 
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -355,6 +370,8 @@ else{
 <div class="jumbotron text-center">
     <h1>My Physical Activity Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -362,7 +379,9 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <?php
+//If there are no records yet, notify the user
 $sql = "SELECT * FROM `physical` WHERE `username` = '$username'";
 $result= $conn->query($sql);
 if($result->num_rows<1) {
@@ -372,7 +391,9 @@ if($result->num_rows<1) {
 <br>
 <button class="btn" id="button" onclick="window.location.href='physical.php'">Make an entry</button>
 <br>
-<?php if(($entries&&$entriesW)!=0){ ?>
+<?php
+//if there are values for all time and previous week, show the options for the chart
+if(($entries&&$entriesW)!=0){ ?>
 
 <div class="box">
     <form method="get" class="radiostyle">
@@ -408,6 +429,7 @@ if($result->num_rows<1) {
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 <script>
+    //Functions for the radio buttons to toggle divs
     var x = document.getElementById("chartContainer");
     var y = document.getElementById("chartContainerWeek");
 

@@ -39,8 +39,12 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-$questionNo = $_POST['questionNo'];
+//Get username from the session
 $username = $_SESSION["userName"];
 
+//Receive question no from post value
+$questionNo = $_POST['questionNo'];
+
+//Delete the question at position no and that belongs to current user
 $sql  = "DELETE FROM `questions` WHERE `pos` = '$questionNo' AND `username` = '$username'";
 $conn->query($sql);

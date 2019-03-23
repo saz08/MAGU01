@@ -38,10 +38,14 @@ else{
     $user = safePOSTNonMySQL("username");
     $pass = safePOSTNonMySQL("password");
 }
+
+//Get username from the session
 $username = $_SESSION["userName"];
 
+//Receive comment from post value
 $com = $_POST['Comment'];
 
+//Delete comment that matches comment and was posted by current user
 $sql2 = "DELETE FROM `comments` WHERE `patientComment` = '$com' AND `username`='$username'";
 $conn->query($sql2);
 

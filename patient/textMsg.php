@@ -26,20 +26,10 @@ function safePOSTNonMySQL($name){
     }
 }
 
-
-$amberWarning="";
-$amberPainWarning="";
-$amberBreathWarning="";
-$amberPerformanceWarning="";
-$redWarning=" ";
-$redPainWarning="";
-$redBreathWarning="";
-$redPerformanceWarning="";
 $pain = $_POST['Pain'];
 $breathlessness = $_POST['Breathlessness'];
 $performance = $_POST['Performance'];
 $id = "";
-
 
 $username = $_SESSION["userName"];
 
@@ -51,6 +41,7 @@ if($resultID->num_rows>0) {
     }
 }
 
+//Create red warnings
 if($pain>=7){
     $redPainWarning = "Red Pain Rating greater than 6";
     $redPain = "true";
@@ -73,6 +64,7 @@ else{
     $redPerformance = "false";
 }
 
+//Create amber warnings
 if($pain>=4&&$pain<7){
     $amberPainWarning = "Amber Pain Rating between 4 and 6";
     $amberPain = "true";
@@ -97,7 +89,7 @@ else{
 
 
 
-
+//Get associated doctor's email from the CHI
 $txtSQL  = "SELECT `docEmail` FROM `chi` WHERE `id`='$id'";
 $resultTXT=$conn->query($txtSQL);
 if($resultTXT->num_rows>0) {
@@ -106,8 +98,7 @@ if($resultTXT->num_rows>0) {
     }
 }
 
-
-
+//Get full name of patient from the CHI
 $chiName  = "SELECT `forename`,`surname` FROM `chi` WHERE `id`='$id'";
 $resultName=$conn->query($chiName);
 if($resultName->num_rows>0) {
@@ -117,15 +108,16 @@ if($resultName->num_rows>0) {
     }
 }
 
-
+//Send an email regarding amber warnings
 if($amberPain==="true"||$amberBreath==="true"||$amberPerformance==="true"){
     $from = "Survivors";
     $message = $amberPainWarning."\n".$amberBreathWarning."\n".$amberPerformanceWarning." \nPlease contact within 2 hours ";
     $headers="From: $from\n";
     $subject="Amber Warning for Patient ". $patientForename." ".$patientSurname;
     mail($to,$subject,$message,$headers);
-
 }
+
+//Send an email regarding red warnings
 if($redPain==="true"||$redBreath==="true"||$redPerformance==="true"){
     $from = "Survivors";
     $message = $redPainWarning."\n".$redBreathWarning."\n".$redPerformanceWarning."\nPlease contact immediately!";
@@ -133,9 +125,6 @@ if($redPain==="true"||$redBreath==="true"||$redPerformance==="true"){
     $subject="Red Warning for Patient ". $patientForename." ".$patientSurname;
     mail($to,$subject,$message,$headers);
 }
-
-
-
 
 ?>
 

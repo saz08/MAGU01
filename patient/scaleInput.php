@@ -40,22 +40,18 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
-$amberWarning="";
-$amberPainWarning="";
-$amberBreathWarning="";
-$amberPerformanceWarning="";
-$redWarning="";
-$redPainWarning="";
-$redBreathWarning="";
-$redPerformanceWarning="";
+//Get all values from post
 $pain = $_POST['Pain'];
 $breathlessness = $_POST['Breathlessness'];
 $performance = $_POST['Performance'];
 $additional = $_POST['Additional'];
 $symptom = $_POST['Symptom'];
 $id = "";
+
+//Get current username from session
 $username = $_SESSION["userName"];
+
+//Get ID of user from database
 $sql1 = "SELECT `id` FROM `account` WHERE username = '$username'";
 $resultID=$conn->query($sql1);
 if($resultID->num_rows>0) {
@@ -65,6 +61,7 @@ if($resultID->num_rows>0) {
     }
 }
 
+//If additional has not been submitted, seenInfo will be empty
 if($additional!=""){
     $seenInfo='false';
 }
@@ -72,6 +69,7 @@ else{
     $seenInfo = '';
 }
 
+//If symptom has not been submitted, seenSymp will be empty
 if($symptom!=""){
     $seenSymp='false';
 }
@@ -80,7 +78,6 @@ else{
 }
 
 $sql  = "INSERT INTO `scale` (`id`, `username`, `pain`, `breathlessness`, `performance`, `additionalInfo`,`symptom` ,`timeStamp`, `seenInfo`,`seenSymp`, `resInfo`, `resSymp`) VALUES ('$id', '$username', '$pain', '$breathlessness', '$performance', '$additional','$symptom', CURRENT_TIMESTAMP, '$seenInfo', '$seenSymp','','')";
-
 $conn->query($sql);
 
 

@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+
+
 function safePOST($conn,$name){
     if (isset($_POST[$name])) {
         return $conn->real_escape_string(strip_tags($_POST[$name]));
@@ -88,6 +90,7 @@ else{
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -100,7 +103,7 @@ else{
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -167,6 +170,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Additional Info <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -174,8 +179,9 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
-<div class="box">Here is a small list of common symptoms. If you feel you apply to one, please choose one then press <b>submit</b></div>
 
+<div class="box">Here is a small list of common symptoms. If you feel you apply to one, please choose one then press <b>submit</b></div>
+<!--List of Symptoms-->
 <form name="symptom" method="post" class="box-transparent" >
     Symptoms:
     <select id="select" name="select">
@@ -195,12 +201,13 @@ else{
 
 <div class="box">You can also enter anything you have noticed about yourself or any worries. If you don't have anything you'd like to add, please leave blank and press <b>submit</b>.</div>
 
+<!--Input for Additional Information-->
     <form name="additional" method="post" class="box-transparent" >
         <input type="text" name="additional"  id="additional"/>
         <input type="hidden" name="action" value="filled">
     </form>
 
-
+<!--Modal: Records have been saved-->
 <div id="savedModal" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('savedModal').style.display='none'; window.location.href='index.php';" style="float:right" >&times;</button>
@@ -208,6 +215,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Records have not been saved-->
 <div id="notSavedModal" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotSave" onclick="document.getElementById('notSavedModal').style.display='none';"style="float:right" >&times;</button>
@@ -215,6 +223,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Doctor has been notified-->
 <div id="docNotify" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('docNotify').style.display='none'"style="float:right" >&times;</button>
@@ -222,6 +231,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Doctor has not been notified-->
 <div id="notNotify" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotNotify" onclick="document.getElementById('notNotify').style.display='none';" style="float:right">&times;</button>
@@ -229,6 +239,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Check before submit-->
 <div id="submitCheck" class="modal">
     <div class="modal-content">
         <p>Survivors will now save your records and send to your doctor. Are you sure you want to submit?</p>
@@ -237,6 +248,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Empty pain value-->
 <div id="painFill" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotNotify" onclick="document.getElementById('painFill').style.display='none';" style="float:right">&times;</button>
@@ -244,6 +256,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Empty breathlessness value-->
 <div id="breathFill" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotNotify" onclick="document.getElementById('breathFill').style.display='none';" style="float:right">&times;</button>
@@ -251,6 +264,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Empty performance value-->
 <div id="performanceFill" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotNotify" onclick="document.getElementById('performanceFill').style.display='none';" style="float:right">&times;</button>
@@ -261,13 +275,14 @@ else{
 <div class="divSpace"></div>
 
 <script>
-    // Get the modal
+    // Get each modal
     var savedModal = document.getElementById('savedModal');
     var notSavedModal = document.getElementById('notSavedModal');
     var docNotify = document.getElementById('docNotify');
     var notNotify = document.getElementById('notNotify');
 
     function submitRecord(){
+        //Send scales and info to php file to be submitted
         var pain = localStorage.getItem("Pain");
         var breathlessness= localStorage.getItem("Breathlessness");
         var performance = localStorage.getItem("Performance");
@@ -280,6 +295,7 @@ else{
             notSavedModal.style.display="block";
         });
 
+        //Send values to be emailed to doctor
         var painTxt = localStorage.getItem("Pain");
         var breathlessnessTxt= localStorage.getItem("Breathlessness");
         var performanceTxt = localStorage.getItem("Performance");

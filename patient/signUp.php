@@ -143,30 +143,25 @@ else{
             </form>
 
             <?php
-            if(isset($_POST["submitLogon"])) {
-                if(trim($_POST["username"])== ""){
-                    echo "<p><font color='red'>Please enter a valid username***</font><br></p>";
-                }
-                if(trim($_POST["password"]) == "") { //TODO add in or for wrong password
-                    echo"<p> * Please enter a valid password * ";
-                }
-            }
             if($action === "filled") {
 
             $username= (safePost($conn,"username"));
             $password = (safePost($conn,"password"));
             $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
             $result = mysqli_query($conn,$query);
+            //If the username entered, matches a username in the database, do this
             if(mysqli_num_rows($result)){
             $query2 = "SELECT `password` FROM `account` WHERE `username` = '$username'";
             $result2 = $conn->query($query2);
+            //Select the password associated with that account
             if($result2->num_rows>0) {
             while ($rowname = $result2->fetch_assoc()) {
                 $DBpassword = $rowname["password"];
                 }
             }
             if(password_verify("$password",$DBpassword)){
-            if(mysqli_num_rows($result2)){
+                //If the password from the database matches the password entered, do this
+                if(mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
             $loginOK=true;
             $_SESSION['userName'] = $username;
@@ -182,11 +177,13 @@ else{
             }
             }
             else{
+                //Modal: Username or password not recognised
                 ?><script>  var notPassword= document.getElementById("notUsername");
                     notPassword.style.display="block";</script><?php
                 }
             }
             else{
+                //Modal: Username or password not recognised
                 ?><script>
                     var notUsername= document.getElementById("notUsername");
                     notUsername.style.display="block";
@@ -222,6 +219,7 @@ else{
         </div>
 
         <script>
+            //Error checking for each input
             function checkForm(){
                 var username = document.getElementById("username");
                 var password = document.getElementById("password");
@@ -286,10 +284,13 @@ else{
 
             $query = "SELECT `username` FROM `account` WHERE `username` = '$username'";
             $result = $conn->query($query);
+            //If username does not already exist in the database, do this
             if($result->num_rows<1){
                     $checkID = "SELECT `id` FROM `chi` WHERE `id` = '$id'";
                     $resultID = $conn->query($checkID);
+                    //If the ID entered is a legit ID, do this
                     if($resultID->num_rows>0) {
+                        //Hash password before entering the database
                         $passwordNew = password_hash("$password",PASSWORD_DEFAULT);
                         $sql = "INSERT INTO `account` (`id`,`username`, `password`, `smokingStatus`) VALUES ('$id','$username', '$passwordNew', '$smoker1')";
                         if ($conn->query($sql) === TRUE) {
@@ -305,11 +306,13 @@ else{
                         }
                     }
                     else if($resultID->num_rows<1){
+                        //Modal: ID does not exist in the CHI
                         ?><script>var id = document.getElementById("id");
                             id.style.display="block";</script><?php
                     }
                 }
             else{
+                //Modal: Username already exists in the database
                 ?><script>var username = document.getElementById("username");
                     username.style.display="block";</script> <?php
             }
@@ -318,6 +321,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Already logged in-->
 <div id="loggedIn" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanDelete" onclick="document.getElementById('loggedIn').style.display='none';window.location.href='index.php'" style="float:right">&times;</button>
@@ -330,6 +334,7 @@ else{
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 
 <script>
+    //If the user's details are still active in local storage, they are logged in
     function checkAlreadyLoggedIn(){
         var loggedIn = document.getElementById("loggedIn");
         if(localStorage.getItem("loginOK")==="yes"){

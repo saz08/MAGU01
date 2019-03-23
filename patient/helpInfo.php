@@ -90,6 +90,7 @@ if($_SESSION['userName']==null){
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -103,6 +104,7 @@ if($_SESSION['userName']==null){
                     </script><?php
                 }
 
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -169,6 +171,8 @@ if($_SESSION['userName']==null){
 <div class="jumbotron text-center">
     <h1>Health Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -176,10 +180,13 @@ if($_SESSION['userName']==null){
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <div class="clear"></div>
 
+<!--Top collapsible redirects to Glossary page-->
 <button class="collapsible" onclick="window.location.href='glossary.php'">Complicated Terms</button>
 
+<!--Followed by collapsibles for health information-->
 <button class="collapsible">What Happens After Surgery?</button>
 <div class="content">
     <div id="problems"></div>
@@ -200,6 +207,7 @@ if($_SESSION['userName']==null){
     <div id="pain"></div>
 </div>
 <?php
+//Only show information for "Quitting Smoking" if the user registered as a current smoker
 $sqlUser = "SELECT `smokingStatus` FROM `account` WHERE `username` = '$username' AND `smokingStatus`='Current'";
 $userResult = $conn->query($sqlUser);
 if($userResult->num_rows>0) {
@@ -214,6 +222,7 @@ if($userResult->num_rows>0) {
 ?>
 
 <script>
+    //Request to get html file
         var xhr= new XMLHttpRequest();
         xhr.open('GET', '../html/problemsCR.html', true);
         xhr.onreadystatechange= function() {
@@ -259,6 +268,7 @@ if($userResult->num_rows>0) {
         };
         recovery.send();
 
+        //Enable collapsible
     var coll = document.getElementsByClassName("collapsible");
     var i;
 

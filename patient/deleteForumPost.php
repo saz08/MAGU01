@@ -39,16 +39,20 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
-
+//Get username from the session
 $username = $_SESSION["userName"];
+
+//Receive position from post value
 $position = $_POST['Position'];
 
+//Delete the forum post, and delete all associated comments
 $sql  = "DELETE FROM `forum` WHERE `pos`='$position'";
 $sql2 = "DELETE FROM `comments` WHERE `pos` = '$position'";
 
 $conn->query($sql);
 $conn->query($sql2);
 
+//If that was the last post in the forum, begin the counter at 1
 $sqlCheck = "SELECT * FROM `forum`";
 $result = $conn->query($sqlCheck);
 if($result->num_rows<1) {

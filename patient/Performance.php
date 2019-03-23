@@ -86,6 +86,7 @@ else{
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -98,7 +99,7 @@ else{
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -164,6 +165,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Monitor Performance <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -179,6 +182,7 @@ else{
    <details> <summary>: This means there is more information: please click on the text to see more info about the option.</summary> </details>
     </p></div>
 
+<!--Form with radio buttons for the ECOG/WHO scale-->
 <form method="get" class="WHOstyle">
     <label class="radioContainer"><details><summary>0: Fully active, no restrictions on activities.</summary> A performance status of 0 means no restrictions in the sense that someone is able to do everything they were able to do prior to their diagnosis.</details>
         <input type="radio" name="radio" value="0" id="zero">

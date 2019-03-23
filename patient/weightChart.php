@@ -73,6 +73,7 @@ else{
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
     <?php
+    //Detect if session is still running. If not, direct user to login
     if($_SESSION["userName"]!=null) {
         $username = $_SESSION["userName"];
     }
@@ -118,6 +119,7 @@ else{
                     $y = $rowname["lbs"];
                     $timestamp = $rowname["timeStamp"];
                     $date2 = (new DateTime($timestamp))->format('D d M Y');
+                    //x axis shows the entry date. y axis shows the weight entered on that date
                     echo"{x: new Date('$date2'), y:$y},";
                 }
             }
@@ -140,6 +142,7 @@ else{
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    //Detect if session is still running. If not, direct user to login
                     if($_SESSION["userName"]!=null) {
                         $username = $_SESSION["userName"];
                     }
@@ -152,7 +155,7 @@ else{
                             window.location.href="signUp.php";
                         </script><?php
                     }
-
+                    //Show info alert when patient has a response from doctor
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -219,6 +222,8 @@ else{
 <div class="jumbotron text-center">
     <h1>My Weight Chart <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+    <!--Modal: Logout Check-->
     <div id="logOutCheck" class="modal">
         <div class="modal-content">
             <p>Are you sure you want to log out?</p>
@@ -226,6 +231,8 @@ else{
             <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
         </div>
     </div>
+
+<!--    Button to open weight monitoring table-->
 <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
 
 <button class="btn" id="button" onclick="window.location.href='weight.php'">Make an entry</button>
@@ -234,6 +241,7 @@ else{
     <div class="divSpace"></div>
 
 <?php
+//If there are no entries yet, don't show a graph
 $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
 $result= $conn->query($sql);
 if($result->num_rows<1) {
@@ -241,6 +249,7 @@ if($result->num_rows<1) {
 }
 else{
 ?>
+<!--    Div for the weight chart-->
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <?php }?>
 
@@ -252,6 +261,7 @@ else{
     <br>
     <br>
     <?php
+    //Create a table with entry date, lbs and stones conversion
     $sql = "SELECT * FROM `weight` WHERE `username` = '$username'";
     $result= $conn->query($sql);
     if($result->num_rows>0) {

@@ -86,6 +86,7 @@ else{
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -98,7 +99,7 @@ else{
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -165,6 +166,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Financial Help <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -172,8 +175,10 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <div class="clear"></div>
 
+<!--Collapsibles for Financial Help-->
 <button class="collapsible">Macmillan Grant</button>
 <div class="content">
     <div id="macmillanGrant"></div>
@@ -197,7 +202,7 @@ else{
 <div class="clear"></div>
 
 <script>
-
+//Requests to get html files
     var xhr= new XMLHttpRequest();
     xhr.open('GET', '../html/benefits.html', true);
     xhr.onreadystatechange= function() {
@@ -234,7 +239,7 @@ else{
     };
     returning.send();
 
-
+//Enable collapsible
     var coll = document.getElementsByClassName("collapsible");
     var i;
 

@@ -82,6 +82,7 @@ $pass = safePOSTNonMySQL("password");
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -94,7 +95,7 @@ $pass = safePOSTNonMySQL("password");
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -161,6 +162,8 @@ $pass = safePOSTNonMySQL("password");
 <div class="jumbotron text-center">
     <h1>Add to your Support Circle <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -168,6 +171,7 @@ $pass = safePOSTNonMySQL("password");
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <br>
 <div class="container-fluid bg-1 text-center">
     <div class="box">
@@ -176,6 +180,7 @@ $pass = safePOSTNonMySQL("password");
         <p>Any supporters will appear below!</p>
     </div>
 
+<!--    Input for an email address of a supporter to be entered-->
     <form method="post" class="box-transparent">
         <input type="email" name="email"/>
         <input type="hidden" name="action" value="filled">
@@ -184,6 +189,7 @@ $pass = safePOSTNonMySQL("password");
 
 </div>
 
+<!--Modal: Email invite has been sent-->
 <div id="sendInvite" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanInvite" onclick="document.getElementById('sendInvite').style.display='none';" style="float:right">&times;</button>
@@ -193,8 +199,8 @@ $pass = safePOSTNonMySQL("password");
 
 <?php
 if($action === "filled") {
+    //Send an email to the entered address
     $email = (safePost($conn, "email"));
-
     $from = "Remote Monitoring";
     $message = $username." would like you to join their support circle on Survivors! Please follow the link to sign up and join them.\n https://devweb2018.cis.strath.ac.uk/~szb15123/Survivors/support/supportSignUp.php \n Please remember the username $username to sign up with! \nYou will be able to view their recovery and input any symptoms or concerns on their behalf.";
     $headers="From: $from\n";
@@ -209,6 +215,7 @@ if($action === "filled") {
 }
 echo"<br>";
 
+//Show a table of the user's supporters and their relation
 $sqlSupport="SELECT * FROM `supportAcc` WHERE `survivor`='$username'";
 $support=$conn->query($sqlSupport);
 if($support->num_rows>0){

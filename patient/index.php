@@ -90,6 +90,7 @@ $pass = safePOSTNonMySQL("password");
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -102,7 +103,7 @@ $pass = safePOSTNonMySQL("password");
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -167,16 +168,12 @@ $pass = safePOSTNonMySQL("password");
     </div>
 </nav>
 
-<div id="logIn" class="modal">
-    <div class="modal-content">
-        <button class="btn" id="spanLogIn" onclick="document.getElementById('logIn').style.display='none';" style="float:right">&times;</button>
-        <p>You must be logged in to continue.</p>
-    </div>
-</div>
 
 <div class="jumbotron text-center">
     <h1>Homepage <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -184,12 +181,15 @@ $pass = safePOSTNonMySQL("password");
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
+<!--Display today's date-->
 <h2 style="float:right">Today is <?php echo date('jS F Y')?></h2>
 
 <br>
 <br>
 
 <?php
+//Only display this information when the user has not submitted any pain, breathlessness or performance values (a new user)
 $sqlNew  = "SELECT * FROM `scale` WHERE `username` = '$username'";
 $resultNew = $conn->query($sqlNew);
 if($resultNew->num_rows<1) {
@@ -218,6 +218,7 @@ if($resultNew->num_rows<1) {
 }
 ?>
 
+<!--Modal: Response deleted-->
 <div id="deleted" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('deleted').style.display='none';window.location.href='index.php'" style="float:right">&times;</button>
@@ -225,6 +226,7 @@ if($resultNew->num_rows<1) {
     </div>
 </div>
 
+<!--Modal: Response not deleted-->
 <div id="notDelete" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('notDelete').style.display='none';window.location.href='index.php'" style="float: right;">&times;</button>
@@ -233,6 +235,7 @@ if($resultNew->num_rows<1) {
 </div>
 
 <?php
+//Show the user a response from their doctor
 $sqlInfo  = "SELECT * FROM `scale` WHERE `username` = '$username' AND `seenInfo` = 'true' OR `seenSymp` = 'true'";
 $resultInfo = $conn->query($sqlInfo);
 if($resultInfo->num_rows>0) {
@@ -244,6 +247,7 @@ if($resultInfo->num_rows>0) {
         $resInfo = $rowname["resInfo"];
         $resSymp = $rowname["resSymp"];
 
+        //If the information was filled, and the doctor has seen and responded: show button with information response
         if($info!="") {
             if ($seenInfo != "false") {
                 if($seenInfo!="") {
@@ -263,6 +267,8 @@ if($resultInfo->num_rows>0) {
                 }
             }
         }
+
+        //If the symptom was filled, and the doctor has seen and responded: show button with symptom response
         if($symptom!="") {
             if($seenSymp!="false") {
                 if($seenSymp!="") {
@@ -284,8 +290,7 @@ if($resultInfo->num_rows>0) {
         }
     }
 }
-
-
+//Reminder to user of when to submit scales
 $sqlScale  = "SELECT * FROM `scale` WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
 $resultScale = $conn->query($sqlScale);
 if($resultScale->num_rows>0) {
@@ -303,7 +308,7 @@ while ($rowname = $resultScale->fetch_assoc()) {
         }
     }
 
-
+//Show the user their most recent pain, breathlessness and performance score if it was a "red" flag
     $sqlScale  = "SELECT * FROM `scale`WHERE `username` = '$username' ORDER BY `timeStamp` DESC LIMIT 1";
     $resultScale = $conn->query($sqlScale);
     if($resultScale->num_rows>0) {

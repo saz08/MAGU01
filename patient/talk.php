@@ -111,6 +111,7 @@ else{
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    //Detect if session is still running. If not, direct user to login
                     if($_SESSION["userName"]!=null) {
                         $username = $_SESSION["userName"];
                     }
@@ -123,6 +124,7 @@ else{
                             window.location.href="signUp.php";
                         </script><?php
                     }
+                    //Show info alert when patient has a response from doctor
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -188,6 +190,8 @@ else{
 
 </div>
 <script>
+    //This page can be accessed by patients or doctors
+    //Determine who is accessing the page and what navigation bar to show
     var docNav= document.getElementById("docNav");
     var patientNav = document.getElementById("patientNav");
 
@@ -203,6 +207,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Patient Forum Room <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -210,18 +216,22 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
+<!--Create a forum post-->
 <form method="post" name="createForumPost" >
     <h2>Create a post:</h2> <input type="text" name="createPost" placeholder="Type in here!"><br>
     <input type="hidden" name="action" value="filled">
     <input type="submit" value="Submit" class="btn" id="button">
 </form><br>
 
+<!--Filter through the forum on keyup-->
 <div id="keyword" style="text-align:center">
     <h3>Filter through posts and comments</h3>
 <input type="text"   id="myInput" onkeyup="searchForum()" placeholder="Search for a post or comment" title="Start typing">
 </div>
 
 <br>
+<!--Modal: Couldn't delete-->
 <div id="delete" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('delete').style.display='none';" style="float:right">&times;</button>
@@ -238,18 +248,19 @@ if($result->num_rows>0){
         $usernameDB= $rowname["username"];
         $post = $rowname["post"];
 
+        //Each post and associated comments have the same position ID
+        //Show the forum post and the username of who posted it
+        //A user can only delete their own post
         echo "<div id='$posDB'>";
-
         echo"<div class='divSpace'></div>
-
-<div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
+        <div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
         if($usernameDB===$username) {
             echo "<button class='btn' id='buttonDelPost' onclick='deletePost($posDB)' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
-
         }
-
         echo"</p></div>";
 
+        //Show the comment and the username of who posted it
+        //A user can only delete their own comment
         $sql2  = "SELECT * FROM `comments`";
         $result2 = $conn->query($sql2);
         if($result2->num_rows>0) {
@@ -272,6 +283,7 @@ if($result->num_rows>0){
         }
         ?>
 
+<!--        Add comment option under each post or recent comment-->
         <button class="btn"   id="buttonAdd" onclick="showCommentOption(<?php echo $posDB ?>)" style="float:right;font-size:1.5rem" value="hide/show" >Add a comment <i class='fas fa-plus'></i></button>
         <br>
             <div id='content_<?php echo $posDB?>' class="comments" style="display: none">
@@ -288,11 +300,13 @@ if($result->num_rows>0){
     }
     echo"<div class='divSpace'></div>";
 }
+//Display this when no results are found in searchbar
 echo"<div class='box' id='noResults' style='display:none'><p>Sorry, no posts or comments were found containing that word</p></div>";
 echo"<div class='divSpace'></div>";
 
 
 if($action==="filled") {
+    //Enter forum post
     $post = (safePost($conn, "createPost"));
     $username = $_SESSION["userName"];
     if ($post != "") {
@@ -310,7 +324,7 @@ if($action==="filled") {
 
 if($action2==="filled") {
     $pos = safePOST($conn, "divID");
-
+//Enter comments
     $comment = (safePost($conn, "comment"));
     $username = $_SESSION["userName"];
     if ($comment != "") {
@@ -328,6 +342,7 @@ if($action2==="filled") {
 }
 ?>
 <script>
+    //Search function
     function searchForum() {
         var input = document.getElementById("myInput");
         var filter = input.value.toLowerCase();
@@ -335,6 +350,7 @@ if($action2==="filled") {
         var comments = document.getElementsByClassName("comment");
         var noResults = document.getElementById("noResults");
 
+        //Initially make all posts and comments display none
         for (var x = 0; x < forumPost.length; x++) {
             var allPosts = forumPost[x].id.substr(10);
             document.getElementById(allPosts).style.display = "none";
@@ -342,6 +358,7 @@ if($action2==="filled") {
 
         }
 
+        //If a post contains the keyword, show that post
         for (var y = 0; y < forumPost.length; y++) {
             var showPost = forumPost[y].id.substr(10);
             if (forumPost[y].innerText.toLowerCase().includes(filter)) {
@@ -349,12 +366,12 @@ if($action2==="filled") {
                 noResults.style.display="none";
             }
         }
+        //if the comment contains the keyword, show that comment
         for(var z = 0; z < comments.length; z++) {
             var showComment = comments[z].id.substr(8);
             if(comments[z].innerText.toLowerCase().includes(filter)){
                 document.getElementById(showComment).style.display = "block";
                 noResults.style.display="none";
-
             }
         }
     }

@@ -86,6 +86,7 @@ else{
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -98,7 +99,7 @@ else{
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -165,6 +166,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Monitor breathlessness <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -172,9 +175,11 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <br>
 <div class="box">The following is the MRC (Medical Research Council) Breathlessness scale. Please tick the box that you feel you apply to.</div>
 
+<!--Form of radio buttons for the MRC Scale-->
 <form method="get" class="radiostyle">
 <label class="radioContainer">1: Not troubled by breathlessness except on strenuous exercise
     <input type="radio" name="radio" value="1" id="1">
@@ -200,6 +205,7 @@ else{
 
 
 <script>
+    //Save the checked value to local storage
     function submit(){
        if(document.getElementById('1').checked){
            localStorage.setItem("Breathlessness", 1);

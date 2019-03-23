@@ -82,6 +82,7 @@ else{
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class = "nav navbar-nav navbar-left">
                     <?php
+                    //Detect if session is still running. If not, direct user to login
                     if($_SESSION["userName"]!=null) {
                         $username = $_SESSION["userName"];
                     }
@@ -94,7 +95,7 @@ else{
                             window.location.href="signUp.php";
                         </script><?php
                     }
-
+                    //Show info alert when patient has a response from doctor
                     $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                     $supportInfo = $conn->query($sqlInfo);
                     if ($supportInfo->num_rows > 0) {
@@ -162,6 +163,8 @@ else{
     <div class="jumbotron text-center">
     <h1 style="left:10%;width:80%;text-align: center" >Lung Cancer Alliance Glossary <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
     </div>
+
+    <!--Modal: Logout Check-->
     <div id="logOutCheck" class="modal">
         <div class="modal-content">
             <p>Are you sure you want to log out?</p>
@@ -169,15 +172,18 @@ else{
             <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
         </div>
     </div>
+
 <br>
+<!--    Search bar for keywords, searches on keyup-->
 <input type="text" style="left:20%;width:80%" id="myInput" onkeyup="searchGlossary()" placeholder="Search a keyword.." title="Start typing">
 
+<!--    Button for A-Z sidebar-->
     <button class="openbtn" onclick="openGlossaryNav()">☰ A-Z</button>
 
     <div class="sidenav" id="mySidebar">
     <br>
-    <a class="closebtn" onclick="closeGlossaryNav()" >  <</a>
-<br>
+    <a class="closebtn" onclick="closeGlossaryNav()" > <</a>
+    <br>
     <a href="#a">A</a>
     <a href="#b">B</a>
     <a href="#c">C</a>
@@ -208,9 +214,11 @@ else{
 </div>
     <br>
 
-<div id="x" class="box">
-</div>
+<!--    Div for glossary to be held-->
+<div id="x" class="box"></div>
+
 <script>
+    //Request to get glossary terms from html file
     var xhr= new XMLHttpRequest();
     xhr.open('GET', '../html/glossary.html', true);
     xhr.onreadystatechange= function() {
@@ -221,11 +229,12 @@ else{
     xhr.send();
 
 
+    //Search glossary for keyword
         function searchGlossary() {
         var input, filter, ul, li, a, i, txtValue,p;
+        //the keyword that the user enters
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
-        console.log("input si + "+ filter);
         ul=document.getElementById("myUL");
         li = ul.getElementsByTagName("li");
         p = document.getElementById("noResults");

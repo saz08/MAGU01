@@ -84,6 +84,7 @@ else{
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -96,7 +97,7 @@ else{
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -164,6 +165,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Monitor your pain levels <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -175,6 +178,7 @@ else{
 
 <div class="box">On a scale of 0 - 10, 0 meaning no pain and 10 meaning extremely painful. Please rate your pain using the slider below.</div>
 
+<!--Slide container ranging from 0 to 10 for pain values-->
 <div id="painscale" class="slidecontainer">
     <form>
         <input type="range"  step="1" min="0" max="10" class="slider" id="myRange" oninput="outputUpdate(value)">
@@ -185,6 +189,7 @@ else{
 </div>
 
 <script>
+    //On slide, output the current number at id output
     var slider = document.getElementById("myRange");
     var value;
     function outputUpdate(num) {

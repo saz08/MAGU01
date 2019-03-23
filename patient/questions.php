@@ -86,6 +86,7 @@ else{
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class = "nav navbar-nav navbar-left">
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -98,7 +99,7 @@ else{
                         window.location.href="signUp.php";
                     </script><?php
                 }
-
+                //Show info alert when patient has a response from doctor
                 $sqlInfo = "SELECT * FROM `scale` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -165,6 +166,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Questions <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -172,12 +175,14 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <div class="box">
     <p>This page can be used to store questions for any upcoming appointments or as a diary. Anything entered will NOT be sent to your doctor so you will not recieve a response for anything entered here.</p>
     <p>If you want a response, please use the additional info page when recording your weekly scales</p>
 </div>
 
 <br>
+<!--Input box for questions to be entered-->
     <div class="box-transparent">
         <p>Note down any questions you have</p>
         <form method="post" name="questions">
@@ -200,6 +205,7 @@ if($action==="filled"){
 }
 ?>
 <?php
+//Take questions from database and show them in a table
 $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
 $resultJournal = $conn->query($sqlJournal);
 if($resultJournal->num_rows>0) {
@@ -214,6 +220,7 @@ if($resultJournal->num_rows>0) {
             </tr>
             <?php
 
+            //Each row has the option to delete a question
             $sqlJournal = "SELECT * FROM `questions` WHERE `username` = '$username'";
             $resultJournal = $conn->query($sqlJournal);
             if ($resultJournal->num_rows > 0) {
@@ -234,6 +241,7 @@ if($resultJournal->num_rows>0) {
         </table>
     </div>
 
+<!--Modal: Question deleted-->
 <div id="deleteQ" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanDelete" onclick="document.getElementById('deleteQ').style.display='none';window.location.href='questions.php'" style="float:right">&times;</button>
@@ -241,6 +249,7 @@ if($resultJournal->num_rows>0) {
     </div>
 </div>
 
+<!--Modal: Question not deleted-->
 <div id="nodeleteQ" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanDelete" onclick="document.getElementById('nodeleteQ').style.display='none';window.location.href='questions.php'" style="float:right">&times;</button>
