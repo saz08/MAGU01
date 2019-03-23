@@ -71,6 +71,7 @@ else{
 
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -98,7 +99,8 @@ else{
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
                 <?php
-                        $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
+                //Show notification icon if the supporter has feedback from a health professional
+                $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
                         $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
                     $importantInfo=0;
@@ -151,6 +153,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Feedback from the Doctor <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -162,6 +166,7 @@ else{
 <div class="box">Doctors may respond to any information or symptoms you have logged. They will appear on this page!</div>
 
 <?php
+//Show any feedback that the doctor has sent
 $sql  = "SELECT * FROM `supportSubmit` WHERE `username`= '$username' AND `seenInfo` = 'true' OR `seenSymp`='true'";
 $result=$conn->query($sql);
 $counter=0;
@@ -173,6 +178,7 @@ if($result->num_rows>0){
         $resSymp = $rowname["resSymp"];
 
         if($additional!="") {
+            //If the professional replied to additional information, show response
             ?>
             <br>
             <div class="box">
@@ -187,6 +193,7 @@ if($result->num_rows>0){
             <?php
         }
         if($symptom!="") {
+            //If the professional responded to a symptom, show response
             ?>
             <br>
             <div class="box">
@@ -206,12 +213,15 @@ if($result->num_rows>0){
 ?>
 
 <br>
+<!--Modal: Deleted-->
 <div id="deleted" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('deleted').style.display='none';window.location.href='supportDocFeedback.php'" style="float:right">&times;</button>
         <p>Response successfully deleted</p>
     </div>
 </div>
+
+<!--Modal: Not Deleted-->
 <div id="notDelete" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('notDelete').style.display='none';window.location.href='supportDocFeedback.php'" style="float:right">&times;</button>

@@ -32,7 +32,7 @@ function safePOSTNonMySQL($name){
         return "";
     }
 }
-
+//Get value from post
 $response = $_POST['Response'];
 
 

@@ -101,24 +101,24 @@ else{
 <div class="jumbotron text-center">
     <h1>SUPPORTERS <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
+
+<!--Modal: Username or password not recognised-->
 <div id="notUser" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanUser" onclick="document.getElementById('notUser').style.display='none'" style="float:right">&times;</button>
-        <p>Username not recognised</p>
+        <p>Username or password not recognised</p>
     </div>
 </div>
-<div id="notPass" class="modal">
-    <div class="modal-content">
-        <button class="btn" id="spanPass" onclick="document.getElementById('notPass').style.display='none'" style="float:right">&times;</button>
-        <p>Password not recognised</p>
-    </div>
-</div>
+
+<!--Modal: Fix errors-->
 <div id="errs" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanPass" onclick="document.getElementById('errs').style.display='none'" style="float:right">&times;</button>
         <p>Please correct any boxes highlighted pink</p>
     </div>
 </div>
+
+<!--Username already registered-->
 <div id="username" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanUserok" onclick="document.getElementById('username').style.display='none'" style="float:right">&times;</button>
@@ -126,6 +126,8 @@ else{
     </div>
 </div>
 
+
+<!--Invalid survivor username-->
 <div id="id" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanID" onclick="document.getElementById('id').style.display='none'" style="float:right">&times;</button>
@@ -133,6 +135,7 @@ else{
     </div>
 </div>
 
+<!--Login-->
 <div class="container-fluid" id="mainCont">
     <div class="row" id="mainContRow">
         <div class="col-md-6" id="logincol" >
@@ -147,28 +150,24 @@ else{
             </form>
             </p>
             <?php
-            if(isset($_POST["submitLogon"])) {
-                if(trim($_POST["username"])== ""){
-                    echo "<p><font color='red'>Please enter a valid username***</font><br></p>";
-                }
-                if(trim($_POST["password"]) == "") {
-                    echo"<p> * Please enter a valid password * ";
-                }
-            }
+
             if($action === "filled") {
             $username = (safePost($conn, "username"));
             $password = (safePost($conn, "password"));
             $_SESSION['userName'] = $username;
             $query = "SELECT `username` FROM `supportAcc` WHERE `username` = '$username'";
+            //if the username matches a username in the database, do this
             $result = mysqli_query($conn, $query);
             if (mysqli_num_rows($result)){
             $query2 = "SELECT `password` FROM `supportAcc` WHERE `username` = '$username'";
+            //get password associated with that username
             $result2 = $conn->query($query2);
             if ($result2->num_rows > 0) {
                 while ($rowname = $result2->fetch_assoc()) {
                     $DBpassword = $rowname["password"];
                 }
             }
+            //if the database password matches the password entered, the user is logged in
             if (password_verify("$password", $DBpassword)){
             if (mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
@@ -177,23 +176,20 @@ else{
                 <script>localStorage.setItem("loginOKSupport", "yes");
                     localStorage.setItem("loginOK", "no");
                     localStorage.setItem("loginOKDoc", "no");
-                <script type="text/javascript">
                     var user = "<?php echo $username; ?>";
-                </script>
-                <script>localStorage.setItem("username", user);
+                    localStorage.setItem("username", user);
                     window.location.href = "supportHome.php";
                 </script>
                 <?php
-            }
+                }
             }
             else {
                 ?>
                 <script>
-                    var notPass = document.getElementById("notPass");
+                    var notPass = document.getElementById("notUser");
                     notPass.style.display="block";
                 </script><?php
-            }
-
+                }
             }
             else {
                 ?>
@@ -204,6 +200,7 @@ else{
             ?>
         </div>
 
+<!--        Register-->
         <div class="col-md-6" id="registercol">
             <form name="register" method="post" onsubmit="return checkForm()" >
                 <h2 style="color:black">Register</h2>
@@ -214,8 +211,8 @@ else{
                 <p>Relation to You:<br>
                  <select id="relation" name="relation">
                     <option></option>
-                    <option value="Parent">Parent</option>
-                    <option value="Child">Child</option>
+                    <option value="Parent">Parent/Grandparent</option>
+                    <option value="Child">Child/Grandchild</option>
                     <option value="Sibling">Sibling</option>
                     <option value="Friend">Friend</option>
                  </select></p>
@@ -227,6 +224,7 @@ else{
         </div>
 
         <script>
+            //Error checking
             function checkForm(){
                 var username = document.getElementById("username");
                 var password = document.getElementById("password");
@@ -277,6 +275,7 @@ else{
             $relation = (safePost($conn,"relation"));
             $reject = "false";
 
+            //If the username already exists in the database, reject user
             $query = "SELECT `username` FROM `supportAcc` WHERE `username` = '$usernameSupport'";
             $result = $conn->query($query);
             if($result->num_rows>=1){
@@ -284,30 +283,29 @@ else{
                     var username=document.getElementById("username");
                     username.style.display="block";
                     </script> <?php
-                echo "<p> * Username is already registered * ";
                 $reject = "true";
             }
+
+            //If the username already exists in the patient account, reject user
             $query2 = "SELECT `username` FROM `account` WHERE `username` = '$usernameSupport'";
             $result2 = $conn->query($query2);
             if($result2->num_rows>=1){
                 ?><script>var username=document.getElementById("username");
                     username.style.display="block";</script> <?php
-                echo "<p> * Username is already registered * ";
                 $reject = "true";
 
             }
 
+            //If the survivor username entered does not exist, reject user
             $checkID = "SELECT `username` FROM `account` WHERE `username` = '$survivor'";
             $resultID = $conn->query($checkID);
-
         if($resultID->num_rows<1) {
             ?><script>var id=document.getElementById("id");
                 id.style.display="block";</script><?php
-            echo "<p> * Survivor username is not registered * ";
         $reject = "true";
-
             }
 
+            //if the user has passed the previous checks, encrypt their password and register their details
         if($reject!="true"){
         $passwordNew = password_hash("$password", PASSWORD_DEFAULT);
         $sqlInsert = "INSERT INTO `supportAcc` (`username`, `password`, `survivor`, `relation`) VALUES ('$usernameSupport', '$passwordNew', '$survivor', '$relation')";

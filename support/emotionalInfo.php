@@ -72,7 +72,7 @@ else{
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
-
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -100,6 +100,7 @@ else{
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
                 <?php
+                //Show notification icon if the supporter has feedback from a health professional
                 $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -153,6 +154,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Emotional Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -161,6 +164,8 @@ else{
     </div>
 </div>
 <div class="clear"></div>
+
+<!--Collapsibles for Emotional Info-->
 <button class="collapsible">Anxiety</button>
 <div class="content">
     <div id="anxiety"></div>
@@ -172,6 +177,7 @@ else{
     </div>
 
 <script>
+    //Requests to html files
     var xhr= new XMLHttpRequest();
     xhr.open('GET', '../html/survivorGuilt.html', true);
     xhr.onreadystatechange= function() {
@@ -190,6 +196,8 @@ else{
     };
     pet.send();
 
+
+    //Enables collapsible
     var coll = document.getElementsByClassName("collapsible");
     var i;
 

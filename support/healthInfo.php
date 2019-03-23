@@ -86,6 +86,7 @@ else{
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
                 <?php
+                //Detect if session is still running. If not, direct user to login
                 if($_SESSION["userName"]!=null) {
                     $username = $_SESSION["userName"];
                 }
@@ -97,7 +98,7 @@ else{
                         window.location.href="supportSignUp.php";
                     </script><?php
                 }
-
+                //Show notification icon if the supporter has feedback from a health professional
                 $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -151,6 +152,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Health Information <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -159,7 +162,11 @@ else{
     </div>
 </div>
 <div class="clear"></div>
+
+<!--Directs user to Glossary page-->
 <button class="collapsible" onclick="window.location.href='supportGlossary.php'">Complicated Terms</button>
+
+<!--Collapsibles for Health information-->
 <button class="collapsible">What Happens After Surgery?</button>
 <div class="content">
     <div id="problems"></div>
@@ -179,7 +186,7 @@ else{
 </div>
 
 <script>
-
+//requests to html files
     var rec= new XMLHttpRequest();
     rec.open('GET', '../html/problemsCR.html', true);
     rec.onreadystatechange= function() {

@@ -67,6 +67,7 @@ else{
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -94,6 +95,7 @@ else{
                 <li><a href="supportHome.php">HOME</a></li>
                 <li><a href="supportInput.php">RECORD</a></li>
                 <?php
+                //Show notification icon if the supporter has feedback from a health professional
                 $sqlInfo = "SELECT * FROM `supportSubmit` WHERE `username` = '$username'";
                 $supportInfo = $conn->query($sqlInfo);
                 if ($supportInfo->num_rows > 0) {
@@ -147,6 +149,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Record any information about your survivor <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -159,6 +163,7 @@ else{
 <br>
 
 <div class="box">Here is a small list of common symptoms. If you feel your survivor applies to one, please choose one </div>
+<!--Dropdown list of common symptoms-->
 <form name="symptom" method="post" class="box-transparent" >
     Symptoms:
     <select id="select" name="select">
@@ -176,24 +181,30 @@ else{
     <input type="hidden" name="action" value="filled">
 </form>
 <div class="box">You can enter any additional information you want to record about your survivor. If you don't have anything you'd like to add, please leave blank</div>
-
+<!--Input for additional information-->
 <form name="additional" method="post" class="box-transparent" >
     <input type="text" name="additional"  id="additional" placeholder="Additional Information..."/>
     <input type="hidden" name="action2" value="filled">
 </form>
 
+
+<!--Modal: Records saved-->
 <div id="save" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='supportInput.php'" style="float:right">&times;</button>
         <p>Your records were successfully saved.</p>
     </div>
 </div>
+
+<!--Modal: Records not saved-->
 <div id="notSave" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';" style="float:right">&times;</button>
         <p>Sorry, Survivors was unable to save your records. Please check your internet connection and try again</p>
     </div>
 </div>
+
+<!--Modal: Empty-->
 <div id="empty" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotSave" onclick="document.getElementById('empty').style.display='none';" style="float:right">&times;</button>
@@ -201,6 +212,7 @@ else{
     </div>
 </div>
 
+<!--Modal: Submit check-->
 <div id="submitCheck" class="modal">
     <div class="modal-content">
         <p>Survivors will now save your records and send to the assigned health professional. Are you sure you want to submit?</p>
@@ -211,13 +223,14 @@ else{
 </div>
 <div class="clear"></div>
 <script>
+    //Get modals
     var save = document.getElementById("save");
     var notSave = document.getElementById("notSave");
-
     var check = document.getElementById("submitCheck");
     var empty = document.getElementById("empty");
 
 
+    //Check user is ready to submit their values
     function checkSubmit(){
         var additionalInfo = document.getElementById('additional').value;
         var symptom = document.getElementById('select').value;
@@ -228,6 +241,8 @@ else{
             empty.style.display="block";
         }
     }
+
+    //Submit values
     function submitSupport(){
         var additionalInfo = document.getElementById('additional').value.replace(/'/g,'');
         console.log("additional "+ additionalInfo);

@@ -41,7 +41,7 @@ else{
 }
 
 
-
+//Get values from post
 $additional = $_POST['Additional'];
 $symptom = $_POST['Symptom'];
 $resInfo = $_POST['resInfo'];

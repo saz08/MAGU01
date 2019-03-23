@@ -32,6 +32,7 @@ function safePOSTNonMySQL($name){
     }
 }
 
+//Get value from post
 $response = $_POST['Response'];
 
 $sqlInfo  = "SELECT  `resInfo` FROM `supportSubmit` WHERE `resInfo` = '$response'";
