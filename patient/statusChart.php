@@ -330,6 +330,19 @@ if($entriesM!=0) {
     $amberPBarM = $amberPerformanceM / ($entriesM) * 210;
     $redPBarM = $redPerformanceM / ($entriesM) * 210;
 }
+else{
+    $greenPainBarM = 0;
+    $amberPainBarM = 0;
+    $redPainBarM = 0;
+
+    $greenBBarM = 0;
+    $amberBBarM = 0;
+    $redBBarM = 0;
+
+    $greenPBarM = 0;
+    $amberPBarM = 0;
+    $redPBarM = 0;
+}
 
     ?>
     <script>
@@ -590,7 +603,8 @@ if($entriesM!=0) {
                         }
                     }
                 }
-
+                $importantInfo=0;
+                $importantSymp=0;
                 if($importantInfo>0||$importantSymp>0){
                     echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
@@ -672,7 +686,7 @@ if($entriesM!=0) {
 
 <?php
 //If there are entries for all time and previous month, show options
-if($entries!=0&&$entriesM!=0) { ?>
+if($entries!=0||$entriesM!=0) { ?>
     <div class="box">
         <form method="get" class="radiostyle">
             <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
@@ -733,18 +747,18 @@ if($entriesM!=0){?>
     <?php }
     else{
         //Show if there are no entries from the past month
-        echo "<div class='box'><p>No records over the past month</p></div>";
+        ?><script>document.getElementById("noRecords").style.display="block";</script><?php
+
     }
     ?>
+    <div class='box' id='noRecords' style="display:none"><p>No records over the past month</p></div><br><br>
+
 </div>
 <br>
 <?php
 //If there are no entries, suggest the user makes an entry now
 if($entriesM=0&&$entries=0){
-?>
-    <button class="btn" id="button" onclick="window.location.href='scale.php'">Make an entry</button>
-
-    <?php
+?><button class="btn" id="button" onclick="window.location.href='scale.php'">Make an entry</button><?php
 }
 ?>
 
@@ -755,36 +769,45 @@ if($entriesM=0&&$entries=0){
     var y = document.getElementById("prevMonth");
     var jumbo1 = document.getElementById("jumbo1");
     var jumbo2 = document.getElementById("jumbo2");
-
-    x.style.display="none";
-    y.style.display="block";
-    jumbo1.style.display="block";
-    jumbo2.style.display="none";
+    var none = document.getElementById("noRecords");
+    none.style.display="block";
+    x.style.display = "none";
+    y.style.display = "block";
+    jumbo1.style.display = "block";
+    jumbo2.style.display = "none";
     function submitAll(){
         if (x.style.display === "none") {
             x.style.display = "block";
-            y.style.display="none";
-            jumbo1.style.display="none";
-            jumbo2.style.display="block";
-
+            jumbo2.style.display = "block";
+            jumbo1.style.display = "none";
+            none.style.display="none";
+            y.style.display = "none";
         } else {
             x.style.display = "block";
-            jumbo2.style.display="block";
-            jumbo1.style.display="none";
+            jumbo2.style.display = "block";
+            jumbo1.style.display = "none";
+        }
+        if(jumbo2.style.display="none"){
+            jumbo2.style.display = "block";
+
         }
     }
 
     function submitMonth(){
+        x.style.display = "none";
+        none.style.display="block";
+        jumbo1.style.display = "block";
+        jumbo2.style.display = "none";
         if (y.style.display === "none") {
-            x.style.display="none";
-            jumbo2.style.display="none";
+            x.style.display = "none";
+            jumbo2.style.display = "none";
             y.style.display = "block";
-            jumbo1.style.display="block";
+            jumbo1.style.display = "block";
+            none.style.display="none";
         } else {
             y.style.display = "block";
-            jumbo1.style.display="block";
+            jumbo1.style.display = "block";
         }
-
     }
 
     function next(){

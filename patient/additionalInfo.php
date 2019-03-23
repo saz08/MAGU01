@@ -124,7 +124,8 @@ else{
                         }
                     }
                 }
-
+                $importantInfo=0;
+                $importantSymp=0;
                 if($importantInfo>0||$importantSymp>0){
                     echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }
@@ -210,7 +211,7 @@ else{
 <!--Modal: Records have been saved-->
 <div id="savedModal" class="modal">
     <div class="modal-content">
-        <button class="btn" id="spanSave" onclick="document.getElementById('savedModal').style.display='none'; window.location.href='index.php';" style="float:right" >&times;</button>
+        <button class="btn" id="spanSave" onclick="document.getElementById('savedModal').style.display='none'; window.location.href='statusChart.php';" style="float:right" >&times;</button>
         <p>Records have been successfully saved</p>
     </div>
 </div>

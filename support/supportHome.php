@@ -327,6 +327,19 @@ if($entriesM!=0) {
     $amberPBarM = $amberPerformanceM / ($entriesM) * 210;
     $redPBarM = $redPerformanceM / ($entriesM) * 210;
 }
+else{
+    $greenPainBarM = 0;
+    $amberPainBarM = 0;
+    $redPainBarM = 0;
+
+    $greenBBarM = 0;
+    $amberBBarM = 0;
+    $redBBarM = 0;
+
+    $greenPBarM = 0;
+    $amberPBarM = 0;
+    $redPBarM = 0;
+}
 ?>
 
     <script>
@@ -664,7 +677,7 @@ if($entriesM!=0) {
 
 </div>
 <?php
-if($entriesM!=0&&$entries!=0) {
+if($entriesM!=0||$entries!=0) {
     ?>
     <div class="box">
         <form method="get" class="radiostyle">
@@ -705,7 +718,7 @@ if($entries!=0) {
     <br>
     <?php }
     else{
-        echo "<p>No records yet</p>";
+        echo "<div class='box'><p>No records yet</p></div>";
     }
     ?>
 </div>
@@ -725,9 +738,11 @@ if($entriesM!=0){?>
     <br>
     <?php }
     else{
-        echo "<p>No records over the past month</p>";
+        ?><script>document.getElementById("noRecords").style.display="block";</script><?php
     }
     ?>
+    <div class='box' id='noRecords' style="display:none"><p>No records over the past month</p></div><br><br>
+
 </div>
 <br>
 
@@ -735,42 +750,53 @@ if($entriesM!=0){?>
 
 <script>
 //Functions to toggle between what div to display
-    var x = document.getElementById("allTime");
-    var y = document.getElementById("prevMonth");
-    var jumbo1 = document.getElementById("jumbo1");
-    var jumbo2 = document.getElementById("jumbo2");
+var x = document.getElementById("allTime");
+var y = document.getElementById("prevMonth");
+var jumbo1 = document.getElementById("jumbo1");
+var jumbo2 = document.getElementById("jumbo2");
+var none = document.getElementById("noRecords");
+none.style.display="block";
+x.style.display = "none";
+y.style.display = "block";
+jumbo1.style.display = "block";
+jumbo2.style.display = "none";
 
-    x.style.display="none";
-    y.style.display="block";
-    jumbo1.style.display="block";
-    jumbo2.style.display="none";
-    function submitAll(){
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            y.style.display="none";
-            jumbo1.style.display="none";
-            jumbo2.style.display="block";
 
-        } else {
-            x.style.display = "block";
-            jumbo2.style.display="block";
-            jumbo1.style.display="none";
-        }
+
+function submitAll() {
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        jumbo2.style.display = "block";
+        jumbo1.style.display = "none";
+        none.style.display="none";
+        y.style.display = "none";
+    } else {
+        x.style.display = "block";
+        jumbo2.style.display = "block";
+        jumbo1.style.display = "none";
     }
-
-    function submitMonth(){
-        if (y.style.display === "none") {
-            x.style.display="none";
-            jumbo2.style.display="none";
-            y.style.display = "block";
-            jumbo1.style.display="block";
-        } else {
-            y.style.display = "block";
-            jumbo1.style.display="block";
-        }
+    if(jumbo2.style.display="none"){
+        jumbo2.style.display = "block";
 
     }
+}
 
+function submitMonth() {
+    x.style.display = "none";
+    none.style.display="block";
+    jumbo1.style.display = "block";
+    jumbo2.style.display = "none";
+    if (y.style.display === "none") {
+        x.style.display = "none";
+        jumbo2.style.display = "none";
+        y.style.display = "block";
+        jumbo1.style.display = "block";
+        none.style.display="none";
+    } else {
+        y.style.display = "block";
+        jumbo1.style.display = "block";
+    }
+}
     function next(){
         window.location.href="supportInput.php";
     }

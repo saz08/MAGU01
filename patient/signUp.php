@@ -194,22 +194,25 @@ else{
         </div>
 
         <div class="col-md-6" id="registercol">
-            <form name="register" method="post" onsubmit="return checkForm()" >
+            <form name="register" method="post" onsubmit="return checkForm()"  >
                 <h2 style="color:black">Register</h2>
                 <p class="lead" style="color:#f7f7f7;">
                 <p>Create Username:<br> <input type="text" name="username" value="" id="username"/></p>
                 <p>Create Password:<input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"></p>
                 <p>Enter ID: <br><input type="number" name="id" value="" id="id"/></p>
                 <p>Smoker Status <i>*Optional*</i></p>
-                <p>
-                <label for="smoker">
-                <input type="radio" name="smoker" value="smoker" id="smoker" class="radiostyle">
-                    Current
+
+                <label for="smoker" class="radioContainer" >
+                <input type="radio" name="smoker" value="smoker" id="smoker" >
+                <p style="text-align: center"> Current</p>
+                <span class="checkmark" style="left:40%; background-color: #8B178B" ></span>
                 </label>
-                </p>
-                <label for="nonsmoker">
-                <input type="radio" name="smoker" value="nonsmoker" id="nonsmoker" class="radiostyle">
-                    Never
+
+
+                <label for="nonsmoker" class="radioContainer">
+                <input type="radio" name="smoker" value="nonsmoker" id="nonsmoker" >
+                   <p style="text-align: center"> Never</p>
+                    <span class="checkmark" style="left:40%; background-color: #8B178B" ></span>
                 </label>
                 <input type="hidden" name="action2" value="filled">
                 <p><input type="submit" name="submitReg" id="signUpButton" class="btn" style="font-size: 2rem;" value="Register"></p>

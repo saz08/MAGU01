@@ -120,7 +120,8 @@ else{
                         }
                     }
                 }
-
+                $importantInfo=0;
+                $importantSymp=0;
                 if($importantInfo>0||$importantSymp>0){
                     echo "<li><a href='index.php'>HOME <span class=\"glyphicon glyphicon-exclamation-sign\"></span></a></li>";
                 }

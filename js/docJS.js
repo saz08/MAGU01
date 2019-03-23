@@ -41,15 +41,14 @@ function openInfo(){
 }
 
 //Alerts
-window.onclick = function(event) {
-    if (event.target === sent) {
-        sent.style.display = "none";
-    }
-    if (event.target === notSent) {
-        notSent.style.display = "none";
-    }
-
-};
+// window.onclick = function(event) {
+//     if (event.target === sent) {
+//         sent.style.display = "none";
+//     }
+//     if (event.target === notSent) {
+//         notSent.style.display = "none";
+//     }
+// };
 
 //PATIENT INFO
 
