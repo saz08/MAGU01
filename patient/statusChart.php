@@ -70,7 +70,7 @@ else{
     <script src="../js/forAll.js"></script>
 
     <meta charset="UTF-8">
-    <title>Record Chart</title>
+    <title>Status Chart</title>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 

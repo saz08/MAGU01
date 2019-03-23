@@ -74,7 +74,7 @@ if($_SESSION['userName']==null){
     <link rel="stylesheet" type="text/css" href="../stylesheets/alerts.css">
 
     <meta charset="UTF-8">
-    <title>Information</title>
+    <title>Health Information</title>
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
