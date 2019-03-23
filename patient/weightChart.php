@@ -286,6 +286,8 @@ else{
         <td>".$stones."</td>";
         }
         echo"</table>";
+        echo"<br>";
+        echo"<br>";
     }
     ?>
     <br>

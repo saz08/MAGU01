@@ -200,7 +200,7 @@ else{
         <span class="checkmark"></span>
     </label>
 
-    <label class="radioContainer">3: Confined to bed or a chair more than 50 percent of waking hours.Capable of limited self-care.
+    <label class="radioContainer">3: Confined to bed or a chair more than 50 percent of waking hours. Capable of limited self-care.
         <input type="radio" name="radio" value="3" id="three">
         <span class="checkmark"></span>
     </label>

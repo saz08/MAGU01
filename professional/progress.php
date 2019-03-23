@@ -661,6 +661,10 @@ if ($entries != 0 || $entriesM != 0) {
     <!--Colour Key Sidebar-->
     <div class="sideBar" id="mySidebar">
         <br>
+        <div class="clear" id="break" style="display:none"></div>
+        <script>if(window.innerWidth<=1024){ document.getElementById("break").style.display="block"};</script>
+
+
         <button class="closebtn" onclick="closeProgressNav()"><b>< CLOSE</b></button>
         <div class="circleKey" style="background-color:#006700 ;"></div>
         <p>Pain below 4</p>
@@ -681,6 +685,8 @@ if ($entries != 0 || $entriesM != 0) {
     <!--    Number Key Sidebar-->
     <div class="sideBar" id="mySidebar2">
         <br>
+        <div class="clear" id="break2" style="display:none"></div>
+        <script>if(window.innerWidth<=1024){ document.getElementById("break2").style.display="block"};</script>
         <button class="closebtn" onclick="closeNumberNav()"><b>< CLOSE</b></button>
         <p><b>Pain</b> is scored between 0 to 10.</p>
         <p> 0 meaning no pain and 10 meaning extremely painful</p>

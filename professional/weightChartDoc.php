@@ -274,6 +274,8 @@ else{
 
 <div class="weightNav" id="mySidebar" style="width: 0;">
     <br>
+    <div class="clear" id="break" style="display:none"></div>
+    <script>if(window.innerWidth<=1024){ document.getElementById("break").style.display="block"};</script>
     <a class="closebtn" onclick="closeNavWChart()"  > <b>< CLOSE</b> </a>
     <br>
     <br>

@@ -254,7 +254,7 @@ if($result->num_rows>0){
         //A user can only delete their own post
         echo "<div id='$posDB'>";
         echo"<div class='divSpace'></div>
-        <div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB." :".$post;
+        <div class='forum' id='forumPost_".$posDB."'><br><br><p>".$usernameDB.": ".$post;
         if($usernameDB===$username) {
             echo "<button class='btn' id='buttonDelPost' onclick='deletePost($posDB)' value='hide/show' style='float:right;font-size:1.5rem'>Delete Post <i class='far fa-trash-alt'></i></button><br>";
         }

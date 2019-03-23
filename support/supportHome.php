@@ -46,7 +46,6 @@ else{
     <meta name="viewport" content ="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/donut.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
@@ -163,7 +162,7 @@ else{
 }
 
 //All Time: Performance- Amber
-$sqlPA  = "SELECT * FROM `scale` WHERE `performance`=2 AND `breathlessness` <=4  AND `username` = '$survivor'";
+$sqlPA  = "SELECT * FROM `scale` WHERE `performance`=2 AND `performance` <=4  AND `username` = '$survivor'";
 $resultPA= $conn->query($sqlPA);
 if($resultPA->num_rows>0){
     $amberPerformance = $resultPA->num_rows;
@@ -647,7 +646,7 @@ else{
 
 <!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="z-index: 1">
         <p>Are you sure you want to log out?</p>
         <button id="spanSubmitCheck" class="btn" onclick="window.location.href='../patient/logout.php' ;document.getElementById('logOutCheck').style.display='none';">Yes</button>
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
@@ -660,11 +659,18 @@ else{
     <br>
     <button class="closebtn" onclick="closeColourNav()" > <b>< CLOSE</b></button>
     <div class="circleKey" style="background-color:#006700 ;"></div>
-    <p >Pain below 4. Breathlessness and Performance below 2</p>
+    <p >Pain below 4</p>
+    <p>Breathlessness below 2</p>
+    <p>Performance below 2</p>
     <div class="circleKey" style="background-color:#FE6C01;"></div>
-    <p >Pain between 4 and 7. Breathlessness between 2 and 4 and Performance of 2</p>
+    <p >Pain between 4 and 7</p>
+    <p>Breathlessness between 2 and 4</p>
+    <p>Performance score of 2</p>
+
     <div class="circleKey" style="background-color:#B30000 ;"></div>
-    <p >Pain greater than 7. Breathlessness greater than 4 and Performance greater than 3</p>
+    <p >Pain greater than 7 </p>
+    <p>Breathlessness greater than 4</p>
+    <p>Performance greater than 3</p>
 </div>
 
 <!--Number key sidebar-->

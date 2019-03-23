@@ -186,7 +186,7 @@ else{
     <input type="radio" name="radio" value="1" id="1">
     <span class="checkmark"></span>
 </label>
-<label class="radioContainer">2 :Short of breath when hurrying on the level or walking up a slight hill
+<label class="radioContainer">2: Short of breath when hurrying on the level or walking up a slight hill
     <input type="radio" name="radio" value="2" id="2">
     <span class="checkmark"></span>
 </label>
@@ -223,7 +223,7 @@ else{
         if(document.getElementById('5').checked){
             localStorage.setItem("Breathlessness", 5);
         }
-        window.location.href="Performance.php";
+        window.location.href="performance.php";
     }
 </script>
 <div>

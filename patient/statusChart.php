@@ -285,7 +285,7 @@ else{
 }
 
 //Previous Month: Performance- Amber
-$sqlPAM  = "SELECT * FROM `scale` WHERE `performance`=2 AND `breathlessness` <=4  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
+$sqlPAM  = "SELECT * FROM `scale` WHERE `performance`=2 AND `performance` <=4  AND `username` = '$username' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultPAM= $conn->query($sqlPAM);
 if($resultPAM->num_rows>0){
     $amberPerformanceM = $resultPAM->num_rows;

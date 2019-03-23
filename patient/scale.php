@@ -199,7 +199,7 @@ else{
 
     function next(){
         localStorage.setItem("Pain",slider.value);
-        window.location.href="Breathlessness.php";
+        window.location.href="breathlessness.php";
     }
 </script>
 
