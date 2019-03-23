@@ -233,13 +233,10 @@ else{
         </div>
     </div>
 
-<!--    Button to open weight monitoring table-->
-<button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
+
 
 <button class="btn" id="button" onclick="window.location.href='weight.php'">Make an entry</button>
-    <div class="divSpace"></div>
-    <div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
-    <div class="divSpace"></div>
+
 
 <?php
 //If there are no entries yet, don't show a graph
@@ -250,6 +247,11 @@ if($result->num_rows<1) {
 }
 else{
 ?>
+    <!--    Button to open weight monitoring table-->
+    <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
+    <div class="divSpace"></div>
+    <div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
+    <div class="divSpace"></div>
 <!--    Div for the weight chart-->
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 <?php }?>

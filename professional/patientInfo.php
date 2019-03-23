@@ -290,13 +290,13 @@ if($resultScale->num_rows>0) {
     }
 }
 else{
-    echo"<h2>Patient has not recorded any pain, breathlessness or performance issues</h2>";
+    echo"<div class='box'><h2>Patient has not recorded any pain, breathlessness or performance issues</h2></div>";
 }
 echo" </table>";
 echo "</div>";
 ?>
 
-<h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2>
+<div class="box"><h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2></div>
     <?php
     //Show submitted information or symptoms
     $sql  = "SELECT * FROM `scale` WHERE `id`= '$id'";

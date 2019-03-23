@@ -455,7 +455,6 @@ else{
                 ]
             }]
         });
-        console.log("hu");
 
         breathMonth.render();
         var performanceMonth = new CanvasJS.Chart("performanceMonth", {
@@ -632,15 +631,16 @@ else{
     </div>
 </div>
 
-<!--Buttons to open Colour and Number Key Sidebar-->
-<button class="openbtn" onclick="openProgressNav()">☰ Show Colour Key</button>
-<button class="openbtn" onclick="openNumberNav()">☰ Show Number Key</button>
+
 
 
 <?php
 //If there are entries, show options for chart
 if ($entries != 0 || $entriesM != 0) {
     ?>
+    <!--Buttons to open Colour and Number Key Sidebar-->
+    <button class="openbtn" onclick="openProgressNav()">☰ Show Colour Key</button>
+    <button class="openbtn" onclick="openNumberNav()">☰ Show Number Key</button>
     <div class="box">
         <form method="get" class="radiostyle">
             <label class="radioContainer" style="font-family: Montserrat, sans-serif">Show chart based on all records
@@ -744,7 +744,7 @@ if ($entriesM != 0){
     var jumbo1 = document.getElementById("jumbo1");
     var jumbo2 = document.getElementById("jumbo2");
     var none = document.getElementById("noRecords");
-    none.style.display="block";
+    none.style.display="none";
     x.style.display = "none";
     y.style.display = "block";
     jumbo1.style.display = "block";

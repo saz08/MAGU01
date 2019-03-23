@@ -751,7 +751,7 @@ if($entriesM!=0){?>
 
     }
     ?>
-    <div class='box' id='noRecords' style="display:none"><p>No records over the past month</p></div><br><br>
+    <div class='box' id='noRecords' style="display:none"><p>No records over the past month</p></div>
 
 </div>
 <br>
@@ -770,7 +770,7 @@ if($entriesM=0&&$entries=0){
     var jumbo1 = document.getElementById("jumbo1");
     var jumbo2 = document.getElementById("jumbo2");
     var none = document.getElementById("noRecords");
-    none.style.display="block";
+    none.style.display="none";
     x.style.display = "none";
     y.style.display = "block";
     jumbo1.style.display = "block";

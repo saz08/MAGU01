@@ -322,13 +322,13 @@ while ($rowname = $resultScale->fetch_assoc()) {
 
             if($pain>=7){
                 echo"<div class='box'>";
-                echo"<p>Your most recent pain score was $pain. <br> Your doctor has been notified and will contact you within 2 hours.<br> You can find suggestions on how to cope with your pain <b><a href='https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/helpInfo.php' style='color: #3F1452'>HERE!</a></b> </p>";
+                echo"<p>Your most recent pain score was $pain. <br> Your doctor has been notified and will contact you within 2 hours.<br> You can find suggestions on how to cope with your pain <b><a href='https://devweb2018.cis.strath.ac.uk/~szb15123/Survivors/patient/helpInfo.php' style='color: #3F1452'>HERE!</a></b> </p>";
                 echo"</div>";
 
             }
             if($breath>=4){
                 echo"<div class='box'>";
-                echo"<p>Your most recent breathlessness score was $breath. <br> Your doctor has been notified and will contact you within 2 hours.<br> You can find suggestions on how to cope with breathlessness <b><a href='https://devweb2017.cis.strath.ac.uk/~szb15123/Project/patient/helpInfo.php' style='color: #3F1452'>HERE!</a></b></p>";
+                echo"<p>Your most recent breathlessness score was $breath. <br> Your doctor has been notified and will contact you within 2 hours.<br> You can find suggestions on how to cope with breathlessness <b><a href='https://devweb2018.cis.strath.ac.uk/~szb15123/Survivors/patient/helpInfo.php' style='color: #3F1452'>HERE!</a></b></p>";
                 echo"</div>";
 
             }

@@ -254,9 +254,7 @@ while ($rowname = $result->fetch_assoc()) {
     </div>
 </div>
 
-<!--Button to open weight table-->
-<button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
-<div class="divSpace"></div>
+
 
 <?php
 $sql = "SELECT * FROM `weight` WHERE `id` = '$id'";
@@ -266,6 +264,9 @@ if($result->num_rows<1) {
 }
 else{
     ?>
+<!--Button to open weight table-->
+<button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
+<div class="divSpace"></div>
     <div class="box"><p>Click on individual points to see entry date and weight entered</p></div>
     <div class="divSpace"></div>
     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
