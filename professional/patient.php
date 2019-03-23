@@ -55,6 +55,7 @@ $action = safePOST($conn, "action");
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -68,8 +69,10 @@ else{
     </script><?php
 }
 
+//Get the ID of the patient chosen from the URL
 $id = $_GET['id'];
 
+//Get all patient details
 $sqlD="SELECT * FROM `chi` WHERE id='$id'";
 $details=$conn->query($sqlD);
 if($details->num_rows>0){
@@ -123,6 +126,7 @@ if($patient->num_rows>0){
                     <ul class="dropdown-menu" id="info">
                         <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
                         <?php
+                        //Show an information notification if a user has sent additional information
                         $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
                         $resultRecords = $conn->query($sqlRecords);
                         if ($resultRecords->num_rows > 0) {
@@ -157,6 +161,8 @@ if($patient->num_rows>0){
                         ?>                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
+                        //Show an information notification if a supporter has sent additional information
+
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
                         $userResult = $conn->query($sqlUser);
                         if($userResult->num_rows>0) {
@@ -218,6 +224,8 @@ if($patient->num_rows>0){
 <div class="jumbotron text-center">
     <h1>Contact Details for: <?php  echo $forename ." ". $surname ?><img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -225,9 +233,10 @@ if($patient->num_rows>0){
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <br>
         <?php
-
+//Create table with patient contact details
         $sql  = "SELECT * FROM `account` WHERE `id` = '$id'";
         $result = $conn->query($sql);
         if($result->num_rows>0) {

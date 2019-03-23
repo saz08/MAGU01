@@ -37,8 +37,11 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
+//Get values from post
 $additional = $_POST['Additional'];
 $resInfo = $_POST['resInfo'];
+
+//get username from current session
 $username = $_SESSION["userName"];
 
 if($resInfo!=""){

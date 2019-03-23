@@ -103,7 +103,7 @@ else{
     <h1>PROFESSIONAL <img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50"></h1>
 </div>
 
-
+<!--Modal: Username or password not recognised-->
 <div id="notUsername" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('notUsername').style.display='none'" style="float:right">&times;</button>
@@ -111,24 +111,31 @@ else{
     </div>
 </div>
 
+<!--Modal: Error checking-->
 <div id="errs" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('errs').style.display='none'" style="float:right">&times;</button>
         <p>Please fix any boxes highlighted pink</p>
     </div>
 </div>
+
+<!--Modal: Email check-->
 <div id="email" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('email').style.display='none'" style="float:right">&times;</button>
         <p>Must be a valid NHS email </p>
     </div>
 </div>
+
+<!--Modal: Username already registered-->
 <div id="user" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('user').style.display='none'" style="float:right">&times;</button>
         <p>Username is already registered</p>
     </div>
 </div>
+
+<!--Modal: Email already registered-->
 <div id="emailAlready" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('emailAlready').style.display='none'" style="float:right">&times;</button>
@@ -136,6 +143,7 @@ else{
     </div>
 </div>
 
+<!--Login-->
 <div class="container-fluid" id="mainCont">
     <div class="row" id="mainContRow">
         <div class="col-md-6" id="logincol" >
@@ -150,33 +158,23 @@ else{
             </form>
             </p>
             <?php
-            if(isset($_POST["submitLogon"])) {
-                if(trim($_POST["username"])== ""){
-                    echo "<p><font color='red'>Please enter a valid username***</font><br></p>";
-                }
-                if(trim($_POST["password"]) == "") {
-                    echo"<p> * Please enter a valid password * ";
-                }
-            }
             if($action === "filled") {
-                ?>
-                <script>
-                    console.log("action is filled");
-                </script>
-            <?php
             $username = (safePost($conn, "username"));
             $password = (safePost($conn, "password"));
             $_SESSION['userName'] = $username;
             $query = "SELECT `username` FROM `docAcc` WHERE `username` = '$username'";
             $result = mysqli_query($conn, $query);
+            //If username exists in the database, do this
             if (mysqli_num_rows($result)){
             $query2 = "SELECT `password` FROM `docAcc` WHERE `username` = '$username'";
+            //Select the password associated with that username
             $result2 = $conn->query($query2);
             if ($result2->num_rows > 0) {
                 while ($rowname = $result2->fetch_assoc()) {
                     $DBpassword = $rowname["password"];
                 }
             }
+            //If the password in the database matches the password entered, logged in
             if (password_verify("$password", $DBpassword)){
             if (mysqli_num_rows($result2)){
             echo "<p class='center'>Log in was successful!</p>";
@@ -192,26 +190,29 @@ else{
                     window.location.href = "dashboard.php";
                 </script>
             <?php
-            }
+             }
             }
             else {
+                //Username or password not recognised
             ?>
                 <script>
                     var notPass = document.getElementById("notUsername");
                     notPass.style.display="block";
                    </script><?php
-            }
+                }
 
             }
             else {
-            ?><script>
+                //Username or password not recognised
+                ?><script>
                     var notUser = document.getElementById("notUsername");
                     notUser.style.display="block";</script><?php
-            }
+                }
             }
             ?>
         </div>
 
+<!--        Register-->
         <div class="col-md-6" id="registercol">
             <form name="register" method="post" onsubmit="return checkForm()" >
                 <h2 style="color:black">Register</h2>
@@ -226,6 +227,7 @@ else{
         </div>
 
         <script>
+            //Error checking
             function checkForm(){
                 var email = document.getElementById("email");
                 var username = document.getElementById("username");
@@ -267,6 +269,7 @@ else{
             $reject = "false";
 
 
+            //If the email doesn't contain nhs, reject the email
             if(strpos($email,"nhs")==false){
                 $reject="true";
                 ?>
@@ -277,25 +280,26 @@ else{
                 <?php
             }
 
+            //Determine if the professional has already signed up with that email
             $query = "SELECT `email` FROM `docAcc` WHERE `email` = '$email'";
             $result = $conn->query($query);
             if($result->num_rows>=1){
                 $reject = "true";
                 ?><script>var emailAlready = document.getElementById("emailAlready");
                     emailAlready.style.display="block";</script> <?php
-                echo "<p> * Email is already registered * ";
             }
 
+            //Determine if that username has already been registered
             $query2 = "SELECT `username` FROM `docAcc` WHERE `username` = '$username'";
             $result2 = $conn->query($query2);
             if($result2->num_rows>=1){
                 $reject="true";
                 ?><script>var user = document.getElementById("user");
                 user.style.display="block";</script> <?php
-                echo "<p> * Username is already registered * ";
             }
 
         if($reject==="false"){
+                //if user has passed the current checks, has their password and register their details
         $passwordNew = password_hash("$password", PASSWORD_DEFAULT);
         $sqlInsert = "INSERT INTO `docAcc` (`email`,`username`, `password`) VALUES ('$email', '$username', '$passwordNew')";
         if ($conn->query($sqlInsert) === TRUE) {

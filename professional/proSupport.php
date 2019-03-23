@@ -55,6 +55,7 @@ $action2 = safePOST($conn, "action2");
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -68,8 +69,10 @@ else{
     </script><?php
 }
 
+//Get the ID of the patient chosen from the URL
 $id = $_GET['id'];
 
+//Get all patient details
 $sql = "SELECT * FROM `chi` WHERE `id` = '$id'";
 $result = $conn->query($sql);
 if($result->num_rows>0) {
@@ -99,6 +102,8 @@ if($result->num_rows>0) {
                     <ul class="dropdown-menu" id="info">
                         <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
                         <?php
+                        //Show an information notification if a user has sent additional information
+
                         $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
                         $resultRecords = $conn->query($sqlRecords);
                         if ($resultRecords->num_rows > 0) {
@@ -133,6 +138,7 @@ if($result->num_rows>0) {
                         ?>                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
+                        //Show an information notification if a supporter has sent additional information
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
                         $userResult = $conn->query($sqlUser);
                         if($userResult->num_rows>0) {
@@ -194,6 +200,8 @@ if($result->num_rows>0) {
 <div class="jumbotron text-center">
     <h1><?php echo $patientname ." ".$surname ?>'s Support Circle<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -202,6 +210,7 @@ if($result->num_rows>0) {
     </div>
 </div>
 <?php
+//Display a table with supporter and their relation to patient
 $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
 $patient=$conn->query($sqlPatient);
 if($patient->num_rows>0){
@@ -234,6 +243,7 @@ if($patient->num_rows>0){
 <div class="box"><h3>Patient's friends or family may add symptoms they are noticing or any other additional notes they'd like to log. They will appear here if there are any.</h3></div>
 
     <?php
+    //Show information/symptoms that a supporter has entered
     $sqlPatient="SELECT * FROM `account` WHERE id='$id'";
     $patient=$conn->query($sqlPatient);
     if($patient->num_rows>0) {
@@ -253,6 +263,8 @@ if($patient->num_rows>0){
                     $seenSymp = $rowname["seenSymp"];
                      $date = $rowname["timeStamp"];
                     $date2 = (new DateTime($date))->format('d/m/Y');
+
+                    //If there is information and the doctor has not responded to it, show information
                     if ($info != "") {
                         if ($seenInfo == "false") {
                             echo "<p><b>".$date2." ".$supporter.":</b> ". $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
@@ -271,6 +283,8 @@ if($patient->num_rows>0){
                             echo "<p><b>".$date2." ".$supporter.":</b>" . $info . " <button class='btn' style='background-color: grey'>Seen</button></p>";
                         }
                     }
+
+                    //If there is a symptom and the doctor has not responded to it, show symptom
                     if ($symptom != "") {
                         $counter++;
                         if ($seenSymp == "false") {
@@ -293,26 +307,18 @@ if($patient->num_rows>0){
     }
     ?>
 </div>
-<?php
-if($action==="filled"){
-    $info = safePOST($conn, "divID");
-    $response = (safePost($conn,"comment"));
 
-}
-
-if($action2==="filled"){
-    $symptom = safePOST($conn, "divID2");
-    $response = (safePost($conn,"comment2"));
-}
-
-?>
 <br>
+
+<!--Modal: Response sent-->
 <div id="sent" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('sent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'" style="float:right">&times;</button>
         <p>Response successfully sent</p>
     </div>
 </div>
+
+<!--Modal: Response not sent-->
 <div id="notSent" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotify" onclick="document.getElementById('notSent').style.display='none';window.location.href='proSupport.php?id=<?php echo $id ?>'" style="float:right">&times;</button>
@@ -321,7 +327,7 @@ if($action2==="filled"){
 </div>
 
 <script>
-
+//Send information response
     function submitInfoResponse(info){
         var additionalInfo = info;
         var resInfo = document.getElementById('resInfo').value;
@@ -337,6 +343,7 @@ if($action2==="filled"){
         });
     }
 
+    //Send symptom response
     function submitSymptomResponse(){
         var symptom = document.getElementById('symptom').value;
         var resSymp = document.getElementById('resSymp').value;
@@ -351,6 +358,7 @@ if($action2==="filled"){
         });
     }
 
+    //Enable dropdown for comments
     function showCommentOption(divID) {
         var x = document.getElementById("content_"+divID);
         console.log("div id " + divID );

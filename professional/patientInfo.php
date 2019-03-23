@@ -57,6 +57,7 @@ $action2 = safePOST($conn, "action2");
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -68,9 +69,10 @@ else{
         window.location.href="docSignUp.php";
     </script><?php
 }
-
+//Get the ID of the patient chosen from the URL
 $id = $_GET['id'];
 
+//Get all patient details
 $sqlD="SELECT * FROM `chi` WHERE id='$id'";
 $details=$conn->query($sqlD);
 if($details->num_rows>0){
@@ -124,7 +126,8 @@ if($patient->num_rows>0){
                     <ul class="dropdown-menu" id="info">
                         <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
                         <?php
-                                $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
+                        //Show an information notification if a user has sent additional information
+                        $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
                                 $resultRecords = $conn->query($sqlRecords);
                                 if ($resultRecords->num_rows > 0) {
                                     $counterInfo1=0;
@@ -159,6 +162,7 @@ if($patient->num_rows>0){
                         <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
+                        //Show an information notification if a supporter has sent additional information
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
                         $userResult = $conn->query($sqlUser);
                         if($userResult->num_rows>0) {
@@ -216,6 +220,8 @@ if($patient->num_rows>0){
 <div class="jumbotron text-center">
     <h1>Profile for Patient: <?php  echo $forename ." ". $surname ?><img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -226,7 +232,7 @@ if($patient->num_rows>0){
 <br>
 
 <?php
-
+//Create table with recent entries
 $sqlScale  = "SELECT * FROM `scale`WHERE id = '$id' ORDER BY `timeStamp` DESC LIMIT 1";
 
 $resultScale = $conn->query($sqlScale);
@@ -292,6 +298,7 @@ echo "</div>";
 
 <h2>Patients may send additional notes that they are concerned about. They will appear here if there are any.</h2>
     <?php
+    //Show submitted information or symptoms
     $sql  = "SELECT * FROM `scale` WHERE `id`= '$id'";
     $result=$conn->query($sql);
     $counter=0;
@@ -306,6 +313,7 @@ echo "</div>";
             $date = $rowname["timeStamp"];
             $date2 = (new DateTime($date))->format('d/m/Y');
 
+            //If there is information and the doctor has not responded yet, show information
             if ($info != "") {
                 if ($seenInfo == "false") {
                     echo "<p><b>".$date2.": </b>" . $info . " <button class='btn' onclick='showCommentOption($counter)' value='hide/show'>Respond</button></p>
@@ -318,13 +326,14 @@ echo "</div>";
 </form>
 <br>
 </div>";
-
-                } else {
+                }
+                else {
                     echo "<p><b>".$date2.": </b>" . $info . " <button class='btn' style='background-color: #644F62!important;color:white!important;'>Seen</button></p>";
 
                 }
-
             }
+
+            //If there is a symptom and the doctor has not responded yet, show symptom
             if ($symptom != "") {
                 if ($seenSymp == "false") {
                     $counter++;
@@ -345,8 +354,7 @@ echo "</div>";
                 }
             }
         }
-    }
-    ?>
+    } ?>
 </div>
 
 
@@ -362,7 +370,7 @@ if($action==="filled") {
         }
     }
 
-
+    //Save the row of the most recent entry before the table is updated
     $getTime = "SELECT * FROM `scale` WHERE `id`='$id' AND `additionalInfo`='$info' ORDER BY `timeStamp` DESC LIMIT 1";
     $getTimeResult = $conn->query($getTime);
     if ($getTimeResult->num_rows > 0) {
@@ -371,6 +379,7 @@ if($action==="filled") {
         }
     }
 
+    //Send response to information
     if($comment != "") {
         $sql = "UPDATE `scale` SET `seenInfo`='true',`resInfo`='$comment',`timeStamp`='$lastTime' WHERE `additionalInfo`='$info' AND `username`='$usernamePatient'";
         if ($conn->query($sql) === TRUE) {
@@ -395,6 +404,8 @@ if($action2==="filled") {
             $usernamePatient = $rowname["username"];
         }
     }
+
+    //Save the row of the most recent entry before the table is updated
     $getTime = "SELECT * FROM `scale` WHERE `id`='$id' AND `symptom`='$symptom' ORDER BY `timeStamp` DESC LIMIT 1";
     $getTimeResult = $conn->query($getTime);
     if ($getTimeResult->num_rows > 0) {
@@ -402,7 +413,7 @@ if($action2==="filled") {
             $lastTime = $rowname["timeStamp"];
         }
     }
-
+    //Send response to symptom
     if ($comment != "") {
         $sql = "UPDATE `scale` SET `seenSymp`='true',`resSymp`='$comment',`timeStamp`='$lastTime' WHERE `symptom`='$symptom' AND `username`='$usernamePatient'";
         if ($conn->query($sql) === TRUE) {

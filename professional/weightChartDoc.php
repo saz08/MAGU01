@@ -58,6 +58,7 @@ $year = date("Y");
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -70,8 +71,10 @@ else{
         window.location.href="docSignUp.php";
     </script><?php
 }
-$id = $_GET["id"];
+//Get the ID of the patient chosen from the URL
+$id = $_GET['id'];
 
+//Get all patient details
 $sql = "SELECT * FROM `chi` WHERE `id` = '$id'";
 $result = $conn->query($sql);
 if($result->num_rows>0) {
@@ -144,6 +147,7 @@ while ($rowname = $result->fetch_assoc()) {
                     <ul class="dropdown-menu" id="info">
                         <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
                         <?php
+                        //Show an information notification if a user has sent additional information
                         $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
                         $resultRecords = $conn->query($sqlRecords);
                         if ($resultRecords->num_rows > 0) {
@@ -178,6 +182,7 @@ while ($rowname = $result->fetch_assoc()) {
                         ?>                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
+                        //Show an information notification if a supporter has sent additional information
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
                         $userResult = $conn->query($sqlUser);
                         if($userResult->num_rows>0) {
@@ -240,6 +245,7 @@ while ($rowname = $result->fetch_assoc()) {
     <h1><?php echo $patientname ." ". $surname ?>'s Weight Chart<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
 
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -248,6 +254,7 @@ while ($rowname = $result->fetch_assoc()) {
     </div>
 </div>
 
+<!--Button to open weight table-->
 <button class="openbtn" onclick="openNavWChart()">☰ View as a table</button>
 <div class="divSpace"></div>
 
@@ -271,6 +278,7 @@ else{
     <br>
     <br>
     <?php
+    //Display table with entry date, lbs, stones and KG conversions
     $sql = "SELECT * FROM `weight` WHERE `id` = '$id'";
     $result= $conn->query($sql);
     if($result->num_rows>0) {

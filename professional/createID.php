@@ -94,6 +94,7 @@ else{
 </nav>
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -110,6 +111,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Generate ID<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -117,6 +120,8 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
+<!--Form to create a patient ID-->
 <div class="radiostyle" id="newPatient" style="background-color: #E47C88">
     <form name="register" method="post" onsubmit="return checkForm()" >
         <h2 style="color:black">Create New Patient Details</h2>
@@ -142,27 +147,34 @@ else{
         <br>
         <br>
     </form>
-
 </div>
+
+<!--Modal: Patient added-->
 <div id="save" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanSave" onclick="document.getElementById('save').style.display='none';window.location.href='dashboard.php'" style="float:right">&times;</button>
         <p>Patient added!</p>
     </div>
 </div>
+
+<!--Modal: Patient not added-->
 <div id="notSave" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanNotSave" onclick="document.getElementById('notSave').style.display='none';" style="float:right">&times;</button>
         <p>Survivors was unable to add a new patient. Please check your internet connection and try again. </p>
     </div>
 </div>
+
+<!--Modal: Correct errors-->
 <div id="errs" class="modal">
     <div class="modal-content">
         <button class="btn" id="spanErrs" onclick="document.getElementById('errs').style.display='none';" style="float:right">&times;</button>
         <p>Please correct any boxes highlighted pink</p>
     </div>
 </div>
+
 <script>
+    //Error checking
     function checkForm(){
         var forename = document.getElementById("forename");
         var surname = document.getElementById("surname");
@@ -244,16 +256,20 @@ if($action2 === "filled") {
         $genderFinal="Female";
     }
 
+    //Create a random id
     $id = rand();
 
+    //If the ID already exists in the CHI, generate a new one
     $findID = "SELECT `id` FROM `chi` WHERE `id` = '$id'";
     $findIDResult = $conn->query($findID);
-    if($findIDResult->num_rows>=1){
+    while($findIDResult->num_rows>=1){
+    //While the random ID exists in the CHI, make a new one
         $id=rand();
     }
 
     $username = $_SESSION["userName"];
 
+    //Enter the email of the current professional logged in
     $docSql = "SELECT `email` FROM `docAcc` WHERE `username` = '$username'";
     $resultDoc = $conn->query($docSql);
     if($resultDoc->num_rows>0){
@@ -262,12 +278,14 @@ if($action2 === "filled") {
         }
     }
 
+    //Send the patient an email to sign up with
     $from = "Survivors";
     $message = "Hi ".$forename."! Welcome to Survivors!\n Please follow the link to register\n https://devweb2018.cis.strath.ac.uk/~szb15123/Survivors/patient/signUp.php \n You will need to enter this ID to sign up: ".$id."\n Thanks!";
     $headers="From: $from\n";
     $subject="Welcome to Survivors ".$forename."!";
     mail($patientEmail,$subject,$message,$headers);
 
+    //Insert patient details into the CHI table
 $insert = $sql  = "INSERT INTO `chi` (`forename`, `surname`, `id`, `birthday`, `gender`,`patientEmail`, `address`, `contactNo`, `docEmail`) VALUES ('$forename', '$surname', '$id', '$dob', '$genderFinal','$patientEmail', '$address', '$contactNo', '$docEmail')";
 
     if ($conn->query($insert) === TRUE) {

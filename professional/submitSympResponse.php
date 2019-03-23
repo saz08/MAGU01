@@ -40,8 +40,11 @@ else{
     $pass = safePOSTNonMySQL("password");
 }
 
+//get values from post
 $symptom = $_POST['Symptom'];
 $resSymp = $_POST['resSymp'];
+
+//get username from current session
 $username = $_SESSION["userName"];
 
 $sql2 = "SELECT `symptom` FROM `supportSubmit` WHERE `seenSymp`!='true'";

@@ -61,6 +61,7 @@ $year = date("Y");
 
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -75,9 +76,10 @@ else{
 }
 
 
+//Get the ID of the patient chosen from the URL
 $id = $_GET['id'];
 
-
+//Get all patient details
 $sql = "SELECT * FROM `chi` WHERE `id` = '$id'";
 $result = $conn->query($sql);
 if($result->num_rows>0) {
@@ -87,6 +89,7 @@ if($result->num_rows>0) {
     }
 }
 
+//All Time: Pain- Green
 $sql  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `id` = '$id'";
 $result= $conn->query($sql);
 if($result->num_rows>0){
@@ -96,6 +99,7 @@ else{
     $greenPain=0;
 }
 
+//All Time: Pain- Amber
 $sqlAMBER  = "SELECT * FROM `scale` WHERE `pain`>=4 AND `pain`<=7 AND `id` = '$id'";
 $resultAMBER= $conn->query($sqlAMBER);
 if($resultAMBER->num_rows>0){
@@ -105,6 +109,7 @@ else{
     $amberPAIN=0;
 }
 
+//All Time: Pain- Red
 $sqlRED  = "SELECT * FROM `scale` WHERE `pain`>=8  AND `id` = '$id'";
 $resultRED= $conn->query($sqlRED);
 if($resultRED->num_rows>0){
@@ -114,8 +119,7 @@ else{
     $redPAIN=0;
 }
 
-$painTotal = $greenPain+$amberPAIN+$redPAIN;
-
+//All Time: Breathlessness- Green
 $sqlBG  = "SELECT * FROM `scale` WHERE `breathlessness`<=1  AND `id` = '$id'";
 $resultBG= $conn->query($sqlBG);
 if($resultBG->num_rows>0){
@@ -125,6 +129,7 @@ else{
     $greenBreath=0;
 }
 
+//All Time: Breathlessness- Amber
 $sqlBA  = "SELECT * FROM `scale` WHERE `breathlessness`>=2 AND `breathlessness` <=4  AND `id` = '$id'";
 $resultBA= $conn->query($sqlBA);
 if($resultBA->num_rows>0){
@@ -134,6 +139,7 @@ else{
     $amberBreath=0;
 }
 
+//All Time: Breathlessness- Red
 $sqlBR  = "SELECT * FROM `scale` WHERE `breathlessness`>=5  AND `id` = '$id'";
 $resultBR= $conn->query($sqlBR);
 if($resultBR->num_rows>0){
@@ -143,8 +149,7 @@ else{
     $redBreath=0;
 }
 
-$breathlessnessTotal = $greenBreath+$amberBreath+$redBreath;
-
+//All Time: Performance- Green
 $sqlPG  = "SELECT * FROM `scale` WHERE `performance`<=1  AND `id` = '$id'";
 $resultPG= $conn->query($sqlPG);
 if($resultPG->num_rows>0){
@@ -154,6 +159,7 @@ else{
     $greenPerformance=0;
 }
 
+//All Time: Performance- Amber
 $sqlPA  = "SELECT * FROM `scale` WHERE `performance`=2 AND `breathlessness` <=4  AND `id` = '$id'";
 $resultPA= $conn->query($sqlPA);
 if($resultPA->num_rows>0){
@@ -163,6 +169,7 @@ else{
     $amberPerformance=0;
 }
 
+//All Time: Performance- Performance
 $sqlBP  = "SELECT * FROM `scale` WHERE `performance`>=3  AND `id` = '$id'";
 $resultBP= $conn->query($sqlBP);
 if($resultBP->num_rows>0){
@@ -172,6 +179,8 @@ else{
     $redPerformance=0;
 }
 
+//All Time: Total number of entries
+
 $sqlEntries  = "SELECT * FROM `scale` WHERE `id` = '$id'";
 $resultEntries= $conn->query($sqlEntries);
 if($resultEntries->num_rows>0){
@@ -180,8 +189,6 @@ if($resultEntries->num_rows>0){
 else{
     $entries=0;
 }
-
-$performanceTotal = $greenPerformance+$amberPerformance+$redPerformance;
 
 if($entries!=0) {
     //PAIN DONUT BARS
@@ -200,7 +207,7 @@ if($entries!=0) {
     $redPBar = $redPerformance / ($entries) * 210;
 }
 
-
+//Previous month: Pain- Green
 $sqlGPM  = "SELECT * FROM `scale` WHERE `pain`<=3 AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $greenPM= $conn->query($sqlGPM);
 if($greenPM->num_rows>0){
@@ -210,6 +217,7 @@ else{
     $greenPainM=0;
 }
 
+//Previous month: Pain- Amber
 $sqlAPM  = "SELECT * FROM `scale` WHERE `pain`>=4 AND `pain`<=7 AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $amberPM= $conn->query($sqlAPM);
 if($amberPM->num_rows>0){
@@ -219,6 +227,7 @@ else{
     $amberPainM=0;
 }
 
+//Previous month: Pain- Red
 $sqlRPM  = "SELECT * FROM `scale` WHERE `pain`>=8  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $redPM= $conn->query($sqlRPM);
 if($redPM->num_rows>0){
@@ -228,8 +237,7 @@ else{
     $redPainM=0;
 }
 
-$painTotalMonth = $greenPainM+$amberPainM+$redPainM;
-
+//Previous month: Breathlessness- Green
 $sqlGBM  = "SELECT * FROM `scale` WHERE `breathlessness`<=1  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultBGM= $conn->query($sqlGBM);
 if($resultBGM->num_rows>0){
@@ -239,6 +247,7 @@ else{
     $greenBreathM=0;
 }
 
+//Previous month: Breathlessness- Amber
 $sqlBAM  = "SELECT * FROM `scale` WHERE `breathlessness`>=2 AND `breathlessness` <=4  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultBAM= $conn->query($sqlBAM);
 if($resultBAM->num_rows>0){
@@ -248,6 +257,7 @@ else{
     $amberBreathM=0;
 }
 
+//Previous month: Breathlessness- Red
 $sqlBRM  = "SELECT * FROM `scale` WHERE `breathlessness`>=5  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultBRM= $conn->query($sqlBRM);
 if($resultBRM->num_rows>0){
@@ -257,8 +267,7 @@ else{
     $redBreathM=0;
 }
 
-$breathlessnessTotalM = $greenBreathM+$amberBreathM+$redBreathM;
-
+//Previous month: Performance- Green
 $sqlPGM  = "SELECT * FROM `scale` WHERE `performance`<=1  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultPGM= $conn->query($sqlPGM);
 if($resultPGM->num_rows>0){
@@ -268,6 +277,7 @@ else{
     $greenPerformanceM=0;
 }
 
+//Previous month: Performance- Amber
 $sqlPAM  = "SELECT * FROM `scale` WHERE `performance`=2 AND `breathlessness` <=4  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultPAM= $conn->query($sqlPAM);
 if($resultPAM->num_rows>0){
@@ -277,6 +287,7 @@ else{
     $amberPerformanceM=0;
 }
 
+//Previous month: Performance- Red
 $sqlBPM  = "SELECT * FROM `scale` WHERE `performance`>=3  AND `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultBPM= $conn->query($sqlBPM);
 if($resultBPM->num_rows>0){
@@ -286,6 +297,7 @@ else{
     $redPerformanceM=0;
 }
 
+//Previous month: total number of entries
 $sqlEntriesM  = "SELECT * FROM `scale` WHERE `id` = '$id' AND MONTH(timeStamp)='$month' AND YEAR(timestamp)='$year'";
 $resultEntriesM= $conn->query($sqlEntriesM);
 if($resultEntriesM->num_rows>0){
@@ -294,8 +306,6 @@ if($resultEntriesM->num_rows>0){
 else{
     $entriesM=0;
 }
-
-$performanceTotalM = $greenPerformanceM+$amberPerformanceM+$redPerformanceM;
 
 if($entriesM!=0) {
 //PAIN DONUT BARS
@@ -325,11 +335,10 @@ if($entriesM!=0) {
                     "#B30000"
                 ]);
             var painAllTime = new CanvasJS.Chart("painAllTime", {
-
+                //All Time: Pain
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
                 title:{
                     text: "Pain",
@@ -360,11 +369,10 @@ if($entriesM!=0) {
 
 
             var breathAllTime = new CanvasJS.Chart("breathAllTime", {
-
+                //All Time: Breathlessness
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -380,7 +388,6 @@ if($entriesM!=0) {
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
-
                     indexLabelFontSize: 17,
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
@@ -397,11 +404,10 @@ if($entriesM!=0) {
 
 
             var performanceAllTime = new CanvasJS.Chart("performanceAllTime", {
-
+                //All Time: Performance
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -435,11 +441,10 @@ if($entriesM!=0) {
 
 
             var painMonth = new CanvasJS.Chart("painMonth", {
-
+                //Prev Month: Pain
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
 
                 title:{
@@ -473,13 +478,11 @@ if($entriesM!=0) {
 
 
             var breathMonth = new CanvasJS.Chart("breathMonth", {
-
+                //Prev Month: Breathlessness
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
-
                 title:{
                     fontFamily: "Montserrat, sans-serif",
 
@@ -493,7 +496,6 @@ if($entriesM!=0) {
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
-
                     indexLabelFontSize: 17,
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
@@ -509,27 +511,22 @@ if($entriesM!=0) {
             breathMonth.render();
 
             var performanceMonth = new CanvasJS.Chart("performanceMonth", {
-
+                //Prev Month: Performance
                 animationEnabled: true,
                 colorSet: "greenShades",
                 backgroundColor: "#DDA8FF",
-//                height: 400,
                 width: window.innerWidth,
-
                 title:{
                     fontFamily: "Montserrat, sans-serif",
-
                     text: "Performance",
                     horizontalAlign: "center"
                 },
                 data: [{
                     type: "doughnut",
                     startAngle: 60,
-                    //innerRadius: 60,
                     radius: "80%",
                     indexLabelLineThickness: 5,
                     indexLabelFontFamily: "Montserrat, sans-serif",
-
                     indexLabelFontSize: 17,
                     indexLabel: "{label} - #percent%",
                     toolTipContent: "<b>{label}:</b> {y} (#percent%)",
@@ -566,6 +563,7 @@ if($entriesM!=0) {
                     <ul class="dropdown-menu" id="info">
                         <li><a href="patient.php?id=<?php echo +$id ?>">CONTACT</a></li>
                         <?php
+                        //Show an information notification if a user has sent additional information
                         $sqlRecords = "SELECT * FROM `scale` WHERE `id` = '$id'";
                         $resultRecords = $conn->query($sqlRecords);
                         if ($resultRecords->num_rows > 0) {
@@ -600,6 +598,7 @@ if($entriesM!=0) {
                         ?>                        <li><a href="progress.php?id=<?php echo +$id ?>">STATUS CHARTS</a></li>
                         <li><a href="weightChartDoc.php?id=<?php echo +$id ?>">WEIGHT CHART</a></li>
                         <?php
+                        //Show an information notification if a supporter has sent additional information
                         $sqlUser = "SELECT * FROM `account` WHERE `id` = '$id'";
                         $userResult = $conn->query($sqlUser);
                         if($userResult->num_rows>0) {
@@ -659,16 +658,16 @@ if($entriesM!=0) {
     </div>
 </nav>
 
-
-
-
 <div class="jumbotron text-center" id="jumbo1">
     <h1><?php echo  $patientname." ".$surname?>'s Records Over the Past Month<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
     <br>
 </div>
+
 <div class="jumbotron text-center" id="jumbo2" style="display:none">
     <h1><?php echo  $patientname." ".$surname?>'s Records from the Beginning<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -676,12 +675,15 @@ if($entriesM!=0) {
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
+<!--Buttons to open Colour and Number Key Sidebar-->
 <button class="openbtn" onclick="openProgressNav()">☰ Show Colour Key</button>
 <button class="openbtn" onclick="openNumberNav()">☰ Show Number Key</button>
 
 
 
 <?php
+//If there are entries, show options for chart
 if($entries!=0&&$entriesM!=0) {
     ?>
     <div class="box">
@@ -701,7 +703,7 @@ if($entries!=0&&$entriesM!=0) {
         </form>
     </div>
 
-
+<!--Colour Key Sidebar-->
     <div class="sideBar" id="mySidebar">
         <br>
         <button class="closebtn" onclick="closeProgressNav()" > <b>< CLOSE</b> </button>
@@ -721,6 +723,7 @@ if($entries!=0&&$entriesM!=0) {
 
     </div>
 
+<!--    Number Key Sidebar-->
     <div class="sideBar" id="mySidebar2">
         <br>
         <button class="closebtn" onclick="closeNumberNav()" > <b>< CLOSE</b> </button>
@@ -773,7 +776,7 @@ if($entriesM!=0){?>
 </div>
 
 <script>
-
+//Functions to toggle the divs that contain the charts
     var x = document.getElementById("allTime");
     var y = document.getElementById("prevMonth");
     var jumbo1 = document.getElementById("jumbo1");

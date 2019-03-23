@@ -89,6 +89,7 @@ else{
 </nav>
 
 <?php
+//Detect if session is still running. If not, direct user to login
 if($_SESSION["userName"]!=null) {
     $username = $_SESSION["userName"];
 }
@@ -105,6 +106,8 @@ else{
 <div class="jumbotron text-center">
     <h1>Dashboard<img src="../clipart2199929.png" alt="Lung Cancer Ribbon" height="50" width="50" a href="https://www.clipartmax.com/middle/m2i8A0N4d3H7G6d3_lung-cancer-ribbon-color/"></h1>
 </div>
+
+<!--Modal: Logout Check-->
 <div id="logOutCheck" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to log out?</p>
@@ -112,8 +115,10 @@ else{
         <button id="spanSubmitCheck" class="btn" onclick="document.getElementById('logOutCheck').style.display='none';">No</button>
     </div>
 </div>
+
 <h3>Click on a patient's ID to open their profile</h3>
 
+<!--Table of Patient details-->
 <div style="overflow-x: scroll">
 <table class="table table-hover row-clickable" id="doctorTable" >
     <tr>
